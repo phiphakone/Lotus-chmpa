@@ -2065,6 +2065,8 @@ body.admin-mode{background:#F4F5F7}
 </style>
 <link rel="stylesheet" href="assets/ux-ui.css">
 <link rel="stylesheet" href="assets/redesign.css">
+<link rel="stylesheet" href="assets/business.css">
+<link rel="stylesheet" href="assets/home-experience.css">
 <link rel="stylesheet" href="assets/culture-categories.css">
 </head>
 <body>
@@ -2075,14 +2077,11 @@ body.admin-mode{background:#F4F5F7}
 
   <!-- Announcement bar -->
   <div class="announce">
-    <div class="announce-track">
-      <span><span class="dot">✦</span> <span data-i18n="announce.1">Miễn phí vận chuyển cho đơn hàng từ 500.000 VND</span></span>
-      <span><span class="dot">✦</span> <span data-i18n="announce.2">Quà tặng văn hoá Lào – Việt chính gốc</span></span>
-      <span><span class="dot">✦</span> <span data-i18n="announce.3">Hỗ trợ giao hàng sang Lào</span></span>
-      <span><span class="dot">✦</span> <span data-i18n="announce.1">Miễn phí vận chuyển cho đơn hàng từ 500.000 VND</span></span>
-      <span><span class="dot">✦</span> <span data-i18n="announce.2">Quà tặng văn hoá Lào – Việt chính gốc</span></span>
-      <span><span class="dot">✦</span> <span data-i18n="announce.3">Hỗ trợ giao hàng sang Lào</span></span>
-    </div>
+    <div class="announce-track"><div class="announce-group"><span><span class="dot">✦</span> <span data-i18n="announce.1">Miễn phí vận chuyển cho đơn hàng từ 500.000 VND</span></span>
+<span><span class="dot">✦</span> <span data-i18n="announce.2">Quà tặng văn hoá Lào – Việt chính gốc</span></span>
+<span><span class="dot">✦</span> <span data-i18n="announce.3">Hỗ trợ giao hàng sang Lào</span></span></div><div class="announce-group" aria-hidden="true"><span><span class="dot">✦</span> <span data-i18n="announce.1">Miễn phí vận chuyển cho đơn hàng từ 500.000 VND</span></span>
+<span><span class="dot">✦</span> <span data-i18n="announce.2">Quà tặng văn hoá Lào – Việt chính gốc</span></span>
+<span><span class="dot">✦</span> <span data-i18n="announce.3">Hỗ trợ giao hàng sang Lào</span></span></div></div>
   </div>
 
   <!-- Header -->
@@ -5807,27 +5806,8 @@ window.addEventListener('hashchange', router);
    09 — PAGE: HOME
 =========================================================== */
 function renderHomeGallery(){
-  return `
-    <div class="home-gallery">
-      <div class="home-gallery-head">
-        <div class="home-gallery-title">Lotus & Champa Gallery</div>
-        <div class="home-gallery-nav">
-          <button class="home-gallery-btn home-gallery-prev" aria-label="Previous">‹</button>
-          <button class="home-gallery-btn home-gallery-next" aria-label="Next">›</button>
-        </div>
-      </div>
-      <div class="swiper home-gallery-swiper" id="homeGallerySwiper">
-        <div class="swiper-wrapper">
-          ${HOME_GALLERY_MEDIA.map(m=>`
-            <div class="swiper-slide home-gallery-slide" onclick="openMediaLightbox('${m.src}','${m.type}','${m.alt}')">
-              ${m.type === 'video'
-                ? `<video src="${m.src}" muted playsinline preload="metadata"></video><span class="media-type">Video</span>`
-                : `<img src="${m.src}" loading="lazy" alt="${m.alt}"/>`}
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    </div>`;
+ const c=({"vi":["GÓC NHÌN LOTUS & CHAMPA","Những khoảnh khắc kết nối","Con người, câu chuyện và những bước đi trên hành trình kết nối văn hoá Việt – Lào.","Chạm vào ảnh để xem đầy đủ","Ảnh trước","Ảnh tiếp theo",["Chia sẻ câu chuyện","Cùng nhau ghi dấu","Những người đồng hành","Gặp gỡ và kết nối","Một hành trình chung","Kỷ niệm của chúng tôi"]],"th":["เรื่องราวของ LOTUS & CHAMPA","ช่วงเวลาที่เชื่อมเราถึงกัน","ผู้คน เรื่องราว และก้าวเล็ก ๆ บนเส้นทางเชื่อมวัฒนธรรมเวียดนามและลาว","แตะภาพเพื่อดูภาพเต็ม","ภาพก่อนหน้า","ภาพถัดไป",["แบ่งปันเรื่องราว","ช่วงเวลาที่น่าจดจำ","ผู้ร่วมเดินทาง","พบกันและเชื่อมสัมพันธ์","การเดินทางร่วมกัน","ความทรงจำของเรา"]],"en":["INSIDE LOTUS & CHAMPA","Moments that bring us together","People, stories and steps along our journey connecting Vietnamese and Lao cultures.","Select a photo to see the full image","Previous photo","Next photo",["Sharing our story","A moment to remember","People on our journey","Meeting and connecting","A shared journey","Our memories"]],"lo":["ເລື່ອງລາວ LOTUS & CHAMPA","ຊ່ວງເວລາທີ່ເຊື່ອມໂຍງພວກເຮົາ","ຜູ້ຄົນ ເລື່ອງລາວ ແລະການເດີນທາງເຊື່ອມວັດທະນະທຳຫວຽດນາມ–ລາວ.","ແຕະຮູບເພື່ອເບິ່ງຮູບເຕັມ","ຮູບກ່ອນໜ້າ","ຮູບຕໍ່ໄປ",["ແບ່ງປັນເລື່ອງລາວ","ຊ່ວງເວລາທີ່ຈື່ຈຳ","ເພື່ອນຮ່ວມທາງ","ພົບປະແລະເຊື່ອມໂຍງ","ການເດີນທາງຮ່ວມກັນ","ຄວາມຊົງຈຳຂອງພວກເຮົາ"]],"zh":["LOTUS & CHAMPA 的故事","让我们相聚的瞬间","记录人与故事，见证连接越南与老挝文化的旅程。","点击照片查看完整图片","上一张","下一张",["分享我们的故事","值得纪念的时刻","旅途中的伙伴","相遇与交流","共同的旅程","我们的回忆"]]})[CURRENT_LANG] || ["INSIDE LOTUS & CHAMPA","Moments that bring us together","People, stories and steps along our journey connecting Vietnamese and Lao cultures.","Select a photo to see the full image","Previous photo","Next photo",["Sharing our story","A moment to remember","People on our journey","Meeting and connecting","A shared journey","Our memories"]];
+ return `<div class="home-gallery"><div class="home-gallery-head"><div class="gallery-intro"><div class="gallery-eyebrow">${c[0]}</div><h2 class="home-gallery-title">${c[1]}</h2><p class="gallery-description">${c[2]}</p></div><div class="home-gallery-nav"><button type="button" class="home-gallery-btn home-gallery-prev" aria-label="${c[4]}">←</button><button type="button" class="home-gallery-btn home-gallery-next" aria-label="${c[5]}">→</button></div></div><div class="swiper home-gallery-swiper" id="homeGallerySwiper"><div class="swiper-wrapper">${HOME_GALLERY_MEDIA.map((m,i)=>`<div class="swiper-slide home-gallery-slide" onclick="openMediaLightbox('${m.src}','${m.type}','${m.alt}')"><div class="gallery-photo">${m.type==='video'?`<video src="${m.src}" muted playsinline preload="metadata"></video>`:`<img src="${m.src}" loading="lazy" alt="${c[6][i]} — Lotus & Champa"/>`}<span class="gallery-expand" aria-hidden="true">⤢</span></div><div class="gallery-caption"><span class="gallery-number">${String(i+1).padStart(2,'0')}</span><h3>${c[6][i]}</h3></div></div>`).join('')}</div></div><div class="gallery-footer"><p>${c[3]}</p><div class="home-gallery-pagination"></div><span class="gallery-total">06</span></div></div>`;
 }
 
 let homeGallerySwiper = null;
@@ -5851,7 +5831,7 @@ function initHomeGallerySwiper(){
     grabCursor:true,
     speed:700,
     autoplay:{
-      delay:sliderSpeed,
+      delay:5200,
       disableOnInteraction:false,
       pauseOnMouseEnter:true
     },
@@ -5859,6 +5839,7 @@ function initHomeGallerySwiper(){
       nextEl:'.home-gallery-next',
       prevEl:'.home-gallery-prev'
     },
+    pagination:{el:'.home-gallery-pagination',clickable:true},
     breakpoints:{
       0:{ spaceBetween:12 },
       641:{ spaceBetween:18 }
@@ -7391,86 +7372,28 @@ function renderAbout(){
 /* ===========================================================
    18 — PAGE: BUSINESS MODEL
 =========================================================== */
-function renderBusiness(){
-  return `
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="#/">${t('bc.home')}</a> <span>→</span> <span>${t('bc.business')}</span></div>
-      <h1>${t('bm.title')}</h1>
-      <p>${t('bm.subtitle')}</p>
-    </div>
-  </section>
 
-  <div class="container" style="padding:50px 0">
-    <div class="bm-grid">
-      <div class="bm-card">
-        <h4><span class="num">01</span> ${t("bm.target.t")}</h4>
-        <ul>
-          <li>${t("bm.target.1")}</li>
-          <li>${t("bm.target.2")}</li>
-          <li>${t("bm.target.3")}</li>
-          <li>${t("bm.target.4")}</li>
-          <li>${t("bm.target.5")}</li>
-          <li>${t("bm.target.6")}</li>
-          <li>${t("bm.target.7")}</li>
-        </ul>
-      </div>
-      <div class="bm-card">
-        <h4><span class="num">02</span> ${t("bm.value.t")}</h4>
-        <ul>
-          <li>${t("bm.value.1")}</li>
-          <li>${t("bm.value.2")}</li>
-          <li>${t("bm.value.3")}</li>
-          <li>${t("bm.value.4")}</li>
-          <li>${t("bm.value.5")}</li>
-          <li>${t("bm.value.6")}</li>
-        </ul>
-      </div>
-      <div class="bm-card">
-        <h4><span class="num">03</span> ${t("bm.channel.t")}</h4>
-        <ul>
-          <li>${t("bm.channel.1")}</li>
-          <li>${t("bm.channel.2")}</li>
-          <li>${t("bm.channel.3")}</li>
-          <li>${t("bm.channel.4")}</li>
-          <li>${t("bm.channel.5")}</li>
-          <li>${t("bm.channel.6")}</li>
-        </ul>
-      </div>
-      <div class="bm-card">
-        <h4><span class="num">04</span> ${t("bm.revenue.t")}</h4>
-        <ul>
-          <li>${t("bm.revenue.1")}</li>
-          <li>${t("bm.revenue.2")}</li>
-          <li>${t("bm.revenue.3")}</li>
-          <li>${t("bm.revenue.4")}</li>
-          <li>${t("bm.revenue.5")}</li>
-        </ul>
-      </div>
-      <div class="bm-card">
-        <h4><span class="num">05</span> ${t("bm.partner.t")}</h4>
-        <ul>
-          <li>${t("bm.partner.1")}</li>
-          <li>${t("bm.partner.2")}</li>
-          <li>${t("bm.partner.3")}</li>
-          <li>${t("bm.partner.4")}</li>
-          <li>${t("bm.partner.5")}</li>
-        </ul>
-      </div>
-      <div class="bm-card">
-        <h4><span class="num">06</span> ${t("bm.unique.t")}</h4>
-        <ul>
-          <li>${t("bm.unique.1")}</li>
-          <li>${t("bm.unique.2")}</li>
-          <li>${t("bm.unique.3")}</li>
-          <li>${t("bm.unique.4")}</li>
-          <li>${t("bm.unique.5")}</li>
-          <li>${t("bm.unique.6")}</li>
-        </ul>
-      </div>
+function renderBusiness(){
+  const copy={"vi":{"eyebrow":"THƯƠNG MẠI GẮN VỚI VĂN HÓA","title":"Kết nối hai nền văn hóa.<br>Mang giá trị đến từng món quà.","intro":"Lotus & Champa kết nối sản phẩm Việt Nam và Lào với những người trân trọng nguồn gốc, câu chuyện và ý nghĩa của mỗi món quà.","bridge":"TỪ NGƯỜI LÀM ĐẾN NGƯỜI NHẬN","flow":["Sản phẩm Việt – Lào","Lựa chọn & kể câu chuyện","Món quà có ý nghĩa"],"flowSub":["Thủ công & đặc sản","Lotus & Champa","Khách hàng & cộng đồng"],"stats":["Hai nền văn hóa","Năm ngôn ngữ","Một trải nghiệm kết nối"],"heading":"Một mô hình, sáu nền tảng","sub":"Khách hàng ở trung tâm. Bản sắc văn hóa tạo nên giá trị. Sản phẩm là nền tảng doanh thu.","cards":[["Khách hàng","Ai tìm thấy giá trị ở đây?","Dành cho những người muốn khám phá văn hóa hoặc chọn một món quà có ý nghĩa.",["Người yêu văn hóa Việt Nam & Lào","Gia đình, sinh viên & khách du lịch","Doanh nghiệp tìm quà tặng"]],["Giá trị","Không chỉ là một sản phẩm","Kết hợp sản phẩm, câu chuyện và sự tư vấn để người nhận hiểu điều làm món quà trở nên đặc biệt.",["Thủ công & đặc sản mang bản sắc","Câu chuyện gắn với nguồn gốc","Thông tin và hỗ trợ đa ngôn ngữ"]],["Kênh kết nối","Website là điểm gặp gỡ","Khách hàng khám phá sản phẩm trên website và trao đổi trực tiếp qua các kênh liên hệ của cửa hàng.",["Website để tìm hiểu & đặt hàng","Facebook, Zalo & WhatsApp","Định hướng: cộng đồng & sự kiện"]],["Doanh thu","Bắt đầu từ giá trị sản phẩm","Doanh thu cốt lõi đến từ bán sản phẩm. Quà tặng theo chủ đề và đơn hàng doanh nghiệp là hướng phát triển.",["Bán lẻ sản phẩm văn hóa","Bộ quà tặng theo dịp & chủ đề","Định hướng: quà tặng doanh nghiệp"]],["Mạng lưới","Cùng xây dựng, cùng phát triển","Hướng đến hợp tác với người làm sản phẩm, đối tác vận chuyển và cộng đồng Việt – Lào.",["Nghệ nhân & nhà sản xuất","Đối tác giao nhận phù hợp","Cộng đồng sinh viên hai nước"]],["Khác biệt","Bản sắc Việt – Lào là trung tâm","Một không gian khám phá hai nền văn hóa, được xây dựng bởi nhóm sinh viên Việt Nam và Lào.",["Sản phẩm & câu chuyện của hai nước","Trải nghiệm bằng 5 ngôn ngữ","Góc nhìn gần gũi từ cộng đồng"]]],"cta":"Khám phá câu chuyện qua từng sản phẩm","ctaSub":"Tìm một món quà cho bạn, hoặc cùng chúng tôi trao đổi ý tưởng hợp tác.","shop":"Khám phá sản phẩm","contact":"Trao đổi hợp tác"},"th":{"eyebrow":"การค้าที่เชื่อมโยงกับวัฒนธรรม","title":"เชื่อมสองวัฒนธรรม<br>เติมความหมายให้ทุกของขวัญ","intro":"Lotus & Champa เชื่อมผลิตภัณฑ์จากเวียดนามและลาวกับผู้ที่ให้คุณค่ากับที่มา เรื่องราว และความหมายของของขวัญแต่ละชิ้น","bridge":"จากผู้สร้างสรรค์สู่ผู้รับ","flow":["ผลิตภัณฑ์เวียดนาม–ลาว","คัดสรรและเล่าเรื่อง","ของขวัญที่มีความหมาย"],"flowSub":["งานฝีมือและสินค้าท้องถิ่น","Lotus & Champa","ลูกค้าและชุมชน"],"stats":["สองวัฒนธรรม","ห้าภาษา","ประสบการณ์ที่เชื่อมถึงกัน"],"heading":"หนึ่งแนวคิด หกรากฐาน","sub":"เริ่มจากความต้องการของลูกค้า สร้างคุณค่าจากวัฒนธรรม และสร้างรายได้จากผลิตภัณฑ์","cards":[["ลูกค้า","ใครได้รับคุณค่าจากเรา?","สำหรับผู้ที่อยากรู้จักวัฒนธรรม หรือเลือกของขวัญที่มีความหมายให้คนสำคัญ",["ผู้สนใจวัฒนธรรมเวียดนามและลาว","ครอบครัว นักศึกษา และนักท่องเที่ยว","องค์กรที่มองหาของขวัญ"]],["คุณค่า","มากกว่าตัวผลิตภัณฑ์","เชื่อมสินค้า เรื่องราว และคำแนะนำ เพื่อให้ผู้รับเข้าใจความพิเศษของของขวัญ",["งานฝีมือและสินค้าท้องถิ่นที่มีเอกลักษณ์","เรื่องราวที่เชื่อมโยงกับแหล่งที่มา","ข้อมูลและการช่วยเหลือหลายภาษา"]],["ช่องทาง","เว็บไซต์คือจุดนัดพบ","ค้นพบผลิตภัณฑ์บนเว็บไซต์ และพูดคุยกับร้านโดยตรงผ่านช่องทางติดต่อ",["เว็บไซต์สำหรับดูสินค้าและสั่งซื้อ","Facebook, Zalo และ WhatsApp","แนวทางต่อยอด: ชุมชนและกิจกรรม"]],["รายได้","เริ่มจากคุณค่าของสินค้า","รายได้หลักมาจากการขายผลิตภัณฑ์ ส่วนชุดของขวัญและคำสั่งซื้อองค์กรเป็นแนวทางต่อยอด",["ขายปลีกผลิตภัณฑ์วัฒนธรรม","ชุดของขวัญตามโอกาสและเรื่องราว","แนวทางต่อยอด: ของขวัญสำหรับองค์กร"]],["เครือข่าย","ร่วมสร้างและเติบโตด้วยกัน","มุ่งพัฒนาความร่วมมือกับผู้ผลิต ผู้ให้บริการขนส่ง และชุมชนเวียดนาม–ลาว",["ช่างฝีมือและผู้ผลิต","พันธมิตรด้านการจัดส่งที่เหมาะสม","ชุมชนนักศึกษาจากทั้งสองประเทศ"]],["เอกลักษณ์","วัฒนธรรมเวียดนาม–ลาวคือหัวใจ","พื้นที่เรียนรู้สองวัฒนธรรมที่สร้างโดยกลุ่มนักศึกษาเวียดนามและลาว",["ผลิตภัณฑ์และเรื่องราวจากสองประเทศ","ประสบการณ์ใน 5 ภาษา","มุมมองที่ใกล้ชิดกับชุมชน"]]],"cta":"ค้นพบเรื่องราวผ่านผลิตภัณฑ์","ctaSub":"เลือกของขวัญให้คุณ หรือพูดคุยเรื่องแนวคิดความร่วมมือกับเรา","shop":"ดูผลิตภัณฑ์","contact":"พูดคุยความร่วมมือ"},"en":{"eyebrow":"COMMERCE WITH CULTURAL PURPOSE","title":"Two cultures connected.<br>Meaning in every gift.","intro":"Lotus & Champa brings products from Vietnam and Laos to people who value the origin, story and meaning behind each gift.","bridge":"FROM THE MAKER TO THE RECIPIENT","flow":["Vietnamese & Lao products","Curate & share the story","A gift with meaning"],"flowSub":["Crafts & local specialties","Lotus & Champa","Customers & communities"],"stats":["Two cultures","Five languages","One connected experience"],"heading":"One model, six foundations","sub":"Customers guide the experience. Culture creates value. Products sustain the business.","cards":[["Customers","Who finds value here?","For people discovering another culture or choosing a meaningful gift for someone special.",["Vietnamese & Lao culture enthusiasts","Families, students & travellers","Businesses looking for gifts"]],["Value","More than a product","Products, stories and guidance help the recipient understand what makes each gift special.",["Distinctive crafts & local specialties","Stories rooted in place and origin","Information & multilingual support"]],["Channels","The website is the meeting place","Discover products online and speak directly with the shop through its contact channels.",["Website for discovery & ordering","Facebook, Zalo & WhatsApp","Future direction: communities & events"]],["Revenue","Built on the value of products","Product sales are the core revenue source. Curated gift sets and business orders offer room to grow.",["Retail sales of cultural products","Occasion & theme-based gift sets","Future direction: corporate gifts"]],["Network","Build and grow together","We aim to develop relationships with makers, delivery partners and Vietnamese–Lao communities.",["Artisans & producers","Suitable delivery partners","Student communities in both countries"]],["Difference","Vietnamese–Lao culture at the heart","A place to discover two cultures, created by a team of students from Vietnam and Laos.",["Products & stories from both countries","An experience in 5 languages","A perspective close to the community"]]],"cta":"Discover the story in each product","ctaSub":"Find a gift for yourself, or talk with us about a collaboration.","shop":"Explore products","contact":"Discuss a collaboration"},"lo":{"eyebrow":"ການຄ້າທີ່ເຊື່ອມໂຍງວັດທະນະທຳ","title":"ເຊື່ອມສອງວັດທະນະທຳ<br>ເພີ່ມຄວາມໝາຍໃຫ້ທຸກຂອງຂວັນ","intro":"Lotus & Champa ເຊື່ອມສິນຄ້າຈາກຫວຽດນາມແລະລາວ ກັບຜູ້ທີ່ໃຫ້ຄຸນຄ່າແກ່ທີ່ມາ ເລື່ອງລາວ ແລະຄວາມໝາຍຂອງຂອງຂວັນ.","bridge":"ຈາກຜູ້ຜະລິດສູ່ຜູ້ຮັບ","flow":["ສິນຄ້າຫວຽດນາມ–ລາວ","ຄັດເລືອກແລະເລົ່າເລື່ອງ","ຂອງຂວັນທີ່ມີຄວາມໝາຍ"],"flowSub":["ຫັດຖະກຳແລະສິນຄ້າທ້ອງຖິ່ນ","Lotus & Champa","ລູກຄ້າແລະຊຸມຊົນ"],"stats":["ສອງວັດທະນະທຳ","ຫ້າພາສາ","ປະສົບການທີ່ເຊື່ອມໂຍງ"],"heading":"ໜຶ່ງແນວຄິດ ຫົກພື້ນຖານ","sub":"ເລີ່ມຈາກລູກຄ້າ ສ້າງຄຸນຄ່າຈາກວັດທະນະທຳ ແລະສ້າງລາຍຮັບຈາກສິນຄ້າ.","cards":[["ລູກຄ້າ","ໃຜໄດ້ຮັບຄຸນຄ່າ?","ສຳລັບຜູ້ຢາກຮູ້ຈັກວັດທະນະທຳ ຫຼືເລືອກຂອງຂວັນທີ່ມີຄວາມໝາຍ.",["ຜູ້ສົນໃຈວັດທະນະທຳຫວຽດນາມແລະລາວ","ຄອບຄົວ ນັກສຶກສາ ແລະນັກທ່ອງທ່ຽວ","ອົງກອນທີ່ຊອກຫາຂອງຂວັນ"]],["ຄຸນຄ່າ","ຫຼາຍກວ່າຕົວສິນຄ້າ","ປະສານສິນຄ້າ ເລື່ອງລາວ ແລະຄຳແນະນຳ ໃຫ້ຜູ້ຮັບເຂົ້າໃຈຄວາມພິເສດ.",["ຫັດຖະກຳແລະສິນຄ້າທ້ອງຖິ່ນ","ເລື່ອງລາວທີ່ເຊື່ອມກັບທີ່ມາ","ຂໍ້ມູນແລະການຊ່ວຍເຫຼືອຫຼາຍພາສາ"]],["ຊ່ອງທາງ","ເວັບໄຊແມ່ນຈຸດນັດພົບ","ຄົ້ນພົບສິນຄ້າໃນເວັບໄຊ ແລະຕິດຕໍ່ຮ້ານໂດຍກົງ.",["ເວັບໄຊສຳລັບເບິ່ງແລະສັ່ງສິນຄ້າ","Facebook, Zalo ແລະ WhatsApp","ແນວທາງຕໍ່ຍອດ: ຊຸມຊົນແລະກິດຈະກຳ"]],["ລາຍຮັບ","ເລີ່ມຈາກຄຸນຄ່າສິນຄ້າ","ລາຍຮັບຫຼັກມາຈາກການຂາຍສິນຄ້າ ຊຸດຂອງຂວັນແລະອົງກອນແມ່ນແນວທາງພັດທະນາ.",["ຂາຍຍ່ອຍສິນຄ້າວັດທະນະທຳ","ຊຸດຂອງຂວັນຕາມໂອກາດ","ແນວທາງຕໍ່ຍອດ: ຂອງຂວັນອົງກອນ"]],["ເຄືອຂ່າຍ","ຮ່ວມສ້າງແລະເຕີບໂຕ","ມຸ່ງຮ່ວມມືກັບຜູ້ຜະລິດ ຜູ້ຂົນສົ່ງ ແລະຊຸມຊົນຫວຽດນາມ–ລາວ.",["ຊ່າງຝີມືແລະຜູ້ຜະລິດ","ຄູ່ຮ່ວມງານດ້ານການຈັດສົ່ງ","ຊຸມຊົນນັກສຶກສາສອງປະເທດ"]],["ເອກະລັກ","ວັດທະນະທຳແມ່ນຫົວໃຈ","ພື້ນທີ່ຄົ້ນພົບສອງວັດທະນະທຳ ສ້າງໂດຍນັກສຶກສາຫວຽດນາມແລະລາວ.",["ສິນຄ້າແລະເລື່ອງລາວຈາກສອງປະເທດ","ປະສົບການໃນ 5 ພາສາ","ມຸມມອງທີ່ໃກ້ຊິດຊຸມຊົນ"]]],"cta":"ຄົ້ນພົບເລື່ອງລາວຜ່ານສິນຄ້າ","ctaSub":"ເລືອກຂອງຂວັນ ຫຼືປຶກສາແນວຄິດຮ່ວມມືກັບພວກເຮົາ.","shop":"ເບິ່ງສິນຄ້າ","contact":"ປຶກສາການຮ່ວມມື"},"zh":{"eyebrow":"以文化为纽带的商业","title":"连接两种文化<br>让每一份礼物更有意义","intro":"Lotus & Champa 将越南与老挝的产品带给珍视礼物来源、故事与意义的人们。","bridge":"从制作者到收礼人","flow":["越南与老挝的产品","精选产品，分享故事","有意义的礼物"],"flowSub":["手工艺与地方特色","Lotus & Champa","顾客与社区"],"stats":["两种文化","五种语言","一次相互连接的体验"],"heading":"一个模式，六个基础","sub":"以顾客为中心，以文化创造价值，以产品支撑业务。","cards":[["顾客","谁能在这里发现价值？","面向希望了解文化，或为重要的人挑选有意义礼物的顾客。",["越南与老挝文化爱好者","家庭、学生与旅行者","寻找礼品的企业"]],["价值","不只是一件产品","通过产品、故事与建议，帮助收礼人理解礼物的独特之处。",["具有地方特色的手工艺与产品","与来源相连的文化故事","多语言信息与帮助"]],["渠道","网站是相遇的地方","在网站发现产品，通过店铺联系方式直接交流。",["浏览产品与下单的网站","Facebook、Zalo 与 WhatsApp","发展方向：社区与文化活动"]],["收入","从产品价值出发","产品销售是主要收入来源，主题礼盒与企业订单是发展方向。",["文化产品零售","节日与主题礼盒","发展方向：企业礼品"]],["网络","共同建设，共同成长","希望与制作者、配送伙伴及越南与老挝社区建立合作。",["手工艺人与生产者","合适的配送伙伴","两国学生社区"]],["特色","以越南与老挝文化为核心","由越南与老挝学生团队创建，探索两种文化的空间。",["来自两国的产品与故事","五种语言的体验","贴近社区的视角"]]],"cta":"通过每一件产品发现故事","ctaSub":"为自己挑选礼物，或与我们交流合作想法。","shop":"探索产品","contact":"交流合作"}};
+  const c=copy[CURRENT_LANG]||copy.vi;
+  const icons=["<circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 21v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2\"/>","<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M5 12v9h14v-9M12 8v13\"/><path d=\"M12 8H8a3 3 0 1 1 3-3l1 3Zm0 0h4a3 3 0 1 0-3-3l-1 3Z\"/>","<path d=\"M21 11a8 8 0 0 1-8 8H7l-5 3 2-6a8 8 0 1 1 17-5Z\"/><path d=\"M8 10h8m-8 4h5\"/>","<path d=\"M3 10h18l-2-7H5l-2 7Zm2 0v11h14V10M9 21v-7h6v7\"/>","<circle cx=\"12\" cy=\"5\" r=\"3\"/><circle cx=\"5\" cy=\"19\" r=\"3\"/><circle cx=\"19\" cy=\"19\" r=\"3\"/><path d=\"m10 8-4 8m8-8 4 8M8 19h8\"/>","<path d=\"M12 21C5 19 1 14 3 8c5 0 8 4 9 8 1-4 4-8 9-8 2 6-2 11-9 13Zm0-5C8 12 8 6 12 2c4 4 4 10 0 14Z\"/>"];
+  return `<div class="business-page">
+  <section class="business-hero"><div class="container">
+    <div class="breadcrumb"><a href="#/">${t('bc.home')}</a><span aria-hidden="true">→</span><span>${t('bm.title')}</span></div>
+    <div class="business-hero-grid">
+      <div><p class="business-eyebrow">${c.eyebrow}</p><h1>${c.title}</h1><p class="business-intro">${c.intro}</p></div>
+      <div class="business-flow"><p class="business-flow-label">${c.bridge}</p><ol>${c.flow.map((s,i)=>`<li><span class="business-flow-step" aria-hidden="true">0${i+1}</span><div><strong>${s}</strong><small>${c.flowSub[i]}</small></div></li>`).join('')}</ol></div>
     </div>
-  </div>
-  `;
+    <div class="business-strip">${c.stats.map((s,i)=>`<div><strong aria-hidden="true">${[2,5,1][i]}</strong><span>${s}</span></div>`).join('')}</div>
+  </div></section>
+  <section class="container business-content" aria-labelledby="business-foundations">
+    <div class="business-section-head"><h2 id="business-foundations">${c.heading}</h2><p>${c.sub}</p></div>
+    <div class="business-grid">${c.cards.map((card,i)=>`<article class="business-card">
+      <div class="business-card-top"><span class="business-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icons[i]}</svg></span><span class="business-card-number" aria-hidden="true">0${i+1}</span></div>
+      <div class="business-card-label">${card[0]}</div><h3>${card[1]}</h3><p>${card[2]}</p><ul>${card[3].map(item=>`<li>${item}</li>`).join('')}</ul>
+    </article>`).join('')}</div>
+    <div class="business-cta"><div><h2>${c.cta}</h2><p>${c.ctaSub}</p></div><div class="business-cta-actions"><a class="btn btn-gold" href="#/products">${c.shop}<span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#/contact">${c.contact}</a></div></div>
+  </section></div>`;
 }
 
 /* ===========================================================
@@ -8522,5 +8445,6 @@ init();
 </script>
 <script src="assets/ux-ui.js"></script>
 <script src="assets/redesign.js"></script>
+<script src="assets/home-experience.js"></script>
 </body>
 </html>
