@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-08",
+  "browser": {
+    "passed": 73,
+    "environment": "headless Microsoft Edge / localhost root and /shop/"
+  },
+  "rules": {
+    "passed": 54,
+    "environment": "Firestore + Storage Emulator demo-lotus-orders"
+  },
+  "mockAuth": {
+    "passed": 13
+  },
+  "mockCheckout": {
+    "passed": 8
+  },
+  "totalPassed": 148,
+  "liveOrdersCreated": 0,
+  "liveRulesDeployed": false,
+  "githubDeployed": false,
+  "physicalDevicesTested": false,
+  "newOrderProductTypeLimit": 5
+}

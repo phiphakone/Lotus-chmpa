@@ -1,0 +1,44 @@
+[
+  {
+    "icons": 6,
+    "links": [
+      "#/products",
+      "#/products?country=lao",
+      "#/products?country=vietnam",
+      "#/products?cat=handcraft",
+      "#/products?cat=specialty",
+      "#/products?cat=health"
+    ],
+    "overflow": 0,
+    "scrollWidth": 356,
+    "width": 375
+  },
+  {
+    "icons": 6,
+    "links": [
+      "#/products",
+      "#/products?country=lao",
+      "#/products?country=vietnam",
+      "#/products?cat=handcraft",
+      "#/products?cat=specialty",
+      "#/products?cat=health"
+    ],
+    "overflow": 0,
+    "scrollWidth": 749,
+    "width": 768
+  },
+  {
+    "icons": 6,
+    "links": [
+      "#/products",
+      "#/products?country=lao",
+      "#/products?country=vietnam",
+      "#/products?cat=handcraft",
+      "#/products?cat=specialty",
+      "#/products?cat=health"
+    ],
+    "overflow": 0,
+    "scrollWidth": 1421,
+    "width": 1440
+  }
+]

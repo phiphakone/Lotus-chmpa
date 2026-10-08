@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function signedIn() { return request.auth != null; }
+  function admin() {
+   return signedIn() && (request.auth.uid == 'fmkw0LyA8yWYYZBbePmDx3g5JWE2' || (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.enabled == true));
+  }
+  function validItem(i) {
+   return i.keys().hasOnly(['id','name','price','qty','image'])
+    && i.id.matches('[\\s\\S]{1,100}') && i.name.matches('[\\s\\S]{1,300}')
+    && i.price > 0 && i.price <= 100000000000
+    && i.qty is int && i.qty > 0 && i.qty <= 999
+    && i.image.matches('https?://.{0,290}|images/.{0,290}|');
+  }
+  function validItems(items) {
+   let n = items.size();
+   return n > 0 && n <= 5
+    && validItem(items[0])
+    && (n <= 1 || validItem(items[1]))
+    && (n <= 2 || validItem(items[2]))
+    && (n <= 3 || validItem(items[3]))
+    && (n <= 4 || validItem(items[4]));
+  }
+  function subtotal(items) {
+   let zero = {'price':0,'qty':0};
+   let p = items.concat([zero,zero,zero,zero,zero]);
+   return p[0].price*p[0].qty + p[1].price*p[1].qty + p[2].price*p[2].qty + p[3].price*p[3].qty + p[4].price*p[4].qty;
+  }
+  function validCustomer(c,o) {
+   return c.keys().hasOnly(['name','phone','addr','email','city','country','note'])
+    && c.name == o.name && c.phone == o.phone && c.addr == o.address
+    && c.email.matches('[\\s\\S]{0,254}') && c.city.matches('[\\s\\S]{0,150}')
+    && c.country.matches('[\\s\\S]{0,100}') && c.note is string && c.note.size() <= 2000;
+  }
+  function validSlip(o) {
+   return (o.payMethod in ['cod','card'] && o.slipUrl == '' && o.slipPath == '' && o.slipName == '' && o.slipType == '' && o.slipSize == 0 && o.slipUploadedAt == null)
+    || (o.payMethod in ['bank-vn','bcel','qr']
+     && o.slipUrl.matches('https://firebasestorage[.]googleapis[.]com/v0/b/lotus-1a491[.]firebasestorage[.]app/o/.+') && o.slipUrl.size() <= 2000
+     && o.slipPath.matches('payment-slips/' + request.auth.uid + '/[^/]{1,400}')
+     && o.slipName.matches('[\\s\\S]{1,255}')
+     && o.slipType in ['image/jpeg','image/png','image/webp','image/gif']
+     && o.slipSize is int && o.slipSize > 0 && o.slipSize <= 8*1024*1024
+     && o.slipUploadedAt.matches('[\\s\\S]{1,50}'));
+  }
+  function validOrder(o) {
+   return o.keys().hasOnly(['ownerUid','name','phone','address','customer','items','subtotal','shipFee','discount','total','shipMethod','payMethod','coupon','status','paymentStatus','slipUrl','slipPath','slipName','slipType','slipSize','slipUploadedAt','createdAt'])
+    && o.ownerUid == request.auth.uid && o.createdAt == request.time
+    && o.name.matches('[\\s\\S]{1,150}') && o.phone.matches('[\\s\\S]{3,40}') && o.address.matches('[\\s\\S]{1,1000}')
+    && validCustomer(o.customer,o) && validItems(o.items)
+    && o.subtotal > 0 && o.subtotal <= 100000000000 && o.subtotal == subtotal(o.items)
+    && o.shipFee >= 0 && o.shipFee <= 100000000000
+    && o.discount >= 0 && o.discount <= o.subtotal
+    && o.total <= 100000000000 && o.total == o.subtotal - o.discount + o.shipFee
+    && o.shipMethod in ['vn','lao','pickup','contact']
+    && (o.coupon == null || o.coupon.matches('[\\s\\S]{1,100}'))
+    && o.status == 'pending' && o.paymentStatus == 'pending' && validSlip(o);
+  }
+  match /orders/{orderId} {
+   allow create: if signedIn() && validOrder(request.resource.data);
+   allow read: if admin() || (signedIn() && resource.data.ownerUid == request.auth.uid);
+   allow update: if admin()
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','paymentStatus','paymentReviewedAt'])
+    && request.resource.data.status in ['pending','confirmed','shipped','completed','cancelled']
+    && request.resource.data.paymentStatus in ['pending','paid','rejected']
+    && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['paymentReviewedAt']) || request.resource.data.paymentReviewedAt == request.time);
+   allow delete: if admin();
+  }
+  function validProfile(p,uid) {
+   return p.keys().hasOnly(['uid','name','email','phone','createdAt'])
+    && p.uid == uid && p.name.matches('[\\s\\S]{1,150}') && p.email == request.auth.token.email
+    && p.email.matches('[\\s\\S]{1,254}') && p.phone.matches('[\\s\\S]{0,40}');
+  }
+  match /users/{uid} {
+   allow get: if signedIn() && (request.auth.uid == uid || admin());
+   allow list: if admin();
+   allow create: if signedIn() && request.auth.uid == uid && validProfile(request.resource.data,uid) && request.resource.data.createdAt == request.time;
+   allow update: if signedIn() && request.auth.uid == uid && validProfile(request.resource.data,uid) && request.resource.data.createdAt == resource.data.createdAt;
+   allow delete: if admin();
+  }
+  // Role creation remains restricted to trusted Firebase Console/Admin SDK operators.
+  match /admins/{uid} {
+   allow get: if signedIn() && request.auth.uid == uid;
+   allow list, create, update, delete: if false;
+  }
+  match /{document=**} { allow read, write: if false; }
+ }
+}

@@ -1,0 +1,32 @@
+{
+  "retained": {
+    "Firebase module": true,
+    "Translations": true,
+    "Product seed": true,
+    "Product translations": true,
+    "Blog seed": true,
+    "Storage keys/version": true
+  },
+  "originalFiles": 61,
+  "originalFilesChanged": [],
+  "imageIntegrity": true,
+  "brokenEmbedded": [],
+  "html": {
+    "before": 4555878,
+    "after": 543715,
+    "reductionPercent": 88.07,
+    "gzipBefore": 3149320,
+    "gzipAfter": 132826
+  },
+  "external": [
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com",
+    "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Noto+Sans+Lao:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=Noto+Serif:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&family=Noto+Serif+Lao:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap",
+    "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css",
+    "https://facebook.com",
+    "https://zalo.me/0876538207",
+    "https://wa.me/84876538207",
+    "mailto:ppk.bm.30@gmail.com",
+    "tel:0876538207"
+  ]
+}

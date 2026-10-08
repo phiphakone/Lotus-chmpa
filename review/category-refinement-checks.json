@@ -1,0 +1,54 @@
+{
+  "responsive": [
+    {
+      "cardOverflow": 0,
+      "columns": "156px 156px",
+      "scrollWidth": 356,
+      "viewport": 375
+    },
+    {
+      "cardOverflow": 0,
+      "columns": "217.656px 217.672px 217.672px",
+      "scrollWidth": 749,
+      "viewport": 768
+    },
+    {
+      "cardOverflow": 0,
+      "columns": "389.328px 389.328px 389.344px",
+      "scrollWidth": 1421,
+      "viewport": 1440
+    }
+  ],
+  "links": [
+    {
+      "key": "all",
+      "url": "http://127.0.0.1:4173/#/products",
+      "products": 41
+    },
+    {
+      "key": "lao",
+      "url": "http://127.0.0.1:4173/#/products?country=lao",
+      "products": 14
+    },
+    {
+      "key": "vietnam",
+      "url": "http://127.0.0.1:4173/#/products?country=vietnam",
+      "products": 27
+    },
+    {
+      "key": "handcraft",
+      "url": "http://127.0.0.1:4173/#/products?cat=handcraft",
+      "products": 12
+    },
+    {
+      "key": "specialty",
+      "url": "http://127.0.0.1:4173/#/products?cat=specialty",
+      "products": 22
+    },
+    {
+      "key": "health",
+      "url": "http://127.0.0.1:4173/#/products?cat=health",
+      "products": 7
+    }
+  ]
+}

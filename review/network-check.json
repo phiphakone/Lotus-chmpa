@@ -1,0 +1,70 @@
+{
+  "live": [
+    {
+      "url": "https://phiphakone.github.io/quiz/",
+      "status": 200,
+      "finalURL": "https://phiphakone.github.io/quiz/",
+      "bytes": 4555878,
+      "ttfbMs": 508,
+      "downloadMs": 759,
+      "totalMs": 1268
+    },
+    {
+      "url": "https://phiphakone.github.io/quiz/",
+      "status": 200,
+      "finalURL": "https://phiphakone.github.io/quiz/",
+      "bytes": 4555878,
+      "ttfbMs": 57,
+      "downloadMs": 351,
+      "totalMs": 408
+    },
+    {
+      "url": "https://phiphakone.github.io/quiz/",
+      "status": 200,
+      "finalURL": "https://phiphakone.github.io/quiz/",
+      "bytes": 4555878,
+      "ttfbMs": 61,
+      "downloadMs": 305,
+      "totalMs": 366
+    }
+  ],
+  "local": {
+    "url": "http://127.0.0.1:4173/",
+    "status": 200,
+    "finalURL": "http://127.0.0.1:4173/",
+    "bytes": 543203,
+    "ttfbMs": 3,
+    "downloadMs": 1,
+    "totalMs": 4
+  },
+  "external": [
+    {
+      "url": "https://facebook.com",
+      "status": 200,
+      "finalURL": "https://www.facebook.com/",
+      "bytes": 465498,
+      "ttfbMs": 828,
+      "downloadMs": 208,
+      "totalMs": 1036
+    },
+    {
+      "url": "https://zalo.me/0876538207",
+      "status": 200,
+      "finalURL": "https://id.zalo.me/account/login?continue=http%3A%2F%2Fzalo.me%2F0876538207",
+      "bytes": 4905,
+      "ttfbMs": 254,
+      "downloadMs": 1,
+      "totalMs": 254
+    },
+    {
+      "url": "https://wa.me/84876538207",
+      "status": 200,
+      "finalURL": "https://api.whatsapp.com/send/?phone=84876538207&text&type=phone_number&app_absent=0",
+      "bytes": 221896,
+      "ttfbMs": 854,
+      "downloadMs": 75,
+      "totalMs": 929
+    }
+  ],
+  "note": "Single machine, normal connection; not a Lighthouse score or field Core Web Vitals."
+}

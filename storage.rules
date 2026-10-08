@@ -1,0 +1,18 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function admin() {
+      return request.auth != null && (request.auth.uid == 'fmkw0LyA8yWYYZBbePmDx3g5JWE2' || (firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid))
+        && firestore.get(/databases/(default)/documents/admins/$(request.auth.uid)).data.enabled == true));
+    }
+    match /payment-slips/{uid}/{fileName} {
+      allow create: if request.auth != null && request.auth.uid == uid
+        && request.resource.size > 0 && request.resource.size <= 8 * 1024 * 1024
+        && request.resource.contentType in ['image/jpeg','image/png','image/webp','image/gif'];
+      allow read: if request.auth != null && (request.auth.uid == uid || admin());
+      allow update: if false;
+      allow delete: if admin();
+    }
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}

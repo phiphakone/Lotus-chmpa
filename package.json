@@ -1,0 +1,18 @@
+{
+  "name": "lotus-champa-pwa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare:pwa": "node scripts/prepare-pwa.cjs",
+    "test:auth": "node tests/auth.test.cjs",
+    "test:checkout": "node tests/checkout.test.cjs",
+    "test:browser": "node tests/browser.test.cjs",
+    "test:rules": "firebase emulators:exec --project demo-lotus-orders --only firestore,storage --config firebase.test.json \"node tests/rules.test.cjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "5.0.2",
+    "firebase": "12.19.0",
+    "firebase-tools": "15.32.1",
+    "playwright": "1.62.1"
+  }
+}

@@ -1,0 +1,31 @@
+.culture-categories{background:#f0f3ec;border-block:1px solid #dbe3d6;padding:48px 0}
+.culture-categories-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.culture-categories .section-eyebrow{color:#79551d;letter-spacing:.08em;font-style:normal;font-size:12px;margin-bottom:12px}
+.culture-categories .section-title{font-size:clamp(27px,3vw,38px);line-height:1.25;margin-bottom:12px;max-width:750px}
+.culture-intro{max-width:680px;font-size:15px;line-height:1.8;color:#4e6056;margin:0}
+.culture-collection-link{flex-shrink:0;display:inline-flex;gap:14px;align-items:center;font-size:13px;font-weight:600;color:#17483c;padding:12px 0;border-bottom:1px solid #17483c;text-decoration:none;min-height:44px}
+.culture-collection-link span{font-size:21px}
+.culture-categories .cats-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.culture-categories .culture-card{position:relative;align-items:flex-start;text-decoration:none;padding:24px 26px 28px;background:#fffdf8;border:1px solid #d5dfd2;border-radius:18px;min-width:0;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s}
+.culture-card-top{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:18px}
+.culture-categories .cat-icon{--symbol-fill:#dce7d8;--symbol-accent:#956922;color:#315947;background:linear-gradient(145deg,#fffdf7,#e9eee4);width:66px;height:66px;border-radius:50%;margin:0;border:1px solid #c6d2c1;box-shadow:inset 0 0 0 4px #ffffff80}
+.culture-categories .cat-icon svg{width:47px;height:47px}
+.culture-number{font-family:var(--f-display);font-size:19px;color:#637464}
+.culture-categories .cat-name{font-family:var(--f-display);font-size:23px;font-weight:600;text-align:left;color:#17483c;margin:0 0 9px;line-height:1.35}
+.culture-card-story{font-size:14px;line-height:1.7;color:#536257;margin:0;padding-right:24px;max-width:33ch}
+.culture-card-arrow{position:absolute;bottom:23px;right:23px;font-size:23px;color:#725120}
+.culture-categories .culture-card--all{background:#17483c;border-color:#17483c}
+.culture-categories .culture-card--all .cat-name{color:#fff8e8}
+.culture-card--all .culture-card-story{color:#e0e8de}
+.culture-card--all .culture-number,.culture-card--all .culture-card-arrow{color:#e8ca88}
+.culture-categories .culture-card--all .cat-icon{--symbol-fill:#3d6b58;--symbol-accent:#f0d59b;background:linear-gradient(145deg,#34634f,#214d3e);color:#f0d59b;border-color:#72947e;box-shadow:inset 0 0 0 4px #ffffff0a}
+.culture-categories .culture-card--lao .cat-icon{--symbol-fill:#f2e4c6;background:linear-gradient(145deg,#fffaf0,#eee3c9);border-color:#d9c9a5}
+.culture-categories .culture-card--vietnam .cat-icon{--symbol-fill:#d9e6d3}
+.culture-categories .culture-card--lao{background:#fbf5e9}
+.culture-categories .culture-card--vietnam{background:#edf3ea}
+.culture-categories .culture-card:hover{transform:translateY(-3px);border-color:#7d987b;box-shadow:0 10px 24px #173b2910}
+.culture-categories .culture-card:focus-visible,.culture-collection-link:focus-visible{outline:3px solid #896020;outline-offset:4px}
+@media(max-width:1000px){.culture-categories-head{align-items:flex-start;flex-direction:column;gap:10px}.culture-categories .culture-card{padding:22px}.culture-categories .cat-name{font-size:21px}}
+@media(max-width:600px){.culture-categories{padding:32px 0}.culture-categories .cats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.culture-categories-head{margin-bottom:22px}.culture-intro{font-size:14px}.culture-categories .culture-card{padding:17px 14px 38px;border-radius:15px}.culture-card-top{margin-bottom:14px}.culture-categories .cat-icon{width:44px;height:44px;border-radius:12px}.culture-categories .cat-icon svg{width:27px;height:27px}.culture-number{font-size:16px}.culture-categories .cat-name{font-size:19px}.culture-card-story{font-size:12px;line-height:1.7;padding:0}.culture-card-arrow{bottom:10px;right:14px;font-size:20px}.culture-categories .section-eyebrow{font-size:11px;letter-spacing:.03em}}
+@media(prefers-reduced-motion:reduce){.culture-categories .culture-card{transition:none}.culture-categories .culture-card:hover{transform:none}}
+@media(max-width:600px){.culture-categories .cat-icon{width:54px;height:54px;border-radius:50%}.culture-categories .cat-icon svg{width:39px;height:39px}}
