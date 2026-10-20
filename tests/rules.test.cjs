@@ -66,5 +66,26 @@ function order(uid,extra={}){return {ownerUid:uid,name:'Customer',phone:'0201234
  await test('admin reads receipt',()=>assertSucceeds(getMetadata(ref(admin.storage(),'payment-slips/alice/a.png'))));
  await test('public receipt read denied',()=>assertFails(getMetadata(ref(none.storage(),'payment-slips/alice/a.png'))));
  await test('fixed admin UID reads orders',()=>assertSucceeds(getDocs(collection(env.authenticatedContext('fmkw0LyA8yWYYZBbePmDx3g5JWE2').firestore(),'orders'))));
+ const product={name:'Tea',country:'vietnam',cat:'specialty',price:100000,oldPrice:0,stock:10,origin:'VN',desc:'A public product',story:'',image:'https://res.cloudinary.com/shop/image/upload/v123/tea.jpg',deleted:false,updatedAt:serverTimestamp()};
+ await test('public cannot create products',()=>assertFails(setDoc(doc(none.firestore(),'products/tea'),product)));
+ await test('customer cannot create products',()=>assertFails(setDoc(doc(adb,'products/tea'),product)));
+ await test('anonymous customer cannot create products',()=>assertFails(setDoc(doc(guest.firestore(),'products/tea'),product)));
+ await test('admin publishes product',()=>assertSucceeds(setDoc(doc(mdb,'products/tea'),product)));
+ await test('public can read catalogue',()=>assertSucceeds(getDocs(collection(none.firestore(),'products'))));
+ await test('customer cannot edit image',()=>assertFails(updateDoc(doc(adb,'products/tea'),{image:'https://example.com/x.jpg',updatedAt:serverTimestamp()})));
+ for(const [name,change] of Object.entries({html:{name:'<img src=x onerror=alert(1)>'},scriptURL:{image:'javascript:alert(1)'},attributeURL:{image:'https://x.com/" onerror="alert(1)'},quoteURL:{image:"https://x.com/' onclick='x"},backslashURL:{image:'https://x.com/\\x'},spaceURL:{image:'https://x.com/a b.jpg'},negativeStock:{stock:-1},fractionStock:{stock:1.5},freePrice:{price:0},extraPrivateField:{email:'private@example.com'},clientTime:{updatedAt:new Date(0)},longURL:{image:'https://example.com/'+'a'.repeat(2000)}})) {
+  await test('product '+name+' rejected',()=>assertFails(setDoc(doc(mdb,'products/bad-'+name),{...product,...change})));
+ }
+ await test('multiline product description allowed',()=>assertSucceeds(setDoc(doc(mdb,'products/multiline'),{...product,desc:'Line one\nLine two',story:'Story\nNext line'})));
+ await test('admin can retain local seed image',()=>assertSucceeds(setDoc(doc(mdb,'products/local'),{...product,image:'images/products/tea.jpg'})));
+ await test('admin hides product with reversible flag',()=>assertSucceeds(updateDoc(doc(mdb,'products/tea'),{deleted:true,updatedAt:serverTimestamp()})));
+ await test('admin restores product',()=>assertSucceeds(updateDoc(doc(mdb,'products/tea'),{deleted:false,updatedAt:serverTimestamp()})));
+ await test('hard deletion blocked to preserve seed override',()=>assertFails(deleteDoc(doc(mdb,'products/tea'))));
+ await test('admin configures Cloudinary cloud name',()=>assertSucceeds(setDoc(doc(mdb,'catalogSettings/media'),{cloudName:'my-shop'})));
+ await test('public cannot read media configuration',()=>assertFails(getDoc(doc(none.firestore(),'catalogSettings/media'))));
+ await test('customer cannot read media configuration',()=>assertFails(getDoc(doc(adb,'catalogSettings/media'))));
+ await test('customer cannot replace cloud name',()=>assertFails(setDoc(doc(adb,'catalogSettings/media'),{cloudName:'other'})));
+ await test('API secrets cannot be stored in catalogue config',()=>assertFails(setDoc(doc(mdb,'catalogSettings/media'),{cloudName:'my-shop',apiSecret:'forbidden'})));
+ await test('fixed admin UID publishes product',()=>assertSucceeds(setDoc(doc(env.authenticatedContext('fmkw0LyA8yWYYZBbePmDx3g5JWE2').firestore(),'products/fixed'),product)));
  console.log('ALL '+count+' SECURITY TESTS PASSED');
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{if(env)await env.cleanup();});

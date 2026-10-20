@@ -1,0 +1,25 @@
+{
+  "passed": 20,
+  "checks": [
+    "all modified JavaScript parses",
+    "admin form has upload button and zero values preserved",
+    "Cloudinary opens authenticated Media Library without upload secrets",
+    "selected image preview updates before saving",
+    "customer does not see an unpublished image",
+    "customer already viewing product receives new image",
+    "new visit receives saved image",
+    "failed save preserves form and public image",
+    "concurrent edit is detected before overwrite",
+    "new product is visible in another client",
+    "quotes and ampersands render safely as text",
+    "hide syncs to customer and preserves a restorable record",
+    "restore syncs to customer",
+    "non-admin cannot open editor",
+    "live update preserves checkout input",
+    "unsafe image scheme is rejected",
+    "logout closes editor and image picker",
+    "editor fits mobile viewport",
+    "missing deployed rules show actionable failure",
+    "retry reconnects catalogue"
+  ]
+}

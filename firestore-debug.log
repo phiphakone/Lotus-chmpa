@@ -1,0 +1,58 @@
+Oct 20, 2026 10:47:11 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://127.0.0.1:9150
+
+API endpoint: http://127.0.0.1:8181
+Database Edition: STANDARD
+Database Mode: CLOUD_FIRESTORE
+
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8181
+
+If you are running a Firestore in Datastore Mode project, run:
+
+   export DATASTORE_EMULATOR_HOST=127.0.0.1:8181
+
+Note: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.
+Dev App Server is now running.
+
+Oct 20, 2026 10:47:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Oct 20, 2026 10:47:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+Oct 20, 2026 10:47:15 AM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+WARNING: Operation failed: Error compiling rules:
+L13:50 Invalid regular expression pattern. Pattern: https?://.{0,1992}|images/.{0,1993}|.
+com.google.cloud.datastore.core.exception.DatastoreException: Error compiling rules:
+L13:50 Invalid regular expression pattern. Pattern: https?://.{0,1992}|images/.{0,1993}|.
+	at com.google.cloud.datastore.emulator.impl.rules.EmulatorRulesCompiler$CompilerException.asDatastoreException(EmulatorRulesCompiler.java:120)
+	at com.google.cloud.datastore.emulator.impl.rules.EmulatorRulesCompiler$EmulatorCompilationResult.checkCompilationSucceeded(EmulatorRulesCompiler.java:79)
+	at com.google.cloud.datastore.emulator.impl.firestore.CloudFirestoreV1.setSecurityRules(CloudFirestoreV1.java:1095)
+	at com.google.cloud.datastore.emulator.impl.firestore.CloudFirestoreV1Router.setSecurityRules(CloudFirestoreV1Router.java:291)
+	at com.google.cloud.datastore.emulator.firestore.EmulatorAuxiliaryGrpcAdapter$1.lambda$setSecurityRules$0(EmulatorAuxiliaryGrpcAdapter.java:72)
+	at com.google.cloud.datastore.emulator.firestore.EmulatorAuxiliaryGrpcAdapter.unary(EmulatorAuxiliaryGrpcAdapter.java:53)
+	at com.google.cloud.datastore.emulator.firestore.EmulatorAuxiliaryGrpcAdapter$1.setSecurityRules(EmulatorAuxiliaryGrpcAdapter.java:72)
+	at com.google.firestore.emulator.v1.FirestoreEmulatorGrpc$MethodHandlers.invoke(FirestoreEmulatorGrpc.java:939)
+	at io.grpc.stub.ServerCalls$UnaryServerCallHandler$UnaryServerCallListener.onHalfClose(ServerCalls.java:182)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.PartialForwardingServerCallListener.onHalfClose(PartialForwardingServerCallListener.java:35)
+	at io.grpc.ForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:23)
+	at io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener.onHalfClose(ForwardingServerCallListener.java:40)
+	at io.grpc.Contexts$ContextualizedServerCallListener.onHalfClose(Contexts.java:86)
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.halfClosed(ServerCallImpl.java:356)
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1HalfClosed.runInContext(ServerImpl.java:879)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: com.google.cloud.datastore.emulator.impl.rules.AutoValue_EmulatorRulesCompiler_CompilerException
+	at com.google.cloud.datastore.emulator.impl.rules.EmulatorRulesCompiler$CompilerException.of(EmulatorRulesCompiler.java:106)
+	... 23 more
+
+Oct 20, 2026 10:47:15 AM io.gapi.emulators.netty.HttpHandler$1 onError
+INFO: Exception when handling request: INVALID_ARGUMENT: Error compiling rules:
+L13:50 Invalid regular expression pattern. Pattern: https?://.{0,1992}|images/.{0,1993}|.

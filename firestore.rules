@@ -10,7 +10,7 @@ service cloud.firestore {
     && i.id.matches('[\\s\\S]{1,100}') && i.name.matches('[\\s\\S]{1,300}')
     && i.price > 0 && i.price <= 100000000000
     && i.qty is int && i.qty > 0 && i.qty <= 999
-    && i.image.matches('https?://.{0,290}|images/.{0,290}|');
+    && i.image.size() <= 2000 && i.image.matches('https?://.{0,1992}|images/.{0,1993}|');
   }
   function validItems(items) {
    let n = items.size();
@@ -76,6 +76,35 @@ service cloud.firestore {
    allow create: if signedIn() && request.auth.uid == uid && validProfile(request.resource.data,uid) && request.resource.data.createdAt == request.time;
    allow update: if signedIn() && request.auth.uid == uid && validProfile(request.resource.data,uid) && request.resource.data.createdAt == resource.data.createdAt;
    allow delete: if admin();
+  }
+  // Public product data only. Orders, accounts and media configuration stay private.
+  function validProduct(p) {
+   return p.keys().hasAll(['name','country','cat','price','oldPrice','stock','origin','desc','story','image','deleted','updatedAt'])
+    && p.keys().hasOnly(['name','country','cat','price','oldPrice','stock','origin','desc','story','image','deleted','updatedAt'])
+    && p.name is string && p.name.size() > 0 && p.name.size() <= 300 && p.name.matches('[^<>]+')
+    && p.country in ['lao','vietnam'] && p.cat in ['handcraft','specialty','health']
+    && p.price is number && p.price > 0 && p.price <= 100000000000
+    && p.oldPrice is number && p.oldPrice >= 0 && p.oldPrice <= 100000000000
+    && p.stock is int && p.stock >= 0 && p.stock <= 999999
+    && p.origin is string && p.origin.size() <= 300 && p.origin.matches('[^<>]*')
+    && p.desc is string && p.desc.size() <= 10000 && p.desc.matches('[^<>]*')
+    && p.story is string && p.story.size() <= 20000 && p.story.matches('[^<>]*')
+    && p.image is string && p.image.size() <= 2000
+    && (p.image.matches('https://[^\\s\"\'<>\\\\`]+') || p.image.matches('images/[a-zA-Z0-9_./-]+'))
+    && p.deleted is bool && p.updatedAt == request.time;
+  }
+  match /products/{productId} {
+   allow read: if true;
+   allow create, update: if admin() && productId.matches('[a-zA-Z0-9_-]{1,100}') && validProduct(request.resource.data);
+   // Use a reversible deleted flag so a seed product cannot accidentally reappear.
+   allow delete: if false;
+  }
+  match /catalogSettings/{settingId} {
+   allow get: if admin();
+   allow create, update: if admin() && settingId == 'media'
+    && request.resource.data.keys().hasOnly(['cloudName'])
+    && request.resource.data.cloudName.matches('[a-z0-9_-]{1,100}');
+   allow list, delete: if false;
   }
   // Role creation remains restricted to trusted Firebase Console/Admin SDK operators.
   match /admins/{uid} {

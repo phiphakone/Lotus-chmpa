@@ -1777,8 +1777,9 @@ html[lang="zh"] .tab-h{line-height:1.35}
 .admin-nav a.active{background:var(--gold);color:var(--navy-deep);font-weight:600}
 .admin-nav svg{width:18px;height:18px;stroke-width:1.8}
 
-.admin-main{padding:28px 32px}
+.admin-main{padding:28px 32px;min-width:0}
 .admin-header{
+  flex-wrap:wrap;gap:12px;
   display:flex;justify-content:space-between;align-items:center;
   margin-bottom:28px;flex-wrap:wrap;gap:14px;
 }
@@ -2482,31 +2483,32 @@ const firebaseConfig = {
 // Home gallery autoplay delay in milliseconds.
 const sliderSpeed = 3600;
 const HOME_GALLERY_MEDIA = [
-  { type:'image', src:'1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg', alt:'Lotus & Champa gallery 1' },
-  { type:'image', src:'1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg', alt:'Lotus & Champa gallery 3' },
-  { type:'image', src:'1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg', alt:'Lotus & Champa gallery 4' },
-  { type:'image', src:'1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg', alt:'Lotus & Champa gallery 5' },
-  { type:'image', src:'1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg', alt:'Lotus & Champa gallery 6' },
-  { type:'image', src:'1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg', alt:'Lotus & Champa gallery 7' }
+  { type:'image', src:'images/Trang 1/1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg', alt:'Lotus & Champa gallery 1' },
+  { type:'image', src:'images/Trang 1/1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg', alt:'Lotus & Champa gallery 3' },
+  { type:'image', src:'images/Trang 1/1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg', alt:'Lotus & Champa gallery 4' },
+  { type:'image', src:'images/Trang 1/1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg', alt:'Lotus & Champa gallery 5' },
+  { type:'image', src:'images/Trang 1/1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg', alt:'Lotus & Champa gallery 6' },
+  { type:'image', src:'images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg', alt:'Lotus & Champa gallery 7' }
   // Add videos like: { type:'video', src:'your-video.mp4', alt:'Lotus & Champa video' }
 ];
 
 const HERO_SLIDES = [
-  'images/embedded/90b075a92de2247fc196.jpg',
-  'images/embedded/7b3d0fff06ed1c949ee0.jpg',
-  'images/embedded/b3ac16248b57c7fc80e9.jpg',
-  'images/embedded/10c4ad3e2ea3eee56b3a.jpg',
-  'images/embedded/e9ff9f648f824885a678.jpg',
-  'images/embedded/bed94208bdb6ff7de0fd.jpg',
-  'images/embedded/903112a2601b8e2d9760.jpg',
-  'images/embedded/9ecfbd5f0b7f2c28fa75.jpg',
-  'images/embedded/180409b258f2e77df6aa.jpg',
-  'images/embedded/4287a3e5cae38beb6d0f.jpg',
-  'images/embedded/2503e35fec83d9c38cd2.jpg',
-  'images/embedded/bd3f7972bf93ff81a1ae.jpg',
-  'images/embedded/f117deb1e5e37db41c19.jpg',
-  'images/embedded/1312954b70aaee28d21a.jpg',
-  'images/embedded/552d8e9bb487dca3d55b.jpg'
+  'images/Trang 1/1.jpg',
+  'images/Trang 1/2.jpg',
+  'images/Trang 1/3.jpg',
+  'images/Trang 1/4.jpg',
+  'images/Trang 1/5.jpg',
+  'images/Trang 1/6.jpg',
+  'images/Trang 1/7.jpg',
+  'images/Trang 1/8.jpg',
+  'images/Trang 1/9.jpg',
+  'images/Trang 1/10.jpg',
+  'images/Trang 1/11.jpg',
+  'images/Trang 1/12.jpg',
+  'images/Trang 1/13.jpg',
+  'images/Trang 1/14.jpg',
+  'images/Trang 1/15.jpg',
+  'images/Trang 1/16.jpg'
 ];
 
 const IMG_DATA = {
@@ -4151,6 +4153,7 @@ function t(key, fallback){
 // Used for: name, desc, story, use, target, origin
 function pField(p, field){
   if (!p) return '';
+  if (p._editedFields?.includes(field)) return window.LCCatalog.escape(p[field] || '');
   const i18nData = (typeof PRODUCT_I18N !== 'undefined') ? PRODUCT_I18N[p.id] : null;
   if (i18nData && i18nData[field]) {
     const v = i18nData[field][CURRENT_LANG];
@@ -4265,8 +4268,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Mekong','Snack'], badgeStyle:'badge-sage',
     price:120000, oldPrice:0, stock:80,
     rating:4.8, ratingCount:96, sales:512,
-    images:['images/products/p-lao-kaipen-1.jpg'],
-    fallback:'images/products/p-lao-kaipen-1.jpg',
+    images:['images/products/lao/p-lao-kaipen-1.jpg'],
+    fallback:'images/products/lao/p-lao-kaipen-1.jpg',
     desc:'Kaipen là món ăn truyền thống nổi tiếng của Lào, làm từ rong sông Mekong, phơi khô và chế biến thủ công.',
     story:'Mỗi tấm Kaipen là kết quả của việc người Lào hái rong tươi từ Mekong, rửa sạch, ép mỏng, phơi nắng và rang vàng.',
     use:'Ăn vặt, ăn kèm xôi nếp Lào, hoặc trong bữa ăn truyền thống.',
@@ -4299,8 +4302,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['OCOP','Gift'], badgeStyle:'badge-gold',
     price:180000, oldPrice:0, stock:42,
     rating:4.7, ratingCount:54, sales:180,
-    images:['images/products/p-vn-bakich-1.png'],
-    fallback:'images/products/p-vn-bakich-1.png',
+    images:['images/products/vn/p-vn-bakich-1.png'],
+    fallback:'images/products/vn/p-vn-bakich-1.png',
     desc:'Rượu ba kích Ba Chẽ làm từ củ ba kích tím ngâm với rượu gạo truyền thống. Chai 750ml. (Chỉ dành cho người đủ tuổi sử dụng theo quy định pháp luật)',
     story:'Củ ba kích tím được trồng trên núi Ba Chẽ – Quảng Ninh, nơi có khí hậu mát mẻ quanh năm.',
     use:'Dùng trong bữa ăn, làm quà biếu cho người lớn tuổi hoặc đối tác.',
@@ -4316,8 +4319,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'vietnam', badges:['OCOP','Healthy'], badgeStyle:'badge-sage',
     price:80000, oldPrice:120000, stock:120,
     rating:4.8, ratingCount:201, sales:920,
-    images:['images/products/p-vn-trahoavang-1.jpg'],
-    fallback:'images/products/p-vn-trahoavang-1.jpg',
+    images:['images/products/vn/p-vn-trahoavang-1.jpg'],
+    fallback:'images/products/vn/p-vn-trahoavang-1.jpg',
     desc:'Trà túi lọc tiện lợi từ trà hoa vàng – loại trà quý hiếm. Phù hợp với người quan tâm sức khoẻ và lối sống hiện đại.',
     story:'Hoa vàng được hái thủ công vào tháng 11–12 hàng năm, sấy lạnh để giữ trọn dược chất.',
     use:'Hãm với 200ml nước nóng 80°C trong 3-5 phút. Có thể uống 2-3 lần/ngày.',
@@ -4348,8 +4351,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['OCOP','Family'], badgeStyle:'badge-bamboo',
     price:65000, oldPrice:0, stock:200,
     rating:4.8, ratingCount:312, sales:1280,
-    images:['images/products/p-vn-miendong-1.png'],
-    fallback:'images/products/p-vn-miendong-1.png',
+    images:['images/products/vn/p-vn-miendong-1.png'],
+    fallback:'images/products/vn/p-vn-miendong-1.png',
     desc:'Miến làm từ củ dong riềng Bình Liêu, sợi dai, trong, không bị nát khi nấu. Túi 500g.',
     story:'Bình Liêu là vùng núi cao, nơi giống dong riềng được trồng trong khí hậu mát quanh năm, cho ra sợi miến trong và dai đặc trưng.',
     use:'Xào, nấu canh, ăn lẩu, hoặc làm miến trộn.',
@@ -4380,8 +4383,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Seafood','OCOP'], badgeStyle:'badge-rose',
     price:850000, oldPrice:0, stock:30,
     rating:4.9, ratingCount:96, sales:210,
-    images:['images/products/p-vn-muckho-1.png'],
-    fallback:'images/products/p-vn-muckho-1.png',
+    images:['images/products/vn/p-vn-muckho-1.png'],
+    fallback:'images/products/vn/p-vn-muckho-1.png',
     desc:'Mực khô Cái Rồng nức tiếng cả nước — đánh bắt tại vùng biển Vân Đồn, phơi nắng tự nhiên, thân dày, thơm ngọt đặc trưng. Túi 500g hút chân không.',
     story:'Cái Rồng – thủ phủ mực Vân Đồn – nơi ngư dân ra khơi từ lúc trời chưa sáng, đánh bắt mực ống tươi và phơi ngay trên thuyền dưới nắng biển. Chính cái nắng và gió biển Vân Đồn tạo nên hương vị mực khô không nơi nào sánh bằng.',
     use:'Nướng than hoa, xé tay chấm tương ớt, làm mồi nhậu, nấu cháo mực, xào với gừng. Bảo quản ngăn đá tủ lạnh để giữ độ thơm lâu.',
@@ -4396,8 +4399,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['OCOP','Gift'], badgeStyle:'badge-gold',
     price:1200000, oldPrice:0, stock:30,
     rating:4.9, ratingCount:84, sales:150,
-    images:['images/products/p-vn-sasung-1.png'],
-    fallback:'images/products/p-vn-sasung-1.png',
+    images:['images/products/vn/p-vn-sasung-1.png'],
+    fallback:'images/products/vn/p-vn-sasung-1.png',
     desc:'Hộp quà sá sùng khô Vân Đồn cao cấp — đặc sản tiến vua nức tiếng Quảng Ninh. Mỗi hộp quà gồm 5 hộp sá sùng khô VIP đóng gói trang trọng, kèm túi quà OCOP in tranh thuyền buồm cổ Vân Đồn. Lựa chọn quà biếu Tết và quà tặng đối tác đẳng cấp.',
     story:'Sá sùng – còn gọi là "trùng biển" hay "sâm đất biển" – chỉ sống ở các bãi cát sạch vùng Vân Đồn, Quan Lạn. Từ thời nhà Nguyễn, sá sùng đã là sản vật tiến vua. Người dân Vân Đồn phải dậy từ 3-4 giờ sáng khi thuỷ triều rút, lần theo dấu chân nhỏ trên cát để đào từng con sá sùng tươi. Mỗi cân sá sùng khô cần tới hơn 10 cân sá sùng tươi – đó là lý do món đặc sản này được mệnh danh là "vàng cát" của vùng biển Quảng Ninh.',
     use:'Nướng vàng rồi xé nhỏ làm gia vị nấu phở, bún, mì để dậy vị ngọt thanh tự nhiên. Có thể rang giòn ăn kèm bia, làm cháo sá sùng bồi bổ, hoặc hầm nước dùng. Bảo quản ngăn đá tủ lạnh, dùng trong 12 tháng.',
@@ -4414,8 +4417,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Seafood','Handmade'], badgeStyle:'badge-rose',
     price:350000, oldPrice:0, stock:40,
     rating:4.8, ratingCount:60, sales:120,
-    images:['images/products/p-vn-chamuc-1.jpg'],
-    fallback:'images/products/p-vn-chamuc-1.jpg',
+    images:['images/products/vn/p-vn-chamuc-1.jpg'],
+    fallback:'images/products/vn/p-vn-chamuc-1.jpg',
     desc:'Chả mực Hạ Long làm hoàn toàn thủ công từ mực tươi giã tay — đặc sản biểu tượng vùng biển Quảng Ninh. Đóng gói hút chân không.',
     story:'Mỗi miếng chả mực là kết tinh của tình yêu biển cả và kỹ thuật chế biến hải sản truyền thống được gìn giữ qua nhiều thế hệ ngư dân Hạ Long.',
     use:'Chiên ngập dầu 3–5 phút, nướng lò 180°C hoặc hấp cách thủy 10 phút. Ăn kèm tương ớt, rau sống, bún hoặc cơm nóng.',
@@ -4430,8 +4433,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'vietnam', badges:['Natural','OCOP'], badgeStyle:'badge-gold',
     price:225000, oldPrice:350000, stock:50,
     rating:4.8, ratingCount:80, sales:200,
-    images:['images/products/p-vn-matong-bl-1.png'],
-    fallback:'images/products/p-vn-matong-bl-1.png',
+    images:['images/products/vn/p-vn-matong-bl-1.png'],
+    fallback:'images/products/vn/p-vn-matong-bl-1.png',
     desc:'Mật ong Bình Liêu từ ong nuôi bán tự nhiên, tự bay vào rừng hút mật từ hoa hồi, sở, quế, trám. Chai 500ml.',
     story:'Nghề nuôi ong tại Bình Liêu gắn bó lâu đời với đời sống người dân vùng núi — ong nuôi bán tự nhiên thể hiện sự tôn trọng thiên nhiên và lối sống hài hòa.',
     use:'Pha nước ấm uống mỗi sáng, thêm vào trà, làm gia vị nấu ăn. Không pha nước quá 40°C để giữ dưỡng chất.',
@@ -4446,8 +4449,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Gift Set','OCOP'], badgeStyle:'badge-gold',
     price:4150000, oldPrice:0, stock:20,
     rating:5.0, ratingCount:30, sales:45,
-    images:['images/products/p-vn-sasung-set1.png'],
-    fallback:'images/products/p-vn-sasung-set1.png',
+    images:['images/products/vn/p-vn-sasung-set1.png'],
+    fallback:'images/products/vn/p-vn-sasung-set1.png',
     desc:'Hộp quà sang trọng gồm 5 hộp sá sùng khô BOSA cao cấp, đóng gói trang trọng với thiết kế hình ảnh sóng biển và thuyền chài Vân Đồn.',
     story:'Phát triển từ đặc sản sá sùng nổi tiếng Vân Đồn, kết hợp thiết kế bao bì sang trọng định hướng quà tặng cao cấp, thể hiện sự trân trọng trong văn hóa quà tặng Việt.',
     use:'Quà biếu Tết, quà tặng đối tác doanh nghiệp. Sá sùng nướng vàng làm gia vị nấu phở, cháo bồi bổ.',
@@ -4462,8 +4465,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Gift Set','OCOP'], badgeStyle:'badge-gold',
     price:8150000, oldPrice:0, stock:15,
     rating:5.0, ratingCount:20, sales:30,
-    images:['images/products/p-vn-sasung-set2.png'],
-    fallback:'images/products/p-vn-sasung-set2.png',
+    images:['images/products/vn/p-vn-sasung-set2.png'],
+    fallback:'images/products/vn/p-vn-sasung-set2.png',
     desc:'Hộp quà đặc biệt gồm 8 hộp sá sùng khô BOSA cao cấp — lựa chọn quà tặng đẳng cấp nhất dành cho đối tác và khách VIP.',
     story:'Phiên bản cao cấp nhất của dòng quà BOSA, thể hiện sự trân trọng và uy tín trong văn hóa quà tặng doanh nghiệp.',
     use:'Quà biếu đối tác VIP, quà tặng lãnh đạo. Sá sùng nướng vàng làm gia vị nấu phở, cháo bồi bổ.',
@@ -4480,8 +4483,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Seafood','OCOP'], badgeStyle:'badge-rose',
     price:160000, oldPrice:0, stock:70,
     rating:4.8, ratingCount:90, sales:300,
-    images:['images/products/p-vn-ruoctom-1.jpg'],
-    fallback:'images/products/p-vn-ruoctom-1.jpg',
+    images:['images/products/vn/p-vn-ruoctom-1.jpg'],
+    fallback:'images/products/vn/p-vn-ruoctom-1.jpg',
     desc:'Ruốc tôm Vân Đồn làm từ tôm biển tươi đánh bắt, chế biến thủ công không chất bảo quản. Hộp 150g–500g.',
     story:'Ruốc tôm mang câu chuyện của người dân vùng biển — tận dụng tôm tươi sau khi đánh bắt, chế biến thành thực phẩm bảo quản lâu mà giữ nguyên hương vị biển tự nhiên.',
     use:'Ăn trực tiếp với cơm, cháo, xôi hoặc bánh mì. Rắc lên salad hoặc trộn với rau luộc.',
@@ -4496,8 +4499,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','Fermented'], badgeStyle:'badge-bamboo',
     price:40000, oldPrice:0, stock:80,
     rating:4.7, ratingCount:55, sales:160,
-    images:['images/products/p-vn-nemchua-1.jpg'],
-    fallback:'images/products/p-vn-nemchua-1.jpg',
+    images:['images/products/vn/p-vn-nemchua-1.jpg'],
+    fallback:'images/products/vn/p-vn-nemchua-1.jpg',
     desc:'Nem chua Thanh Hóa từ thịt lợn nạc xay, bì lợn thái sợi, muối, tiêu, tỏi, ớt, thính gạo — lên men tự nhiên. Gói 10 chiếc.',
     story:'Nem chua Thanh Hóa phản ánh nét ẩm thực dân dã nhưng tinh tế của người dân xứ Thanh. Quy trình ủ lên men tự nhiên được truyền từ thế hệ này sang thế hệ khác.',
     use:'Ăn trực tiếp sau khi lên men, dùng kèm tương ớt, tỏi, lá sung để tăng hương vị.',
@@ -4512,8 +4515,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','Sweet'], badgeStyle:'badge-bamboo',
     price:50000, oldPrice:0, stock:120,
     rating:4.8, ratingCount:110, sales:450,
-    images:['images/products/p-vn-keodua-1.png'],
-    fallback:'images/products/p-vn-keodua-1.png',
+    images:['images/products/vn/p-vn-keodua-1.png'],
+    fallback:'images/products/vn/p-vn-keodua-1.png',
     desc:'Kẹo dừa Bến Tre từ vùng "xứ dừa" miền Tây Nam Bộ, nghề làm kẹo truyền thống hơn 100 năm. Hộp 200–400g.',
     story:'Kẹo dừa gắn liền với vùng "xứ dừa" miền Tây. Từ nguồn dừa phong phú địa phương, người dân tạo nên loại kẹo thơm béo đặc trưng được cả nước yêu thích.',
     use:'Ăn trực tiếp như món ăn vặt; dùng kèm trà nóng để cảm nhận vị ngọt béo đặc trưng.',
@@ -4528,8 +4531,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','OCOP'], badgeStyle:'badge-bamboo',
     price:40000, oldPrice:0, stock:100,
     rating:4.7, ratingCount:75, sales:280,
-    images:['images/products/p-vn-banhdauxanh-1.png'],
-    fallback:'images/products/p-vn-banhdauxanh-1.png',
+    images:['images/products/vn/p-vn-banhdauxanh-1.png'],
+    fallback:'images/products/vn/p-vn-banhdauxanh-1.png',
     desc:'Bánh đậu xanh Hải Dương từ đậu xanh, đường và dầu thực vật — mềm mịn, tan nhẹ trong miệng. Hộp quà.',
     story:'Bánh đậu xanh gắn liền với văn hóa thưởng trà người Việt, là đặc sản đồng bằng Bắc Bộ thể hiện sự tinh tế trong chế biến ẩm thực truyền thống.',
     use:'Ăn trực tiếp, thường dùng cùng trà xanh hoặc trà sen.',
@@ -4544,8 +4547,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','Handmade'], badgeStyle:'badge-bamboo',
     price:80000, oldPrice:0, stock:60,
     rating:4.7, ratingCount:45, sales:130,
-    images:['images/products/p-vn-banhgai-1.jpg'],
-    fallback:'images/products/p-vn-banhgai-1.jpg',
+    images:['images/products/vn/p-vn-banhgai-1.jpg'],
+    fallback:'images/products/vn/p-vn-banhgai-1.jpg',
     desc:'Bánh gai Ninh Giang từ lá gai, bột nếp, đậu xanh, dừa và mỡ lợn — dẻo thơm đặc trưng. Gói 10 chiếc.',
     story:'Bánh gai Ninh Giang gắn với câu chuyện dân gian về sự sáng tạo trong thời kỳ đói kém. Qua nhiều thế hệ cải tiến, hương vị dẻo thơm trở thành đặc trưng không nơi nào có.',
     use:'Mở lớp lá gói bên ngoài và dùng trực tiếp. Ngon nhất ở nhiệt độ phòng.',
@@ -4560,8 +4563,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional'], badgeStyle:'badge-bamboo',
     price:80000, oldPrice:0, stock:50,
     rating:4.7, ratingCount:40, sales:100,
-    images:['images/products/p-vn-nemnam-1.jpg'],
-    fallback:'images/products/p-vn-nemnam-1.jpg',
+    images:['images/products/vn/p-vn-nemnam-1.jpg'],
+    fallback:'images/products/vn/p-vn-nemnam-1.jpg',
     desc:'Nem nắm Giao Thủy từ thịt heo, bì heo, thính gạo rang và lá ăn kèm — đặc sản vùng biển Nam Định.',
     story:'Nem nắm là món ăn truyền thống gắn liền với đời sống người dân vùng biển Nam Định, thể hiện nét văn hóa sum họp và sự mộc mạc của đồng bằng Bắc Bộ.',
     use:'Ăn kèm lá sung, lá đinh lăng, rau thơm, chấm nước mắm hoặc tương ớt.',
@@ -4578,8 +4581,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Bolaven','Roasted'], badgeStyle:'badge-bamboo',
     price:120000, oldPrice:0, stock:90,
     rating:4.8, ratingCount:85, sales:320,
-    images:['images/products/p-lao-caphe-1.jpg'],
-    fallback:'images/products/p-lao-caphe-1.jpg',
+    images:['images/products/lao/p-lao-caphe-1.jpg'],
+    fallback:'images/products/lao/p-lao-caphe-1.jpg',
     desc:'Cà phê Bolaven rang xay từ cao nguyên miền Nam Lào — vùng trồng Arabica & Robusta nổi tiếng Đông Nam Á. Gói 250–500g.',
     story:'Cà phê Bolaven là niềm tự hào của người dân Nam Lào. Nghề trồng cà phê từ đầu thế kỷ XX phản ánh lối sống chậm rãi và văn hóa thưởng thức đặc trưng của người Lào.',
     use:'Pha phin hoặc máy với nước nóng 90–95°C, 20–25g cà phê. Thưởng thức nguyên chất, với sữa đặc hoặc đá.',
@@ -4594,8 +4597,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'lao', badges:['Organic','Ancient Tree'], badgeStyle:'badge-sage',
     price:80000, oldPrice:0, stock:60,
     rating:4.8, ratingCount:50, sales:160,
-    images:['images/products/p-lao-shantuyet-1.gif'],
-    fallback:'images/products/p-lao-shantuyet-1.gif',
+    images:['images/products/lao/p-lao-shantuyet-1.gif'],
+    fallback:'images/products/lao/p-lao-shantuyet-1.gif',
     desc:'Trà Shan Tuyết Lào thu hái từ cây chè cổ thụ mọc tự nhiên ở vùng núi cao Phongsaly và Luang Namtha. Gói 100–250g.',
     story:'Trà Shan Tuyết gắn liền với đời sống đồng bào vùng núi phía Bắc Lào. Qua nhiều thế hệ, người dân duy trì cách thu hái và chế biến thủ công truyền thống.',
     use:'Dùng 5–7g trà cho 150–200ml nước nóng 80–90°C. Pha nhiều lần, dùng nóng hằng ngày.',
@@ -4610,8 +4613,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Traditional','Rice Wine'], badgeStyle:'badge-bamboo',
     price:100000, oldPrice:0, stock:40,
     rating:4.6, ratingCount:35, sales:90,
-    images:['images/products/p-lao-laolao-1.png'],
-    fallback:'images/products/p-lao-laolao-1.png',
+    images:['images/products/lao/p-lao-laolao-1.png'],
+    fallback:'images/products/lao/p-lao-laolao-1.png',
     desc:'Rượu Lao-Lao nấu từ gạo nếp lên men bằng men tự nhiên, chưng cất thủ công theo truyền thống Lào. Chai 500ml.',
     story:'Lao-Lao mang ý nghĩa kết nối cộng đồng và thể hiện sự hiếu khách của người Lào. Trong nhiều nghi lễ, rượu dùng để chúc phúc trong lễ hội Bunpimay.',
     use:'Uống trực tiếp với lượng vừa phải, dùng lạnh hoặc nhiệt độ thường. (Chỉ dành cho người đủ tuổi theo quy định pháp luật)',
@@ -4627,8 +4630,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Lao Food','Traditional'], badgeStyle:'badge-sage',
     price:80000, oldPrice:0, stock:30,
     rating:4.8, ratingCount:45, sales:110,
-    images:['images/products/p-lao-laap-1.png'],
-    fallback:'images/products/p-lao-laap-1.png',
+    images:['images/products/lao/p-lao-laap-1.png'],
+    fallback:'images/products/lao/p-lao-laap-1.png',
     desc:'Laap — món ăn truyền thống Lào từ thịt băm trộn rau thơm, thính gạo rang, ớt, chanh. Ăn kèm xôi nếp Lào.',
     story:'Trong tiếng Lào, "Laap" có nghĩa gần với "lộc" hay "may mắn". Xuất hiện trong năm mới, cưới hỏi và các lễ quan trọng với mong muốn mang lại tài lộc và bình an.',
     use:'Ăn trực tiếp cùng xôi nếp Lào (Khao Niew), rau sống hoặc các loại rau thơm.',
@@ -4643,8 +4646,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Staple','Lao Culture'], badgeStyle:'badge-sage',
     price:20000, oldPrice:0, stock:50,
     rating:4.9, ratingCount:60, sales:200,
-    images:['images/products/p-lao-khaoniew-1.png'],
-    fallback:'images/products/p-lao-khaoniew-1.png',
+    images:['images/products/lao/p-lao-khaoniew-1.png'],
+    fallback:'images/products/lao/p-lao-khaoniew-1.png',
     desc:'Khao Niew — xôi nếp hấp trong chõ tre truyền thống, linh hồn của bữa ăn Lào.',
     story:'Khao Niew được xem là "linh hồn ẩm thực Lào", gắn bó mật thiết với đời sống từ bao đời. Người Lào quây quần bên giỏ xôi trong mọi bữa ăn gia đình và lễ hội.',
     use:'Ăn bằng tay cùng các món Lào: Laap, Or Lam, canh hoặc đồ chấm truyền thống.',
@@ -4659,8 +4662,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Luang Prabang','Heritage'], badgeStyle:'badge-sage',
     price:80000, oldPrice:0, stock:25,
     rating:4.8, ratingCount:40, sales:95,
-    images:['images/products/p-lao-orlam-1.png'],
-    fallback:'images/products/p-lao-orlam-1.png',
+    images:['images/products/lao/p-lao-orlam-1.png'],
+    fallback:'images/products/lao/p-lao-orlam-1.png',
     desc:'Or Lam — món hầm nổi tiếng cố đô Luang Prabang với thịt, cà tím, nấm, rau thơm, mắc khén và gỗ sakhaan đặc trưng.',
     story:'Or Lam là món tiêu biểu của văn hóa ẩm thực Luang Prabang, phản ánh sự hòa hợp giữa con người với núi rừng. Hương vị cay thơm từ sakhaan tạo nên nét riêng không thể nhầm lẫn.',
     use:'Ăn nóng cùng xôi nếp Lào (Khao Niew), dùng như món chính trong bữa ăn truyền thống.',
@@ -4677,8 +4680,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'vietnam', badges:['Trending','Healthy'], badgeStyle:'badge-sage',
     price:25000, oldPrice:0, stock:150,
     rating:4.7, ratingCount:95, sales:380,
-    images:['images/products/p-vn-thachden-1.jpg'],
-    fallback:'images/products/p-vn-thachden-1.jpg',
+    images:['images/products/vn/p-vn-thachden-1.jpg'],
+    fallback:'images/products/vn/p-vn-thachden-1.jpg',
     desc:'Thạch đen Cao Bằng từ cây sương sáo — thanh nhiệt, giải độc, mát gan. Ít calo, phù hợp người ăn kiêng.',
     story:'Thạch đen gắn liền với đời sống đồng bào Tày, Nùng vùng Đông Bắc. Từ cây thạch đen trồng trên nương đồi Thạch An, chế biến thành món ăn thanh mát mùa hè.',
     use:'Cắt nhỏ dùng trực tiếp, kết hợp nước đường, nước cốt dừa, đá lạnh hoặc sữa tươi. Ngon hơn khi dùng lạnh.',
@@ -4693,8 +4696,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'vietnam', badges:['Beauty','Premium'], badgeStyle:'badge-rose',
     price:250000, oldPrice:400000, stock:45,
     rating:4.8, ratingCount:65, sales:180,
-    images:['images/products/p-vn-collagenvensao-1.jpg'],
-    fallback:'images/products/p-vn-collagenvensao-1.jpg',
+    images:['images/products/vn/p-vn-collagenvensao-1.jpg'],
+    fallback:'images/products/vn/p-vn-collagenvensao-1.jpg',
     desc:'Collagen Yến Sào Hạ Long — yến sào từ đảo yến vịnh Hạ Long kết hợp collagen cá biển. Hộp 10 gói.',
     story:'Yến sào Hạ Long là "vàng trắng của biển", thực phẩm bổ dưỡng quý trong y học cổ truyền châu Á. Kết hợp xu hướng làm đẹp từ bên trong, mang lại giá trị mới cho đặc sản biển Quảng Ninh.',
     use:'Pha 1 gói vào nước ấm dưới 50°C, uống trước bữa sáng hoặc tối. Kiên trì 1–3 tháng để thấy hiệu quả.',
@@ -4709,8 +4712,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'vietnam', badges:['Lotus','Hanoi'], badgeStyle:'badge-sage',
     price:150000, oldPrice:0, stock:80,
     rating:4.9, ratingCount:120, sales:420,
-    images:['images/products/p-vn-trasen-1.jpg'],
-    fallback:'images/products/p-vn-trasen-1.jpg',
+    images:['images/products/vn/p-vn-trasen-1.jpg'],
+    fallback:'images/products/vn/p-vn-trasen-1.jpg',
     desc:'Trà sen Tây Hồ từ trà xanh Thái Nguyên ướp hoa sen Hồ Tây — thức uống thanh tao biểu tượng văn hóa Hà Nội. Hộp 50–100g.',
     story:'Trà sen Tây Hồ gắn liền với nghệ thuật thưởng trà của người Hà Nội. Hương sen thanh nhẹ kết hợp trà truyền thống tạo nên nét tinh tế, trang nhã trong văn hóa Việt Nam.',
     use:'Pha 5–7g trà với 150–200ml nước nóng 80–85°C, có thể pha nhiều lần.',
@@ -4725,8 +4728,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','South VN'], badgeStyle:'badge-bamboo',
     price:60000, oldPrice:0, stock:100,
     rating:4.7, ratingCount:80, sales:260,
-    images:['images/products/p-vn-banhpia-1.jpg'],
-    fallback:'images/products/p-vn-banhpia-1.jpg',
+    images:['images/products/vn/p-vn-banhpia-1.jpg'],
+    fallback:'images/products/vn/p-vn-banhpia-1.jpg',
     desc:'Bánh Pía Sóc Trăng — bánh truyền thống nhân sầu riêng, đậu xanh và trứng muối, giao thoa ẩm thực Kinh–Hoa–Khmer. Hộp quà.',
     story:'Bánh pía Sóc Trăng thể hiện sự giao thoa văn hóa Kinh–Hoa–Khmer tại miền Tây Nam Bộ. Hương vị từ sầu riêng, đậu xanh và trứng muối làm nên dấu ấn ẩm thực địa phương.',
     use:'Dùng làm món ăn nhẹ, quà biếu và quà du lịch. Ăn ở nhiệt độ phòng.',
@@ -4743,8 +4746,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'lao', badges:['Snack','Natural'], badgeStyle:'badge-bamboo',
     price:15000, oldPrice:0, stock:200,
     rating:4.7, ratingCount:70, sales:350,
-    images:['images/products/p-lao-chuoiran-1.jpg'],
-    fallback:'images/products/p-lao-chuoiran-1.jpg',
+    images:['images/products/lao/p-lao-chuoiran-1.jpg'],
+    fallback:'images/products/lao/p-lao-chuoiran-1.jpg',
     desc:'Chuối rán sấy giòn từ chuối chín Lào — giữ nguyên dinh dưỡng tự nhiên, không chất phụ gia. Túi 100–200g.',
     story:'Chuối xuất hiện ở hầu hết khu vườn của người dân xứ Triệu Voi. Qua nhiều thế hệ, món chuối rán sấy trở thành món quà mộc mạc thể hiện sự hiếu khách Lào.',
     use:'Ăn trực tiếp như snack. Dùng trong giờ giải lao, kết hợp tốt với cà phê hoặc trà.',
@@ -4761,8 +4764,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'vietnam', badges:['Pearl','Luxury'], badgeStyle:'badge-gold',
     price:500000, oldPrice:0, stock:30,
     rating:5.0, ratingCount:40, sales:60,
-    images:['images/products/p-vn-ngoctrai-1.jpg'],
-    fallback:'images/products/p-vn-ngoctrai-1.jpg',
+    images:['images/products/vn/p-vn-ngoctrai-1.jpg'],
+    fallback:'images/products/vn/p-vn-ngoctrai-1.jpg',
     desc:'Ngọc trai Hạ Long nuôi cấy tại các vụng biển kín gió Bái Tử Long — ánh ngọc tự nhiên đặc hữu, biểu tượng di sản thiên nhiên thế giới.',
     story:'Ngọc trai Hạ Long là "báu vật từ dòng nước di sản" — kết tinh của thời gian, môi trường biển đặc hữu và sự kiên trì qua nhiều năm nuôi cấy.',
     use:'Trang sức cao cấp, thể hiện đẳng cấp và phong cách. Quà biếu tặng trong các dịp đặc biệt.',
@@ -4777,8 +4780,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'vietnam', badges:['Ceramic','Handmade'], badgeStyle:'badge-bamboo',
     price:50000, oldPrice:0, stock:80,
     rating:4.8, ratingCount:55, sales:170,
-    images:['images/products/p-vn-gomsu-1.jpg'],
-    fallback:'images/products/p-vn-gomsu-1.jpg',
+    images:['images/products/vn/p-vn-gomsu-1.jpg'],
+    fallback:'images/products/vn/p-vn-gomsu-1.jpg',
     desc:'Gốm sứ mỹ nghệ Đông Triều nung trên 1300°C — cốc, bát, ấm trà, tượng. Bền đẹp, mộc mạc mang vẻ đẹp truyền thống.',
     story:'Gốm Đông Triều mang vẻ đẹp mộc mạc bền bỉ của đất sét vùng mỏ. Gắn liền với tuyến du lịch Yên Tử, là sự giao thoa giữa lao động thủ công và tinh thần văn hóa vùng đất mỏ.',
     use:'Đồ gia dụng hằng ngày, trang trí không gian sống, quà lưu niệm văn hóa.',
@@ -4793,8 +4796,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'vietnam', badges:['Anthracite','Unique'], badgeStyle:'badge-gold',
     price:100000, oldPrice:0, stock:40,
     rating:4.9, ratingCount:35, sales:80,
-    images:['images/products/p-vn-thanda-1.jpg'],
-    fallback:'images/products/p-vn-thanda-1.jpg',
+    images:['images/products/vn/p-vn-thanda-1.jpg'],
+    fallback:'images/products/vn/p-vn-thanda-1.jpg',
     desc:'Thủ công mỹ nghệ điêu khắc từ đá than kíp lê Anthracite — loại than đặc sản chỉ có tại vùng mỏ Quảng Ninh.',
     story:'Tác phẩm điêu khắc than đá là "hồn của đất mỏ" Quảng Ninh, thể hiện tinh thần lao động bền bỉ của người thợ mỏ qua từng hình tượng rồng, thuyền buồm, cánh chim.',
     use:'Trang trí văn phòng, phòng khách. Quà ngoại giao, biếu tặng đối tác mang ý nghĩa đặc biệt.',
@@ -4809,8 +4812,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'vietnam', badges:['Symbol','Handmade'], badgeStyle:'badge-bamboo',
     price:80000, oldPrice:0, stock:100,
     rating:4.8, ratingCount:150, sales:600,
-    images:['images/products/p-vn-nonla-1.jpg'],
-    fallback:'images/products/p-vn-nonla-1.jpg',
+    images:['images/products/vn/p-vn-nonla-1.jpg'],
+    fallback:'images/products/vn/p-vn-nonla-1.jpg',
     desc:'Nón lá từ lá cọ tự nhiên kết hợp khung tre — biểu tượng văn hóa gắn liền với hình ảnh người phụ nữ Việt Nam dịu dàng, cần cù.',
     story:'Nón lá là biểu tượng văn hóa Việt Nam. Nghề làm nón thủ công được lưu truyền tại nhiều làng nghề truyền thống, đặc biệt ở Huế qua nhiều thế hệ.',
     use:'Che nắng, che mưa trong sinh hoạt. Phụ kiện biểu diễn nghệ thuật, chụp ảnh, quà lưu niệm.',
@@ -4825,8 +4828,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'vietnam', badges:['Eco','Handmade'], badgeStyle:'badge-bamboo',
     price:150000, oldPrice:0, stock:60,
     rating:4.8, ratingCount:85, sales:260,
-    images:['images/products/p-vn-tuidanmay-1.jpg'],
-    fallback:'images/products/p-vn-tuidanmay-1.jpg',
+    images:['images/products/vn/p-vn-tuidanmay-1.jpg'],
+    fallback:'images/products/vn/p-vn-tuidanmay-1.jpg',
     desc:'Túi đan mây thủ công từ làng nghề Hội An — mây, tre, cói tự nhiên. Phù hợp xu hướng thời trang bền vững.',
     story:'Túi đan mây thể hiện sự khéo léo của nghệ nhân biến nguyên liệu tự nhiên thành sản phẩm tiện dụng và mang tính thẩm mỹ, phù hợp xu hướng sống xanh hiện đại.',
     use:'Dùng làm túi xách thời trang, túi đi biển, phụ kiện chụp ảnh, quà lưu niệm.',
@@ -4841,8 +4844,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'vietnam', badges:['Heritage','Souvenir'], badgeStyle:'badge-gold',
     price:100000, oldPrice:0, stock:70,
     rating:4.8, ratingCount:60, sales:190,
-    images:['images/products/p-vn-chuamotcot-1.jpg'],
-    fallback:'images/products/p-vn-chuamotcot-1.jpg',
+    images:['images/products/vn/p-vn-chuamotcot-1.jpg'],
+    fallback:'images/products/vn/p-vn-chuamotcot-1.jpg',
     desc:'Mô hình Chùa Một Cột chế tác từ gỗ, đồng, composite hoặc tre thủ công — biểu tượng kiến trúc Hà Nội.',
     story:'Chùa Một Cột xây từ thời nhà Lý với hình dáng như đóa sen vươn lên giữa hồ nước, tượng trưng cho sự thanh cao và bình an trong Phật giáo Việt Nam.',
     use:'Trang trí bàn làm việc, phòng khách. Quà lưu niệm, quà tặng văn hóa cho du khách và đối tác.',
@@ -4859,8 +4862,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'lao', badges:['Silk','Naga'], badgeStyle:'badge-rose',
     price:700000, oldPrice:0, stock:30,
     rating:4.9, ratingCount:50, sales:100,
-    images:['images/products/p-lao-khantruyen-1.jpg'],
-    fallback:'images/products/p-lao-khantruyen-1.jpg',
+    images:['images/products/lao/p-lao-khantruyen-1.jpg'],
+    fallback:'images/products/lao/p-lao-khantruyen-1.jpg',
     desc:'Khăn dệt thủ công từ sợi tơ tằm tại Sầm Nưa, Hủa Phăn — hoa văn Naga linh thiêng đặc trưng văn hóa Lào.',
     story:'Họa tiết Naga là biểu tượng linh thiêng trong Phật giáo Lào — bảo hộ sông nước, mang may mắn và thịnh vượng. Nghề dệt thủ công là di sản văn hóa quan trọng qua nhiều thế hệ.',
     use:'Dùng làm khăn quàng, phụ kiện thời trang, quà lưu niệm hoặc trang trí sự kiện truyền thống.',
@@ -4875,8 +4878,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'lao', badges:['Textile Art','Handwoven'], badgeStyle:'badge-rose',
     price:300000, oldPrice:0, stock:35,
     rating:4.8, ratingCount:40, sales:85,
-    images:['images/products/p-lao-tranhthocam-reference-web.jpg'],
-    fallback:'images/products/p-lao-tranhthocam-reference-web.jpg',
+    images:['images/products/lao/p-lao-tranhthocam-reference-web.jpg'],
+    fallback:'images/products/lao/p-lao-tranhthocam-reference-web.jpg',
     desc:'Tranh treo thổ cẩm dệt thủ công tại Sầm Nưa — lưu giữ nghệ thuật dệt lâu đời qua các họa tiết thiên nhiên và đời sống truyền thống Lào.',
     story:'Mỗi bức tranh thổ cẩm là công trình nghệ thuật dệt thủ công lấy cảm hứng từ thiên nhiên, đời sống và tín ngưỡng người dân Lào, góp phần lưu giữ di sản văn hóa.',
     use:'Trang trí không gian sống hoặc làm quà lưu niệm văn hóa.',
@@ -4891,8 +4894,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'lao', badges:['Silk','Traditional'], badgeStyle:'badge-rose',
     price:1000000, oldPrice:0, stock:20,
     rating:4.9, ratingCount:30, sales:50,
-    images:['images/products/p-lao-chanvay-1.jpg'],
-    fallback:'images/products/p-lao-chanvay-1.jpg',
+    images:['images/products/lao/p-lao-chanvay-1.jpg'],
+    fallback:'images/products/lao/p-lao-chanvay-1.jpg',
     desc:'Chân váy Sinh Lào dệt từ tơ tằm với họa tiết Naga và hình học cổ truyền — trang phục truyền thống biểu tượng của phụ nữ Lào.',
     story:'Sinh Lào thể hiện vẻ đẹp dịu dàng và nét văn hóa đặc trưng của phụ nữ Lào. Không chỉ là trang phục lễ hội mà còn là biểu tượng của nghề dệt thủ công và niềm tự hào văn hóa.',
     use:'Trang phục hàng ngày hoặc trong lễ hội và nghi lễ. Cũng dùng làm quà lưu niệm cao cấp.',
@@ -4907,8 +4910,8 @@ const SEED_PRODUCTS = [
     cat:'handcraft', country:'lao', badges:['Heritage','Souvenir'], badgeStyle:'badge-gold',
     price:150000, oldPrice:0, stock:50,
     rating:4.8, ratingCount:55, sales:140,
-    images:['images/products/p-lao-thatluong-1.jpg'],
-    fallback:'images/products/p-lao-thatluong-1.jpg',
+    images:['images/products/lao/p-lao-thatluong-1.jpg'],
+    fallback:'images/products/lao/p-lao-thatluong-1.jpg',
     desc:'Mô hình Tháp Thạt Luổng thu nhỏ từ thạch cao, composite, đồng hoặc gỗ thủ công — biểu tượng tinh thần dân tộc Lào.',
     story:'Thạt Luổng là công trình Phật giáo quan trọng nhất của Lào, tượng trưng cho tinh thần dân tộc, sự đoàn kết và tín ngưỡng Phật giáo của người Lào.',
     use:'Quà lưu niệm, vật trang trí hoặc quà tặng văn hóa. Trang trí bàn làm việc, tủ kính.',
@@ -5655,14 +5658,14 @@ initData();
   const products = Store.get('products', []);
   const textile = products.find(p => p.id === 'p-lao-tranhthocam-1');
   if (textile && ['images/image-pending.svg', 'images/tranh-tho-cam.jpg'].includes(textile.images?.[0])) {
-    textile.images = ['images/products/p-lao-tranhthocam-reference-web.jpg'];
+    textile.images = ['images/products/lao/p-lao-tranhthocam-reference-web.jpg'];
     textile.fallback = textile.images[0];
     Store.set('products', products);
   }
 }
 
 // Helpers
-function getProducts(){ return Store.get('products', []); }
+function getProducts(){ return window.LCCatalog ? window.LCCatalog.products() : SEED_PRODUCTS; }
 function getProduct(id){ return getProducts().find(p=>p.id===id); }
 function getCart(){ return Store.get('cart', []); }
 function setCart(c){ Store.set('cart', c); updateCartBadge(); }
@@ -5916,6 +5919,7 @@ function renderHome(){
               <div class="swiper-slide"><img src="${HERO_SLIDES[12]}" loading="lazy" alt="Lotus & Champa showcase 13"/></div>
               <div class="swiper-slide"><img src="${HERO_SLIDES[13]}" loading="lazy" alt="Lotus & Champa showcase 14"/></div>
               <div class="swiper-slide"><img src="${HERO_SLIDES[14]}" loading="lazy" alt="Lotus & Champa showcase 15"/></div>
+              <div class="swiper-slide"><img src="${HERO_SLIDES[15]}" loading="lazy" alt="Lotus & Champa showcase 16"/></div>
             </div>
           </div>
         </div>
@@ -6161,7 +6165,7 @@ function productCard(p){
   return `
   <article class="product-card">
     <a href="#/product/${p.id}" class="product-img">
-      <img src="${imgUrl(p)}" alt="${p.name}" loading="lazy"/>${p.id==='p-lao-tranhthocam-1' ? '<span style="display:block;padding:6px 10px;background:#fff8e7;color:#664b20;font-size:12px">Ảnh minh họa mẫu vải dệt / Textile reference</span>' : ''}
+      <img src="${imgUrl(p)}" alt="${pName(p)}" loading="lazy"/>${p.id==='p-lao-tranhthocam-1' ? '<span style="display:block;padding:6px 10px;background:#fff8e7;color:#664b20;font-size:12px">Ảnh minh họa mẫu vải dệt / Textile reference</span>' : ''}
       <div class="product-badges">
         ${(p.badges||[]).slice(0,2).map(b=>`<span class="badge ${p.badgeStyle||'badge-gold'}">${b}</span>`).join('')}
       </div>
@@ -7100,7 +7104,7 @@ async function placeOrder(){
     },
     items: items.map(i=>({
       id: i.id, name: i.product.name,
-      price: i.product.price, qty: i.qty, image: (i.product.images?.[0] || i.product.fallback || '').slice(0,300)
+      price: i.product.price, qty: i.qty, image: (i.product.images?.[0] || i.product.fallback || '').slice(0,2000)
     })),
     subtotal, shipFee, discount, total,
     shipMethod: ship,
@@ -7320,18 +7324,18 @@ function renderAbout(){
     </div>
     <div class="about-photo-marquee" aria-label="Lotus & Champa photo gallery">
       <div class="about-photo-track">
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg" alt="Lotus & Champa"/></div>
       </div>
     </div>
   </div>
@@ -7847,14 +7851,15 @@ function adminProducts(){
     <h1>${t("admin.products")}<span class="sub">${products.length} ${t("shop.count")}</span></h1>
     <button class="btn btn-gold btn-sm" onclick="adminEditProduct()">${t("admin.add.product")}</button>
   </div>
-  <div class="admin-card">
+  ${window.LCCatalog ? window.LCCatalog.statusHTML() : ''}
+  <div class="admin-card" style="overflow-x:auto">
     <table class="admin-table">
       <thead><tr><th>${t("admin.col.image")}</th><th>${t("admin.col.name")}</th><th>${t("admin.col.country")}</th><th>${t("admin.col.cat")}</th><th>${t("admin.col.price")}</th><th>${t("admin.col.stock")}</th><th>${t("admin.col.sales")}</th><th></th></tr></thead>
       <tbody>
         ${products.map(p=>`
           <tr>
             <td><div style="width:50px;height:50px;border-radius:6px;overflow:hidden;background:var(--cream-warm)"><img src="${imgUrl(p)}" style="width:100%;height:100%;object-fit:cover"/></div></td>
-            <td><strong>${p.name}</strong></td>
+            <td><strong>${window.LCCatalog ? window.LCCatalog.escape(p.name) : p.name}</strong></td>
             <td>${pCountryFlag(p.country)}</td>
             <td>${t('cat.'+p.cat, p.cat)}</td>
             <td>${fmtPrice(p.price)}</td>
@@ -7872,59 +7877,7 @@ function adminProducts(){
   `;
 }
 
-function adminEditProduct(id){
-  const p = id ? getProduct(id) : { id:'p-'+Date.now(), name:'', country:'lao', cat:'specialty', price:0, oldPrice:0, stock:0, desc:'', story:'', use:'', target:'', origin:'', badges:[], badgeStyle:'badge-gold', rating:5, ratingCount:0, sales:0, images:[], fallback:'' };
-  openModal(`
-    <div class="modal-head">
-      <h3>${id?t('admin.modal.edit'):t('admin.modal.add')} ${t('admin.modal.product')}</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid">
-        <div class="form-field full"><label>${t("admin.field.name")}</label><input id="ed-name" value="${p.name}"/></div>
-        <div class="form-field"><label>${t("admin.field.country")}</label><select id="ed-country"><option value="lao" ${p.country==='lao'?'selected':''}>${t("country.lao")}</option><option value="vietnam" ${p.country==='vietnam'?'selected':''}>${t("country.vn")}</option></select></div>
-        <div class="form-field"><label>${t("admin.field.cat")}</label><select id="ed-cat"><option value="handcraft" ${p.cat==='handcraft'?'selected':''}>${t("cat.handcraft")}</option><option value="specialty" ${p.cat==='specialty'?'selected':''}>${t("cat.specialty")}</option><option value="health" ${p.cat==='health'?'selected':''}>${t("cat.health")}</option></select></div>
-        <div class="form-field"><label>${t("admin.field.price")}</label><input id="ed-price" type="number" value="${p.price}"/></div>
-        <div class="form-field"><label>${t("admin.field.oldprice")}</label><input id="ed-oldprice" type="number" value="${p.oldPrice||0}"/></div>
-        <div class="form-field"><label>${t("admin.field.stock")}</label><input id="ed-stock" type="number" value="${p.stock}"/></div>
-        <div class="form-field"><label>${t("admin.field.origin")}</label><input id="ed-origin" value="${p.origin||''}"/></div>
-        <div class="form-field full"><label>${t("admin.field.desc")}</label><textarea id="ed-desc" rows="3">${p.desc||''}</textarea></div>
-        <div class="form-field full"><label>${t("admin.field.story")}</label><textarea id="ed-story" rows="3">${p.story||''}</textarea></div>
-        <div class="form-field full"><label>${t("admin.field.imgurl")}</label><input id="ed-img" value="${p.fallback||''}"/></div>
-      </div>
-      <div style="display:flex;gap:8px;margin-top:18px">
-        <button class="btn btn-ghost" onclick="closeModal()">${t("common.cancel")}</button>
-        <button class="btn btn-gold" onclick="adminSaveProduct('${id||p.id}')">${t("common.save")}</button>
-      </div>
-    </div>
-  `);
-}
-function adminSaveProduct(id){
-  const products = getProducts();
-  let p = products.find(x=>x.id===id);
-  const isNew = !p;
-  if(isNew){ p = { id, badges:['New'], badgeStyle:'badge-gold', rating:5, ratingCount:0, sales:0, images:[], tags:[] }; products.unshift(p); }
-  p.name = document.getElementById('ed-name').value;
-  p.country = document.getElementById('ed-country').value;
-  p.cat = document.getElementById('ed-cat').value;
-  p.price = +document.getElementById('ed-price').value;
-  p.oldPrice = +document.getElementById('ed-oldprice').value;
-  p.stock = +document.getElementById('ed-stock').value;
-  p.origin = document.getElementById('ed-origin').value;
-  p.desc = document.getElementById('ed-desc').value;
-  p.story = document.getElementById('ed-story').value;
-  p.fallback = document.getElementById('ed-img').value;
-  Store.set('products', products);
-  closeModal();
-  toast(isNew?t('toast.product.added'):t('toast.product.updated'));
-  router();
-}
-function adminDeleteProduct(id){
-  if(!confirm(t('admin.confirm.deleteProduct'))) return;
-  Store.set('products', getProducts().filter(p=>p.id!==id));
-  toast(t('toast.product.deleted'));
-  router();
-}
+// Product management is implemented in assets/catalog.js.
 
 /* ===== Real-time orders state (global) — synced via onSnapshot ===== */
 window._fbOrders = [];
@@ -8443,6 +8396,7 @@ init();
   }
 })();
 </script>
+<script src="assets/catalog.js"></script>
 <script src="assets/ux-ui.js"></script>
 <script src="assets/redesign.js"></script>
 <script src="assets/home-experience.js"></script>

@@ -1,5 +1,5 @@
 /* Cache public static files only. Never cache Firebase, auth, orders, slips or shop HTML. */
-const VERSION = '3ad60d226bfab1f9';
+const VERSION = 'dc6a01e49c518996';
 const BASE=new URL('./',self.location.href);
 const CACHE_PREFIX='lc-public-'+encodeURIComponent(BASE.pathname)+'-';
 const CACHE=CACHE_PREFIX+VERSION;
