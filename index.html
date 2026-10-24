@@ -302,8 +302,6 @@ html[lang="zh"] .tab-h{line-height:1.35}
   text-align:left;
   transition:background .15s;
 }
-.lang-menu button[data-lang="th"]{font-family:var(--f-thai);font-synthesis:none}
-.lang-menu button[data-lang="lo"]{font-family:var(--f-lao);font-synthesis:none}
 .lang-menu button:hover{background:var(--cream-warm)}
 .lang-menu button.active{background:var(--cream-warm);color:var(--gold-deep);font-weight:600}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -1768,14 +1766,6 @@ html[lang="zh"] .tab-h{line-height:1.35}
   position:sticky;top:0;height:100vh;
   overflow-y:auto;
 }
-.admin-mobile-bar{display:none}
-.admin-sidebar-backdrop{display:none}
-.admin-menu-toggle{
-  display:inline-flex;align-items:center;gap:9px;border:0;border-radius:9px;
-  padding:10px 14px;background:var(--navy-deep);color:var(--cream);
-  font:600 .9rem var(--f-body);cursor:pointer;box-shadow:var(--shadow-sm)
-}
-.admin-menu-toggle .icon{font-size:1.2rem;line-height:1}
 .admin-brand{
   display:flex;align-items:center;gap:12px;
   padding:6px 8px 22px;
@@ -2011,12 +2001,8 @@ body.admin-mode{background:#F4F5F7}
   .combos-grid{grid-template-columns:1fr;height:auto;gap:14px}
   .combos-grid .combo-card{height:280px}
   .admin-shell{grid-template-columns:1fr}
-  .admin-sidebar{position:fixed;top:0;bottom:0;left:0;width:min(280px,86vw);height:100vh;height:100dvh;transform:translateX(-105%);transition:transform .28s ease;z-index:1001;box-shadow:var(--shadow-lg)}
-  .admin-sidebar.open{transform:translateX(0)}
-  .admin-mobile-bar{position:sticky;top:0;z-index:90;display:flex;align-items:center;gap:12px;margin:-20px -16px 18px;padding:10px 16px;background:rgba(244,245,247,.96);border-bottom:1px solid #E7E9ED;backdrop-filter:blur(10px)}
-  .admin-mobile-title{font-family:var(--f-display);font-weight:600;color:var(--navy);font-size:.95rem}
-  .admin-sidebar-backdrop{display:block;position:fixed;inset:0;width:100%;height:100%;padding:0;border:0;background:rgba(7,19,17,.48);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease;z-index:1000;cursor:pointer}
-  .admin-sidebar-backdrop.open{opacity:1;visibility:visible;pointer-events:auto}
+  .admin-sidebar{position:fixed;left:-260px;width:240px;transition:left .3s;z-index:99}
+  .admin-sidebar.open{left:0}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .dual-grid{grid-template-columns:1fr;gap:30px}
   .dual-river{transform:rotate(90deg);width:80px}
@@ -2096,7 +2082,6 @@ body.admin-mode{background:#F4F5F7}
 <link rel="stylesheet" href="assets/business.css">
 <link rel="stylesheet" href="assets/home-experience.css">
 <link rel="stylesheet" href="assets/culture-categories.css">
-<link rel="stylesheet" href="assets/experiences.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -2173,9 +2158,10 @@ body.admin-mode{background:#F4F5F7}
         <li><a href="#/products" data-page="products" data-i18n="nav.products">Tất cả sản phẩm</a></li>
         <li><a href="#/products?country=lao" data-page="products" data-i18n="nav.lao">Sản phẩm Lào</a></li>
         <li><a href="#/products?country=vietnam" data-page="products" data-i18n="nav.vn">Sản phẩm Việt Nam</a></li>
-        <li><a href="#/experiences" data-page="experiences" data-i18n="nav.experiences">Đặt vé &amp; Trải nghiệm</a></li>
+        <li><a href="#/products?sort=sale" data-page="products" data-i18n="nav.sale">Khuyến mãi</a></li>
         <li><a href="#/blog" data-page="blog" data-i18n="nav.blog">Blog văn hoá</a></li>
         <li><a href="#/about" data-page="about" data-i18n="nav.about">Về chúng tôi</a></li>
+        <li><a href="#/business" data-page="business" data-i18n="nav.business">Business Model</a></li>
         <li><a href="#/contact" data-page="contact" data-i18n="nav.contact">Liên hệ</a></li>
         <li><a href="#/admin" data-page="admin" class="admin-link" data-i18n="nav.admin">Admin</a></li>
       </ul>
@@ -2232,7 +2218,6 @@ body.admin-mode{background:#F4F5F7}
           <ul>
             <li><a href="#/" data-i18n="nav.home">Trang chủ</a></li>
             <li><a href="#/products" data-i18n="nav.products">Sản phẩm</a></li>
-            <li><a href="#/experiences" data-i18n="nav.experiences">Đặt vé &amp; Trải nghiệm</a></li>
             <li><a href="#/blog" data-i18n="nav.blog">Blog văn hoá</a></li>
             <li><a href="#/about" data-i18n="nav.about">Về chúng tôi</a></li>
             <li><a href="#/business" data-i18n="nav.business">Business Model</a></li>
@@ -2335,7 +2320,6 @@ body.admin-mode{background:#F4F5F7}
     addDoc,
     doc,
     updateDoc,
-    deleteDoc,
     setDoc,
     getDoc,
     query,
@@ -2492,7 +2476,7 @@ const firebaseConfig = {
 
     window.LCFB = {
       db, auth, storage,
-      collection, addDoc, doc, updateDoc, deleteDoc, setDoc,
+      collection, addDoc, doc, updateDoc, setDoc,
       query, orderBy, where, onSnapshot, serverTimestamp, getDoc,
       storageRef, uploadBytes, getDownloadURL,
       // auth API used by loginUser/registerUser/logoutUser
@@ -2588,9 +2572,9 @@ const I18N = {
     'search.btn':'Tìm',
     // ===== NAV =====
     'nav.home':'Trang chủ','nav.products':'Tất cả sản phẩm','nav.lao':'Sản phẩm Lào',
-    'nav.vn':'Sản phẩm Việt Nam','nav.sale':'Khuyến mãi','nav.experiences':'Đặt vé & Trải nghiệm','nav.blog':'Blog văn hoá',
+    'nav.vn':'Sản phẩm Việt Nam','nav.sale':'Khuyến mãi','nav.blog':'Blog văn hoá',
     'nav.about':'Về chúng tôi','nav.business':'Business Model','nav.contact':'Liên hệ',
-    'nav.admin':'Quản trị viên','nav.cart':'Giỏ hàng','nav.account':'Tài khoản',
+    'nav.admin':'Admin','nav.cart':'Giỏ hàng','nav.account':'Tài khoản',
     // ===== COMMON =====
     'common.all':'Tất cả','common.viewall':'Xem tất cả','common.viewallarrow':'Xem tất cả →',
     'common.continue':'Tiếp tục','common.cancel':'Huỷ','common.save':'Lưu',
@@ -2857,7 +2841,7 @@ const I18N = {
     'admin.back':'← Quay về trang chủ','admin.dash':'Tổng quan',
     'admin.products':'Sản phẩm','admin.orders':'Đơn hàng','admin.reviews':'Đánh giá',
     'admin.blog':'Blog','admin.coupons':'Mã giảm giá','admin.logout':'Đăng xuất',
-    'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin','admin.menu':'Menu quản trị','admin.closeMenu':'Đóng menu quản trị',
+    'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin',
     'admin.stat.orders':'Tổng đơn hàng','admin.stat.revenue':'Doanh thu',
     'admin.stat.products':'Sản phẩm','admin.stat.customers':'Khách hàng',
     'admin.chart.title':'Doanh thu 7 ngày qua','admin.recent.orders':'Đơn hàng gần đây',
@@ -2909,7 +2893,7 @@ const I18N = {
     'search.btn':'ຄົ້ນຫາ',
     // ===== NAV =====
     'nav.home':'ໜ້າຫຼັກ','nav.products':'ສິນຄ້າທັງໝົດ','nav.lao':'ສິນຄ້າລາວ',
-    'nav.vn':'ສິນຄ້າຫວຽດນາມ','nav.sale':'ສ່ວນຫຼຸດ','nav.experiences':'ປີ້ ແລະ ປະສົບການ','nav.blog':'ບລ໋ອກວັດທະນະທຳ',
+    'nav.vn':'ສິນຄ້າຫວຽດນາມ','nav.sale':'ສ່ວນຫຼຸດ','nav.blog':'ບລ໋ອກວັດທະນະທຳ',
     'nav.about':'ກ່ຽວກັບເຮົາ','nav.business':'ໂມເດວທຸລະກິດ','nav.contact':'ຕິດຕໍ່',
     'nav.admin':'ແອັດມິນ','nav.cart':'ກະຕ່າສິນຄ້າ','nav.account':'ບັນຊີ',
     // ===== COMMON =====
@@ -3178,7 +3162,7 @@ const I18N = {
     'admin.back':'← ກັບໄປໜ້າຫຼັກ','admin.dash':'ພາບລວມ',
     'admin.products':'ສິນຄ້າ','admin.orders':'ການສັ່ງຊື້','admin.reviews':'ການປະເມີນ',
     'admin.blog':'ບລັອກ','admin.coupons':'ລະຫັດສ່ວນຫຼຸດ','admin.logout':'ອອກຈາກລະບົບ',
-    'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ','admin.menu':'ເມນູຜູ້ດູແລ','admin.closeMenu':'ປິດເມນູຜູ້ດູແລ',
+    'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ',
     'admin.stat.orders':'ການສັ່ງຊື້ທັງໝົດ','admin.stat.revenue':'ລາຍຮັບ',
     'admin.stat.products':'ສິນຄ້າ','admin.stat.customers':'ລູກຄ້າ',
     'admin.chart.title':'ລາຍຮັບ 7 ມື້ຜ່ານມາ','admin.recent.orders':'ການສັ່ງຊື້ລ່າສຸດ',
@@ -3229,7 +3213,7 @@ const I18N = {
     'search.btn':'Search',
     // ===== NAV =====
     'nav.home':'Home','nav.products':'All Products','nav.lao':'Lao Products',
-    'nav.vn':'Vietnamese Products','nav.sale':'Sale','nav.experiences':'Tickets & Experiences','nav.blog':'Culture Blog',
+    'nav.vn':'Vietnamese Products','nav.sale':'Sale','nav.blog':'Culture Blog',
     'nav.about':'About','nav.business':'Business Model','nav.contact':'Contact',
     'nav.admin':'Admin','nav.cart':'Cart','nav.account':'Account',
     // ===== COMMON =====
@@ -3498,7 +3482,7 @@ const I18N = {
     'admin.back':'← Back to website','admin.dash':'Dashboard',
     'admin.products':'Products','admin.orders':'Orders','admin.reviews':'Reviews',
     'admin.blog':'Blog','admin.coupons':'Coupons','admin.logout':'Sign out',
-    'admin.toSite':'View website','admin.welcome':'Welcome back, admin','admin.menu':'Admin menu','admin.closeMenu':'Close admin menu',
+    'admin.toSite':'View website','admin.welcome':'Welcome back, admin',
     'admin.stat.orders':'Total orders','admin.stat.revenue':'Revenue',
     'admin.stat.products':'Products','admin.stat.customers':'Customers',
     'admin.chart.title':'Revenue last 7 days','admin.recent.orders':'Recent orders',
@@ -3549,7 +3533,7 @@ const I18N = {
     'search.btn':'ค้นหา',
     // ===== NAV =====
     'nav.home':'หน้าแรก','nav.products':'สินค้าทั้งหมด','nav.lao':'สินค้าลาว',
-    'nav.vn':'สินค้าเวียดนาม','nav.sale':'โปรโมชัน','nav.experiences':'ตั๋วและประสบการณ์','nav.blog':'บล็อกวัฒนธรรม',
+    'nav.vn':'สินค้าเวียดนาม','nav.sale':'โปรโมชัน','nav.blog':'บล็อกวัฒนธรรม',
     'nav.about':'เกี่ยวกับเรา','nav.business':'โมเดลธุรกิจ','nav.contact':'ติดต่อ',
     'nav.admin':'แอดมิน','nav.cart':'ตะกร้า','nav.account':'บัญชี',
     // ===== COMMON =====
@@ -3818,7 +3802,7 @@ const I18N = {
     'admin.back':'← กลับหน้าแรก','admin.dash':'ภาพรวม',
     'admin.products':'สินค้า','admin.orders':'คำสั่งซื้อ','admin.reviews':'รีวิว',
     'admin.blog':'บล็อก','admin.coupons':'โค้ดส่วนลด','admin.logout':'ออกจากระบบ',
-    'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน','admin.menu':'เมนูแอดมิน','admin.closeMenu':'ปิดเมนูแอดมิน',
+    'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน',
     'admin.stat.orders':'คำสั่งซื้อทั้งหมด','admin.stat.revenue':'รายได้',
     'admin.stat.products':'สินค้า','admin.stat.customers':'ลูกค้า',
     'admin.chart.title':'รายได้ 7 วันที่ผ่านมา','admin.recent.orders':'คำสั่งซื้อล่าสุด',
@@ -3870,7 +3854,7 @@ const I18N = {
     'search.btn':'搜索',
     // ===== NAV =====
     'nav.home':'首页','nav.products':'所有产品','nav.lao':'老挝产品',
-    'nav.vn':'越南产品','nav.sale':'促销','nav.experiences':'门票与体验','nav.blog':'文化博客',
+    'nav.vn':'越南产品','nav.sale':'促销','nav.blog':'文化博客',
     'nav.about':'关于我们','nav.business':'商业模式','nav.contact':'联系',
     'nav.admin':'管理','nav.cart':'购物车','nav.account':'账户',
     // ===== COMMON =====
@@ -4139,7 +4123,7 @@ const I18N = {
     'admin.back':'← 返回首页','admin.dash':'概览',
     'admin.products':'产品','admin.orders':'订单','admin.reviews':'评价',
     'admin.blog':'博客','admin.coupons':'优惠码','admin.logout':'登出',
-    'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员','admin.menu':'管理菜单','admin.closeMenu':'关闭管理菜单',
+    'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员',
     'admin.stat.orders':'订单总数','admin.stat.revenue':'收入',
     'admin.stat.products':'产品','admin.stat.customers':'客户',
     'admin.chart.title':'近 7 天收入','admin.recent.orders':'最近订单',
@@ -4247,17 +4231,14 @@ function applyI18n(){
   document.getElementById('curFlag').textContent = LANG_FLAGS[CURRENT_LANG];
   document.getElementById('curLang').textContent = LANG_LABELS[CURRENT_LANG];
   document.querySelectorAll('.lang-menu button').forEach(b=>{
-    const selected=b.dataset.lang === CURRENT_LANG;
-    b.classList.toggle('active', selected);
-    b.setAttribute('aria-pressed',String(selected));
+    b.classList.toggle('active', b.dataset.lang === CURRENT_LANG);
   });
   document.documentElement.lang = CURRENT_LANG;
 }
 
 function setLang(l){
-  if(!Object.prototype.hasOwnProperty.call(LANG_FLAGS,l)) return;
   CURRENT_LANG = l;
-  try{Store.set('lang', l);}catch(err){console.warn('[i18n] Could not persist language preference:',err);}
+  Store.set('lang', l);
   document.getElementById('langSelect').classList.remove('open');
   applyI18n();
   buildMobileMenu(); // 🌐 rebuild mobile menu nav + lang buttons in new language
@@ -5843,7 +5824,6 @@ function router(){
     case 'cart': main.innerHTML = renderCart(); attachCartEvents(); break;
     case 'checkout': main.innerHTML = renderCheckout(); attachCheckoutEvents(); break;
     case 'order-success': main.innerHTML = renderOrderSuccess(route.params.id); break;
-    case 'experiences': main.innerHTML = renderExperiences(); attachExperienceEvents(); subscribeActivitiesIfNeeded(); break;
     case 'blog': main.innerHTML = renderBlog(); break;
     case 'blog-post': main.innerHTML = renderBlogPost(route.sub); break;
     case 'about': main.innerHTML = renderAbout(); break;
@@ -7339,179 +7319,6 @@ function renderAbout(){
    18 — PAGE: BUSINESS MODEL
 =========================================================== */
 
-const EXPERIENCE_SECTIONS = [
-  {
-    id:'ex-events', title:'Sự kiện văn hoá', kicker:'Gặp gỡ và kết nối',
-    intro:'Thưởng thức nghệ thuật, lễ hội và những câu chuyện kết nối cộng đồng Việt Nam – Lào.',
-    items:[
-      {image:'assets/event-01.jpg',alt:'Chương trình biểu diễn nghệ thuật Việt Nam và Lào trên sân khấu',name:'Vé biểu diễn nghệ thuật Việt–Lào',desc:'Chương trình biểu diễn nghệ thuật, giới thiệu âm nhạc, điệu múa và nét đặc sắc văn hoá hai nước.',duration:'Theo lịch sự kiện',price:'149.000',code:'NGHEVAN10',discount:'10%',after:'134.100'},
-      {image:'assets/event-02.jpg',alt:'Nghệ nhân biểu diễn âm nhạc và múa dân gian',name:'Đêm giao lưu âm nhạc và múa dân gian',desc:'Đêm giao lưu có tiết mục biểu diễn, giới thiệu ý nghĩa và giao lưu cùng nghệ nhân, người biểu diễn.',duration:'Khoảng 90–120 phút',price:'199.000',code:'DEMGIAOLUU10',discount:'10%',after:'179.100'},
-      {image:'assets/event-03.jpg',alt:'Vũ điệu truyền thống trong hoạt động giao lưu văn hoá',name:'Lễ hội văn hoá Việt–Lào',desc:'Vé tham gia không gian lễ hội, hoạt động trải nghiệm, giao lưu và các tiết mục theo chương trình.',duration:'Nửa ngày hoặc theo lịch',price:'199.000',code:'LEHOI15',discount:'15%',after:'169.150'},
-      {image:'assets/event-04.jpg',alt:'Gian hàng ẩm thực và sản phẩm tại sự kiện văn hoá',name:'Vé ngày hội ẩm thực',desc:'Khám phá món ăn Việt–Lào và những câu chuyện văn hoá phía sau mỗi món ăn.',duration:'Theo lịch sự kiện',price:'299.000',code:'AMTHUC10',discount:'10%',after:'269.100'},
-      {image:'assets/event-05.jpg',alt:'Chương trình sân khấu trong ngày hội Lotus',name:'Giao lưu sinh viên quốc tế',desc:'Hoạt động giao lưu, trò chơi văn hoá và kết nối sinh viên Việt Nam – Lào.',duration:'Khoảng 90–120 phút',price:'99.000',code:'SINHVIEN15',discount:'15%',after:'84.150'},
-      {image:'assets/event-06.jpg',alt:'Người tham gia lễ hội văn hoá ngoài trời',name:'Sự kiện theo mùa và dịp lễ',desc:'Chương trình chuyên đề theo mùa, ngày lễ hoặc các dịp kỷ niệm văn hoá.',duration:'Theo từng chương trình',price:'179.000',code:'MUASEASON15',discount:'15%',after:'152.150'}
-    ]
-  },
-  {
-    id:'ex-food', title:'Trải nghiệm ẩm thực', kicker:'Chạm vào hương vị',
-    intro:'Thưởng thức món ăn, khám phá nguyên liệu và cùng vào bếp tìm hiểu văn hoá ẩm thực Việt – Lào.',
-    items:[
-      {image:'assets/food-01.jpg',alt:'Mâm món ăn truyền thống Việt Nam và Lào',name:'Thưởng thức món ăn Việt–Lào',desc:'Trải nghiệm món ăn tiêu biểu hoặc thực đơn kết hợp, kèm giới thiệu ngắn về nguồn gốc và văn hoá ẩm thực.',duration:'Khoảng 60–90 phút',price:'199.000',code:'HUONGVIETLAO10',discount:'10%',after:'179.100'},
-      {image:'assets/food-02.jpg',alt:'Người tham gia cùng chuẩn bị món ăn',name:'Workshop nấu ăn truyền thống',desc:'Thực hành chế biến một món ăn dưới sự hướng dẫn, sau đó thưởng thức thành phẩm.',duration:'Khoảng 90–120 phút',price:'249.000',code:'BEPVIETLAO10',discount:'10%',after:'224.100'},
-      {image:'assets/food-03.jpg',alt:'Bàn tiệc với các món ăn và gia vị',name:'Khám phá câu chuyện món ăn',desc:'Tìm hiểu câu chuyện, nguyên liệu, phong tục và ý nghĩa văn hoá của món ăn.',duration:'Khoảng 30–45 phút',price:'79.000',code:'CHUYENMONAN15',discount:'15%',after:'67.150'},
-      {image:'assets/food-04.jpg',alt:'Đặc sản trà và thảo mộc được đóng gói',name:'Trải nghiệm đồ uống và đặc sản',desc:'Thử một số đồ uống hoặc đặc sản được lựa chọn, kèm thông tin giới thiệu sản phẩm.',duration:'Khoảng 30–45 phút',price:'99.000',code:'DACSAN10',discount:'10%',after:'89.100'},
-      {image:'assets/food-05.jpg',alt:'Bàn ăn được chuẩn bị cho nhóm khách',name:'Đặt bàn tiệc văn hoá',desc:'Đặt trước thực đơn theo chủ đề Việt–Lào, phù hợp nhóm bạn, gia đình hoặc dịp gặp mặt.',duration:'Theo khung giờ đặt bàn',price:'299.000',code:'DATBAN10',discount:'10%',after:'269.100'},
-      {image:'assets/food-06.jpg',alt:'Bữa tiệc với nhiều món ăn truyền thống',name:'Đặt tiệc theo đoàn hoặc doanh nghiệp',desc:'Thiết kế thực đơn và hoạt động giới thiệu văn hoá theo nhu cầu đoàn, trường học hoặc doanh nghiệp.',duration:'Theo báo giá',price:'Từ 2.500.000/gói',code:'TIETKIEM5',discount:'5%',after:'Báo giá sau ưu đãi',bulk:'Mã minh hoạ cho đơn đặt tiệc từ 5.000.000 VNĐ.'}
-    ]
-  },
-  {
-    id:'ex-workshops', title:'Workshop văn hoá', kicker:'Tự tay trải nghiệm',
-    intro:'Gặp gỡ nghệ thuật chữ viết, thủ công, trang phục và những hoạt động khám phá văn hoá dành cho nhiều lứa tuổi.',
-    items:[
-      {image:'assets/workshop-01.jpg',alt:'Người học thực hành viết chữ nghệ thuật',name:'Workshop thư pháp và nghệ thuật chữ viết',desc:'Tìm hiểu nét chữ và ý nghĩa văn hoá, sau đó thực hành tạo một sản phẩm chữ viết đơn giản.',duration:'Khoảng 60–90 phút',price:'129.000',code:'THUPHAP10',discount:'10%',after:'116.100'},
-      {image:'assets/workshop-02.jpg',alt:'Người tham gia làm đồ thủ công cùng nhau',name:'Workshop thủ công và làm đồ lưu niệm',desc:'Tự tay thực hiện một sản phẩm thủ công nhỏ lấy cảm hứng từ hoạ tiết hoặc văn hoá Việt–Lào.',duration:'Khoảng 90–120 phút',price:'179.000',code:'THUCONG15',discount:'15%',after:'152.150'},
-      {image:'assets/workshop-03.jpg',alt:'Trang phục truyền thống Lào trong không gian di sản',name:'Trải nghiệm trang phục truyền thống',desc:'Tìm hiểu ý nghĩa trang phục, thử trang phục và chụp ảnh tại khu vực được bố trí.',duration:'Khoảng 30–45 phút',price:'99.000',code:'TRANGPHUC10',discount:'10%',after:'89.100'},
-      {image:'assets/workshop-04.jpg',alt:'Thực hành vẽ và trang trí hoạ tiết văn hoá',name:'Workshop vẽ và trang trí hoạ tiết',desc:'Tìm hiểu hoạ tiết truyền thống và thực hành vẽ hoặc trang trí trên vật liệu phù hợp.',duration:'Khoảng 60–90 phút',price:'149.000',code:'HOATIET10',discount:'10%',after:'134.100'},
-      {image:'assets/workshop-05.jpg',alt:'Nhóm sinh viên tham gia hoạt động văn hoá',name:'Workshop dành cho trường học và sinh viên',desc:'Chương trình trải nghiệm theo nhóm, kết hợp giới thiệu văn hoá và hoạt động thực hành.',duration:'Theo lịch đặt trước',price:'199.000',code:'WORKSHOP15',discount:'15%',after:'169.150'},
-      {image:'assets/workshop-06.jpg',alt:'Nhóm học viên tham gia hoạt động giao tiếp',name:'Workshop ngôn ngữ và giao tiếp Việt–Lào',desc:'Học một số câu giao tiếp cơ bản và thực hành qua trò chơi, tình huống giao tiếp.',duration:'Khoảng 60 phút',price:'129.000',code:'NGONNGU15',discount:'15%',after:'109.650'}
-    ]
-  }
-];
-
-const EXPERIENCE_COMBOS = [
-  {name:'Chạm sắc Việt–Lào',desc:'Tham quan không gian văn hoá và trải nghiệm ẩm thực cơ bản.',price:'229.000',who:'Khách đi lần đầu, nhóm bạn'},
-  {name:'Bếp Việt–Lào',desc:'Workshop nấu ăn và cùng thưởng thức thành phẩm.',price:'249.000',who:'Người yêu ẩm thực'},
-  {name:'Hành trình di sản',desc:'Tham quan, trải nghiệm trang phục và workshop thủ công.',price:'279.000',who:'Gia đình, nhóm học sinh và sinh viên'},
-  {name:'Trọn vẹn văn hoá Việt–Lào',desc:'Tham quan, ẩm thực, hoạt động thủ công và biểu diễn theo lịch.',price:'299.000',who:'Khách muốn trải nghiệm tổng hợp'}
-];
-
-// Copy for the experience feature. Keep these strings together so every new
-// public and admin surface follows the site's five-language selector.
-const EXPERIENCE_COPY = {
-  vi:{ui:{heroTitle:'Chạm vào văn hoá,<br><em>trải nghiệm cùng nhau</em>',heroText:'Khám phá nghệ thuật, ẩm thực và những hoạt động văn hoá kết nối hai đất nước. Chọn một trải nghiệm để bắt đầu hành trình.',discover:'Khám phá dịch vụ',combosLink:'Xem các gợi ý combo',proposal:'Danh mục đề xuất:',disclaimer:'Giá, thời lượng và mã ưu đãi đang được dùng để minh hoạ cấu trúc website; các chương trình chưa được xác nhận hoặc kích hoạt.',events:'Sự kiện văn hoá',food:'Trải nghiệm ẩm thực',workshops:'Workshop văn hoá',combo:'Combo trải nghiệm',booking:'Gửi yêu cầu đặt chỗ',type:'Loại trải nghiệm',name:'Họ và tên',contact:'Số điện thoại hoặc email',date:'Ngày mong muốn',tickets:'Số vé',send:'Gửi yêu cầu',saving:'Đang gửi…',bookingHelp:'Yêu cầu đặt chỗ được lưu trên hệ thống; nhân viên sẽ xác nhận lịch. Chưa có thanh toán hoặc xuất vé tự động.',schedule:'Lịch hoạt động',upcoming:'Các hoạt động sắp diễn ra.',noSchedule:'Chưa có lịch hoạt động được công bố. Vui lòng quay lại sau.',scheduleError:'Không thể tải lịch hoạt động lúc này.',count:'trải nghiệm',comboTitle:'Gợi ý combo Việt–Lào',comboIntro:'Một vài hành trình được đề xuất để khách có thể kết hợp nhiều hoạt động trong cùng một chuyến đi.',perPerson:'/ người',ctaTitle:'Đang lên kế hoạch trải nghiệm?',ctaText:'Liên hệ để trao đổi về chương trình, lịch tổ chức và nhu cầu của nhóm.',contactUs:'Liên hệ tư vấn',ticketsTitle:'Vé của tôi',ticketNote:'Có thể phát triển thành mục quản lý các đơn đã đặt như mã đặt chỗ hoặc QR, lịch tham gia, thông tin thanh toán và yêu cầu hỗ trợ. Đây là tính năng tài khoản dự kiến, không phải một nhóm dịch vụ bán vé riêng.',footnote:'Toàn bộ giá, thời lượng và mã ưu đãi trên trang là phương án tham khảo. Cần xác nhận chi phí, lịch tổ chức, sức chứa, điều kiện sử dụng mã, chính sách đổi lịch và hoàn tiền trước khi công bố hoặc mở bán.',priceProposed:'Giá đề xuất',priceRef:'Giá tham khảo',priceSale:'Giá sau ưu đãi minh hoạ',coupon:'Mã ưu đãi đề xuất',discount:'Mức giảm minh hoạ',bulk:'Mã minh hoạ cho đơn đặt tiệc từ 5.000.000 VNĐ.',firebase:'Chưa kết nối được Firebase. Vui lòng thử lại sau.',invalid:'Vui lòng kiểm tra lại thông tin đặt chỗ.',sent:'Đã gửi yêu cầu. Nhân viên sẽ liên hệ xác nhận lịch.',permission:'Firebase chưa cho phép lưu yêu cầu. Cần cập nhật Firestore Rules.',sendError:'Không gửi được yêu cầu. Vui lòng thử lại.',adminBookings:'Đặt trải nghiệm',adminActivities:'Lịch hoạt động',sync:'Đang đồng bộ dữ liệu từ Firebase…',loadBookingsError:'Không tải được yêu cầu đặt chỗ:',bookingCount:'yêu cầu',statusLabel:'Trạng thái',statuses:['Chờ xác nhận','Đã xác nhận','Đã huỷ'],emptyBookings:'Chưa có yêu cầu đặt chỗ.',savedStatus:'Đã cập nhật trạng thái yêu cầu.',statusError:'Không cập nhật được trạng thái.',activityName:'Tên hoạt động',location:'Địa điểm',saveActivity:'Lưu hoạt động',activityLoadError:'Không tải được lịch:',emptyActivities:'Chưa có hoạt động nào. Hoạt động đã lưu sẽ hiển thị trực tiếp trên trang trải nghiệm.',fillActivity:'Vui lòng điền đủ thông tin hoạt động.',savedActivity:'Đã lưu hoạt động.',saveError:'Không lưu được hoạt động. Kiểm tra kết nối Firebase và quyền truy cập.',confirmDelete:'Xoá hoạt động này khỏi lịch?',deleted:'Đã xoá hoạt động.',deleteError:'Không xoá được hoạt động.'},sections:[['Sự kiện văn hoá','Gặp gỡ và kết nối','Thưởng thức nghệ thuật, lễ hội và những câu chuyện kết nối cộng đồng Việt Nam – Lào.'],['Trải nghiệm ẩm thực','Chạm vào hương vị','Thưởng thức món ăn, khám phá nguyên liệu và cùng vào bếp tìm hiểu văn hoá ẩm thực Việt – Lào.'],['Workshop văn hoá','Tự tay trải nghiệm','Gặp gỡ nghệ thuật chữ viết, thủ công, trang phục và những hoạt động khám phá văn hoá dành cho nhiều lứa tuổi.']],items:[['Vé biểu diễn nghệ thuật Việt–Lào','Chương trình biểu diễn nghệ thuật, giới thiệu âm nhạc, điệu múa và nét đặc sắc văn hoá hai nước.','Theo lịch sự kiện'],['Đêm giao lưu âm nhạc và múa dân gian','Đêm giao lưu có tiết mục biểu diễn, giới thiệu ý nghĩa và giao lưu cùng nghệ nhân, người biểu diễn.','Khoảng 90–120 phút'],['Lễ hội văn hoá Việt–Lào','Vé tham gia không gian lễ hội, hoạt động trải nghiệm, giao lưu và các tiết mục theo chương trình.','Nửa ngày hoặc theo lịch'],['Vé ngày hội ẩm thực','Khám phá món ăn Việt–Lào và những câu chuyện văn hoá phía sau mỗi món ăn.','Theo lịch sự kiện'],['Giao lưu sinh viên quốc tế','Hoạt động giao lưu, trò chơi văn hoá và kết nối sinh viên Việt Nam – Lào.','Khoảng 90–120 phút'],['Sự kiện theo mùa và dịp lễ','Chương trình chuyên đề theo mùa, ngày lễ hoặc các dịp kỷ niệm văn hoá.','Theo từng chương trình'],['Thưởng thức món ăn Việt–Lào','Trải nghiệm món ăn tiêu biểu hoặc thực đơn kết hợp, kèm giới thiệu ngắn về nguồn gốc và văn hoá ẩm thực.','Khoảng 60–90 phút'],['Workshop nấu ăn truyền thống','Thực hành chế biến một món ăn dưới sự hướng dẫn, sau đó thưởng thức thành phẩm.','Khoảng 90–120 phút'],['Khám phá câu chuyện món ăn','Tìm hiểu câu chuyện, nguyên liệu, phong tục và ý nghĩa văn hoá của món ăn.','Khoảng 30–45 phút'],['Trải nghiệm đồ uống và đặc sản','Thử một số đồ uống hoặc đặc sản được lựa chọn, kèm thông tin giới thiệu sản phẩm.','Khoảng 30–45 phút'],['Đặt bàn tiệc văn hoá','Đặt trước thực đơn theo chủ đề Việt–Lào, phù hợp nhóm bạn, gia đình hoặc dịp gặp mặt.','Theo khung giờ đặt bàn'],['Đặt tiệc theo đoàn hoặc doanh nghiệp','Thiết kế thực đơn và hoạt động giới thiệu văn hoá theo nhu cầu đoàn, trường học hoặc doanh nghiệp.','Theo báo giá'],['Workshop thư pháp và nghệ thuật chữ viết','Tìm hiểu nét chữ và ý nghĩa văn hoá, sau đó thực hành tạo một sản phẩm chữ viết đơn giản.','Khoảng 60–90 phút'],['Workshop thủ công và làm đồ lưu niệm','Tự tay thực hiện một sản phẩm thủ công nhỏ lấy cảm hứng từ hoạ tiết hoặc văn hoá Việt–Lào.','Khoảng 90–120 phút'],['Trải nghiệm trang phục truyền thống','Tìm hiểu ý nghĩa trang phục, thử trang phục và chụp ảnh tại khu vực được bố trí.','Khoảng 30–45 phút'],['Workshop vẽ và trang trí hoạ tiết','Tìm hiểu hoạ tiết truyền thống và thực hành vẽ hoặc trang trí trên vật liệu phù hợp.','Khoảng 60–90 phút'],['Workshop dành cho trường học và sinh viên','Chương trình trải nghiệm theo nhóm, kết hợp giới thiệu văn hoá và hoạt động thực hành.','Theo lịch đặt trước'],['Workshop ngôn ngữ và giao tiếp Việt–Lào','Học một số câu giao tiếp cơ bản và thực hành qua trò chơi, tình huống giao tiếp.','Khoảng 60 phút']],combos:[['Chạm sắc Việt–Lào','Tham quan không gian văn hoá và trải nghiệm ẩm thực cơ bản.','Khách đi lần đầu, nhóm bạn'],['Bếp Việt–Lào','Workshop nấu ăn và cùng thưởng thức thành phẩm.','Người yêu ẩm thực'],['Hành trình di sản','Tham quan, trải nghiệm trang phục và workshop thủ công.','Gia đình, nhóm học sinh và sinh viên'],['Trọn vẹn văn hoá Việt–Lào','Tham quan, ẩm thực, hoạt động thủ công và biểu diễn theo lịch.','Khách muốn trải nghiệm tổng hợp']]},
-  en:{ui:{heroTitle:'Discover culture,<br><em>experience it together</em>',heroText:'Explore art, food and cultural activities that connect two countries. Choose an experience to begin your journey.',discover:'Explore experiences',combosLink:'Explore combo ideas',proposal:'Suggested catalogue:',disclaimer:'Prices, durations and coupon codes illustrate the website structure; programmes have not yet been confirmed or activated.',events:'Cultural events',food:'Food experiences',workshops:'Cultural workshops',combo:'Experience combos',booking:'Send a booking request',type:'Experience type',name:'Full name',contact:'Phone number or email',date:'Preferred date',tickets:'Tickets',send:'Send request',saving:'Sending…',bookingHelp:'Your request is saved in the system; our staff will confirm the schedule. Payment and automatic ticket issuing are not available.',schedule:'Activity schedule',upcoming:'Upcoming activities.',noSchedule:'No activities have been published yet. Please check back later.',scheduleError:'The activity schedule cannot be loaded right now.',count:'experiences',comboTitle:'Vietnam–Laos combo ideas',comboIntro:'Suggested itineraries combine several activities in one visit.',perPerson:'/ person',ctaTitle:'Planning an experience?',ctaText:'Contact us to discuss programmes, schedules and your group’s needs.',contactUs:'Contact us',ticketsTitle:'My tickets',ticketNote:'This could become an account area for booking references or QR codes, attendance schedules, payment information and support requests. It is a planned account feature, not a separate ticket sales category.',footnote:'All prices, durations and coupon codes are examples. Costs, schedules, capacity, coupon terms, rescheduling and refund policies must be confirmed before publication or sale.',priceProposed:'Suggested price',priceRef:'Reference price',priceSale:'Illustrative price after offer',coupon:'Suggested coupon',discount:'Illustrative discount',bulk:'Illustrative code for banquet orders from 5,000,000 VND.',firebase:'Firebase is not connected. Please try again later.',invalid:'Please check your booking details.',sent:'Request sent. Our staff will contact you to confirm the schedule.',permission:'Firebase cannot save requests yet. Firestore Rules need to be updated.',sendError:'Could not send the request. Please try again.',adminBookings:'Experience bookings',adminActivities:'Activity schedule',sync:'Syncing data from Firebase…',loadBookingsError:'Could not load booking requests:',bookingCount:'requests',statusLabel:'Status',statuses:['Pending','Confirmed','Cancelled'],emptyBookings:'There are no booking requests yet.',savedStatus:'Booking status updated.',statusError:'Could not update the status.',activityName:'Activity name',location:'Location',saveActivity:'Save activity',activityLoadError:'Could not load the schedule:',emptyActivities:'There are no activities yet. Saved activities appear on the experiences page.',fillActivity:'Please complete all activity details.',savedActivity:'Activity saved.',saveError:'Could not save the activity. Check Firebase connection and access.',confirmDelete:'Remove this activity from the schedule?',deleted:'Activity deleted.',deleteError:'Could not delete the activity.'},sections:[['Cultural events','Meet and connect','Enjoy performances, festivals and stories that bring Vietnamese and Lao communities together.'],['Food experiences','Discover the flavours','Taste local dishes, explore ingredients and learn about Vietnamese–Lao food culture in the kitchen.'],['Cultural workshops','Learn by doing','Explore calligraphy, crafts, traditional clothing and cultural activities for all ages.']],items:[['Vietnam–Laos arts performance','A performance introducing the music, dance and cultural highlights of both countries.','By event schedule'],['Folk music and dance evening','Enjoy performances, learn their meaning and meet the artists.','About 90–120 minutes'],['Vietnam–Laos cultural festival','Join festival activities, cultural experiences, meet-ups and scheduled performances.','Half day or by schedule'],['Food festival pass','Discover Vietnamese and Lao dishes and the cultural stories behind them.','By event schedule'],['International student exchange','Cultural games and activities connecting Vietnamese and Lao students.','About 90–120 minutes'],['Seasonal and holiday events','Special programmes for seasons, holidays and cultural anniversaries.','Varies by programme'],['Taste Vietnamese–Lao cuisine','Try signature dishes or a combined menu with an introduction to their origins and food culture.','About 60–90 minutes'],['Traditional cooking workshop','Prepare a dish with guidance, then enjoy what you have made.','About 90–120 minutes'],['Stories behind the dishes','Discover the stories, ingredients, customs and cultural meaning of a dish.','About 30–45 minutes'],['Drinks and local specialities','Sample selected drinks or specialities with product information.','About 30–45 minutes'],['Cultural dining reservation','Reserve a Vietnamese–Lao themed menu for friends, family or a gathering.','By reservation slot'],['Group or corporate banquet','Menus and cultural introductions tailored to groups, schools or businesses.','By quotation'],['Calligraphy and lettering workshop','Learn about lettering and its cultural meaning, then create a simple piece.','About 60–90 minutes'],['Craft and souvenir workshop','Make a small craft inspired by Vietnamese–Lao patterns or culture.','About 90–120 minutes'],['Traditional clothing experience','Learn about traditional clothing, try it on and take photos in a prepared area.','About 30–45 minutes'],['Pattern drawing and decoration','Explore traditional motifs and practise drawing or decorating a suitable material.','About 60–90 minutes'],['Workshops for schools and students','A group experience combining cultural introductions and hands-on activities.','By advance booking'],['Vietnamese–Lao language and conversation','Learn useful phrases and practise through games and conversation scenarios.','About 60 minutes']],combos:[['Vietnam–Laos Discovery','Visit a cultural space and enjoy a simple food experience.','First-time visitors and friends'],['Vietnam–Laos Kitchen','Cook together in a workshop and enjoy the finished dish.','Food lovers'],['Heritage Journey','Explore a cultural space, try traditional clothing and make a craft.','Families, school and student groups'],['A Full Vietnam–Laos Experience','Combine a visit, food, crafts and a scheduled performance.','Visitors seeking a complete experience']]},
-  th:{ui:{heroTitle:'สัมผัสวัฒนธรรม<br><em>ร่วมสร้างประสบการณ์</em>',heroText:'ค้นพบศิลปะ อาหาร และกิจกรรมวัฒนธรรมที่เชื่อมโยงสองประเทศ เลือกประสบการณ์เพื่อเริ่มต้นการเดินทาง',discover:'ค้นหาประสบการณ์',combosLink:'ดูชุดประสบการณ์',proposal:'รายการแนะนำ:',disclaimer:'ราคา ระยะเวลา และรหัสส่วนลดเป็นตัวอย่างโครงสร้างเว็บไซต์ โปรแกรมยังไม่ได้รับการยืนยันหรือเปิดใช้งาน',events:'กิจกรรมวัฒนธรรม',food:'ประสบการณ์อาหาร',workshops:'เวิร์กช็อปวัฒนธรรม',combo:'ชุดประสบการณ์',booking:'ส่งคำขอจอง',type:'ประเภทประสบการณ์',name:'ชื่อและนามสกุล',contact:'เบอร์โทรศัพท์หรืออีเมล',date:'วันที่ต้องการ',tickets:'จำนวนบัตร',send:'ส่งคำขอ',saving:'กำลังส่ง…',bookingHelp:'บันทึกคำขอไว้ในระบบแล้ว เจ้าหน้าที่จะติดต่อเพื่อยืนยันกำหนดการ ขณะนี้ยังไม่มีการชำระเงินหรือออกบัตรอัตโนมัติ',schedule:'กำหนดการกิจกรรม',upcoming:'กิจกรรมที่กำลังจะมาถึง',noSchedule:'ยังไม่มีกำหนดการที่ประกาศ โปรดกลับมาตรวจสอบอีกครั้ง',scheduleError:'ไม่สามารถโหลดกำหนดการได้ในขณะนี้',count:'ประสบการณ์',comboTitle:'ชุดประสบการณ์เวียดนาม–ลาว',comboIntro:'เส้นทางแนะนำที่รวมกิจกรรมหลายอย่างไว้ในการเดินทางเดียว',perPerson:'/ คน',ctaTitle:'กำลังวางแผนประสบการณ์อยู่หรือไม่',ctaText:'ติดต่อเราเพื่อพูดคุยเกี่ยวกับโปรแกรม กำหนดการ และความต้องการของกลุ่ม',contactUs:'ติดต่อสอบถาม',ticketsTitle:'บัตรของฉัน',ticketNote:'สามารถพัฒนาเป็นพื้นที่บัญชีสำหรับจัดการการจอง เช่น รหัสจองหรือ QR กำหนดการเข้าร่วม ข้อมูลชำระเงิน และคำขอความช่วยเหลือ นี่เป็นฟีเจอร์บัญชีที่วางแผนไว้ ไม่ใช่หมวดขายบัตรแยกต่างหาก',footnote:'ราคา ระยะเวลา และรหัสส่วนลดทั้งหมดเป็นตัวอย่าง ต้องยืนยันค่าใช้จ่าย กำหนดการ ความจุ เงื่อนไขคูปอง และนโยบายเลื่อนหรือคืนเงินก่อนเผยแพร่หรือจำหน่าย',priceProposed:'ราคาแนะนำ',priceRef:'ราคาอ้างอิง',priceSale:'ราคาหลังส่วนลดตัวอย่าง',coupon:'คูปองแนะนำ',discount:'ส่วนลดตัวอย่าง',bulk:'รหัสตัวอย่างสำหรับงานเลี้ยงตั้งแต่ 5,000,000 ดอง',firebase:'ยังไม่ได้เชื่อมต่อ Firebase โปรดลองอีกครั้งภายหลัง',invalid:'โปรดตรวจสอบข้อมูลการจอง',sent:'ส่งคำขอแล้ว เจ้าหน้าที่จะติดต่อเพื่อยืนยันกำหนดการ',permission:'Firebase ยังไม่ได้รับอนุญาตให้บันทึกคำขอ ต้องปรับ Firestore Rules',sendError:'ส่งคำขอไม่สำเร็จ โปรดลองอีกครั้ง',adminBookings:'รายการจองประสบการณ์',adminActivities:'กำหนดการกิจกรรม',sync:'กำลังซิงก์ข้อมูลจาก Firebase…',loadBookingsError:'โหลดคำขอจองไม่สำเร็จ:',bookingCount:'คำขอ',statusLabel:'สถานะ',statuses:['รอยืนยัน','ยืนยันแล้ว','ยกเลิกแล้ว'],emptyBookings:'ยังไม่มีคำขอจอง',savedStatus:'อัปเดตสถานะคำขอแล้ว',statusError:'อัปเดตสถานะไม่สำเร็จ',activityName:'ชื่อกิจกรรม',location:'สถานที่',saveActivity:'บันทึกกิจกรรม',activityLoadError:'โหลดกำหนดการไม่สำเร็จ:',emptyActivities:'ยังไม่มีกิจกรรม กิจกรรมที่บันทึกจะแสดงบนหน้าประสบการณ์',fillActivity:'โปรดกรอกข้อมูลกิจกรรมให้ครบ',savedActivity:'บันทึกกิจกรรมแล้ว',saveError:'บันทึกกิจกรรมไม่สำเร็จ ตรวจสอบการเชื่อมต่อและสิทธิ์ Firebase',confirmDelete:'ลบกิจกรรมนี้ออกจากกำหนดการหรือไม่',deleted:'ลบกิจกรรมแล้ว',deleteError:'ลบกิจกรรมไม่สำเร็จ'},sections:[['กิจกรรมวัฒนธรรม','พบปะและเชื่อมโยง','เพลิดเพลินกับการแสดง เทศกาล และเรื่องราวที่เชื่อมชุมชนเวียดนามและลาว'],['ประสบการณ์อาหาร','สัมผัสรสชาติ','ชิมอาหาร สำรวจวัตถุดิบ และเรียนรู้วัฒนธรรมอาหารเวียดนาม–ลาวผ่านการลงมือทำ'],['เวิร์กช็อปวัฒนธรรม','เรียนรู้ด้วยตนเอง','สำรวจอักษรวิจิตร งานฝีมือ เครื่องแต่งกาย และกิจกรรมวัฒนธรรมสำหรับทุกวัย']],items:[['บัตรการแสดงศิลปะเวียดนาม–ลาว','การแสดงดนตรี นาฏศิลป์ และเอกลักษณ์ทางวัฒนธรรมของทั้งสองประเทศ','ตามกำหนดการ'],['ค่ำคืนดนตรีและนาฏศิลป์พื้นบ้าน','ชมการแสดง เรียนรู้ความหมาย และพบปะศิลปิน','ประมาณ 90–120 นาที'],['เทศกาลวัฒนธรรมเวียดนาม–ลาว','ร่วมกิจกรรม ประสบการณ์วัฒนธรรม และการแสดงตามกำหนดการ','ครึ่งวันหรือตามกำหนดการ'],['บัตรเทศกาลอาหาร','ค้นพบอาหารเวียดนาม–ลาวและเรื่องราวทางวัฒนธรรมของแต่ละเมนู','ตามกำหนดการ'],['กิจกรรมแลกเปลี่ยนนักศึกษานานาชาติ','เกมและกิจกรรมวัฒนธรรมเพื่อเชื่อมนักศึกษาเวียดนามและลาว','ประมาณ 90–120 นาที'],['กิจกรรมตามฤดูกาลและเทศกาล','โปรแกรมพิเศษสำหรับฤดูกาล วันหยุด และวันสำคัญทางวัฒนธรรม','แตกต่างตามโปรแกรม'],['ชิมอาหารเวียดนาม–ลาว','ลองเมนูเด่นหรือเมนูผสม พร้อมแนะนำที่มาและวัฒนธรรมอาหาร','ประมาณ 60–90 นาที'],['เวิร์กช็อปทำอาหารดั้งเดิม','ลงมือทำอาหารภายใต้คำแนะนำ แล้วชิมผลงานของตนเอง','ประมาณ 90–120 นาที'],['เรื่องราวเบื้องหลังอาหาร','เรียนรู้เรื่องราว วัตถุดิบ ธรรมเนียม และความหมายทางวัฒนธรรม','ประมาณ 30–45 นาที'],['เครื่องดื่มและของขึ้นชื่อ','ทดลองชิมเครื่องดื่มหรือผลิตภัณฑ์พิเศษ พร้อมข้อมูลแนะนำ','ประมาณ 30–45 นาที'],['จองโต๊ะอาหารวัฒนธรรม','จองเมนูเวียดนาม–ลาวสำหรับเพื่อน ครอบครัว หรือโอกาสพิเศษ','ตามช่วงเวลาที่จอง'],['จัดเลี้ยงสำหรับกลุ่มหรือองค์กร','ออกแบบเมนูและกิจกรรมแนะนำวัฒนธรรมตามความต้องการของกลุ่ม โรงเรียน หรือองค์กร','ตามใบเสนอราคา'],['เวิร์กช็อปอักษรวิจิตร','เรียนรู้รูปแบบตัวอักษรและความหมาย แล้วฝึกสร้างผลงานง่าย ๆ','ประมาณ 60–90 นาที'],['เวิร์กช็อปงานฝีมือและของที่ระลึก','ทำงานฝีมือชิ้นเล็กที่ได้แรงบันดาลใจจากลวดลายหรือวัฒนธรรมเวียดนาม–ลาว','ประมาณ 90–120 นาที'],['ประสบการณ์ชุดประจำชาติ','เรียนรู้ความหมาย ลองสวมชุด และถ่ายภาพในพื้นที่ที่จัดเตรียม','ประมาณ 30–45 นาที'],['เวิร์กช็อปวาดและตกแต่งลวดลาย','เรียนรู้ลวดลายดั้งเดิมและฝึกวาดหรือตกแต่งวัสดุที่เหมาะสม','ประมาณ 60–90 นาที'],['เวิร์กช็อปสำหรับโรงเรียนและนักศึกษา','กิจกรรมกลุ่มที่ผสานการแนะนำวัฒนธรรมและการลงมือทำ','จองล่วงหน้าตามกำหนด'],['เวิร์กช็อปภาษาและการสื่อสารเวียดนาม–ลาว','เรียนประโยคพื้นฐานและฝึกผ่านเกมกับสถานการณ์สนทนา','ประมาณ 60 นาที']],combos:[['เปิดประสบการณ์เวียดนาม–ลาว','เยี่ยมชมพื้นที่วัฒนธรรมและลองประสบการณ์อาหารเบื้องต้น','ผู้มาเยือนครั้งแรกและกลุ่มเพื่อน'],['ครัวเวียดนาม–ลาว','เวิร์กช็อปทำอาหารและชิมผลงานร่วมกัน','ผู้รักอาหาร'],['เส้นทางมรดกวัฒนธรรม','เยี่ยมชม ทดลองสวมชุด และทำงานฝีมือ','ครอบครัวและกลุ่มนักเรียน'],['เต็มอิ่มกับวัฒนธรรมเวียดนาม–ลาว','รวมการเยี่ยมชม อาหาร งานฝีมือ และการแสดงตามกำหนด','ผู้ที่ต้องการประสบการณ์ครบถ้วน']]},
-  lo:{ui:{heroTitle:'ສຳຜັດວັດທະນະທຳ<br><em>ສ້າງປະສົບການຮ່ວມກັນ</em>',heroText:'ຄົ້ນພົບສິລະປະ ອາຫານ ແລະກິດຈະກຳວັດທະນະທຳທີ່ເຊື່ອມສອງປະເທດ. ເລືອກປະສົບການເພື່ອເລີ່ມການເດີນທາງ.',discover:'ຄົ້ນຫາປະສົບການ',combosLink:'ເບິ່ງຊຸດປະສົບການ',proposal:'ລາຍການແນະນຳ:',disclaimer:'ລາຄາ ໄລຍະເວລາ ແລະລະຫັດສ່ວນຫຼຸດແມ່ນຕົວຢ່າງໂຄງສ້າງເວັບໄຊ; ໂຄງການຍັງບໍ່ທັນຢືນຢັນ ຫຼືເປີດໃຊ້.',events:'ກິດຈະກຳວັດທະນະທຳ',food:'ປະສົບການອາຫານ',workshops:'ເວີກຊັອບວັດທະນະທຳ',combo:'ຊຸດປະສົບການ',booking:'ສົ່ງຄຳຂໍຈອງ',type:'ປະເພດປະສົບການ',name:'ຊື່ ແລະນາມສະກຸນ',contact:'ເບີໂທ ຫຼືອີເມວ',date:'ວັນທີ່ຕ້ອງການ',tickets:'ຈຳນວນປີ້',send:'ສົ່ງຄຳຂໍ',saving:'ກຳລັງສົ່ງ…',bookingHelp:'ລະບົບບັນທຶກຄຳຂໍແລ້ວ; ພະນັກງານຈະຕິດຕໍ່ຢືນຢັນກຳນົດການ. ຍັງບໍ່ມີການຊຳລະເງິນ ຫຼືອອກປີ້ອັດຕະໂນມັດ.',schedule:'ກຳນົດການກິດຈະກຳ',upcoming:'ກິດຈະກຳທີ່ຈະມາເຖິງ',noSchedule:'ຍັງບໍ່ມີກຳນົດການທີ່ປະກາດ. ກະລຸນາກັບມາກວດອີກຄັ້ງ.',scheduleError:'ບໍ່ສາມາດໂຫຼດກຳນົດການໄດ້ໃນຂະນະນີ້.',count:'ປະສົບການ',comboTitle:'ຊຸດປະສົບການຫວຽດນາມ–ລາວ',comboIntro:'ເສັ້ນທາງແນະນຳທີ່ລວມຫຼາຍກິດຈະກຳໃນການເດີນທາງດຽວ.',perPerson:'/ ຄົນ',ctaTitle:'ກຳລັງວາງແຜນປະສົບການບໍ?',ctaText:'ຕິດຕໍ່ເພື່ອປຶກສາເລື່ອງໂຄງການ ກຳນົດການ ແລະຄວາມຕ້ອງການຂອງກຸ່ມ.',contactUs:'ຕິດຕໍ່ສອບຖາມ',ticketsTitle:'ປີ້ຂອງຂ້ອຍ',ticketNote:'ສາມາດພັດທະນາເປັນພື້ນທີ່ບັນຊີຈັດການການຈອງ ເຊັ່ນ ລະຫັດຈອງ ຫຼື QR, ກຳນົດການເຂົ້າຮ່ວມ, ຂໍ້ມູນຊຳລະເງິນ ແລະຄຳຮ້ອງຊ່ວຍເຫຼືອ. ນີ້ແມ່ນຟີເຈີບັນຊີທີ່ວາງແຜນໄວ້ ບໍ່ແມ່ນໝວດຂາຍປີ້ແຍກ.',footnote:'ລາຄາ ໄລຍະເວລາ ແລະລະຫັດສ່ວນຫຼຸດທັງໝົດແມ່ນຕົວຢ່າງ. ຕ້ອງຢືນຢັນຄ່າໃຊ້ຈ່າຍ ກຳນົດການ ຄວາມຈຸ ເງື່ອນໄຂຄູປອງ ແລະນະໂຍບາຍປ່ຽນວັນ ຫຼືຄືນເງິນກ່ອນເຜີຍແຜ່.',priceProposed:'ລາຄາແນະນຳ',priceRef:'ລາຄາອ້າງອີງ',priceSale:'ລາຄາຫຼັງສ່ວນຫຼຸດຕົວຢ່າງ',coupon:'ຄູປອງແນະນຳ',discount:'ສ່ວນຫຼຸດຕົວຢ່າງ',bulk:'ລະຫັດຕົວຢ່າງສຳລັບງານລ້ຽງຕັ້ງແຕ່ 5,000,000 ດົງ.',firebase:'ຍັງບໍ່ໄດ້ເຊື່ອມຕໍ່ Firebase. ກະລຸນາລອງອີກຄັ້ງ.',invalid:'ກະລຸນາກວດຂໍ້ມູນການຈອງ.',sent:'ສົ່ງຄຳຂໍແລ້ວ. ພະນັກງານຈະຕິດຕໍ່ຢືນຢັນກຳນົດການ.',permission:'Firebase ຍັງບໍ່ອະນຸຍາດໃຫ້ບັນທຶກ. ຕ້ອງປັບ Firestore Rules.',sendError:'ສົ່ງຄຳຂໍບໍ່ສຳເລັດ. ກະລຸນາລອງອີກຄັ້ງ.',adminBookings:'ການຈອງປະສົບການ',adminActivities:'ກຳນົດການກິດຈະກຳ',sync:'ກຳລັງຊິງຂໍ້ມູນຈາກ Firebase…',loadBookingsError:'ໂຫຼດຄຳຂໍຈອງບໍ່ໄດ້:',bookingCount:'ຄຳຂໍ',statusLabel:'ສະຖານະ',statuses:['ລໍຖ້າຢືນຢັນ','ຢືນຢັນແລ້ວ','ຍົກເລີກແລ້ວ'],emptyBookings:'ຍັງບໍ່ມີຄຳຂໍຈອງ.',savedStatus:'ອັບເດດສະຖານະແລ້ວ.',statusError:'ອັບເດດສະຖານະບໍ່ໄດ້.',activityName:'ຊື່ກິດຈະກຳ',location:'ສະຖານທີ່',saveActivity:'ບັນທຶກກິດຈະກຳ',activityLoadError:'ໂຫຼດກຳນົດການບໍ່ໄດ້:',emptyActivities:'ຍັງບໍ່ມີກິດຈະກຳ. ກິດຈະກຳທີ່ບັນທຶກຈະສະແດງໃນໜ້າປະສົບການ.',fillActivity:'ກະລຸນາປ້ອນຂໍ້ມູນກິດຈະກຳໃຫ້ຄົບ.',savedActivity:'ບັນທຶກກິດຈະກຳແລ້ວ.',saveError:'ບັນທຶກກິດຈະກຳບໍ່ໄດ້. ກວດການເຊື່ອມຕໍ່ Firebase ແລະສິດເຂົ້າເຖິງ.',confirmDelete:'ລຶບກິດຈະກຳນີ້ອອກຈາກກຳນົດການບໍ?',deleted:'ລຶບກິດຈະກຳແລ້ວ.',deleteError:'ລຶບກິດຈະກຳບໍ່ໄດ້.'},sections:[['ກິດຈະກຳວັດທະນະທຳ','ພົບປະແລະເຊື່ອມໂຍງ','ຊົມການສະແດງ ງານບຸນ ແລະເລື່ອງລາວທີ່ເຊື່ອມຊຸມຊົນຫວຽດນາມ–ລາວ'],['ປະສົບການອາຫານ','ສຳຜັດລົດຊາດ','ຊິມອາຫານ ຄົ້ນຫາວັດຖຸດິບ ແລະຮຽນຮູ້ວັດທະນະທຳອາຫານຫວຽດນາມ–ລາວ'],['ເວີກຊັອບວັດທະນະທຳ','ຮຽນຮູ້ດ້ວຍຕົນເອງ','ສຳຫຼວດອັກສອນສິລະປະ ຫັດຖະກຳ ຊຸດປະຈຳຊາດ ແລະກິດຈະກຳສຳລັບທຸກໄວ']],items:[['ບັດຊົມການສະແດງຫວຽດນາມ–ລາວ','ການສະແດງດົນຕີ ຟ້ອນ ແລະເອກະລັກວັດທະນະທຳຂອງສອງປະເທດ','ຕາມກຳນົດການ'],['ຄ່ຳຄືນດົນຕີແລະຟ້ອນພື້ນເມືອງ','ຊົມການສະແດງ ຮຽນຮູ້ຄວາມໝາຍ ແລະພົບປະສິນລະປິນ','ປະມານ 90–120 ນາທີ'],['ບຸນວັດທະນະທຳຫວຽດນາມ–ລາວ','ເຂົ້າຮ່ວມກິດຈະກຳ ປະສົບການວັດທະນະທຳ ແລະການສະແດງຕາມກຳນົດ','ເຄິ່ງມື້ ຫຼືຕາມກຳນົດ'],['ບັດງານບຸນອາຫານ','ຄົ້ນພົບອາຫານຫວຽດນາມ–ລາວ ແລະເລື່ອງລາວຂອງແຕ່ລະເມນູ','ຕາມກຳນົດການ'],['ກິດຈະກຳແລກປ່ຽນນັກສຶກສານານາຊາດ','ເກມແລະກິດຈະກຳວັດທະນະທຳເຊື່ອມນັກສຶກສາສອງປະເທດ','ປະມານ 90–120 ນາທີ'],['ງານຕາມລະດູການແລະວັນພິເສດ','ໂຄງການພິເສດຕາມລະດູ ວັນພັກ ແລະວັນຄົບຮອບວັດທະນະທຳ','ແຕກຕ່າງຕາມໂຄງການ'],['ຊິມອາຫານຫວຽດນາມ–ລາວ','ລອງອາຫານເດັ່ນຫຼືເມນູປະສົມ ພ້ອມແນະນຳທີ່ມາ','ປະມານ 60–90 ນາທີ'],['ເວີກຊັອບເຮັດອາຫານພື້ນເມືອງ','ລົງມືເຮັດອາຫານພາຍໃຕ້ຄຳແນະນຳ ແລ້ວຊິມຜົນງານ','ປະມານ 90–120 ນາທີ'],['ເລື່ອງລາວຂອງອາຫານ','ຄົ້ນຫາເລື່ອງລາວ ວັດຖຸດິບ ປະເພນີ ແລະຄວາມໝາຍ','ປະມານ 30–45 ນາທີ'],['ປະສົບການເຄື່ອງດື່ມແລະຂອງດີພື້ນຖິ່ນ','ຊິມເຄື່ອງດື່ມຫຼືຂອງພິເສດ ພ້ອມຂໍ້ມູນແນະນຳ','ປະມານ 30–45 ນາທີ'],['ຈອງໂຕະອາຫານວັດທະນະທຳ','ຈອງເມນູຫວຽດນາມ–ລາວສຳລັບໝູ່ ຄອບຄົວ ຫຼືໂອກາດພົບປະ','ຕາມເວລາທີ່ຈອງ'],['ຈັດງານລ້ຽງສຳລັບກຸ່ມຫຼືອົງກອນ','ຈັດເມນູແລະກິດຈະກຳແນະນຳວັດທະນະທຳຕາມຄວາມຕ້ອງການ','ຕາມໃບສະເໜີລາຄາ'],['ເວີກຊັອບອັກສອນສິລະປະ','ຮຽນຮູ້ຮູບແບບອັກສອນ ແລະຝຶກສ້າງຜົນງານງ່າຍໆ','ປະມານ 60–90 ນາທີ'],['ເວີກຊັອບຫັດຖະກຳແລະຂອງທີ່ລະນຶກ','ສ້າງງານຝີມືນ້ອຍໆຈາກລວດລາຍຫຼືວັດທະນະທຳສອງປະເທດ','ປະມານ 90–120 ນາທີ'],['ປະສົບການຊຸດປະຈຳຊາດ','ຮຽນຮູ້ຄວາມໝາຍ ລອງສວມ ແລະຖ່າຍຮູບໃນພື້ນທີ່ຈັດໄວ້','ປະມານ 30–45 ນາທີ'],['ເວີກຊັອບແຕ້ມແລະຕົກແຕ່ງລວດລາຍ','ຮຽນຮູ້ລວດລາຍດັ້ງເດີມ ແລະຝຶກແຕ້ມຫຼືຕົກແຕ່ງ','ປະມານ 60–90 ນາທີ'],['ເວີກຊັອບສຳລັບໂຮງຮຽນແລະນັກສຶກສາ','ກິດຈະກຳກຸ່ມທີ່ລວມການແນະນຳວັດທະນະທຳແລະການລົງມືເຮັດ','ຈອງລ່ວງໜ້າ'],['ເວີກຊັອບພາສາແລະການສື່ສານຫວຽດນາມ–ລາວ','ຮຽນປະໂຫຍກພື້ນຖານ ແລະຝຶກຜ່ານເກມການສົນທະນາ','ປະມານ 60 ນາທີ']],combos:[['ຄົ້ນພົບຫວຽດນາມ–ລາວ','ຢ້ຽມຊົມພື້ນທີ່ວັດທະນະທຳ ແລະລອງອາຫານເບື້ອງຕົ້ນ','ຜູ້ມາຄັ້ງທຳອິດແລະກຸ່ມໝູ່'],['ຄົວຫວຽດນາມ–ລາວ','ເຮັດອາຫານໃນເວີກຊັອບ ແລະຊິມຜົນງານຮ່ວມກັນ','ຜູ້ຮັກອາຫານ'],['ເສັ້ນທາງມໍລະດົກ','ຢ້ຽມຊົມ ລອງຊຸດປະຈຳຊາດ ແລະເຮັດຫັດຖະກຳ','ຄອບຄົວ ແລະກຸ່ມນັກຮຽນ'],['ປະສົບການຫວຽດນາມ–ລາວຄົບຊຸດ','ລວມການຢ້ຽມຊົມ ອາຫານ ຫັດຖະກຳ ແລະການສະແດງຕາມກຳນົດ','ຜູ້ຕ້ອງການປະສົບການຄົບຖ້ວນ']]},
-  zh:{ui:{heroTitle:'触碰文化，<br><em>一起体验</em>',heroText:'探索连接越南与老挝的艺术、美食和文化活动。选择一项体验，开启旅程。',discover:'探索体验项目',combosLink:'查看组合建议',proposal:'推荐目录：',disclaimer:'价格、时长和优惠码用于展示网站结构；相关项目尚未确认或启用。',events:'文化活动',food:'美食体验',workshops:'文化工作坊',combo:'体验组合',booking:'提交预约申请',type:'体验类型',name:'姓名',contact:'电话或电子邮箱',date:'希望日期',tickets:'票数',send:'提交申请',saving:'正在提交…',bookingHelp:'预约申请已保存，工作人员将联系确认时间。目前不支持付款或自动出票。',schedule:'活动日程',upcoming:'即将举行的活动。',noSchedule:'暂时没有已发布的活动日程，请稍后再来查看。',scheduleError:'暂时无法加载活动日程。',count:'项体验',comboTitle:'越南–老挝体验组合建议',comboIntro:'推荐行程可在一次旅途中组合多项活动。',perPerson:'/ 人',ctaTitle:'正在计划体验行程？',ctaText:'欢迎联系我们，讨论活动内容、举办时间和团队需求。',contactUs:'联系咨询',ticketsTitle:'我的票券',ticketNote:'未来可开发为账户管理区，用于查看预约编号或二维码、参加日程、付款信息和支持请求。这是计划中的账户功能，并非独立的售票类别。',footnote:'页面中的价格、时长和优惠码均为示例。正式发布或销售前，须确认费用、日程、容量、优惠码条款以及改期和退款政策。',priceProposed:'建议价格',priceRef:'参考价格',priceSale:'示例优惠后价格',coupon:'建议优惠码',discount:'示例折扣',bulk:'适用于5,000,000越南盾起宴会订单的示例优惠码。',firebase:'Firebase 尚未连接，请稍后重试。',invalid:'请检查预约信息。',sent:'申请已提交，工作人员将联系您确认时间。',permission:'Firebase 尚未允许保存申请，需要更新 Firestore Rules。',sendError:'申请提交失败，请重试。',adminBookings:'体验预约',adminActivities:'活动日程',sync:'正在同步 Firebase 数据…',loadBookingsError:'无法加载预约申请：',bookingCount:'项申请',statusLabel:'状态',statuses:['待确认','已确认','已取消'],emptyBookings:'暂无预约申请。',savedStatus:'预约状态已更新。',statusError:'无法更新状态。',activityName:'活动名称',location:'地点',saveActivity:'保存活动',activityLoadError:'无法加载日程：',emptyActivities:'暂无活动。保存的活动会显示在体验页面。',fillActivity:'请填写完整的活动信息。',savedActivity:'活动已保存。',saveError:'无法保存活动，请检查 Firebase 连接和访问权限。',confirmDelete:'确定从日程中删除此活动吗？',deleted:'活动已删除。',deleteError:'无法删除活动。'},sections:[['文化活动','相聚与交流','欣赏演出、节庆和连接越南与老挝社区的文化故事。'],['美食体验','探索风味','品尝美食、认识食材，并通过烹饪了解越南与老挝的饮食文化。'],['文化工作坊','动手体验','探索书法、手工艺、传统服饰及适合各年龄层的文化活动。']],items:[['越南–老挝艺术演出票','欣赏介绍两国音乐、舞蹈和文化特色的演出。','按活动日程'],['民间音乐与舞蹈之夜','欣赏演出、了解其含义，并与艺术家交流。','约90–120分钟'],['越南–老挝文化节','参与节庆活动、文化体验、交流和节目演出。','半天或按日程'],['美食节门票','探索越南与老挝美食及每道菜背后的文化故事。','按活动日程'],['国际学生交流活动','通过文化游戏和活动连接越南与老挝学生。','约90–120分钟'],['季节与节日活动','为季节、节日或文化纪念日设计的特别项目。','依项目而定'],['品尝越南–老挝美食','品尝特色菜或组合菜单，并了解其来源与饮食文化。','约60–90分钟'],['传统烹饪工作坊','在指导下亲手制作一道菜，然后品尝成果。','约90–120分钟'],['美食背后的故事','了解一道菜的故事、食材、习俗和文化意义。','约30–45分钟'],['饮品与地方特产体验','品尝精选饮品或特产，并了解产品信息。','约30–45分钟'],['文化主题餐桌预订','为朋友、家人或聚会预订越南–老挝主题菜单。','按预订时段'],['团体或企业宴席预订','根据团体、学校或企业需求设计菜单和文化介绍活动。','按报价'],['书法与文字艺术工作坊','了解字体及其文化意义，并创作简单的文字作品。','约60–90分钟'],['手工艺与纪念品工作坊','制作一件灵感来自越南–老挝图案或文化的小手工。','约90–120分钟'],['传统服饰体验','了解服饰意义、试穿传统服装，并在布置区域拍照。','约30–45分钟'],['图案绘画与装饰工作坊','认识传统纹样，并练习绘画或装饰合适的材料。','约60–90分钟'],['学校与学生工作坊','结合文化介绍和动手活动的团体体验。','需提前预约'],['越南–老挝语言与交流工作坊','学习实用短句，并通过游戏和对话情境练习。','约60分钟']],combos:[['越南–老挝初体验','参观文化空间并体验基础美食活动。','首次到访者与朋友团体'],['越南–老挝厨房','参加烹饪工作坊并一起品尝成品。','美食爱好者'],['文化遗产之旅','参观文化空间、体验传统服饰并参加手工坊。','家庭、学校与学生团体'],['完整越南–老挝文化体验','结合参观、美食、手工活动及排期演出。','希望体验多项活动的游客']]}
-};
-function experienceCopy(){
-  const copy=EXPERIENCE_COPY[CURRENT_LANG]||EXPERIENCE_COPY.vi;
-  const adminEmail={vi:['Email quản trị','Nhập email tài khoản quản trị.'],th:['อีเมลผู้ดูแลระบบ','กรุณากรอกอีเมลบัญชีผู้ดูแลระบบ'],lo:['ອີເມວຜູ້ດູແລລະບົບ','ກະລຸນາປ້ອນອີເມວບັນຊີຜູ້ດູແລລະບົບ.'],en:['Administrator email','Enter the administrator account email.'],zh:['管理员邮箱','请输入管理员账户邮箱。']}[CURRENT_LANG]||['Administrator email','Enter the administrator account email.'];
-  copy.ui.emailLabel=adminEmail[0];copy.ui.emailMissing=adminEmail[1];
-  copy.ui.removeActivity={vi:'Xoá',th:'ลบ',lo:'ລຶບ',en:'Delete',zh:'删除'}[CURRENT_LANG]||'Delete';
-  return copy;
-}
-
-window._fbActivities = [];
-window._fbActivitiesUnsub = null;
-window._fbActivitiesError = null;
-window._fbExperienceBookings = [];
-window._fbExperienceBookingsUnsub = null;
-window._fbExperienceBookingsError = null;
-
-function escapeExperienceText(value){
-  return String(value ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function renderPublicActivitySchedule(){
-  const c=experienceCopy().ui;
-  if(window._fbActivitiesError) return `<p class="ex-schedule-message">${c.scheduleError}</p>`;
-  const activities = window._fbActivities || [];
-  if(!activities.length) return `<p class="ex-schedule-message">${c.noSchedule}</p>`;
-  return `<div class="ex-activity-list">${activities.map(activity=>`<article class="ex-activity"><div><h3>${escapeExperienceText(activity.title)}</h3><p>${escapeExperienceText(activity.location)}</p></div><time datetime="${escapeExperienceText(activity.date)}">${escapeExperienceText(activity.date)}</time></article>`).join('')}</div>`;
-}
-
-function refreshPublicActivitySchedule(){
-  const target=document.getElementById('experienceScheduleList');
-  if(target) target.innerHTML=renderPublicActivitySchedule();
-}
-
-function subscribeActivitiesIfNeeded(){
-  const fb=window.LCFB;
-  if(!fb?.ready || window._fbActivitiesUnsub) return;
-  const {db,collection,query,orderBy,onSnapshot}=fb;
-  window._fbActivitiesUnsub=onSnapshot(query(collection(db,'activities'),orderBy('date')),
-    snap=>{window._fbActivities=snap.docs.map(d=>({id:d.id,...d.data()}));window._fbActivitiesError=null;refreshPublicActivitySchedule();if(parseHash().page==='admin'&&parseHash().sub==='activities')router();},
-    err=>{console.warn('[Experiences] Activity schedule read failed:',err.code);window._fbActivitiesError=err.message;refreshPublicActivitySchedule();if(parseHash().page==='admin'&&parseHash().sub==='activities')router();}
-  );
-}
-window.addEventListener('lcfb-ready',()=>{subscribeActivitiesIfNeeded();if(parseHash().page==='experiences')refreshPublicActivitySchedule();});
-
-function attachExperienceEvents(){
-  const dateInput=document.getElementById('experienceDate');
-  if(dateInput){const now=new Date();dateInput.min=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;}
-}
-
-async function submitExperienceRequest(event){
-  event.preventDefault();
-  const form=document.getElementById('experienceRequestForm');
-  const button=document.getElementById('experienceSubmit');
-  if(!form?.reportValidity()) return;
-  const fb=window.LCFB;
-  const c=experienceCopy().ui;
-  if(!fb?.ready){toast(c.firebase,'error');return;}
-  const name=document.getElementById('experienceName').value.trim();
-  const contact=document.getElementById('experienceContact').value.trim();
-  const date=document.getElementById('experienceDate').value;
-  const tickets=Number(document.getElementById('experienceTickets').value);
-  if(name.length<2||contact.length<3||!Number.isInteger(tickets)||tickets<1||tickets>20){toast(c.invalid,'error');return;}
-  const oldText=button.textContent;button.disabled=true;button.textContent=c.saving;
-  try{
-    const user=await fb.lcEnsureOrderUser();
-    await fb.addDoc(fb.collection(fb.db,'experienceBookings'),{
-      ownerUid:user.uid,
-      experienceType:document.getElementById('experienceType').value,
-      name,
-      contact,
-      date,
-      tickets,
-      status:'pending',
-      createdAt:fb.serverTimestamp()
-    });
-    form.reset();document.getElementById('experienceTickets').value='1';attachExperienceEvents();
-    toast(c.sent);
-  }catch(err){console.error('[Experiences] Booking request failed:',err);toast(err.code==='permission-denied'?c.permission:c.sendError,'error');}
-  finally{button.disabled=false;button.textContent=oldText;}
-}
-
-function renderExperienceCard(item){
-  const copy=experienceCopy(),u=copy.ui;
-  const key=item.image.match(/(?:event|food|workshop)-\d{2}/)?.[0];
-  const idx=key?.startsWith('event')?Number(key.slice(-2))-1:key?.startsWith('food')?6+Number(key.slice(-2))-1:12+Number(key.slice(-2))-1;
-  const [name,desc,duration]=copy.items[idx]||[item.name,item.desc,item.duration];
-  const alt=copy.items[idx]?.[0]||item.alt;
-  const sale = item.after ? `<div class="ex-price-line"><span class="ex-price-label">${u.priceSale}</span><span class="ex-sale">${item.after} ₫</span></div>` : '';
-  const bulk=item.bulk?`<p class="ex-bulk-note">${u.bulk}</p>`:'';
-  return `<article class="ex-card"><div class="ex-card-image"><img src="${item.image}" alt="${alt}" loading="lazy"><span class="ex-card-badge">${u.priceProposed}</span></div><div class="ex-card-body"><h3>${name}</h3><p class="ex-card-desc">${desc}</p><div class="ex-duration">${duration}</div><div class="ex-card-pricing"><div class="ex-price-line"><span class="ex-price-label">${u.priceRef}</span><span class="ex-price">${item.price} ₫</span></div>${sale}<div class="ex-coupon"><span>${u.coupon}<small>${u.discount} ${item.discount}</small></span><code>${item.code}</code></div>${bulk}</div></div></article>`;
-}
-
-function renderExperiences(){
-  const copy=experienceCopy(),u=copy.ui;
-  return `<div class="experience-page">
-    <section class="ex-hero"><div class="ex-container"><div class="ex-hero-inner"><span class="ex-kicker">Lotus &amp; Champa · Việt Nam – Lào</span><h1>${u.heroTitle}</h1><p>${u.heroText}</p><div class="ex-hero-actions"><a class="ex-button" href="#ex-events" onclick="event.preventDefault();document.getElementById('ex-events').scrollIntoView({behavior:'smooth'})">${u.discover} <span aria-hidden="true">&nbsp;↓</span></a><a class="ex-hero-link" href="#ex-combos" onclick="event.preventDefault();document.getElementById('ex-combos').scrollIntoView({behavior:'smooth'})">${u.combosLink}</a></div></div></div></section>
-    <div class="ex-container"><nav class="ex-nav" aria-label="${u.combo}"><a href="#ex-events" onclick="event.preventDefault();document.getElementById('ex-events').scrollIntoView({behavior:'smooth'})">${u.events}</a><a href="#ex-food" onclick="event.preventDefault();document.getElementById('ex-food').scrollIntoView({behavior:'smooth'})">${u.food}</a><a href="#ex-workshops" onclick="event.preventDefault();document.getElementById('ex-workshops').scrollIntoView({behavior:'smooth'})">${u.workshops}</a><a href="#ex-combos" onclick="event.preventDefault();document.getElementById('ex-combos').scrollIntoView({behavior:'smooth'})">${u.combo}</a></nav>
-      ${EXPERIENCE_SECTIONS.map((section,i)=>{const s=copy.sections[i];return `<section class="ex-section" id="${section.id}"><div class="ex-section-head"><div><div class="ex-section-kicker">${s[1]}</div><h2>${s[0]}</h2><p class="ex-section-intro">${s[2]}</p></div><span class="ex-section-count">${String(section.items.length).padStart(2,'0')} ${u.count}</span></div><div class="ex-grid">${section.items.map(renderExperienceCard).join('')}</div></section>`}).join('')}
-      <section class="ex-request-layout" aria-label="${u.booking}">
-        <form class="ex-request-card" id="experienceRequestForm" onsubmit="submitExperienceRequest(event)">
-          <h2>${u.booking}</h2>
-          <label for="experienceType">${u.type}</label>
-          <select id="experienceType" required><option value="event">${u.events}</option><option value="food">${u.food}</option><option value="workshop">${u.workshops}</option><option value="combo">${u.combo}</option></select>
-          <label for="experienceName">${u.name}</label><input id="experienceName" name="name" autocomplete="name" maxlength="120" required>
-          <label for="experienceContact">${u.contact}</label><input id="experienceContact" name="contact" autocomplete="email" maxlength="254" required>
-          <div class="ex-form-row"><div><label for="experienceDate">${u.date}</label><input id="experienceDate" name="date" type="date" required></div><div><label for="experienceTickets">${u.tickets}</label><input id="experienceTickets" name="tickets" type="number" min="1" max="20" value="1" required></div></div>
-          <button class="ex-request-submit" id="experienceSubmit" type="submit">${u.send}</button>
-          <p class="ex-request-help">${u.bookingHelp}</p>
-        </form>
-        <section class="ex-schedule-card"><h2>${u.schedule}</h2><p class="ex-schedule-intro">${u.upcoming}</p><div id="experienceScheduleList">${renderPublicActivitySchedule()}</div></section>
-      </section>
-      <section class="ex-combos" id="ex-combos"><div class="ex-combos-head"><div class="ex-section-kicker">${u.combo}</div><h2>${u.comboTitle}</h2><p class="ex-combos-intro">${u.comboIntro}</p></div><div class="ex-combo-grid">${copy.combos.map((combo,i)=>`<article class="ex-combo"><h3>${combo[0]}</h3><p>${combo[1]}</p><span class="ex-audience">${combo[2]}</span><div class="ex-combo-price">${EXPERIENCE_COMBOS[i].price} ₫ <span style="font-size:.72rem;font-weight:400;color:rgba(255,255,255,.6)">${u.perPerson}</span></div></article>`).join('')}</div></section>
-      <aside class="ex-booking-cta"><div><h2>${u.ctaTitle}</h2><p>${u.ctaText}</p></div><a href="#/contact">${u.contactUs} <span aria-hidden="true">→</span></a></aside>
-      <aside class="ex-ticket-note"><span aria-hidden="true">✦</span><p><strong>${u.ticketsTitle}</strong> ${u.ticketNote}</p></aside>
-      <p class="ex-footnote">${u.footnote}</p>
-    </div>
-  </div>`;
-}
-
 function renderBusiness(){
   const copy={"vi":{"eyebrow":"THƯƠNG MẠI GẮN VỚI VĂN HÓA","title":"Kết nối hai nền văn hóa.<br>Mang giá trị đến từng món quà.","intro":"Lotus & Champa kết nối sản phẩm Việt Nam và Lào với những người trân trọng nguồn gốc, câu chuyện và ý nghĩa của mỗi món quà.","bridge":"TỪ NGƯỜI LÀM ĐẾN NGƯỜI NHẬN","flow":["Sản phẩm Việt – Lào","Lựa chọn & kể câu chuyện","Món quà có ý nghĩa"],"flowSub":["Thủ công & đặc sản","Lotus & Champa","Khách hàng & cộng đồng"],"stats":["Hai nền văn hóa","Năm ngôn ngữ","Một trải nghiệm kết nối"],"heading":"Một mô hình, sáu nền tảng","sub":"Khách hàng ở trung tâm. Bản sắc văn hóa tạo nên giá trị. Sản phẩm là nền tảng doanh thu.","cards":[["Khách hàng","Ai tìm thấy giá trị ở đây?","Dành cho những người muốn khám phá văn hóa hoặc chọn một món quà có ý nghĩa.",["Người yêu văn hóa Việt Nam & Lào","Gia đình, sinh viên & khách du lịch","Doanh nghiệp tìm quà tặng"]],["Giá trị","Không chỉ là một sản phẩm","Kết hợp sản phẩm, câu chuyện và sự tư vấn để người nhận hiểu điều làm món quà trở nên đặc biệt.",["Thủ công & đặc sản mang bản sắc","Câu chuyện gắn với nguồn gốc","Thông tin và hỗ trợ đa ngôn ngữ"]],["Kênh kết nối","Website là điểm gặp gỡ","Khách hàng khám phá sản phẩm trên website và trao đổi trực tiếp qua các kênh liên hệ của cửa hàng.",["Website để tìm hiểu & đặt hàng","Facebook, Zalo & WhatsApp","Định hướng: cộng đồng & sự kiện"]],["Doanh thu","Bắt đầu từ giá trị sản phẩm","Doanh thu cốt lõi đến từ bán sản phẩm. Quà tặng theo chủ đề và đơn hàng doanh nghiệp là hướng phát triển.",["Bán lẻ sản phẩm văn hóa","Bộ quà tặng theo dịp & chủ đề","Định hướng: quà tặng doanh nghiệp"]],["Mạng lưới","Cùng xây dựng, cùng phát triển","Hướng đến hợp tác với người làm sản phẩm, đối tác vận chuyển và cộng đồng Việt – Lào.",["Nghệ nhân & nhà sản xuất","Đối tác giao nhận phù hợp","Cộng đồng sinh viên hai nước"]],["Khác biệt","Bản sắc Việt – Lào là trung tâm","Một không gian khám phá hai nền văn hóa, được xây dựng bởi nhóm sinh viên Việt Nam và Lào.",["Sản phẩm & câu chuyện của hai nước","Trải nghiệm bằng 5 ngôn ngữ","Góc nhìn gần gũi từ cộng đồng"]]],"cta":"Khám phá câu chuyện qua từng sản phẩm","ctaSub":"Tìm một món quà cho bạn, hoặc cùng chúng tôi trao đổi ý tưởng hợp tác.","shop":"Khám phá sản phẩm","contact":"Trao đổi hợp tác"},"th":{"eyebrow":"การค้าที่เชื่อมโยงกับวัฒนธรรม","title":"เชื่อมสองวัฒนธรรม<br>เติมความหมายให้ทุกของขวัญ","intro":"Lotus & Champa เชื่อมผลิตภัณฑ์จากเวียดนามและลาวกับผู้ที่ให้คุณค่ากับที่มา เรื่องราว และความหมายของของขวัญแต่ละชิ้น","bridge":"จากผู้สร้างสรรค์สู่ผู้รับ","flow":["ผลิตภัณฑ์เวียดนาม–ลาว","คัดสรรและเล่าเรื่อง","ของขวัญที่มีความหมาย"],"flowSub":["งานฝีมือและสินค้าท้องถิ่น","Lotus & Champa","ลูกค้าและชุมชน"],"stats":["สองวัฒนธรรม","ห้าภาษา","ประสบการณ์ที่เชื่อมถึงกัน"],"heading":"หนึ่งแนวคิด หกรากฐาน","sub":"เริ่มจากความต้องการของลูกค้า สร้างคุณค่าจากวัฒนธรรม และสร้างรายได้จากผลิตภัณฑ์","cards":[["ลูกค้า","ใครได้รับคุณค่าจากเรา?","สำหรับผู้ที่อยากรู้จักวัฒนธรรม หรือเลือกของขวัญที่มีความหมายให้คนสำคัญ",["ผู้สนใจวัฒนธรรมเวียดนามและลาว","ครอบครัว นักศึกษา และนักท่องเที่ยว","องค์กรที่มองหาของขวัญ"]],["คุณค่า","มากกว่าตัวผลิตภัณฑ์","เชื่อมสินค้า เรื่องราว และคำแนะนำ เพื่อให้ผู้รับเข้าใจความพิเศษของของขวัญ",["งานฝีมือและสินค้าท้องถิ่นที่มีเอกลักษณ์","เรื่องราวที่เชื่อมโยงกับแหล่งที่มา","ข้อมูลและการช่วยเหลือหลายภาษา"]],["ช่องทาง","เว็บไซต์คือจุดนัดพบ","ค้นพบผลิตภัณฑ์บนเว็บไซต์ และพูดคุยกับร้านโดยตรงผ่านช่องทางติดต่อ",["เว็บไซต์สำหรับดูสินค้าและสั่งซื้อ","Facebook, Zalo และ WhatsApp","แนวทางต่อยอด: ชุมชนและกิจกรรม"]],["รายได้","เริ่มจากคุณค่าของสินค้า","รายได้หลักมาจากการขายผลิตภัณฑ์ ส่วนชุดของขวัญและคำสั่งซื้อองค์กรเป็นแนวทางต่อยอด",["ขายปลีกผลิตภัณฑ์วัฒนธรรม","ชุดของขวัญตามโอกาสและเรื่องราว","แนวทางต่อยอด: ของขวัญสำหรับองค์กร"]],["เครือข่าย","ร่วมสร้างและเติบโตด้วยกัน","มุ่งพัฒนาความร่วมมือกับผู้ผลิต ผู้ให้บริการขนส่ง และชุมชนเวียดนาม–ลาว",["ช่างฝีมือและผู้ผลิต","พันธมิตรด้านการจัดส่งที่เหมาะสม","ชุมชนนักศึกษาจากทั้งสองประเทศ"]],["เอกลักษณ์","วัฒนธรรมเวียดนาม–ลาวคือหัวใจ","พื้นที่เรียนรู้สองวัฒนธรรมที่สร้างโดยกลุ่มนักศึกษาเวียดนามและลาว",["ผลิตภัณฑ์และเรื่องราวจากสองประเทศ","ประสบการณ์ใน 5 ภาษา","มุมมองที่ใกล้ชิดกับชุมชน"]]],"cta":"ค้นพบเรื่องราวผ่านผลิตภัณฑ์","ctaSub":"เลือกของขวัญให้คุณ หรือพูดคุยเรื่องแนวคิดความร่วมมือกับเรา","shop":"ดูผลิตภัณฑ์","contact":"พูดคุยความร่วมมือ"},"en":{"eyebrow":"COMMERCE WITH CULTURAL PURPOSE","title":"Two cultures connected.<br>Meaning in every gift.","intro":"Lotus & Champa brings products from Vietnam and Laos to people who value the origin, story and meaning behind each gift.","bridge":"FROM THE MAKER TO THE RECIPIENT","flow":["Vietnamese & Lao products","Curate & share the story","A gift with meaning"],"flowSub":["Crafts & local specialties","Lotus & Champa","Customers & communities"],"stats":["Two cultures","Five languages","One connected experience"],"heading":"One model, six foundations","sub":"Customers guide the experience. Culture creates value. Products sustain the business.","cards":[["Customers","Who finds value here?","For people discovering another culture or choosing a meaningful gift for someone special.",["Vietnamese & Lao culture enthusiasts","Families, students & travellers","Businesses looking for gifts"]],["Value","More than a product","Products, stories and guidance help the recipient understand what makes each gift special.",["Distinctive crafts & local specialties","Stories rooted in place and origin","Information & multilingual support"]],["Channels","The website is the meeting place","Discover products online and speak directly with the shop through its contact channels.",["Website for discovery & ordering","Facebook, Zalo & WhatsApp","Future direction: communities & events"]],["Revenue","Built on the value of products","Product sales are the core revenue source. Curated gift sets and business orders offer room to grow.",["Retail sales of cultural products","Occasion & theme-based gift sets","Future direction: corporate gifts"]],["Network","Build and grow together","We aim to develop relationships with makers, delivery partners and Vietnamese–Lao communities.",["Artisans & producers","Suitable delivery partners","Student communities in both countries"]],["Difference","Vietnamese–Lao culture at the heart","A place to discover two cultures, created by a team of students from Vietnam and Laos.",["Products & stories from both countries","An experience in 5 languages","A perspective close to the community"]]],"cta":"Discover the story in each product","ctaSub":"Find a gift for yourself, or talk with us about a collaboration.","shop":"Explore products","contact":"Discuss a collaboration"},"lo":{"eyebrow":"ການຄ້າທີ່ເຊື່ອມໂຍງວັດທະນະທຳ","title":"ເຊື່ອມສອງວັດທະນະທຳ<br>ເພີ່ມຄວາມໝາຍໃຫ້ທຸກຂອງຂວັນ","intro":"Lotus & Champa ເຊື່ອມສິນຄ້າຈາກຫວຽດນາມແລະລາວ ກັບຜູ້ທີ່ໃຫ້ຄຸນຄ່າແກ່ທີ່ມາ ເລື່ອງລາວ ແລະຄວາມໝາຍຂອງຂອງຂວັນ.","bridge":"ຈາກຜູ້ຜະລິດສູ່ຜູ້ຮັບ","flow":["ສິນຄ້າຫວຽດນາມ–ລາວ","ຄັດເລືອກແລະເລົ່າເລື່ອງ","ຂອງຂວັນທີ່ມີຄວາມໝາຍ"],"flowSub":["ຫັດຖະກຳແລະສິນຄ້າທ້ອງຖິ່ນ","Lotus & Champa","ລູກຄ້າແລະຊຸມຊົນ"],"stats":["ສອງວັດທະນະທຳ","ຫ້າພາສາ","ປະສົບການທີ່ເຊື່ອມໂຍງ"],"heading":"ໜຶ່ງແນວຄິດ ຫົກພື້ນຖານ","sub":"ເລີ່ມຈາກລູກຄ້າ ສ້າງຄຸນຄ່າຈາກວັດທະນະທຳ ແລະສ້າງລາຍຮັບຈາກສິນຄ້າ.","cards":[["ລູກຄ້າ","ໃຜໄດ້ຮັບຄຸນຄ່າ?","ສຳລັບຜູ້ຢາກຮູ້ຈັກວັດທະນະທຳ ຫຼືເລືອກຂອງຂວັນທີ່ມີຄວາມໝາຍ.",["ຜູ້ສົນໃຈວັດທະນະທຳຫວຽດນາມແລະລາວ","ຄອບຄົວ ນັກສຶກສາ ແລະນັກທ່ອງທ່ຽວ","ອົງກອນທີ່ຊອກຫາຂອງຂວັນ"]],["ຄຸນຄ່າ","ຫຼາຍກວ່າຕົວສິນຄ້າ","ປະສານສິນຄ້າ ເລື່ອງລາວ ແລະຄຳແນະນຳ ໃຫ້ຜູ້ຮັບເຂົ້າໃຈຄວາມພິເສດ.",["ຫັດຖະກຳແລະສິນຄ້າທ້ອງຖິ່ນ","ເລື່ອງລາວທີ່ເຊື່ອມກັບທີ່ມາ","ຂໍ້ມູນແລະການຊ່ວຍເຫຼືອຫຼາຍພາສາ"]],["ຊ່ອງທາງ","ເວັບໄຊແມ່ນຈຸດນັດພົບ","ຄົ້ນພົບສິນຄ້າໃນເວັບໄຊ ແລະຕິດຕໍ່ຮ້ານໂດຍກົງ.",["ເວັບໄຊສຳລັບເບິ່ງແລະສັ່ງສິນຄ້າ","Facebook, Zalo ແລະ WhatsApp","ແນວທາງຕໍ່ຍອດ: ຊຸມຊົນແລະກິດຈະກຳ"]],["ລາຍຮັບ","ເລີ່ມຈາກຄຸນຄ່າສິນຄ້າ","ລາຍຮັບຫຼັກມາຈາກການຂາຍສິນຄ້າ ຊຸດຂອງຂວັນແລະອົງກອນແມ່ນແນວທາງພັດທະນາ.",["ຂາຍຍ່ອຍສິນຄ້າວັດທະນະທຳ","ຊຸດຂອງຂວັນຕາມໂອກາດ","ແນວທາງຕໍ່ຍອດ: ຂອງຂວັນອົງກອນ"]],["ເຄືອຂ່າຍ","ຮ່ວມສ້າງແລະເຕີບໂຕ","ມຸ່ງຮ່ວມມືກັບຜູ້ຜະລິດ ຜູ້ຂົນສົ່ງ ແລະຊຸມຊົນຫວຽດນາມ–ລາວ.",["ຊ່າງຝີມືແລະຜູ້ຜະລິດ","ຄູ່ຮ່ວມງານດ້ານການຈັດສົ່ງ","ຊຸມຊົນນັກສຶກສາສອງປະເທດ"]],["ເອກະລັກ","ວັດທະນະທຳແມ່ນຫົວໃຈ","ພື້ນທີ່ຄົ້ນພົບສອງວັດທະນະທຳ ສ້າງໂດຍນັກສຶກສາຫວຽດນາມແລະລາວ.",["ສິນຄ້າແລະເລື່ອງລາວຈາກສອງປະເທດ","ປະສົບການໃນ 5 ພາສາ","ມຸມມອງທີ່ໃກ້ຊິດຊຸມຊົນ"]]],"cta":"ຄົ້ນພົບເລື່ອງລາວຜ່ານສິນຄ້າ","ctaSub":"ເລືອກຂອງຂວັນ ຫຼືປຶກສາແນວຄິດຮ່ວມມືກັບພວກເຮົາ.","shop":"ເບິ່ງສິນຄ້າ","contact":"ປຶກສາການຮ່ວມມື"},"zh":{"eyebrow":"以文化为纽带的商业","title":"连接两种文化<br>让每一份礼物更有意义","intro":"Lotus & Champa 将越南与老挝的产品带给珍视礼物来源、故事与意义的人们。","bridge":"从制作者到收礼人","flow":["越南与老挝的产品","精选产品，分享故事","有意义的礼物"],"flowSub":["手工艺与地方特色","Lotus & Champa","顾客与社区"],"stats":["两种文化","五种语言","一次相互连接的体验"],"heading":"一个模式，六个基础","sub":"以顾客为中心，以文化创造价值，以产品支撑业务。","cards":[["顾客","谁能在这里发现价值？","面向希望了解文化，或为重要的人挑选有意义礼物的顾客。",["越南与老挝文化爱好者","家庭、学生与旅行者","寻找礼品的企业"]],["价值","不只是一件产品","通过产品、故事与建议，帮助收礼人理解礼物的独特之处。",["具有地方特色的手工艺与产品","与来源相连的文化故事","多语言信息与帮助"]],["渠道","网站是相遇的地方","在网站发现产品，通过店铺联系方式直接交流。",["浏览产品与下单的网站","Facebook、Zalo 与 WhatsApp","发展方向：社区与文化活动"]],["收入","从产品价值出发","产品销售是主要收入来源，主题礼盒与企业订单是发展方向。",["文化产品零售","节日与主题礼盒","发展方向：企业礼品"]],["网络","共同建设，共同成长","希望与制作者、配送伙伴及越南与老挝社区建立合作。",["手工艺人与生产者","合适的配送伙伴","两国学生社区"]],["特色","以越南与老挝文化为核心","由越南与老挝学生团队创建，探索两种文化的空间。",["来自两国的产品与故事","五种语言的体验","贴近社区的视角"]]],"cta":"通过每一件产品发现故事","ctaSub":"为自己挑选礼物，或与我们交流合作想法。","shop":"探索产品","contact":"交流合作"}};
   const c=copy[CURRENT_LANG]||copy.vi;
@@ -7584,58 +7391,26 @@ function renderContact(){
 
       <div class="checkout-form-card" style="margin:0">
         <h3>${t("contact.send")}</h3>
-        <form id="contactMessageForm" onsubmit="submitContactMessage(event)">
-          <div class="form-grid">
-            <div class="form-field"><label for="contactName">${t("contact.fullname")}</label><input id="contactName" name="name" type="text" minlength="2" maxlength="120" autocomplete="name" required/></div>
-            <div class="form-field"><label for="contactPhone">${t("co.phone")}</label><input id="contactPhone" name="phone" type="tel" maxlength="30" autocomplete="tel"/></div>
-            <div class="form-field full"><label for="contactEmail">${t("co.email")}</label><input id="contactEmail" name="email" type="email" maxlength="254" autocomplete="email"/></div>
-            <div class="form-field full"><label for="contactSubject">${t("contact.subject")}</label>
-              <select id="contactSubject" name="subject" required>
-                <option value="product">${t("contact.subj.1")}</option>
-                <option value="bulk_order">${t("contact.subj.2")}</option>
-                <option value="partnership">${t("contact.subj.3")}</option>
-                <option value="other">${t("contact.subj.4")}</option>
-              </select>
-            </div>
-            <div class="form-field full"><label for="contactMessage">${t("contact.content")}</label><textarea id="contactMessage" name="message" rows="4" minlength="5" maxlength="5000" required></textarea></div>
+        <div class="form-grid">
+          <div class="form-field"><label>${t("contact.fullname")}</label><input type="text"/></div>
+          <div class="form-field"><label>${t("co.phone")}</label><input type="tel"/></div>
+          <div class="form-field full"><label>${t("co.email")}</label><input type="email"/></div>
+          <div class="form-field full"><label>${t("contact.subject")}</label>
+            <select>
+              <option>${t("contact.subj.1")}</option>
+              <option>${t("contact.subj.2")}</option>
+              <option>${t("contact.subj.3")}</option>
+              <option>${t("contact.subj.4")}</option>
+            </select>
           </div>
-          <p id="contactMessageFeedback" role="status" aria-live="polite" style="margin-top:10px;font-size:.88rem;color:var(--muted)"></p>
-          <button id="contactMessageSubmit" class="btn btn-primary" type="submit" style="margin-top:14px;width:100%;justify-content:center">${t('contact.sendBtn')}</button>
-        </form>
+          <div class="form-field full"><label>${t("contact.content")}</label><textarea rows="4"></textarea></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:14px;width:100%;justify-content:center" onclick="toast(t('contact.thanks'))">${t('contact.sendBtn')}</button>
+        <!-- 🔧 TODO: Connect to email API or Firebase function -->
       </div>
     </div>
   </div>
   `;
-}
-
-const CONTACT_MESSAGE_COPY={
-  vi:{privacy:'Thông tin của bạn sẽ được gửi đến đội ngũ Lotus & Champa để phản hồi.',needContact:'Vui lòng nhập số điện thoại hoặc email để chúng tôi liên hệ.',firebase:'Chưa kết nối được Firebase. Vui lòng thử lại sau.',sending:'Đang gửi tin nhắn…',sent:'Đã gửi tin nhắn. Cảm ơn bạn, chúng tôi sẽ phản hồi sớm.',failed:'Không gửi được tin nhắn. Vui lòng thử lại sau.',permission:'Firebase chưa cho phép lưu tin nhắn. Cần cập nhật Firestore Rules.',adminTitle:'Tin nhắn liên hệ',loading:'Đang đồng bộ tin nhắn…',loadError:'Không tải được tin nhắn:',empty:'Chưa có tin nhắn nào.',name:'Họ và tên',phone:'Số điện thoại',email:'Email',subject:'Chủ đề',message:'Nội dung',received:'Thời gian nhận',status:'Trạng thái',statuses:{new:'Mới',read:'Đã xem',replied:'Đã phản hồi',closed:'Đã đóng'},updated:'Đã cập nhật trạng thái tin nhắn.',updateFailed:'Không cập nhật được trạng thái tin nhắn.',subjects:{product:'Hỏi về sản phẩm',bulk_order:'Đơn hàng số lượng lớn',partnership:'Hợp tác kinh doanh',other:'Khác'}},
-  en:{privacy:'Your information will be sent to the Lotus & Champa team so we can reply.',needContact:'Enter a phone number or email address so we can contact you.',firebase:'Firebase is not connected. Please try again later.',sending:'Sending message…',sent:'Message sent. Thank you — we will reply soon.',failed:'Could not send the message. Please try again later.',permission:'Firebase cannot save messages yet. Firestore Rules need to be updated.',adminTitle:'Contact messages',loading:'Syncing messages…',loadError:'Could not load messages:',empty:'There are no messages yet.',name:'Name',phone:'Phone',email:'Email',subject:'Subject',message:'Message',received:'Received',status:'Status',statuses:{new:'New',read:'Read',replied:'Replied',closed:'Closed'},updated:'Message status updated.',updateFailed:'Could not update the message status.',subjects:{product:'Question about a product',bulk_order:'Bulk order',partnership:'Business partnership',other:'Other'}},
-  th:{privacy:'ข้อมูลของคุณจะถูกส่งให้ทีม Lotus & Champa เพื่อใช้ติดต่อกลับ',needContact:'กรุณากรอกเบอร์โทรศัพท์หรืออีเมลเพื่อให้เราติดต่อกลับ',firebase:'ยังไม่ได้เชื่อมต่อ Firebase โปรดลองอีกครั้งภายหลัง',sending:'กำลังส่งข้อความ…',sent:'ส่งข้อความแล้ว ขอบคุณ เราจะติดต่อกลับโดยเร็ว',failed:'ส่งข้อความไม่สำเร็จ โปรดลองอีกครั้งภายหลัง',permission:'Firebase ยังไม่ได้รับอนุญาตให้บันทึกข้อความ ต้องปรับ Firestore Rules',adminTitle:'ข้อความติดต่อ',loading:'กำลังซิงก์ข้อความ…',loadError:'โหลดข้อความไม่สำเร็จ:',empty:'ยังไม่มีข้อความ',name:'ชื่อ-นามสกุล',phone:'เบอร์โทรศัพท์',email:'อีเมล',subject:'หัวข้อ',message:'ข้อความ',received:'เวลาที่ได้รับ',status:'สถานะ',statuses:{new:'ใหม่',read:'อ่านแล้ว',replied:'ตอบกลับแล้ว',closed:'ปิดแล้ว'},updated:'อัปเดตสถานะข้อความแล้ว',updateFailed:'อัปเดตสถานะข้อความไม่สำเร็จ',subjects:{product:'สอบถามเกี่ยวกับสินค้า',bulk_order:'คำสั่งซื้อจำนวนมาก',partnership:'ความร่วมมือทางธุรกิจ',other:'อื่นๆ'}},
-  lo:{privacy:'ຂໍ້ມູນຂອງທ່ານຈະຖືກສົ່ງໃຫ້ທີມ Lotus & Champa ເພື່ອຕິດຕໍ່ກັບ.',needContact:'ກະລຸນາປ້ອນເບີໂທ ຫຼືອີເມວເພື່ອໃຫ້ພວກເຮົາຕິດຕໍ່.',firebase:'ຍັງບໍ່ໄດ້ເຊື່ອມຕໍ່ Firebase. ກະລຸນາລອງອີກຄັ້ງ.',sending:'ກຳລັງສົ່ງຂໍ້ຄວາມ…',sent:'ສົ່ງຂໍ້ຄວາມແລ້ວ. ຂອບໃຈ, ພວກເຮົາຈະຕອບກັບໄວໆນີ້.',failed:'ສົ່ງຂໍ້ຄວາມບໍ່ສຳເລັດ. ກະລຸນາລອງອີກຄັ້ງ.',permission:'Firebase ຍັງບໍ່ອະນຸຍາດໃຫ້ບັນທຶກ. ຕ້ອງປັບ Firestore Rules.',adminTitle:'ຂໍ້ຄວາມຕິດຕໍ່',loading:'ກຳລັງຊິງຂໍ້ຄວາມ…',loadError:'ໂຫຼດຂໍ້ຄວາມບໍ່ໄດ້:',empty:'ຍັງບໍ່ມີຂໍ້ຄວາມ.',name:'ຊື່ ແລະນາມສະກຸນ',phone:'ເບີໂທ',email:'ອີເມວ',subject:'ຫົວຂໍ້',message:'ເນື້ອຫາ',received:'ເວລາຮັບ',status:'ສະຖານະ',statuses:{new:'ໃໝ່',read:'ອ່ານແລ້ວ',replied:'ຕອບແລ້ວ',closed:'ປິດແລ້ວ'},updated:'ອັບເດດສະຖານະຂໍ້ຄວາມແລ້ວ.',updateFailed:'ອັບເດດສະຖານະບໍ່ໄດ້.',subjects:{product:'ສອບຖາມສິນຄ້າ',bulk_order:'ການສັ່ງຊື້ຈຳນວນຫຼາຍ',partnership:'ຮ່ວມມືທຸລະກິດ',other:'ອື່ນໆ'}},
-  zh:{privacy:'您的信息将发送给 Lotus & Champa 团队，以便我们回复您。',needContact:'请填写电话号码或电子邮箱，以便我们联系您。',firebase:'Firebase 尚未连接，请稍后重试。',sending:'正在发送消息…',sent:'消息已发送，谢谢！我们会尽快回复。',failed:'消息发送失败，请稍后重试。',permission:'Firebase 尚未允许保存消息，需要更新 Firestore Rules。',adminTitle:'联系消息',loading:'正在同步消息…',loadError:'无法加载消息：',empty:'暂无消息。',name:'姓名',phone:'电话',email:'电子邮箱',subject:'主题',message:'内容',received:'收到时间',status:'状态',statuses:{new:'新消息',read:'已读',replied:'已回复',closed:'已关闭'},updated:'消息状态已更新。',updateFailed:'无法更新消息状态。',subjects:{product:'产品咨询',bulk_order:'批量订单',partnership:'商业合作',other:'其他'}}
-};
-function contactMessageCopy(){return CONTACT_MESSAGE_COPY[CURRENT_LANG]||CONTACT_MESSAGE_COPY.vi;}
-
-async function submitContactMessage(event){
-  event.preventDefault();
-  const copy=contactMessageCopy(),form=document.getElementById('contactMessageForm'),button=document.getElementById('contactMessageSubmit'),feedback=document.getElementById('contactMessageFeedback');
-  const fb=window.LCFB;
-  if(!fb?.ready){feedback.textContent=copy.firebase;return;}
-  const name=document.getElementById('contactName').value.trim();
-  const phone=document.getElementById('contactPhone').value.trim();
-  const email=document.getElementById('contactEmail').value.trim();
-  const subject=document.getElementById('contactSubject').value;
-  const message=document.getElementById('contactMessage').value.trim();
-  if(!phone&&!email){feedback.textContent=copy.needContact;return;}
-  if(name.length<2||message.length<5){form.reportValidity();return;}
-  const oldText=button.textContent;button.disabled=true;button.textContent=copy.sending;feedback.textContent='';
-  try{
-    const user=await fb.lcEnsureOrderUser();
-    await fb.addDoc(fb.collection(fb.db,'contactMessages'),{ownerUid:user.uid,name,phone,email,subject,message,language:CURRENT_LANG,status:'new',createdAt:fb.serverTimestamp()});
-    form.reset();feedback.textContent=copy.sent;
-  }catch(err){console.error('[Contact] Message save failed:',err);feedback.textContent=err.code==='permission-denied'?copy.permission:copy.failed;}
-  finally{button.disabled=false;button.textContent=oldText;}
 }
 
 /* ===========================================================
@@ -7816,6 +7591,7 @@ async function logoutUser(){
    21 — ADMIN PANEL
    Admin password is verified by Firebase Authentication.
 =========================================================== */
+const ADMIN_ACCOUNT_EMAIL = 'admin@lotus-champa.example';
 function isFirebaseAdmin(){
   return !!(window.LCFB?.auth.currentUser && window.LCSession?.isAdmin && window.LCSession.uid === window.LCFB.auth.currentUser.uid);
 }
@@ -7832,11 +7608,7 @@ function renderAdmin(route){
         <h2>${t("admin.login")}</h2>
         <p class="sub">${t("admin.login.sub")}</p>
         <div class="form-field" style="margin-bottom:14px">
-          <label for="adminEmailInput">${experienceCopy().ui.emailLabel}</label>
-          <input type="email" autocomplete="username" id="adminEmailInput" placeholder="admin@example.com" onkeydown="if(event.key==='Enter')adminLogin()"/>
-        </div>
-        <div class="form-field" style="margin-bottom:14px">
-          <label for="adminPassInput">${t("admin.pass")}</label>
+          <label>${t("admin.pass")}</label>
           <input type="password" autocomplete="current-password" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()"/>
         </div>
         <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="adminLogin()">${t("admin.btn.login")}</button>
@@ -7849,7 +7621,6 @@ function renderAdmin(route){
   const tab = route.sub || 'dashboard';
   shell.innerHTML = `
   <div class="admin-shell">
-    <button type="button" class="admin-sidebar-backdrop" id="adminSidebarBackdrop" aria-label="${t("admin.closeMenu")}" onclick="toggleAdminSidebar(false)"></button>
     <aside class="admin-sidebar" id="adminSidebar">
       <div class="admin-brand">
         <div class="logo" aria-label="Lotus & Champa logo"></div>
@@ -7870,15 +7641,6 @@ function renderAdmin(route){
         <a href="#/admin/orders" class="${tab==='orders'?'active':''}">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.7" d="M9 4h6v4H9V4ZM5 8h14v12H5V8Z"/></svg>
           ${t("admin.orders")}
-        </a>
-        <a href="#/admin/experience-bookings" class="${tab==='experience-bookings'?'active':''}">
-          <span aria-hidden="true">🎟️</span> ${experienceCopy().ui.adminBookings}
-        </a>
-        <a href="#/admin/activities" class="${tab==='activities'?'active':''}">
-          <span aria-hidden="true">📅</span> ${experienceCopy().ui.adminActivities}
-        </a>
-        <a href="#/admin/contact-messages" class="${tab==='contact-messages'?'active':''}">
-          <span aria-hidden="true">✉️</span> ${contactMessageCopy().adminTitle}
         </a>
         <a href="#/admin/reviews" class="${tab==='reviews'?'active':''}">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.7" d="m12 2 3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7l3-7Z"/></svg>
@@ -7904,10 +7666,6 @@ function renderAdmin(route){
     </aside>
 
     <div class="admin-main">
-      <div class="admin-mobile-bar">
-        <button type="button" class="admin-menu-toggle" id="adminMenuToggle" aria-controls="adminSidebar" aria-expanded="false" onclick="toggleAdminSidebar()"><span class="icon" aria-hidden="true">☰</span><span>${t("admin.menu")}</span></button>
-        <span class="admin-mobile-title">Lotus &amp; Champa</span>
-      </div>
       ${renderAdminContent(tab)}
     </div>
   </div>
@@ -7916,24 +7674,10 @@ function renderAdmin(route){
   if(tab==='dashboard') drawAdminChart();
 }
 
-function toggleAdminSidebar(forceOpen){
-  const sidebar=document.getElementById('adminSidebar');
-  if(!sidebar)return;
-  const backdrop=document.getElementById('adminSidebarBackdrop');
-  const toggle=document.getElementById('adminMenuToggle');
-  const open=typeof forceOpen==='boolean'?forceOpen:!sidebar.classList.contains('open');
-  sidebar.classList.toggle('open',open);
-  backdrop?.classList.toggle('open',open);
-  toggle?.setAttribute('aria-expanded',String(open));
-}
-
 function renderAdminContent(tab){
   switch(tab){
     case 'products': return adminProducts();
     case 'orders': return adminOrders();
-    case 'experience-bookings': return adminExperienceBookings();
-    case 'activities': return adminActivities();
-    case 'contact-messages': return adminContactMessages();
     case 'reviews': return adminReviews();
     case 'blog': return adminBlog();
     case 'coupons': return adminCoupons();
@@ -7943,9 +7687,8 @@ function renderAdminContent(tab){
 
 async function adminLogin(){
   if(!_fbAuthReady()) { toast(t('sys.auth.loginNotReady'),'error'); return; }
-  const email = document.getElementById('adminEmailInput')?.value.trim();
+  const email = ADMIN_ACCOUNT_EMAIL;
   const password = document.getElementById('adminPassInput').value;
-  if(!email){toast(experienceCopy().ui.emailMissing,'error');return;}
   try {
     await window.LCFB.lcLogin({email,password});
     await window.LCFB.lcRefreshSession();
@@ -8134,124 +7877,6 @@ function orderForDisplay(value){
   if(value && typeof value === 'object' && !(value instanceof Date)) return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,orderForDisplay(v)]));
   return value;
 }
-
-window._fbExperienceBookingsLoading=true;
-function resetExperienceBookingSubscription(){
-  if(window._fbExperienceBookingsUnsub) window._fbExperienceBookingsUnsub();
-  window._fbExperienceBookingsUnsub=null;
-  window._fbExperienceBookings=[];
-  window._fbExperienceBookingsError=null;
-  window._fbExperienceBookingsLoading=true;
-}
-window.addEventListener('lc-auth-reset',resetExperienceBookingSubscription);
-
-function subscribeExperienceBookingsIfNeeded(){
-  const fb=window.LCFB;
-  if(!fb?.ready||!isFirebaseAdmin()||window._fbExperienceBookingsUnsub)return;
-  const {db,collection,query,orderBy,onSnapshot}=fb;
-  window._fbExperienceBookingsLoading=true;
-  window._fbExperienceBookingsUnsub=onSnapshot(query(collection(db,'experienceBookings'),orderBy('createdAt','desc')),
-    snap=>{window._fbExperienceBookings=snap.docs.map(d=>({id:d.id,...d.data()}));window._fbExperienceBookingsLoading=false;window._fbExperienceBookingsError=null;if(parseHash().page==='admin'&&parseHash().sub==='experience-bookings')router();},
-    err=>{console.warn('[Experiences] Booking request read failed:',err.code);window._fbExperienceBookingsError=err.message;window._fbExperienceBookingsLoading=false;if(parseHash().page==='admin'&&parseHash().sub==='experience-bookings')router();}
-  );
-}
-
-function adminExperienceBookings(){
-  const u=experienceCopy().ui;
-  subscribeExperienceBookingsIfNeeded();
-  if(!window.LCFB?.ready)return `<div class="admin-header"><h1>${u.adminBookings}</h1></div><div class="admin-card">${u.firebase}</div>`;
-  if(window._fbExperienceBookingsError)return `<div class="admin-header"><h1>${u.adminBookings}</h1></div><div class="admin-card" style="padding:24px;color:var(--terracotta)">${u.loadBookingsError} ${escapeExperienceText(window._fbExperienceBookingsError)}</div>`;
-  if(window._fbExperienceBookingsLoading)return `<div class="admin-header"><h1>${u.adminBookings}</h1></div><div class="admin-card" style="padding:24px;color:var(--muted)">${u.sync}</div>`;
-  const items=window._fbExperienceBookings||[];
-  const typeNames={event:u.events,food:u.food,workshop:u.workshops,combo:u.combo};
-  const statusNames={pending:u.statuses[0],confirmed:u.statuses[1],cancelled:u.statuses[2]};
-  return `<div class="admin-header"><h1>${u.adminBookings} <span class="sub">${items.length} ${u.bookingCount}</span><small style="color:var(--sage);font-weight:400;font-size:.7rem;margin-left:10px">● live</small></h1></div><div class="admin-card" style="overflow:auto"><table class="admin-table"><thead><tr><th>${u.name}</th><th>${u.type}</th><th>${u.date}</th><th>${u.tickets}</th><th>${u.statusLabel}</th><th>${u.contact}</th></tr></thead><tbody>${items.length?items.map(item=>`<tr><td>${escapeExperienceText(item.name)}</td><td>${escapeExperienceText(typeNames[item.experienceType]||item.experienceType)}</td><td>${escapeExperienceText(item.date)}</td><td>${Number(item.tickets)||0}</td><td><select aria-label="${u.statusLabel}" onchange="adminSetExperienceStatus('${escapeExperienceText(item.id)}',this.value)">${Object.entries(statusNames).map(([key,label])=>`<option value="${key}" ${item.status===key?'selected':''}>${label}</option>`).join('')}</select></td><td>${escapeExperienceText(item.contact)}</td></tr>`).join(''):`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">${u.emptyBookings}</td></tr>`}</tbody></table></div>`;
-}
-
-async function adminSetExperienceStatus(id,status){
-  const u=experienceCopy().ui;
-  if(!isFirebaseAdmin()||!['pending','confirmed','cancelled'].includes(status))return;
-  try{await window.LCFB.updateDoc(window.LCFB.doc(window.LCFB.db,'experienceBookings',id),{status});toast(u.savedStatus);}
-  catch(err){console.error('[Experiences] Booking status update failed:',err);toast(u.statusError,'error');router();}
-}
-
-function adminActivities(){
-  const u=experienceCopy().ui;
-  subscribeActivitiesIfNeeded();
-  const activities=window._fbActivities||[];
-  return `<div class="admin-header"><h1>${u.adminActivities} <span class="sub">${activities.length}</span></h1></div>
-    <form class="admin-card ex-admin-activity-form" onsubmit="adminSaveActivity(event)"><label>${u.activityName}<input id="adminActivityTitle" maxlength="120" required></label><label>${u.date}<input id="adminActivityDate" type="date" required></label><label>${u.location}<input id="adminActivityLocation" maxlength="120" required></label><button class="btn btn-primary" type="submit">${u.saveActivity}</button></form>
-    <section class="admin-card ex-admin-activity-list"><h2>${u.adminActivities}</h2>${window._fbActivitiesError?`<p style="color:var(--terracotta)">${u.activityLoadError} ${escapeExperienceText(window._fbActivitiesError)}</p>`:activities.length?activities.map(activity=>`<article class="ex-admin-activity"><div><strong>${escapeExperienceText(activity.title)}</strong><p>${escapeExperienceText(activity.location)} · ${escapeExperienceText(activity.date)}</p></div><button class="btn btn-outline" type="button" onclick="adminDeleteActivity('${escapeExperienceText(activity.id)}')">${u.removeActivity}</button></article>`).join(''):`<p style="color:var(--muted)">${u.emptyActivities}</p>`}</section>`;
-}
-
-async function adminSaveActivity(event){
-  const u=experienceCopy().ui;
-  event.preventDefault();
-  if(!isFirebaseAdmin())return;
-  const title=document.getElementById('adminActivityTitle').value.trim();
-  const date=document.getElementById('adminActivityDate').value;
-  const location=document.getElementById('adminActivityLocation').value.trim();
-  if(title.length<2||location.length<2||!date){toast(u.fillActivity,'error');return;}
-  const fb=window.LCFB;
-  try{await fb.addDoc(fb.collection(fb.db,'activities'),{title,date,location,createdAt:fb.serverTimestamp()});event.target.reset();toast(u.savedActivity);}
-  catch(err){console.error('[Experiences] Activity save failed:',err);toast(u.saveError,'error');}
-}
-
-async function adminDeleteActivity(id){
-  const u=experienceCopy().ui;
-  if(!isFirebaseAdmin()||!confirm(u.confirmDelete))return;
-  try{await window.LCFB.deleteDoc(window.LCFB.doc(window.LCFB.db,'activities',id));toast(u.deleted);}
-  catch(err){console.error('[Experiences] Activity delete failed:',err);toast(u.deleteError,'error');}
-}
-
-window._fbContactMessages=[];
-window._fbContactMessagesLoading=true;
-window._fbContactMessagesError=null;
-window._fbContactMessagesUnsub=null;
-function resetContactMessageSubscription(){
-  if(window._fbContactMessagesUnsub)window._fbContactMessagesUnsub();
-  window._fbContactMessagesUnsub=null;window._fbContactMessages=[];window._fbContactMessagesError=null;window._fbContactMessagesLoading=true;
-}
-window.addEventListener('lc-auth-reset',resetContactMessageSubscription);
-
-function subscribeContactMessagesIfNeeded(){
-  const fb=window.LCFB;
-  if(!fb?.ready||!isFirebaseAdmin()||window._fbContactMessagesUnsub)return;
-  const {db,collection,query,orderBy,onSnapshot}=fb;
-  window._fbContactMessagesLoading=true;
-  window._fbContactMessagesUnsub=onSnapshot(query(collection(db,'contactMessages'),orderBy('createdAt','desc')),
-    snap=>{window._fbContactMessages=snap.docs.map(d=>({id:d.id,...d.data()}));window._fbContactMessagesLoading=false;window._fbContactMessagesError=null;if(parseHash().page==='admin'&&parseHash().sub==='contact-messages')router();},
-    err=>{console.warn('[Contact] Message read failed:',err.code);window._fbContactMessagesError=err.message;window._fbContactMessagesLoading=false;if(parseHash().page==='admin'&&parseHash().sub==='contact-messages')router();}
-  );
-}
-
-function adminContactMessages(){
-  const c=contactMessageCopy();
-  subscribeContactMessagesIfNeeded();
-  if(!window.LCFB?.ready)return `<div class="admin-header"><h1>${c.adminTitle}</h1></div><div class="admin-card">${c.firebase}</div>`;
-  if(window._fbContactMessagesError)return `<div class="admin-header"><h1>${c.adminTitle}</h1></div><div class="admin-card" style="padding:24px;color:var(--terracotta)">${c.loadError} ${escapeExperienceText(window._fbContactMessagesError)}</div>`;
-  if(window._fbContactMessagesLoading)return `<div class="admin-header"><h1>${c.adminTitle}</h1></div><div class="admin-card" style="padding:24px;color:var(--muted)">${c.loading}</div>`;
-  const items=window._fbContactMessages||[];
-  const locale={vi:'vi-VN',th:'th-TH',lo:'lo-LA',en:'en-GB',zh:'zh-CN'}[CURRENT_LANG]||'vi-VN';
-  const statuses=['new','read','replied','closed'];
-  return `<div class="admin-header"><h1>${c.adminTitle} <span class="sub">${items.length}</span><small style="color:var(--sage);font-weight:400;font-size:.7rem;margin-left:10px">● live</small></h1></div>
-    <div class="admin-card" style="overflow:auto">${items.length?`<table class="admin-table"><thead><tr><th>${c.received}</th><th>${c.name}</th><th>${c.phone} / ${c.email}</th><th>${c.subject}</th><th>${c.message}</th><th>${c.status}</th></tr></thead><tbody>${items.map(item=>{
-      const when=item.createdAt?.toDate?.()||null;
-      const date=when?when.toLocaleString(locale,{dateStyle:'medium',timeStyle:'short'}):'—';
-      const email=String(item.email||'');
-      const phone=String(item.phone||'');
-      const subject=c.subjects[item.subject]||item.subject||'—';
-      return `<tr><td style="white-space:nowrap">${escapeExperienceText(date)}</td><td>${escapeExperienceText(item.name)}</td><td>${phone?`<a href="tel:${encodeURIComponent(phone)}">${escapeExperienceText(phone)}</a>`:''}${phone&&email?'<br>':''}${email?`<a href="mailto:${encodeURIComponent(email)}">${escapeExperienceText(email)}</a>`:''}${!phone&&!email?'—':''}</td><td>${escapeExperienceText(subject)}</td><td style="min-width:260px;max-width:460px;white-space:pre-wrap;overflow-wrap:anywhere">${escapeExperienceText(item.message)}</td><td><select aria-label="${c.status}" onchange="adminSetContactMessageStatus('${escapeExperienceText(item.id)}',this.value)">${statuses.map(status=>`<option value="${status}" ${item.status===status?'selected':''}>${c.statuses[status]}</option>`).join('')}</select></td></tr>`;
-    }).join('')}</tbody></table>`:`<p style="text-align:center;padding:24px;color:var(--muted)">${c.empty}</p>`}</div>`;
-}
-
-async function adminSetContactMessageStatus(id,status){
-  const c=contactMessageCopy();
-  if(!isFirebaseAdmin()||!['new','read','replied','closed'].includes(status))return;
-  try{await window.LCFB.updateDoc(window.LCFB.doc(window.LCFB.db,'contactMessages',id),{status});toast(c.updated);}
-  catch(err){console.error('[Contact] Message status update failed:',err);toast(c.updateFailed,'error');router();}
-}
-
 function paymentStatusMeta(status){
   const map = {
     pending:  { label:t('admin.status.pending'), icon:'⏳' },
@@ -8562,9 +8187,10 @@ function buildMobileMenu(){
     { href:'#/products', i18n:'nav.products' },
     { href:'#/products?country=lao', i18n:'nav.lao' },
     { href:'#/products?country=vietnam', i18n:'nav.vn' },
-    { href:'#/experiences', i18n:'nav.experiences', icon:'🎟️' },
+    { href:'#/products?sort=sale', i18n:'nav.sale' },
     { href:'#/blog', i18n:'nav.blog' },
     { href:'#/about', i18n:'nav.about' },
+    { href:'#/business', i18n:'nav.business' },
     { href:'#/contact', i18n:'nav.contact' },
     { href:'#/cart', i18n:'nav.cart', icon:'🧺' },
     { href:'#/account', i18n:'nav.account', icon:'👤' },
