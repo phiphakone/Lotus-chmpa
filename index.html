@@ -97,6 +97,21 @@ html[lang="zh"]{--f-body:var(--f-chinese);--f-display:'Noto Serif SC',var(--f-ch
 html[lang="en"],html[lang="vi"]{--f-body:var(--f-latin)}
 html[lang="th"] body,html[lang="lo"] body{line-height:1.78}
 html[lang="zh"] body{line-height:1.72}
+
+/* Page-specific illustrated backgrounds for the requested storefront pages. */
+body[data-page-bg] #main{
+  background-image:linear-gradient(rgba(250,248,242,.76),rgba(250,248,242,.76)),var(--page-bg-image);
+  background-attachment:fixed;
+  background-position:center top;
+  background-size:cover;
+}
+body[data-page-bg] .hero,
+body[data-page-bg] .page-hero{
+  background-image:linear-gradient(rgba(250,248,242,.72),rgba(250,248,242,.72)),var(--page-bg-image);
+  background-attachment:fixed;
+  background-position:center top;
+  background-size:cover;
+}
 html[lang="th"] .announce,
 html[lang="lo"] .announce,
 html[lang="zh"] .announce,
@@ -667,17 +682,33 @@ html[lang="zh"] .tab-h{line-height:1.35}
   position:relative;
   aspect-ratio:1;
   overflow:hidden;
-  background:var(--cream-warm);
+  isolation:isolate;
+  background:linear-gradient(145deg,#fff 0%,#f7f3e9 100%);
+}
+.product-img::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  width:78%;
+  aspect-ratio:1;
+  left:11%;top:11%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(211,185,125,.22) 0%,rgba(211,185,125,.08) 52%,transparent 72%);
+  pointer-events:none;
 }
 .product-img img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .6s;
+  position:relative;z-index:1;
+  width:100%;height:100%;object-fit:contain;
+  padding:16px;
+  filter:drop-shadow(0 12px 14px rgba(17,55,45,.14));
+  transition:transform .5s ease,filter .5s ease;
 }
-.product-card:hover .product-img img{transform:scale(1.06)}
+.product-card:hover .product-img img{transform:translateY(-2px) scale(1.035);filter:drop-shadow(0 16px 18px rgba(17,55,45,.2))}
 
 .product-badges{
   position:absolute;top:10px;left:10px;
   display:flex;flex-direction:column;gap:5px;
+  z-index:2;
 }
 .badge{
   font-size:.66rem;
@@ -716,6 +747,7 @@ html[lang="zh"] .tab-h{line-height:1.35}
   color:#fff;
   border-radius:999px;
   display:flex;align-items:center;gap:6px;
+  z-index:2;
 }
 
 .product-info{padding:16px;display:flex;flex-direction:column;flex:1}
@@ -1181,10 +1213,10 @@ html[lang="zh"] .tab-h{line-height:1.35}
   aspect-ratio:1;
   border-radius:var(--r-md);
   overflow:hidden;
-  background:var(--cream-warm);
+  background:radial-gradient(circle at 50% 42%,rgba(211,185,125,.2),transparent 56%),linear-gradient(145deg,#fff 0%,#f6f1e7 100%);
   margin-bottom:14px;
 }
-.pd-gallery .main-img img{width:100%;height:100%;object-fit:cover}
+.pd-gallery .main-img img{width:100%;height:100%;object-fit:contain;padding:22px;filter:drop-shadow(0 16px 18px rgba(17,55,45,.16))}
 .pd-thumbs{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -1194,12 +1226,16 @@ html[lang="zh"] .tab-h{line-height:1.35}
   aspect-ratio:1;
   border-radius:8px;
   overflow:hidden;
-  background:var(--cream-warm);
+  background:linear-gradient(145deg,#fff 0%,#f6f1e7 100%);
   border:2px solid transparent;
   cursor:pointer;
 }
 .pd-thumb.active{border-color:var(--gold)}
-.pd-thumb img{width:100%;height:100%;object-fit:cover}
+.pd-thumb img{width:100%;height:100%;object-fit:contain;padding:8px}
+@media (prefers-reduced-motion:reduce){
+  .product-card,.product-img img{transition:none}
+  .product-card:hover,.product-card:hover .product-img img{transform:none}
+}
 
 .pd-info .badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .pd-info h1{
@@ -1768,6 +1804,14 @@ html[lang="zh"] .tab-h{line-height:1.35}
   position:sticky;top:0;height:100vh;
   overflow-y:auto;
 }
+.admin-mobile-bar{display:none}
+.admin-sidebar-backdrop{display:none}
+.admin-menu-toggle{
+  display:inline-flex;align-items:center;gap:9px;border:0;border-radius:9px;
+  padding:10px 14px;background:var(--navy-deep);color:var(--cream);
+  font:600 .9rem var(--f-body);cursor:pointer;box-shadow:var(--shadow-sm)
+}
+.admin-menu-toggle .icon{font-size:1.2rem;line-height:1}
 .admin-brand{
   display:flex;align-items:center;gap:12px;
   padding:6px 8px 22px;
@@ -2003,8 +2047,12 @@ body.admin-mode{background:#F4F5F7}
   .combos-grid{grid-template-columns:1fr;height:auto;gap:14px}
   .combos-grid .combo-card{height:280px}
   .admin-shell{grid-template-columns:1fr}
-  .admin-sidebar{position:fixed;left:-260px;width:240px;transition:left .3s;z-index:99}
-  .admin-sidebar.open{left:0}
+  .admin-sidebar{position:fixed;top:0;bottom:0;left:0;width:min(280px,86vw);height:100vh;height:100dvh;transform:translateX(-105%);transition:transform .28s ease;z-index:1001;box-shadow:var(--shadow-lg)}
+  .admin-sidebar.open{transform:translateX(0)}
+  .admin-mobile-bar{position:sticky;top:0;z-index:90;display:flex;align-items:center;gap:12px;margin:-20px -16px 18px;padding:10px 16px;background:rgba(244,245,247,.96);border-bottom:1px solid #E7E9ED;backdrop-filter:blur(10px)}
+  .admin-mobile-title{font-family:var(--f-display);font-weight:600;color:var(--navy);font-size:.95rem}
+  .admin-sidebar-backdrop{display:block;position:fixed;inset:0;width:100%;height:100%;padding:0;border:0;background:rgba(7,19,17,.48);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease;z-index:1000;cursor:pointer}
+  .admin-sidebar-backdrop.open{opacity:1;visibility:visible;pointer-events:auto}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .dual-grid{grid-template-columns:1fr;gap:30px}
   .dual-river{transform:rotate(90deg);width:80px}
@@ -2269,7 +2317,7 @@ body.admin-mode{background:#F4F5F7}
       </div>
 
       <div class="footer-bottom">
-        <div>© 2026 Lotus & Champa company. <span data-i18n="footer.rights">Bảo lưu mọi quyền.</span></div>
+        <div>© 2026 Lotus & Champa company. <span data-i18n="footer.rights">Bảo lưu mọi quyền.</span> · <a href="images/product-refresh/IMAGE-CREDITS.md" target="_blank" rel="noopener" data-i18n="footer.imageCredits">Nguồn ảnh</a></div>
         <div class="pay">
           <span>VNPAY</span><span>BIDV</span><span>BCEL</span><span>VISA</span><span>COD</span>
         </div>
@@ -2840,12 +2888,12 @@ const I18N = {
     'sys.admin.ordersLoadFailed':'Không thể tải đơn hàng',
     'sys.admin.ordersLoadHelp':'Vui lòng kiểm tra Firebase config và Firestore rules.',
     // ===== ADMIN =====
-    'admin.login':'Đăng nhập Admin','admin.login.sub':'Chỉ dành cho người quản trị',
+    'admin.login':'Đăng nhập Admin','admin.login.sub':'Chỉ quản trị viên được cấp quyền mới có thể đăng nhập. Không có đăng ký công khai.',
     'admin.pass':'Mật khẩu','admin.btn.login':'Đăng nhập','admin.demo.pass':'Demo password:',
     'admin.back':'← Quay về trang chủ','admin.dash':'Tổng quan',
     'admin.products':'Sản phẩm','admin.orders':'Đơn hàng','admin.reviews':'Đánh giá',
     'admin.blog':'Blog','admin.coupons':'Mã giảm giá','admin.logout':'Đăng xuất',
-    'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin',
+    'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin','admin.menu':'Menu quản trị','admin.closeMenu':'Đóng menu quản trị','admin.deniedTitle':'Không có quyền truy cập','admin.deniedText':'Khu vực này chỉ dành cho quản trị viên hoặc nhà phát triển đã được cấp quyền. Tài khoản khách hàng không thể đăng ký quyền quản trị.','admin.switchAccount':'Đăng xuất / đổi tài khoản',
     'admin.stat.orders':'Tổng đơn hàng','admin.stat.revenue':'Doanh thu',
     'admin.stat.products':'Sản phẩm','admin.stat.customers':'Khách hàng',
     'admin.chart.title':'Doanh thu 7 ngày qua','admin.recent.orders':'Đơn hàng gần đây',
@@ -2884,7 +2932,7 @@ const I18N = {
     'footer.quicklink':'Liên kết nhanh','footer.cat':'Danh mục','footer.policy':'Chính sách',
     'footer.contact':'Liên hệ','footer.shipping':'Chính sách giao hàng','footer.return':'Chính sách đổi trả',
     'footer.payment':'Hình thức thanh toán','footer.privacy':'Bảo mật thông tin','footer.terms':'Điều khoản sử dụng',
-    'footer.rights':'Bảo lưu mọi quyền.'
+    'footer.rights':'Bảo lưu mọi quyền.', 'footer.imageCredits':'Nguồn ảnh'
   },
   lo: {
     'sys.cart.limit':"ແຕ່ລະຄຳສັ່ງຊື້ບໍ່ເກີນ 5 ປະເພດສິນຄ້າ ແລະ 999 ຊິ້ນຕໍ່ປະເພດ",
@@ -3161,12 +3209,12 @@ const I18N = {
     'sys.admin.ordersLoadFailed':'ໂຫຼດຄຳສັ່ງຊື້ບໍ່ສຳເລັດ',
     'sys.admin.ordersLoadHelp':'ກະລຸນາກວດ Firebase config ແລະ Firestore rules.',
     // ===== ADMIN =====
-    'admin.login':'ເຂົ້າສູ່ລະບົບແອັດມິນ','admin.login.sub':'ສຳລັບຜູ້ດູແລລະບົບເທົ່ານັ້ນ',
+    'admin.login':'ເຂົ້າສູ່ລະບົບແອັດມິນ','admin.login.sub':'ສະເພາະຜູ້ດູແລທີ່ໄດ້ຮັບສິດເທົ່ານັ້ນ. ບໍ່ມີການລົງທະບຽນສາທາລະນະ.',
     'admin.pass':'ລະຫັດຜ່ານ','admin.btn.login':'ເຂົ້າສູ່ລະບົບ','admin.demo.pass':'ລະຫັດ demo:',
     'admin.back':'← ກັບໄປໜ້າຫຼັກ','admin.dash':'ພາບລວມ',
     'admin.products':'ສິນຄ້າ','admin.orders':'ການສັ່ງຊື້','admin.reviews':'ການປະເມີນ',
     'admin.blog':'ບລັອກ','admin.coupons':'ລະຫັດສ່ວນຫຼຸດ','admin.logout':'ອອກຈາກລະບົບ',
-    'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ',
+    'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ','admin.menu':'ເມນູຜູ້ດູແລ','admin.closeMenu':'ປິດເມນູຜູ້ດູແລ','admin.deniedTitle':'ບໍ່ມີສິດເຂົ້າເຖິງ','admin.deniedText':'ສ່ວນນີ້ສຳລັບຜູ້ດູແລ ຫຼືນັກພັດທະນາທີ່ໄດ້ຮັບສິດເທົ່ານັ້ນ. ບັນຊີລູກຄ້າບໍ່ສາມາດລົງທະບຽນເພື່ອເປັນຜູ້ດູແລໄດ້.','admin.switchAccount':'ອອກຈາກລະບົບ / ປ່ຽນບັນຊີ',
     'admin.stat.orders':'ການສັ່ງຊື້ທັງໝົດ','admin.stat.revenue':'ລາຍຮັບ',
     'admin.stat.products':'ສິນຄ້າ','admin.stat.customers':'ລູກຄ້າ',
     'admin.chart.title':'ລາຍຮັບ 7 ມື້ຜ່ານມາ','admin.recent.orders':'ການສັ່ງຊື້ລ່າສຸດ',
@@ -3204,7 +3252,7 @@ const I18N = {
     'footer.quicklink':'ລິ້ງດ່ວນ','footer.cat':'ໝວດໝູ່','footer.policy':'ນະໂຍບາຍ',
     'footer.contact':'ຕິດຕໍ່','footer.shipping':'ນະໂຍບາຍການສົ່ງ','footer.return':'ນະໂຍບາຍການຄືນ',
     'footer.payment':'ວິທີຊຳລະ','footer.privacy':'ຄວາມເປັນສ່ວນຕົວ','footer.terms':'ຂໍ້ກຳນົດການໃຊ້',
-    'footer.rights':'ສະຫງວນລິຂະສິດ.'
+    'footer.rights':'ສະຫງວນລິຂະສິດ.', 'footer.imageCredits':'ທີ່ມາຂອງຮູບ'
   },
   en: {
     'sys.cart.limit':"Each order supports up to 5 product types and 999 units per type. Please split larger carts into separate orders.",
@@ -3481,12 +3529,12 @@ const I18N = {
     'sys.admin.ordersLoadFailed':'Failed to load orders',
     'sys.admin.ordersLoadHelp':'Check Firebase config and Firestore rules.',
     // ===== ADMIN =====
-    'admin.login':'Admin Login','admin.login.sub':'Administrators only',
+    'admin.login':'Admin Login','admin.login.sub':'Only authorized administrators can sign in. Public registration is disabled.',
     'admin.pass':'Password','admin.btn.login':'Sign in','admin.demo.pass':'Demo password:',
     'admin.back':'← Back to website','admin.dash':'Dashboard',
     'admin.products':'Products','admin.orders':'Orders','admin.reviews':'Reviews',
     'admin.blog':'Blog','admin.coupons':'Coupons','admin.logout':'Sign out',
-    'admin.toSite':'View website','admin.welcome':'Welcome back, admin',
+    'admin.toSite':'View website','admin.welcome':'Welcome back, admin','admin.menu':'Admin menu','admin.closeMenu':'Close admin menu','admin.deniedTitle':'Access denied','admin.deniedText':'This area is only for authorized administrators or developers. Customer accounts cannot register for admin access.','admin.switchAccount':'Sign out / switch account',
     'admin.stat.orders':'Total orders','admin.stat.revenue':'Revenue',
     'admin.stat.products':'Products','admin.stat.customers':'Customers',
     'admin.chart.title':'Revenue last 7 days','admin.recent.orders':'Recent orders',
@@ -3524,7 +3572,7 @@ const I18N = {
     'footer.quicklink':'Quick links','footer.cat':'Categories','footer.policy':'Policies',
     'footer.contact':'Contact','footer.shipping':'Shipping policy','footer.return':'Return policy',
     'footer.payment':'Payment methods','footer.privacy':'Privacy','footer.terms':'Terms of use',
-    'footer.rights':'All rights reserved.'
+    'footer.rights':'All rights reserved.', 'footer.imageCredits':'Image credits'
   },
   th: {
     'sys.cart.limit':"สั่งได้ไม่เกิน 5 ประเภทสินค้าต่อคำสั่งซื้อ และ 999 ชิ้นต่อประเภท กรุณาแยกคำสั่งซื้อหากมีมากกว่านี้",
@@ -3801,12 +3849,12 @@ const I18N = {
     'sys.admin.ordersLoadFailed':'โหลดคำสั่งซื้อไม่สำเร็จ',
     'sys.admin.ordersLoadHelp':'กรุณาตรวจ Firebase config และ Firestore rules',
     // ===== ADMIN =====
-    'admin.login':'เข้าสู่ระบบแอดมิน','admin.login.sub':'สำหรับผู้ดูแลระบบเท่านั้น',
+    'admin.login':'เข้าสู่ระบบแอดมิน','admin.login.sub':'สำหรับแอดมินที่ได้รับอนุญาตเท่านั้น ไม่มีการสมัครสมาชิกสาธารณะ',
     'admin.pass':'รหัสผ่าน','admin.btn.login':'เข้าสู่ระบบ','admin.demo.pass':'รหัส demo:',
     'admin.back':'← กลับหน้าแรก','admin.dash':'ภาพรวม',
     'admin.products':'สินค้า','admin.orders':'คำสั่งซื้อ','admin.reviews':'รีวิว',
     'admin.blog':'บล็อก','admin.coupons':'โค้ดส่วนลด','admin.logout':'ออกจากระบบ',
-    'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน',
+    'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน','admin.menu':'เมนูแอดมิน','admin.closeMenu':'ปิดเมนูแอดมิน','admin.deniedTitle':'ไม่มีสิทธิ์เข้าถึง','admin.deniedText':'ส่วนนี้สงวนไว้สำหรับผู้ดูแลระบบหรือนักพัฒนาที่ได้รับอนุญาต บัญชีลูกค้าไม่สามารถสมัครเป็นแอดมินได้','admin.switchAccount':'ออกจากระบบ / เปลี่ยนบัญชี',
     'admin.stat.orders':'คำสั่งซื้อทั้งหมด','admin.stat.revenue':'รายได้',
     'admin.stat.products':'สินค้า','admin.stat.customers':'ลูกค้า',
     'admin.chart.title':'รายได้ 7 วันที่ผ่านมา','admin.recent.orders':'คำสั่งซื้อล่าสุด',
@@ -3845,7 +3893,7 @@ const I18N = {
     'footer.quicklink':'ลิงก์ด่วน','footer.cat':'หมวดหมู่','footer.policy':'นโยบาย',
     'footer.contact':'ติดต่อ','footer.shipping':'นโยบายการจัดส่ง','footer.return':'นโยบายการคืน',
     'footer.payment':'วิธีชำระ','footer.privacy':'ความเป็นส่วนตัว','footer.terms':'ข้อกำหนดการใช้',
-    'footer.rights':'สงวนลิขสิทธิ์'
+    'footer.rights':'สงวนลิขสิทธิ์', 'footer.imageCredits':'เครดิตรูปภาพ'
   },
   zh: {
     'sys.cart.limit':"每个订单最多支持5种商品，每种最多999件。更多商品请分开下单。",
@@ -4122,12 +4170,12 @@ const I18N = {
     'sys.admin.ordersLoadFailed':'无法加载订单',
     'sys.admin.ordersLoadHelp':'请检查 Firebase config 和 Firestore rules。',
     // ===== ADMIN =====
-    'admin.login':'管理员登录','admin.login.sub':'仅限管理员',
+    'admin.login':'管理员登录','admin.login.sub':'仅限已授权的管理员登录，不开放公开注册。',
     'admin.pass':'密码','admin.btn.login':'登录','admin.demo.pass':'Demo 密码:',
     'admin.back':'← 返回首页','admin.dash':'概览',
     'admin.products':'产品','admin.orders':'订单','admin.reviews':'评价',
     'admin.blog':'博客','admin.coupons':'优惠码','admin.logout':'登出',
-    'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员',
+    'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员','admin.menu':'管理菜单','admin.closeMenu':'关闭管理菜单','admin.deniedTitle':'拒绝访问','admin.deniedText':'此区域仅限已授权的管理员或开发人员使用。客户账户不能注册管理员权限。','admin.switchAccount':'退出登录 / 切换账户',
     'admin.stat.orders':'订单总数','admin.stat.revenue':'收入',
     'admin.stat.products':'产品','admin.stat.customers':'客户',
     'admin.chart.title':'近 7 天收入','admin.recent.orders':'最近订单',
@@ -4166,7 +4214,7 @@ const I18N = {
     'footer.quicklink':'快速链接','footer.cat':'分类','footer.policy':'政策',
     'footer.contact':'联系','footer.shipping':'配送政策','footer.return':'退货政策',
     'footer.payment':'付款方式','footer.privacy':'隐私','footer.terms':'使用条款',
-    'footer.rights':'版权所有'
+    'footer.rights':'版权所有', 'footer.imageCredits':'图片来源'
   }
 };;
 
@@ -4456,8 +4504,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Seafood','Handmade'], badgeStyle:'badge-rose',
     price:350000, oldPrice:0, stock:40,
     rating:4.8, ratingCount:60, sales:120,
-    images:['images/products/vn/p-vn-chamuc-1.jpg'],
-    fallback:'images/products/vn/p-vn-chamuc-1.jpg',
+    images:['images/product-refresh/ha-long-squid-cake.jpg'],
+    fallback:'images/product-refresh/ha-long-squid-cake.jpg',
     desc:'Chả mực Hạ Long làm hoàn toàn thủ công từ mực tươi giã tay — đặc sản biểu tượng vùng biển Quảng Ninh. Đóng gói hút chân không.',
     story:'Mỗi miếng chả mực là kết tinh của tình yêu biển cả và kỹ thuật chế biến hải sản truyền thống được gìn giữ qua nhiều thế hệ ngư dân Hạ Long.',
     use:'Chiên ngập dầu 3–5 phút, nướng lò 180°C hoặc hấp cách thủy 10 phút. Ăn kèm tương ớt, rau sống, bún hoặc cơm nóng.',
@@ -4554,8 +4602,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','Sweet'], badgeStyle:'badge-bamboo',
     price:50000, oldPrice:0, stock:120,
     rating:4.8, ratingCount:110, sales:450,
-    images:['images/products/vn/p-vn-keodua-1.png'],
-    fallback:'images/products/vn/p-vn-keodua-1.png',
+    images:['images/product-refresh/ben-tre-coconut-candy.jpg'],
+    fallback:'images/product-refresh/ben-tre-coconut-candy.jpg',
     desc:'Kẹo dừa Bến Tre từ vùng "xứ dừa" miền Tây Nam Bộ, nghề làm kẹo truyền thống hơn 100 năm. Hộp 200–400g.',
     story:'Kẹo dừa gắn liền với vùng "xứ dừa" miền Tây. Từ nguồn dừa phong phú địa phương, người dân tạo nên loại kẹo thơm béo đặc trưng được cả nước yêu thích.',
     use:'Ăn trực tiếp như món ăn vặt; dùng kèm trà nóng để cảm nhận vị ngọt béo đặc trưng.',
@@ -4751,8 +4799,8 @@ const SEED_PRODUCTS = [
     cat:'health', country:'vietnam', badges:['Lotus','Hanoi'], badgeStyle:'badge-sage',
     price:150000, oldPrice:0, stock:80,
     rating:4.9, ratingCount:120, sales:420,
-    images:['images/products/vn/p-vn-trasen-1.jpg'],
-    fallback:'images/products/vn/p-vn-trasen-1.jpg',
+    images:['images/product-refresh/hanoi-lotus-tea.jpg'],
+    fallback:'images/product-refresh/hanoi-lotus-tea.jpg',
     desc:'Trà sen Tây Hồ từ trà xanh Thái Nguyên ướp hoa sen Hồ Tây — thức uống thanh tao biểu tượng văn hóa Hà Nội. Hộp 50–100g.',
     story:'Trà sen Tây Hồ gắn liền với nghệ thuật thưởng trà của người Hà Nội. Hương sen thanh nhẹ kết hợp trà truyền thống tạo nên nét tinh tế, trang nhã trong văn hóa Việt Nam.',
     use:'Pha 5–7g trà với 150–200ml nước nóng 80–85°C, có thể pha nhiều lần.',
@@ -4767,8 +4815,8 @@ const SEED_PRODUCTS = [
     cat:'specialty', country:'vietnam', badges:['Traditional','South VN'], badgeStyle:'badge-bamboo',
     price:60000, oldPrice:0, stock:100,
     rating:4.7, ratingCount:80, sales:260,
-    images:['images/products/vn/p-vn-banhpia-1.jpg'],
-    fallback:'images/products/vn/p-vn-banhpia-1.jpg',
+    images:['images/product-refresh/soc-trang-banh-pia.jpg'],
+    fallback:'images/product-refresh/soc-trang-banh-pia.jpg',
     desc:'Bánh Pía Sóc Trăng — bánh truyền thống nhân sầu riêng, đậu xanh và trứng muối, giao thoa ẩm thực Kinh–Hoa–Khmer. Hộp quà.',
     story:'Bánh pía Sóc Trăng thể hiện sự giao thoa văn hóa Kinh–Hoa–Khmer tại miền Tây Nam Bộ. Hương vị từ sầu riêng, đậu xanh và trứng muối làm nên dấu ấn ẩm thực địa phương.',
     use:'Dùng làm món ăn nhẹ, quà biếu và quà du lịch. Ăn ở nhiệt độ phòng.',
@@ -5702,6 +5750,32 @@ initData();
     Store.set('products', products);
   }
 }
+// Move only untouched seed product photos to the clearer bundled replacements.
+// Preserve any image a store admin has already selected for these products.
+{
+  const replacements = {
+    'p-vn-chamuc-1': ['images/products/vn/p-vn-chamuc-1.jpg', 'images/product-refresh/ha-long-squid-cake.jpg'],
+    'p-vn-keodua-1': ['images/products/vn/p-vn-keodua-1.png', 'images/product-refresh/ben-tre-coconut-candy.jpg'],
+    'p-vn-trasen-1': ['images/products/vn/p-vn-trasen-1.jpg', 'images/product-refresh/hanoi-lotus-tea.jpg'],
+    'p-vn-banhpia-1': ['images/products/vn/p-vn-banhpia-1.jpg', 'images/product-refresh/soc-trang-banh-pia.jpg']
+  };
+  const products = Store.get('products', []);
+  let changed = false;
+  products.forEach(product => {
+    const replacement = replacements[product.id];
+    if (!replacement) return;
+    const [oldImage, newImage] = replacement;
+    if (Array.isArray(product.images) && product.images.includes(oldImage)) {
+      product.images = product.images.map(image => image === oldImage ? newImage : image);
+      if (product.fallback === oldImage) product.fallback = newImage;
+      changed = true;
+    } else if (product.fallback === oldImage) {
+      product.fallback = newImage;
+      changed = true;
+    }
+  });
+  if (changed) Store.set('products', products);
+}
 
 // Helpers
 function getProducts(){ return window.LCCatalog ? window.LCCatalog.products() : SEED_PRODUCTS; }
@@ -5811,6 +5885,26 @@ function parseHash(){
 
 function router(){
   const route = parseHash();
+  const pageBackgrounds = {
+    home:'laos-vietnam-background-1.jpg',
+    products:'laos-vietnam-background-2.jpg',
+    blog:'laos-vietnam-background-2.jpg',
+    'blog-post':'laos-vietnam-background-2.jpg',
+    about:'laos-vietnam-background-3.jpg',
+    contact:'laos-vietnam-background-1.jpg'
+  };
+  const backgroundFile = route.page === 'products' && route.params.country === 'lao'
+    ? 'laos-vietnam-background-3.jpg'
+    : route.page === 'products' && route.params.country === 'vietnam'
+      ? 'laos-vietnam-background-1.jpg'
+      : pageBackgrounds[route.page];
+  if(backgroundFile){
+    document.body.dataset.pageBg = route.page === 'products' ? (route.params.country || 'all-products') : route.page;
+    document.body.style.setProperty('--page-bg-image', `url("assets/backgrounds/${backgroundFile}")`);
+  }else{
+    delete document.body.dataset.pageBg;
+    document.body.style.removeProperty('--page-bg-image');
+  }
   document.body.classList.toggle('ux-auth-mode', route.page === 'account' && !Store.get('user', null));
   document.body.classList.toggle('admin-mode', route.page === 'admin');
   document.getElementById('site').style.display = route.page === 'admin' ? 'none' : '';
@@ -7477,7 +7571,6 @@ function renderExperiences(){
   const copy=experienceCopy(),u=copy.ui;
   return `<div class="experience-page">
     <section class="ex-hero"><div class="ex-container"><div class="ex-hero-inner"><span class="ex-kicker">Lotus &amp; Champa · Việt Nam – Lào</span><h1>${u.heroTitle}</h1><p>${u.heroText}</p><div class="ex-hero-actions"><a class="ex-button" href="#ex-events" onclick="event.preventDefault();document.getElementById('ex-events').scrollIntoView({behavior:'smooth'})">${u.discover} <span aria-hidden="true">&nbsp;↓</span></a><a class="ex-hero-link" href="#ex-combos" onclick="event.preventDefault();document.getElementById('ex-combos').scrollIntoView({behavior:'smooth'})">${u.combosLink}</a></div></div></div></section>
-    <div class="ex-top-note"><div class="ex-container"><strong>${u.proposal}</strong> ${u.disclaimer}</div></div>
     <div class="ex-container"><nav class="ex-nav" aria-label="${u.combo}"><a href="#ex-events" onclick="event.preventDefault();document.getElementById('ex-events').scrollIntoView({behavior:'smooth'})">${u.events}</a><a href="#ex-food" onclick="event.preventDefault();document.getElementById('ex-food').scrollIntoView({behavior:'smooth'})">${u.food}</a><a href="#ex-workshops" onclick="event.preventDefault();document.getElementById('ex-workshops').scrollIntoView({behavior:'smooth'})">${u.workshops}</a><a href="#ex-combos" onclick="event.preventDefault();document.getElementById('ex-combos').scrollIntoView({behavior:'smooth'})">${u.combo}</a></nav>
       ${EXPERIENCE_SECTIONS.map((section,i)=>{const s=copy.sections[i];return `<section class="ex-section" id="${section.id}"><div class="ex-section-head"><div><div class="ex-section-kicker">${s[1]}</div><h2>${s[0]}</h2><p class="ex-section-intro">${s[2]}</p></div><span class="ex-section-count">${String(section.items.length).padStart(2,'0')} ${u.count}</span></div><div class="ex-grid">${section.items.map(renderExperienceCard).join('')}</div></section>`}).join('')}
       <section class="ex-request-layout" aria-label="${u.booking}">
@@ -7814,6 +7907,20 @@ function renderAdmin(route){
   const isAuthed = isFirebaseAdmin();
 
   if(!isAuthed){
+    const currentUser=window.LCFB?.auth.currentUser;
+    if(currentUser && !currentUser.isAnonymous){
+      shell.innerHTML=`
+      <div class="admin-login">
+        <div class="admin-login-card">
+          <div class="logo" aria-label="Lotus & Champa logo"></div>
+          <h2>${t("admin.deniedTitle")}</h2>
+          <p class="sub">${t("admin.deniedText")}</p>
+          <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="logoutUser()">${t("admin.switchAccount")}</button>
+          <a href="#/" style="display:block;text-align:center;margin-top:14px;font-size:.85rem;color:var(--navy)">${t("admin.back")}</a>
+        </div>
+      </div>`;
+      return;
+    }
     shell.innerHTML = `
     <div class="admin-login">
       <div class="admin-login-card">
@@ -7838,6 +7945,7 @@ function renderAdmin(route){
   const tab = route.sub || 'dashboard';
   shell.innerHTML = `
   <div class="admin-shell">
+    <button type="button" class="admin-sidebar-backdrop" id="adminSidebarBackdrop" aria-label="${t("admin.closeMenu")}" onclick="toggleAdminSidebar(false)"></button>
     <aside class="admin-sidebar" id="adminSidebar">
       <div class="admin-brand">
         <div class="logo" aria-label="Lotus & Champa logo"></div>
@@ -7892,12 +8000,27 @@ function renderAdmin(route){
     </aside>
 
     <div class="admin-main">
+      <div class="admin-mobile-bar">
+        <button type="button" class="admin-menu-toggle" id="adminMenuToggle" aria-controls="adminSidebar" aria-expanded="false" onclick="toggleAdminSidebar()"><span class="icon" aria-hidden="true">☰</span><span>${t("admin.menu")}</span></button>
+        <span class="admin-mobile-title">Lotus &amp; Champa</span>
+      </div>
       ${renderAdminContent(tab)}
     </div>
   </div>
   `;
 
   if(tab==='dashboard') drawAdminChart();
+}
+
+function toggleAdminSidebar(forceOpen){
+  const sidebar=document.getElementById('adminSidebar');
+  if(!sidebar)return;
+  const backdrop=document.getElementById('adminSidebarBackdrop');
+  const toggle=document.getElementById('adminMenuToggle');
+  const open=typeof forceOpen==='boolean'?forceOpen:!sidebar.classList.contains('open');
+  sidebar.classList.toggle('open',open);
+  backdrop?.classList.toggle('open',open);
+  toggle?.setAttribute('aria-expanded',String(open));
 }
 
 function renderAdminContent(tab){
@@ -7922,7 +8045,7 @@ async function adminLogin(){
   try {
     await window.LCFB.lcLogin({email,password});
     await window.LCFB.lcRefreshSession();
-    if(!isFirebaseAdmin()) { toast('บัญชีนี้ยังไม่มีสิทธิ์ผู้ดูแล กรุณาตั้งค่า admins/{UID} ใน Firebase Console','error'); return; }
+    if(!isFirebaseAdmin()) { toast('บัญชีนี้ยังไม่มีสิทธิ์ผู้ดูแล','error'); router(); return; }
     router();
   } catch(e) { toast(_fbAuthError(e),'error'); }
 }

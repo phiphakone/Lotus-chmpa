@@ -13,8 +13,6 @@
 .experience-page .ex-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;background:#c9a961;color:#1b2845;font-weight:700;transition:transform .2s,background .2s}
 .experience-page .ex-button:hover{transform:translateY(-2px);background:#e6d4a0}
 .experience-page .ex-hero-link{font-weight:600;color:#fff;border-bottom:1px solid rgba(255,255,255,.5);padding:8px 0}
-.experience-page .ex-top-note{background:#f2ead8;border-bottom:1px solid #e5dac4;color:#5c5242;padding:14px 0;font-size:.88rem}
-.experience-page .ex-top-note strong{color:#7a5c1c}
 .experience-page .ex-nav{display:flex;gap:10px;overflow:auto;padding:28px 0 8px;scrollbar-width:thin}
 .experience-page .ex-nav a{white-space:nowrap;padding:10px 16px;border:1px solid var(--ex-line);border-radius:999px;color:#42506c;background:#fff;font-size:.88rem;font-weight:600;transition:.2s}
 .experience-page .ex-nav a:hover{border-color:#c9a961;color:#8b6e2b;background:#fffaf0}
