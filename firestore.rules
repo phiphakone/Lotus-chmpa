@@ -10,7 +10,7 @@ service cloud.firestore {
     && i.id.matches('[\\s\\S]{1,100}') && i.name.matches('[\\s\\S]{1,300}')
     && i.price > 0 && i.price <= 100000000000
     && i.qty is int && i.qty > 0 && i.qty <= 999
-    && i.image.size() <= 2000 && i.image.matches('https?://.{0,1992}|images/.{0,1993}|');
+    && i.image.size() <= 2000 && (i.image == '' || i.image.matches('https?://.*|images/.*'));
   }
   function validItems(items) {
    let n = items.size();
@@ -105,6 +105,43 @@ service cloud.firestore {
     && request.resource.data.keys().hasOnly(['cloudName'])
     && request.resource.data.cloudName.matches('[a-z0-9_-]{1,100}');
    allow list, delete: if false;
+  }
+  // Public activity dates; only authenticated administrators may manage them.
+  function validActivity(a) {
+   return a.keys().hasOnly(['name','date','place','createdAt','updatedAt'])
+    && a.name is string && a.name.size() > 0 && a.name.size() <= 120 && a.name.matches('[^<>]+')
+    && a.date is string && a.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+    && a.place is string && a.place.size() <= 120 && a.place.matches('[^<>]*')
+    && a.createdAt == request.time && a.updatedAt == request.time;
+  }
+  match /activities/{activityId} {
+   allow read: if true;
+   allow create: if admin() && validActivity(request.resource.data);
+   allow update: if admin()
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name','date','place','updatedAt'])
+    && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 120
+    && request.resource.data.name.matches('[^<>]+')
+    && request.resource.data.date is string && request.resource.data.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+    && request.resource.data.place is string && request.resource.data.place.size() <= 120
+    && request.resource.data.place.matches('[^<>]*') && request.resource.data.updatedAt == request.time;
+   allow delete: if admin();
+  }
+  function validExperienceBooking(b) {
+   return b.keys().hasOnly(['ownerUid','type','name','contact','date','guests','status','createdAt'])
+    && b.ownerUid == request.auth.uid && b.type in ['food','workshop']
+    && b.name is string && b.name.size() > 0 && b.name.size() <= 100 && b.name.matches('[^<>]+')
+    && b.contact is string && b.contact.size() >= 3 && b.contact.size() <= 150 && b.contact.matches('[^<>]+')
+    && b.date is string && b.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+    && b.guests is int && b.guests >= 1 && b.guests <= 10
+    && b.status == 'pending' && b.createdAt == request.time;
+  }
+  match /experienceBookings/{bookingId} {
+   allow create: if signedIn() && validExperienceBooking(request.resource.data);
+   allow read: if admin() || (signedIn() && resource.data.ownerUid == request.auth.uid);
+   allow update: if admin()
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+    && request.resource.data.status in ['pending','confirmed','cancelled'];
+   allow delete: if admin();
   }
   // Role creation remains restricted to trusted Firebase Console/Admin SDK operators.
   match /admins/{uid} {

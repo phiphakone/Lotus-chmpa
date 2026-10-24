@@ -494,7 +494,7 @@ html[lang="zh"] .tab-h{line-height:1.35}
 }
 .collage img{width:100%;height:100%;object-fit:cover}
 
-/* === Hero Swiper coverflow carousel === */
+/* === Hero horizontal image carousel === */
 .hero-swiper{
   position:absolute;
   inset:0;
@@ -507,12 +507,15 @@ html[lang="zh"] .tab-h{line-height:1.35}
   align-items:center;
 }
 .hero-swiper .swiper-slide{
-  width:78%;
+  width:58%;
   height:88%;
   display:flex;align-items:center;justify-content:center;
   background:transparent;
-  transition:opacity .5s ease;
+  opacity:.46;
+  transform:scale(.82);
+  transition:opacity .5s ease,transform .5s ease;
 }
+.hero-swiper .swiper-slide-active{opacity:1;transform:scale(1)}
 .hero-swiper .swiper-slide img{
   max-width:100%;
   max-height:100%;
@@ -523,10 +526,6 @@ html[lang="zh"] .tab-h{line-height:1.35}
   display:block;
   -webkit-user-drag:none;
   user-select:none;
-}
-/* dim non-active slides slightly so the center one pops */
-.hero-swiper .swiper-slide:not(.swiper-slide-active){
-  opacity:.55;
 }
 /* hide default swiper pagination/buttons since user wants clean look */
 .hero-swiper .swiper-button-prev,
@@ -1568,6 +1567,19 @@ html[lang="zh"] .tab-h{line-height:1.35}
   animation:aboutSlideRight 28s linear infinite;
 }
 .about-photo-marquee:hover .about-photo-track{animation-play-state:paused}
+.about-roadmap{
+  margin:0 auto 64px;
+  padding:clamp(22px,4vw,44px);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  background:linear-gradient(145deg,#fffdf8 0%,#f3f5ed 100%);
+  box-shadow:var(--shadow-md);
+}
+.about-roadmap-head{max-width:760px;margin:0 auto 26px;text-align:center}
+.about-roadmap-head .section-title{margin:8px 0 10px}
+.about-roadmap-head p{color:var(--ink-soft);line-height:1.75;margin:0}
+.about-roadmap figure{margin:0;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff;box-shadow:var(--shadow-sm)}
+.about-roadmap img{display:block;width:100%;height:auto;cursor:zoom-in}
 .about-photo-item{
   width:min(360px,72vw);
   aspect-ratio:4/3;
@@ -1778,6 +1790,31 @@ html[lang="zh"] .tab-h{line-height:1.35}
 .admin-nav svg{width:18px;height:18px;stroke-width:1.8}
 
 .admin-main{padding:28px 32px;min-width:0}
+.experience-intro{max-width:760px;margin:0 auto 28px;text-align:center}
+.experience-intro p{color:var(--ink-soft);line-height:1.75}
+.experience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:28px}
+.experience-card,.experience-booking,.experience-calendar,.member-loyalty{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:22px;box-shadow:var(--shadow-sm)}
+.experience-card{background:linear-gradient(145deg,#fff 0%,var(--cream-warm) 100%)}
+.experience-card .experience-icon{font-size:1.8rem;margin-bottom:10px}
+.experience-card h2,.experience-booking h2,.experience-calendar h2{font-family:var(--f-display);color:var(--navy);font-size:1.35rem;margin:0 0 8px}
+.experience-card p,.experience-calendar p{color:var(--ink-soft);line-height:1.65}
+.experience-card .btn{margin-top:8px}
+.experience-lower{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:18px;align-items:start}
+.experience-booking .form-field{margin-bottom:12px}
+.experience-list{display:grid;gap:10px;margin-top:16px}
+.experience-list-item{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.experience-note{font-size:.82rem;color:var(--muted);line-height:1.6;margin:12px 0 0}
+.member-loyalty{margin-bottom:20px;background:linear-gradient(135deg,#173f39,#0f302a);color:#fff}
+.member-loyalty h2{font-family:var(--f-display);margin:0 0 6px;color:var(--gold-soft)}
+.member-points{font-size:2rem;font-weight:700;color:#fff;margin:10px 0}
+.member-loyalty p{color:rgba(255,255,255,.78);line-height:1.6;margin:6px 0}
+.member-coupon{display:inline-flex;padding:7px 11px;border:1px dashed rgba(255,255,255,.45);border-radius:8px;margin:6px 8px 0 0;color:var(--gold-soft)}
+.admin-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end;padding:16px;background:#fff;border:1px solid #E7E9ED;border-radius:12px;margin-bottom:16px}
+.admin-form-grid .form-field{margin:0}
+.admin-empty{padding:24px;text-align:center;color:var(--muted)}
+.admin-report-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.admin-report-card{background:#fff;border:1px solid #E7E9ED;border-radius:12px;padding:18px}
+.admin-report-card strong{display:block;font-size:1.45rem;color:var(--navy);margin-top:7px}
 .admin-header{
   flex-wrap:wrap;gap:12px;
   display:flex;justify-content:space-between;align-items:center;
@@ -1829,6 +1866,20 @@ html[lang="zh"] .tab-h{line-height:1.35}
   padding:14px 12px;border-bottom:1px solid #EDEFF1;color:var(--ink);line-height:1.5;
 }
 .admin-table tr:hover{background:#FAFBFC}
+.admin-orders-table-wrap{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;background:#fff;border-radius:10px;scrollbar-width:thin}
+.admin-orders-table{min-width:1120px;width:100%;table-layout:auto}
+.admin-orders-table th,.admin-orders-table td{vertical-align:middle}
+.admin-orders-table th:nth-child(1),.admin-orders-table td:nth-child(1){min-width:108px}
+.admin-orders-table th:nth-child(2),.admin-orders-table td:nth-child(2){min-width:140px}
+.admin-orders-table th:nth-child(3),.admin-orders-table td:nth-child(3){min-width:118px;white-space:nowrap}
+.admin-orders-table th:nth-child(4),.admin-orders-table td:nth-child(4){min-width:52px}
+.admin-orders-table th:nth-child(5),.admin-orders-table td:nth-child(5){min-width:96px;white-space:nowrap}
+.admin-orders-table th:nth-child(6),.admin-orders-table td:nth-child(6){min-width:84px;white-space:nowrap}
+.admin-orders-table th:nth-child(7),.admin-orders-table td:nth-child(7){min-width:104px}
+.admin-orders-table th:nth-child(8),.admin-orders-table td:nth-child(8){min-width:168px}
+.admin-orders-table th:nth-child(9),.admin-orders-table td:nth-child(9){min-width:144px}
+.admin-orders-table th:nth-child(10),.admin-orders-table td:nth-child(10){min-width:98px;white-space:nowrap}
+.admin-orders-table th:nth-child(11),.admin-orders-table td:nth-child(11){min-width:48px}
 .status{
   display:inline-block;padding:4px 10px;border-radius:999px;
   font-size:.72rem;font-weight:600;line-height:1.35;
@@ -1964,12 +2015,15 @@ body.admin-mode{background:#F4F5F7}
    RESPONSIVE
 =================================================== */
 @media (max-width:1024px){
+  .experience-lower{grid-template-columns:1fr}
+  .admin-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .header-top{grid-template-columns:auto 1fr auto;gap:12px}
   .header-search{display:none}
   .menu-toggle{display:grid}
   .nav-list{display:none}
   .hero-grid{grid-template-columns:1fr;gap:30px}
   .hero-visual{height:380px}
+  .hero-swiper .swiper-slide{width:66%}
   .products-grid{grid-template-columns:repeat(3,1fr)}
   .feat-grid{grid-template-columns:repeat(2,1fr)}
   .cats-grid{grid-template-columns:repeat(4,1fr)}
@@ -1995,6 +2049,9 @@ body.admin-mode{background:#F4F5F7}
   .dual-river{transform:rotate(90deg);width:80px}
 }
 @media (max-width:640px){
+  .experience-grid{grid-template-columns:1fr}
+  .experience-card,.experience-booking,.experience-calendar{padding:18px}
+  .admin-form-grid,.admin-report-grid{grid-template-columns:1fr}
   .container{padding:0 16px}
   .section{padding:50px 0}
   .brand-text .name{font-size:.95rem}
@@ -2016,6 +2073,7 @@ body.admin-mode{background:#F4F5F7}
   .admin-main{padding:20px 16px}
   .hero{padding:30px 0 60px}
   .hero-visual{height:320px}
+  .hero-swiper .swiper-slide{width:80%;height:90%}
   .review-summary{grid-template-columns:1fr;text-align:center}
   .about-photo-track{gap:12px;padding:12px;animation-duration:22s}
   .about-photo-item{width:76vw}
@@ -2027,6 +2085,25 @@ body.admin-mode{background:#F4F5F7}
   .pd-info h1{font-size:1.5rem}
   .pd-price{font-size:1.5rem}
   .float-chat .fc-btn{width:46px;height:46px}
+}
+
+/* Keep admin navigation available in portrait layouts. */
+@media (min-width:641px) and (max-width:1024px){
+  .admin-shell{grid-template-columns:220px minmax(0,1fr)}
+  .admin-sidebar{position:sticky;top:0;left:auto;width:auto;height:100vh;max-height:100vh;transition:none;z-index:5}
+  .admin-sidebar.open{left:auto}
+  .admin-main{padding:22px 18px}
+}
+@media (max-width:640px){
+  .admin-shell{grid-template-columns:minmax(0,1fr)}
+  .admin-sidebar{position:sticky;top:0;left:auto;align-self:start;width:auto;height:auto;max-height:42vh;overflow-y:auto;transition:none;z-index:5;padding:12px;background:var(--navy-deep)}
+  .admin-sidebar.open{left:auto}
+  .admin-brand{padding:4px 6px 10px;margin-bottom:10px}
+  .admin-brand .logo{width:34px;height:34px}
+  .admin-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+  .admin-nav a{min-width:0;padding:9px 8px;gap:7px;font-size:.78rem;line-height:1.25}
+  .admin-nav svg{flex:0 0 17px;width:17px;height:17px}
+  .admin-main{padding:16px 12px}
 }
 
 /* Mobile menu */
@@ -2142,15 +2219,13 @@ body.admin-mode{background:#F4F5F7}
     <nav class="main-nav">
       <ul class="nav-list" id="mainNav">
         <li><a href="#/" data-page="home" data-i18n="nav.home">Trang chủ</a></li>
-        <li><a href="#/products" data-page="products" data-i18n="nav.products">Tất cả sản phẩm</a></li>
-        <li><a href="#/products?country=lao" data-page="products" data-i18n="nav.lao">Sản phẩm Lào</a></li>
-        <li><a href="#/products?country=vietnam" data-page="products" data-i18n="nav.vn">Sản phẩm Việt Nam</a></li>
-        <li><a href="#/products?sort=sale" data-page="products" data-i18n="nav.sale">Khuyến mãi</a></li>
-        <li><a href="#/blog" data-page="blog" data-i18n="nav.blog">Blog văn hoá</a></li>
+        <li><a href="#/products" data-page="products" data-i18n="nav.products">Cửa hàng</a></li>
+        <li><a href="#/blog" data-page="blog" data-i18n="nav.blog">Khám phá văn hóa</a></li>
+        <li><a href="#/experiences" data-page="experiences" data-i18n="nav.experience">Đặt vé &amp; trải nghiệm</a></li>
         <li><a href="#/about" data-page="about" data-i18n="nav.about">Về chúng tôi</a></li>
-        <li><a href="#/business" data-page="business" data-i18n="nav.business">Business Model</a></li>
-        <li><a href="#/contact" data-page="contact" data-i18n="nav.contact">Liên hệ</a></li>
-        <li><a href="#/admin" data-page="admin" class="admin-link" data-i18n="nav.admin">Admin</a></li>
+        <li><a href="#/calendar" data-page="calendar" data-i18n="exp.calendar">Lịch hoạt động</a></li>
+        <li><a href="#/account" data-page="account" data-i18n="acc.member.title">Hội viên</a></li>
+        <li><a href="#/admin" data-page="admin" class="admin-link" data-i18n="nav.admin">Quản trị viên</a></li>
       </ul>
     </nav>
   </header>
@@ -2307,6 +2382,7 @@ body.admin-mode{background:#F4F5F7}
     addDoc,
     doc,
     updateDoc,
+     deleteDoc,
     setDoc,
     getDoc,
     query,
@@ -2463,7 +2539,7 @@ const firebaseConfig = {
 
     window.LCFB = {
       db, auth, storage,
-      collection, addDoc, doc, updateDoc, setDoc,
+       collection, addDoc, doc, updateDoc, deleteDoc, setDoc,
       query, orderBy, where, onSnapshot, serverTimestamp, getDoc,
       storageRef, uploadBytes, getDownloadURL,
       // auth API used by loginUser/registerUser/logoutUser
@@ -2476,6 +2552,9 @@ const firebaseConfig = {
   } catch (err) {
     console.error('[Firebase] ✗ Init failed:', err);
     window.LCFB = { ready: false, error: err.message };
+    window._fbActivitiesLoading = false;
+    window._fbActivitiesError = err;
+    window.dispatchEvent(new Event('lcfb-ready'));
   }
 </script>
 
@@ -2483,12 +2562,19 @@ const firebaseConfig = {
 // Home gallery autoplay delay in milliseconds.
 const sliderSpeed = 3600;
 const HOME_GALLERY_MEDIA = [
+  { type:'image', src:'images/Trang 1/50.jpg', alt:'Lotus & Champa gallery 50' },
+  { type:'image', src:'images/Trang 1/51.jpg', alt:'Lotus & Champa gallery 51' },
+  { type:'image', src:'images/Trang 1/52.jpg', alt:'Lotus & Champa gallery 52' },
+  { type:'image', src:'images/Trang 1/53.jpg', alt:'Lotus & Champa gallery 53' },
+  { type:'image', src:'images/Trang 1/54.jpg', alt:'Lotus & Champa gallery 54' },
+  { type:'image', src:'images/Trang 1/55.jpg', alt:'Lotus & Champa gallery 55' },
+  { type:'image', src:'images/Trang 1/56.jpg', alt:'Lotus & Champa gallery 56' },
   { type:'image', src:'images/Trang 1/1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg', alt:'Lotus & Champa gallery 1' },
   { type:'image', src:'images/Trang 1/1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg', alt:'Lotus & Champa gallery 3' },
   { type:'image', src:'images/Trang 1/1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg', alt:'Lotus & Champa gallery 4' },
   { type:'image', src:'images/Trang 1/1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg', alt:'Lotus & Champa gallery 5' },
   { type:'image', src:'images/Trang 1/1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg', alt:'Lotus & Champa gallery 6' },
-  { type:'image', src:'images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg', alt:'Lotus & Champa gallery 7' }
+  { type:'image', src:'images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg', alt:'Lotus & Champa gallery 7' },
   // Add videos like: { type:'video', src:'your-video.mp4', alt:'Lotus & Champa video' }
 ];
 
@@ -2528,7 +2614,7 @@ const IMG_DATA = {
    01 — STORE (LOCALSTORAGE LAYER, EASY TO REPLACE)
 =========================================================== */
 // Personal data remains in memory. Firebase Auth manages its own session persistence.
-const privateStoreKeys = new Set(['user','admin','orders','users','lastOrder']);
+const privateStoreKeys = new Set(['user','admin','orders','users','lastOrder','experienceBookings']);
 const privateStore = new Map();
 // Remove obsolete browser copies only, never backend records, cart or catalogue.
 for(const k of privateStoreKeys){try{localStorage.removeItem('lc_'+k);sessionStorage.removeItem('lc_'+k);}catch(_){}}
@@ -2554,10 +2640,10 @@ const I18N = {
     'search.placeholder':'Tìm sản phẩm văn hoá, đặc sản, quà tặng...',
     'search.btn':'Tìm',
     // ===== NAV =====
-    'nav.home':'Trang chủ','nav.products':'Tất cả sản phẩm','nav.lao':'Sản phẩm Lào',
-    'nav.vn':'Sản phẩm Việt Nam','nav.sale':'Khuyến mãi','nav.blog':'Blog văn hoá',
+    'nav.home':'Trang chủ','nav.products':'Cửa hàng','nav.lao':'Sản phẩm Lào',
+    'nav.vn':'Sản phẩm Việt Nam','nav.sale':'Khuyến mãi','nav.experience':'Đặt vé & trải nghiệm','nav.blog':'Khám phá văn hóa',
     'nav.about':'Về chúng tôi','nav.business':'Business Model','nav.contact':'Liên hệ',
-    'nav.admin':'Admin','nav.cart':'Giỏ hàng','nav.account':'Tài khoản',
+    'nav.admin':'Quản trị viên','nav.cart':'Giỏ hàng','nav.account':'Hội viên',
     // ===== COMMON =====
     'common.all':'Tất cả','common.viewall':'Xem tất cả','common.viewallarrow':'Xem tất cả →',
     'common.continue':'Tiếp tục','common.cancel':'Huỷ','common.save':'Lưu',
@@ -2698,6 +2784,9 @@ const I18N = {
     'about.p1':"Lotus & Champa company là thương hiệu thương mại điện tử được xây dựng bởi một nhóm sinh viên Lào và sinh viên Việt Nam, cùng chung tình yêu văn hoá và mong muốn kết nối con người hai nước.",
     'about.p2':"Ý tưởng bắt đầu từ những món quà và câu chuyện được sẻ chia giữa bạn bè Lào – Việt. Từ Kaipen bên dòng Mekong đến trà hoa vàng Quảng Ninh, chúng tôi mong mỗi sản phẩm không chỉ mang hương vị quê hương, mà còn mở ra sự hiểu biết và trân trọng dành cho nhau.",
     'about.p3':"Sứ mệnh của chúng tôi là kết nối những giá trị văn hoá Lào – Việt qua các sản phẩm thủ công, đặc sản và quà tặng có ý nghĩa. Bằng tinh thần hợp tác của tuổi trẻ, chúng tôi mong góp phần đưa câu chuyện của nghệ nhân đến gần hơn với khách hàng và vun đắp tình hữu nghị giữa hai dân tộc.",
+    'about.roadmap.title':'Định hướng phát triển',
+    'about.roadmap.intro':'Từ Quảng Ninh, Lotus & Champa hướng đến kết nối các trung tâm du lịch lớn tại Việt Nam và vươn tới thị trường quốc tế.',
+    'about.roadmap.alt':'Infographic về định hướng mở rộng Lotus & Champa từ Quảng Ninh đến Hà Nội, Thành phố Hồ Chí Minh và thị trường quốc tế.',
     'about.values.eb':'Giá trị cốt lõi','about.values.title':'Bốn cam kết của chúng tôi',
     'about.value.1.t':'Nguồn gốc minh bạch',
     'about.value.1.d':'Mỗi sản phẩm đều ghi rõ vùng đất, hợp tác xã hoặc nghệ nhân tạo ra.',
@@ -2756,6 +2845,7 @@ const I18N = {
     'acc.login.success':'Đăng nhập thành công','acc.register.success':'Đăng ký thành công',
     'acc.logout.success':'Đã đăng xuất','acc.fillInfo':'Vui lòng điền đầy đủ',
     'acc.fillEmail':'Vui lòng nhập email','acc.itemCount':'sản phẩm',
+    'exp.title':'Đặt trải nghiệm văn hoá Lào – Việt','exp.intro':'Đặt vé cho trải nghiệm ẩm thực, sự kiện và workshop khám phá văn hoá. Lịch bên dưới do công ty cập nhật.','exp.event':'Trải nghiệm ẩm thực & sự kiện','exp.event.desc':'Thưởng thức hương vị địa phương và tham gia các hoạt động văn hoá theo lịch.','exp.workshop':'Workshop khám phá văn hoá','exp.workshop.desc':'Gặp gỡ nghệ nhân, tìm hiểu phong tục và tự tay trải nghiệm nghề thủ công.','exp.booking':'Gửi yêu cầu đặt chỗ','exp.type':'Loại trải nghiệm','exp.name':'Họ và tên','exp.contact':'Số điện thoại hoặc email','exp.date':'Ngày mong muốn','exp.guests':'Số vé','exp.submit':'Gửi yêu cầu','exp.confirm':'Đã gửi yêu cầu đặt chỗ. Nhân viên sẽ xác nhận lịch với bạn.','exp.saveError':'Không thể gửi yêu cầu lúc này. Vui lòng thử lại.','exp.calendar':'Lịch hoạt động','exp.calendar.empty':'Lịch hoạt động sẽ được công ty cập nhật sớm.','exp.notice':'Yêu cầu đặt chỗ được lưu trên hệ thống; nhân viên sẽ xác nhận lịch. Chưa có thanh toán hoặc xuất vé tự động.','exp.choose':'Chọn hoạt động','acc.member.title':'Thành viên Lotus & Champa','acc.member.points':'Điểm tích luỹ','acc.member.pointsHelp':'Điểm và ưu đãi sẽ được cập nhật khi chương trình thành viên được kết nối.','acc.member.coupons':'Mã ưu đãi của tôi','acc.member.noCodes':'Bạn chưa có mã ưu đãi nào.',
     // ===== BREADCRUMB =====
     'bc.home':'Trang chủ','bc.products':'Sản phẩm','bc.cart':'Giỏ hàng','bc.checkout':'Thanh toán',
     'bc.blog':'Blog','bc.about':'Về chúng tôi','bc.business':'Business Model',
@@ -2821,6 +2911,7 @@ const I18N = {
     'admin.back':'← Quay về trang chủ','admin.dash':'Tổng quan',
     'admin.products':'Sản phẩm','admin.orders':'Đơn hàng','admin.reviews':'Đánh giá',
     'admin.blog':'Blog','admin.coupons':'Mã giảm giá','admin.logout':'Đăng xuất',
+    'admin.bookings':'Đặt trải nghiệm','admin.members':'Hội viên','admin.reports':'Báo cáo','admin.calendar':'Lịch hoạt động','admin.calendar.formTitle':'Thêm hoạt động','admin.calendar.name':'Tên hoạt động','admin.calendar.date':'Ngày','admin.calendar.place':'Địa điểm','admin.calendar.save':'Lưu hoạt động','admin.calendar.empty':'Chưa có hoạt động nào.','admin.bookings.empty':'Chưa có yêu cầu đặt chỗ.','admin.members.empty':'Chưa có dữ liệu hội viên.','admin.report.bookings':'Yêu cầu đặt trải nghiệm','admin.report.members':'Khách hàng đã đặt','admin.report.revenue':'Doanh thu đơn hàng','admin.prototype':'Dữ liệu mẫu trên trình duyệt này; chưa đồng bộ Firebase.','admin.synced':'Dữ liệu đang được đồng bộ từ Firebase.','admin.dataLoading':'Đang tải dữ liệu từ Firebase…','admin.dataError':'Không thể tải dữ liệu. Hãy kiểm tra Firestore rules và kết nối.','admin.saveError':'Không thể lưu thay đổi. Hãy kiểm tra quyền truy cập và thử lại.',
     'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin',
     'admin.stat.orders':'Tổng đơn hàng','admin.stat.revenue':'Doanh thu',
     'admin.stat.products':'Sản phẩm','admin.stat.customers':'Khách hàng',
@@ -2872,10 +2963,10 @@ const I18N = {
     'search.placeholder':'ຄົ້ນຫາສິນຄ້າວັດທະນະທຳ ອາຫານພິເສດ ຂອງຂວັນ...',
     'search.btn':'ຄົ້ນຫາ',
     // ===== NAV =====
-    'nav.home':'ໜ້າຫຼັກ','nav.products':'ສິນຄ້າທັງໝົດ','nav.lao':'ສິນຄ້າລາວ',
-    'nav.vn':'ສິນຄ້າຫວຽດນາມ','nav.sale':'ສ່ວນຫຼຸດ','nav.blog':'ບລ໋ອກວັດທະນະທຳ',
+    'nav.home':'ໜ້າຫຼັກ','nav.products':'ຮ້ານຄ້າ','nav.lao':'ສິນຄ້າລາວ',
+    'nav.vn':'ສິນຄ້າຫວຽດນາມ','nav.sale':'ສ່ວນຫຼຸດ','nav.experience':'ຈອງປີ້ ແລະ ປະສົບການ','nav.blog':'ຄົ້ນພົບວັດທະນະທຳ',
     'nav.about':'ກ່ຽວກັບເຮົາ','nav.business':'ໂມເດວທຸລະກິດ','nav.contact':'ຕິດຕໍ່',
-    'nav.admin':'ແອັດມິນ','nav.cart':'ກະຕ່າສິນຄ້າ','nav.account':'ບັນຊີ',
+    'nav.admin':'ຜູ້ດູແລລະບົບ','nav.cart':'ກະຕ່າສິນຄ້າ','nav.account':'ສະມາຊິກ',
     // ===== COMMON =====
     'common.all':'ທັງໝົດ','common.viewall':'ເບິ່ງທັງໝົດ','common.viewallarrow':'ເບິ່ງທັງໝົດ →',
     'common.continue':'ສືບຕໍ່','common.cancel':'ຍົກເລີກ','common.save':'ບັນທຶກ',
@@ -3016,6 +3107,9 @@ const I18N = {
     'about.p1':"Lotus & Champa company ເປັນແບຣນການຄ້າອອນລາຍທີ່ສ້າງຂຶ້ນໂດຍກຸ່ມນັກສຶກສາລາວ ແລະ ນັກສຶກສາຫວຽດນາມ ທີ່ມີຄວາມຮັກໃນວັດທະນະທຳ ແລະ ຄວາມຕັ້ງໃຈທີ່ຈະເຊື່ອມໂຍງຜູ້ຄົນຂອງສອງປະເທດ.",
     'about.p2':"ແນວຄິດເລີ່ມຈາກຂອງຂວັນ ແລະ ເລື່ອງລາວທີ່ແບ່ງປັນລະຫວ່າງໝູ່ເພື່ອນລາວ – ຫວຽດ. ຈາກໄຄແຜ່ນຂອງແມ່ນ້ຳຂອງ ເຖິງຊາດອກເຫຼືອງຂອງກວາງນິງ ພວກເຮົາຫວັງວ່າທຸກສິນຄ້າຈະນຳທັງລົດຊາດຂອງບ້ານເກີດ ແລະ ຄວາມເຂົ້າໃຈ ພ້ອມຄວາມເຄົາລົບເຊິ່ງກັນແລະກັນ.",
     'about.p3':"ພາລະກິດຂອງພວກເຮົາແມ່ນເຊື່ອມໂຍງຄຸນຄ່າວັດທະນະທຳລາວ – ຫວຽດ ຜ່ານຫັດຖະກຳ ອາຫານພິເສດ ແລະ ຂອງຂວັນທີ່ມີຄວາມໝາຍ. ດ້ວຍຈິດໃຈແຫ່ງການຮ່ວມມືຂອງຄົນໜຸ່ມ ພວກເຮົາຫວັງວ່າຈະນຳເລື່ອງລາວຂອງຊ່າງຝີມືໃຫ້ເຂົ້າໃກ້ລູກຄ້າ ແລະ ສົ່ງເສີມມິດຕະພາບລະຫວ່າງສອງຊາດ.",
+    'about.roadmap.title':'ທິດທາງການພັດທະນາ',
+    'about.roadmap.intro':'ຈາກກວາງນິງ Lotus & Champa ມຸ່ງເຊື່ອມໂຍງສູ່ສູນກາງທ່ອງທ່ຽວສຳຄັນໃນຫວຽດນາມ ແລະ ຕະຫຼາດສາກົນ.',
+    'about.roadmap.alt':'ອິນໂຟກຣາຟິກແຜນຂະຫຍາຍ Lotus & Champa ຈາກກວາງນິງໄປຮ່າໂນ້ຍ ໂຮຈິມິນ ແລະ ຕະຫຼາດສາກົນ.',
     'about.values.eb':'ຄຸນຄ່າຫຼັກ','about.values.title':'ສີ່ຄຳໝັ້ນສັນຍາຂອງເຮົາ',
     'about.value.1.t':'ແຫຼ່ງທີ່ມາໂປ່ງໃສ',
     'about.value.1.d':'ທຸກສິນຄ້າລະບຸແຫຼ່ງທີ່ມາ ສະຫະກອນ ຫຼື ຊ່າງຝີມື.',
@@ -3074,6 +3168,7 @@ const I18N = {
     'acc.login.success':'ເຂົ້າສູ່ລະບົບສຳເລັດ','acc.register.success':'ລົງທະບຽນສຳເລັດ',
     'acc.logout.success':'ອອກຈາກລະບົບແລ້ວ','acc.fillInfo':'ກະລຸນາໃສ່ຂໍ້ມູນໃຫ້ຄົບ',
     'acc.fillEmail':'ກະລຸນາໃສ່ອີເມວ','acc.itemCount':'ສິນຄ້າ',
+    'exp.title':'ຈອງປະສົບການວັດທະນະທຳລາວ – ຫວຽດນາມ','exp.intro':'ຈອງບັດສຳລັບປະສົບການອາຫານ ກິດຈະກຳ ແລະ ເວີກຊັອບຄົ້ນພົບວັດທະນະທຳ. ບໍລິສັດຈະອັບເດດຕາຕະລາງຢູ່ດ້ານລຸ່ມ.','exp.event':'ປະສົບການອາຫານ ແລະ ກິດຈະກຳ','exp.event.desc':'ຊີມລົດຊາດທ້ອງຖິ່ນ ແລະ ຮ່ວມກິດຈະກຳວັດທະນະທຳຕາມຕາຕະລາງ.','exp.workshop':'ເວີກຊັອບຄົ້ນພົບວັດທະນະທຳ','exp.workshop.desc':'ພົບປະຊ່າງສິລະປະ ຮຽນຮູ້ປະເພນີ ແລະ ລອງເຮັດຫັດຖະກຳດ້ວຍຕົນເອງ.','exp.booking':'ສົ່ງຄຳຂໍຈອງ','exp.type':'ປະເພດປະສົບການ','exp.name':'ຊື່ ແລະ ນາມສະກຸນ','exp.contact':'ເບີໂທ ຫຼື ອີເມວ','exp.date':'ວັນທີທີ່ຕ້ອງການ','exp.guests':'ຈຳນວນບັດ','exp.submit':'ສົ່ງຄຳຂໍ','exp.confirm':'ສົ່ງຄຳຂໍຈອງແລ້ວ. ພະນັກງານຈະຢືນຢັນວັນເວລາກັບທ່ານ.','exp.saveError':'ສົ່ງຄຳຂໍບໍ່ສຳເລັດ. ກະລຸນາລອງໃໝ່.','exp.calendar':'ຕາຕະລາງກິດຈະກຳ','exp.calendar.empty':'ບໍລິສັດຈະອັບເດດຕາຕະລາງກິດຈະກຳໃນໄວໆນີ້.','exp.notice':'ຄຳຂໍຈອງຈະບັນທຶກໃນລະບົບ ແລະ ພະນັກງານຈະຢືນຢັນວັນເວລາ. ຍັງບໍ່ມີການຊຳລະເງິນ ຫຼື ອອກປີ້ອັດຕະໂນມັດ.','exp.choose':'ເລືອກກິດຈະກຳ','acc.member.title':'ສະມາຊິກ Lotus & Champa','acc.member.points':'ຄະແນນສະສົມ','acc.member.pointsHelp':'ຄະແນນ ແລະ ສ່ວນຫຼຸດຈະອັບເດດເມື່ອເຊື່ອມຕໍ່ໂຄງການສະມາຊິກ.','acc.member.coupons':'ລະຫັດສ່ວນຫຼຸດຂອງຂ້ອຍ','acc.member.noCodes':'ທ່ານຍັງບໍ່ມີລະຫັດສ່ວນຫຼຸດ.',
     // ===== BREADCRUMB =====
     'bc.home':'ໜ້າຫຼັກ','bc.products':'ສິນຄ້າ','bc.cart':'ກະຕ່າສິນຄ້າ','bc.checkout':'ຊຳລະເງິນ',
     'bc.blog':'ບລັອກ','bc.about':'ກ່ຽວກັບເຮົາ','bc.business':'ໂມເດວທຸລະກິດ',
@@ -3139,6 +3234,7 @@ const I18N = {
     'admin.back':'← ກັບໄປໜ້າຫຼັກ','admin.dash':'ພາບລວມ',
     'admin.products':'ສິນຄ້າ','admin.orders':'ການສັ່ງຊື້','admin.reviews':'ການປະເມີນ',
     'admin.blog':'ບລັອກ','admin.coupons':'ລະຫັດສ່ວນຫຼຸດ','admin.logout':'ອອກຈາກລະບົບ',
+    'admin.bookings':'ການຈອງປະສົບການ','admin.members':'ສະມາຊິກ','admin.reports':'ລາຍງານ','admin.calendar':'ຕາຕະລາງກິດຈະກຳ','admin.calendar.formTitle':'ເພີ່ມກິດຈະກຳ','admin.calendar.name':'ຊື່ກິດຈະກຳ','admin.calendar.date':'ວັນທີ','admin.calendar.place':'ສະຖານທີ່','admin.calendar.save':'ບັນທຶກກິດຈະກຳ','admin.calendar.empty':'ຍັງບໍ່ມີກິດຈະກຳ.','admin.bookings.empty':'ຍັງບໍ່ມີຄຳຂໍຈອງ.','admin.members.empty':'ຍັງບໍ່ມີຂໍ້ມູນສະມາຊິກ.','admin.report.bookings':'ຄຳຂໍຈອງປະສົບການ','admin.report.members':'ລູກຄ້າທີ່ເຄີຍຈອງ','admin.report.revenue':'ລາຍຮັບຈາກຄຳສັ່ງຊື້','admin.prototype':'ຂໍ້ມູນຕົວຢ່າງໃນບຣາວເຊີນີ້; ຍັງບໍ່ໄດ້ຊິງຄ໌ກັບ Firebase.','admin.synced':'ຂໍ້ມູນກຳລັງຊິງຄ໌ຈາກ Firebase.','admin.dataLoading':'ກຳລັງໂຫຼດຂໍ້ມູນຈາກ Firebase…','admin.dataError':'ໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ. ກວດ Firestore rules ແລະ ການເຊື່ອມຕໍ່.','admin.saveError':'ບັນທຶກບໍ່ສຳເລັດ. ກວດສິດເຂົ້າເຖິງ ແລະ ລອງໃໝ່.',
     'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ',
     'admin.stat.orders':'ການສັ່ງຊື້ທັງໝົດ','admin.stat.revenue':'ລາຍຮັບ',
     'admin.stat.products':'ສິນຄ້າ','admin.stat.customers':'ລູກຄ້າ',
@@ -3189,10 +3285,10 @@ const I18N = {
     'search.placeholder':'Search cultural products, specialties, gifts...',
     'search.btn':'Search',
     // ===== NAV =====
-    'nav.home':'Home','nav.products':'All Products','nav.lao':'Lao Products',
-    'nav.vn':'Vietnamese Products','nav.sale':'Sale','nav.blog':'Culture Blog',
+    'nav.home':'Home','nav.products':'Shop','nav.lao':'Lao Products',
+    'nav.vn':'Vietnamese Products','nav.sale':'Sale','nav.experience':'Tickets & Experiences','nav.blog':'Explore Culture',
     'nav.about':'About','nav.business':'Business Model','nav.contact':'Contact',
-    'nav.admin':'Admin','nav.cart':'Cart','nav.account':'Account',
+    'nav.admin':'Administrator','nav.cart':'Cart','nav.account':'Members',
     // ===== COMMON =====
     'common.all':'All','common.viewall':'View all','common.viewallarrow':'View all →',
     'common.continue':'Continue','common.cancel':'Cancel','common.save':'Save',
@@ -3333,6 +3429,9 @@ const I18N = {
     'about.p1':"Lotus & Champa company is an e-commerce brand created by a group of Lao and Vietnamese students, united by a love of culture and a desire to connect people from both countries.",
     'about.p2':"The idea began with gifts and stories shared among Lao and Vietnamese friends. From Kaipen along the Mekong to yellow camellia tea from Quang Ninh, we hope every product brings both a taste of home and a deeper understanding and appreciation of one another.",
     'about.p3':"Our mission is to connect Lao and Vietnamese cultural values through handcrafted products, regional specialties and meaningful gifts. With the collaborative spirit of young people, we hope to bring artisan stories closer to customers and nurture friendship between our two peoples.",
+    'about.roadmap.title':'Our growth roadmap',
+    'about.roadmap.intro':'Starting in Quang Ninh, Lotus & Champa aims to reach major tourism centres across Vietnam and, over time, international markets.',
+    'about.roadmap.alt':'Infographic showing Lotus & Champa’s expansion plan from Quang Ninh to Hanoi, Ho Chi Minh City and international markets.',
     'about.values.eb':'Core Values','about.values.title':'Our four commitments',
     'about.value.1.t':'Transparent origins',
     'about.value.1.d':'Each product names its land, cooperative or artisan.',
@@ -3391,6 +3490,7 @@ const I18N = {
     'acc.login.success':'Signed in','acc.register.success':'Registered',
     'acc.logout.success':'Signed out','acc.fillInfo':'Please fill in all fields',
     'acc.fillEmail':'Please enter email','acc.itemCount':'products',
+    'exp.title':'Book a Lao–Vietnamese cultural experience','exp.intro':'Book tickets for food experiences, cultural events and discovery workshops. The company will publish dates in the calendar below.','exp.event':'Food & cultural events','exp.event.desc':'Taste local flavours and join cultural activities scheduled by the company.','exp.workshop':'Cultural discovery workshops','exp.workshop.desc':'Meet artisans, learn local traditions and try a craft activity yourself.','exp.booking':'Request a booking','exp.type':'Experience type','exp.name':'Full name','exp.contact':'Phone or email','exp.date':'Preferred date','exp.guests':'Tickets','exp.submit':'Send request','exp.confirm':'Your booking request was sent. Our team will confirm the date with you.','exp.saveError':'Could not send your request. Please try again.','exp.calendar':'Activity calendar','exp.calendar.empty':'The company calendar will be updated soon.','exp.notice':'Booking requests are saved to the shared system for staff confirmation. Payment and automatic ticketing are not connected.','exp.choose':'Choose an activity','acc.member.title':'Lotus & Champa membership','acc.member.points':'Points balance','acc.member.pointsHelp':'Points and benefits will update when the membership programme is connected.','acc.member.coupons':'My offer codes','acc.member.noCodes':'You do not have any offer codes yet.',
     // ===== BREADCRUMB =====
     'bc.home':'Home','bc.products':'Products','bc.cart':'Cart','bc.checkout':'Checkout',
     'bc.blog':'Blog','bc.about':'About','bc.business':'Business Model',
@@ -3456,6 +3556,7 @@ const I18N = {
     'admin.back':'← Back to website','admin.dash':'Dashboard',
     'admin.products':'Products','admin.orders':'Orders','admin.reviews':'Reviews',
     'admin.blog':'Blog','admin.coupons':'Coupons','admin.logout':'Sign out',
+    'admin.bookings':'Experience bookings','admin.members':'Members','admin.reports':'Reports','admin.calendar':'Activity calendar','admin.calendar.formTitle':'Add an activity','admin.calendar.name':'Activity name','admin.calendar.date':'Date','admin.calendar.place':'Location','admin.calendar.save':'Save activity','admin.calendar.empty':'No activities have been added.','admin.bookings.empty':'No booking requests yet.','admin.members.empty':'No member records yet.','admin.report.bookings':'Experience requests','admin.report.members':'Customers with orders','admin.report.revenue':'Order revenue','admin.prototype':'Sample data in this browser; not synced with Firebase.','admin.synced':'Data is syncing from Firebase.','admin.dataLoading':'Loading data from Firebase…','admin.dataError':'Could not load data. Check Firestore rules and your connection.','admin.saveError':'Could not save changes. Check access and try again.',
     'admin.toSite':'View website','admin.welcome':'Welcome back, admin',
     'admin.stat.orders':'Total orders','admin.stat.revenue':'Revenue',
     'admin.stat.products':'Products','admin.stat.customers':'Customers',
@@ -3506,10 +3607,10 @@ const I18N = {
     'search.placeholder':'ค้นหาสินค้าวัฒนธรรม ของฝาก ของขวัญ...',
     'search.btn':'ค้นหา',
     // ===== NAV =====
-    'nav.home':'หน้าแรก','nav.products':'สินค้าทั้งหมด','nav.lao':'สินค้าลาว',
-    'nav.vn':'สินค้าเวียดนาม','nav.sale':'โปรโมชัน','nav.blog':'บล็อกวัฒนธรรม',
+    'nav.home':'หน้าแรก','nav.products':'ร้านค้า','nav.lao':'สินค้าลาว',
+    'nav.vn':'สินค้าเวียดนาม','nav.sale':'โปรโมชัน','nav.experience':'จองบัตรและประสบการณ์','nav.blog':'ค้นพบวัฒนธรรม',
     'nav.about':'เกี่ยวกับเรา','nav.business':'โมเดลธุรกิจ','nav.contact':'ติดต่อ',
-    'nav.admin':'แอดมิน','nav.cart':'ตะกร้า','nav.account':'บัญชี',
+    'nav.admin':'ผู้ดูแลระบบ','nav.cart':'ตะกร้า','nav.account':'สมาชิก',
     // ===== COMMON =====
     'common.all':'ทั้งหมด','common.viewall':'ดูทั้งหมด','common.viewallarrow':'ดูทั้งหมด →',
     'common.continue':'ต่อไป','common.cancel':'ยกเลิก','common.save':'บันทึก',
@@ -3650,6 +3751,9 @@ const I18N = {
     'about.p1':"Lotus & Champa company เป็นแบรนด์พาณิชย์อิเล็กทรอนิกส์ที่สร้างขึ้นโดยกลุ่มนักศึกษาลาวและนักศึกษาเวียดนาม ผู้มีความรักในวัฒนธรรมและความตั้งใจร่วมกันที่จะเชื่อมโยงผู้คนของทั้งสองประเทศ",
     'about.p2':"แนวคิดเริ่มต้นจากของขวัญและเรื่องราวที่แบ่งปันระหว่างเพื่อนชาวลาวและเวียดนาม ตั้งแต่ไคแผ่นริมแม่น้ำโขงถึงชาดอกเหลืองจากกว๋างนิญ เราหวังว่าทุกผลิตภัณฑ์จะนำทั้งรสชาติของบ้านเกิดและความเข้าใจที่ทำให้เราเห็นคุณค่าของกันและกัน",
     'about.p3':"พันธกิจของเราคือเชื่อมโยงคุณค่าทางวัฒนธรรมลาว–เวียดนามผ่านงานฝีมือ ของดีประจำถิ่น และของขวัญที่มีความหมาย ด้วยพลังความร่วมมือของคนรุ่นใหม่ เราหวังว่าจะนำเรื่องราวของช่างฝีมือให้ใกล้ชิดกับลูกค้ายิ่งขึ้น และร่วมสานมิตรภาพระหว่างผู้คนของทั้งสองชาติ",
+    'about.roadmap.title':'ทิศทางการเติบโต',
+    'about.roadmap.intro':'เริ่มต้นจากกว๋างนิญ Lotus & Champa มุ่งขยายสู่ศูนย์กลางการท่องเที่ยวสำคัญทั่วเวียดนาม และก้าวสู่ตลาดนานาชาติในอนาคต',
+    'about.roadmap.alt':'อินโฟกราฟิกแสดงแผนขยาย Lotus & Champa จากกว๋างนิญไปยังฮานอย นครโฮจิมินห์ และตลาดนานาชาติ',
     'about.values.eb':'คุณค่าหลัก','about.values.title':'สี่คำมั่นสัญญาของเรา',
     'about.value.1.t':'แหล่งที่มาโปร่งใส',
     'about.value.1.d':'ทุกสินค้าระบุแหล่งที่มา สหกรณ์ หรือช่างฝีมือ',
@@ -3708,6 +3812,7 @@ const I18N = {
     'acc.login.success':'เข้าสู่ระบบสำเร็จ','acc.register.success':'สมัครสมาชิกสำเร็จ',
     'acc.logout.success':'ออกจากระบบแล้ว','acc.fillInfo':'กรุณากรอกข้อมูลให้ครบ',
     'acc.fillEmail':'กรุณาใส่อีเมล','acc.itemCount':'สินค้า',
+    'exp.title':'จองประสบการณ์วัฒนธรรมลาว–เวียดนาม','exp.intro':'จองบัตรเข้าร่วมประสบการณ์อาหาร กิจกรรม และเวิร์กช็อปเรียนรู้วัฒนธรรม บริษัทจะอัปเดตกำหนดการไว้ในปฏิทินด้านล่าง','exp.event':'ประสบการณ์อาหารและกิจกรรม','exp.event.desc':'ลิ้มลองรสชาติท้องถิ่นและร่วมกิจกรรมวัฒนธรรมตามกำหนดการ','exp.workshop':'เวิร์กช็อปค้นพบวัฒนธรรม','exp.workshop.desc':'พบช่างฝีมือ เรียนรู้ประเพณี และลองทำงานหัตถกรรมด้วยตัวเอง','exp.booking':'ส่งคำขอจอง','exp.type':'ประเภทประสบการณ์','exp.name':'ชื่อและนามสกุล','exp.contact':'เบอร์โทรศัพท์หรืออีเมล','exp.date':'วันที่ต้องการ','exp.guests':'จำนวนบัตร','exp.submit':'ส่งคำขอ','exp.confirm':'ส่งคำขอจองแล้ว เจ้าหน้าที่จะยืนยันวันเวลากับคุณ','exp.saveError':'ส่งคำขอไม่สำเร็จ กรุณาลองใหม่','exp.calendar':'ปฏิทินกิจกรรม','exp.calendar.empty':'บริษัทจะอัปเดตปฏิทินกิจกรรมเร็ว ๆ นี้','exp.notice':'คำขอจองจะบันทึกในระบบเพื่อให้เจ้าหน้าที่ยืนยันวันเวลา ยังไม่มีการชำระเงินหรือออกบัตรอัตโนมัติ','exp.choose':'เลือกกิจกรรม','acc.member.title':'สมาชิก Lotus & Champa','acc.member.points':'คะแนนสะสม','acc.member.pointsHelp':'คะแนนและสิทธิพิเศษจะแสดงเมื่อเชื่อมต่อระบบสมาชิก','acc.member.coupons':'โค้ดส่วนลดของฉัน','acc.member.noCodes':'คุณยังไม่มีโค้ดส่วนลด',
     // ===== BREADCRUMB =====
     'bc.home':'หน้าแรก','bc.products':'สินค้า','bc.cart':'ตะกร้า','bc.checkout':'ชำระเงิน',
     'bc.blog':'บล็อก','bc.about':'เกี่ยวกับเรา','bc.business':'โมเดลธุรกิจ',
@@ -3773,6 +3878,7 @@ const I18N = {
     'admin.back':'← กลับหน้าแรก','admin.dash':'ภาพรวม',
     'admin.products':'สินค้า','admin.orders':'คำสั่งซื้อ','admin.reviews':'รีวิว',
     'admin.blog':'บล็อก','admin.coupons':'โค้ดส่วนลด','admin.logout':'ออกจากระบบ',
+    'admin.bookings':'การจองประสบการณ์','admin.members':'สมาชิก','admin.reports':'รายงาน','admin.calendar':'ปฏิทินกิจกรรม','admin.calendar.formTitle':'เพิ่มกิจกรรม','admin.calendar.name':'ชื่อกิจกรรม','admin.calendar.date':'วันที่','admin.calendar.place':'สถานที่','admin.calendar.save':'บันทึกกิจกรรม','admin.calendar.empty':'ยังไม่มีกิจกรรม','admin.bookings.empty':'ยังไม่มีคำขอจอง','admin.members.empty':'ยังไม่มีข้อมูลสมาชิก','admin.report.bookings':'คำขอจองประสบการณ์','admin.report.members':'ลูกค้าที่มีคำสั่งซื้อ','admin.report.revenue':'รายได้จากคำสั่งซื้อ','admin.prototype':'ข้อมูลตัวอย่างในเบราว์เซอร์นี้ ยังไม่ซิงก์กับ Firebase','admin.synced':'กำลังซิงก์ข้อมูลจาก Firebase','admin.dataLoading':'กำลังโหลดข้อมูลจาก Firebase…','admin.dataError':'โหลดข้อมูลไม่สำเร็จ กรุณาตรวจ Firestore rules และการเชื่อมต่อ','admin.saveError':'บันทึกไม่สำเร็จ กรุณาตรวจสิทธิ์แล้วลองอีกครั้ง',
     'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน',
     'admin.stat.orders':'คำสั่งซื้อทั้งหมด','admin.stat.revenue':'รายได้',
     'admin.stat.products':'สินค้า','admin.stat.customers':'ลูกค้า',
@@ -3824,10 +3930,10 @@ const I18N = {
     'search.placeholder':'搜索文化产品、特产、礼品...',
     'search.btn':'搜索',
     // ===== NAV =====
-    'nav.home':'首页','nav.products':'所有产品','nav.lao':'老挝产品',
-    'nav.vn':'越南产品','nav.sale':'促销','nav.blog':'文化博客',
+    'nav.home':'首页','nav.products':'商店','nav.lao':'老挝产品',
+    'nav.vn':'越南产品','nav.sale':'促销','nav.experience':'订票与体验','nav.blog':'探索文化',
     'nav.about':'关于我们','nav.business':'商业模式','nav.contact':'联系',
-    'nav.admin':'管理','nav.cart':'购物车','nav.account':'账户',
+    'nav.admin':'管理员','nav.cart':'购物车','nav.account':'会员',
     // ===== COMMON =====
     'common.all':'全部','common.viewall':'查看全部','common.viewallarrow':'查看全部 →',
     'common.continue':'继续','common.cancel':'取消','common.save':'保存',
@@ -3968,6 +4074,9 @@ const I18N = {
     'about.p1':"Lotus & Champa company 是由一群老挝学生和越南学生共同打造的电商品牌。我们因对文化的热爱而相聚，希望连接两国的人们。",
     'about.p2':"这一想法源于老挝与越南朋友之间分享的礼物和故事。从湄公河畔的凯本到广宁的金花茶，我们希望每件产品既传递家乡的味道，也增进彼此的理解与珍惜。",
     'about.p3':"我们的使命是通过手工艺品、地方特产和有意义的礼物，连接老挝与越南的文化价值。怀着年轻人的合作精神，我们希望让匠人的故事更贴近顾客，并为两国人民的友谊贡献一份力量。",
+    'about.roadmap.title':'发展规划',
+    'about.roadmap.intro':'从广宁出发，Lotus & Champa 计划连接越南主要旅游中心，并逐步走向国际市场。',
+    'about.roadmap.alt':'信息图展示 Lotus & Champa 从广宁拓展至河内、胡志明市及国际市场的规划。',
     'about.values.eb':'核心价值','about.values.title':'我们的四项承诺',
     'about.value.1.t':'透明来源',
     'about.value.1.d':'每件产品都标明产地、合作社或工匠',
@@ -4026,6 +4135,7 @@ const I18N = {
     'acc.login.success':'登录成功','acc.register.success':'注册成功',
     'acc.logout.success':'已登出','acc.fillInfo':'请填写完整',
     'acc.fillEmail':'请输入邮箱','acc.itemCount':'件产品',
+    'exp.title':'预订老挝—越南文化体验','exp.intro':'预订美食体验、文化活动和文化探索工作坊的门票。公司将在下方日历更新活动日期。','exp.event':'美食与文化活动','exp.event.desc':'品尝当地风味，并按公司日程参加文化活动。','exp.workshop':'文化探索工作坊','exp.workshop.desc':'结识工艺师、了解当地传统并亲手体验手工艺。','exp.booking':'提交预订申请','exp.type':'体验类型','exp.name':'姓名','exp.contact':'电话或电子邮箱','exp.date':'期望日期','exp.guests':'门票数量','exp.submit':'提交申请','exp.confirm':'预订申请已提交，工作人员会与您确认日期。','exp.saveError':'无法提交预订申请，请重试。','exp.calendar':'活动日历','exp.calendar.empty':'公司活动日历即将更新。','exp.notice':'预订申请会保存到共享系统，工作人员将与您确认日期；目前尚未连接付款或自动出票。','exp.choose':'选择活动','acc.member.title':'Lotus & Champa会员','acc.member.points':'积分余额','acc.member.pointsHelp':'连接会员计划后将更新积分与优惠权益。','acc.member.coupons':'我的优惠码','acc.member.noCodes':'您暂时没有优惠码。',
     // ===== BREADCRUMB =====
     'bc.home':'首页','bc.products':'产品','bc.cart':'购物车','bc.checkout':'结账',
     'bc.blog':'博客','bc.about':'关于','bc.business':'商业模式',
@@ -4091,6 +4201,7 @@ const I18N = {
     'admin.back':'← 返回首页','admin.dash':'概览',
     'admin.products':'产品','admin.orders':'订单','admin.reviews':'评价',
     'admin.blog':'博客','admin.coupons':'优惠码','admin.logout':'登出',
+    'admin.bookings':'体验预订','admin.members':'会员','admin.reports':'报表','admin.calendar':'活动日历','admin.calendar.formTitle':'添加活动','admin.calendar.name':'活动名称','admin.calendar.date':'日期','admin.calendar.place':'地点','admin.calendar.save':'保存活动','admin.calendar.empty':'尚未添加活动。','admin.bookings.empty':'暂无预订申请。','admin.members.empty':'暂无会员记录。','admin.report.bookings':'体验预订申请','admin.report.members':'有订单的客户','admin.report.revenue':'订单收入','admin.prototype':'当前浏览器中的示例数据；尚未与 Firebase 同步。','admin.synced':'数据正在从 Firebase 同步。','admin.dataLoading':'正在从 Firebase 加载数据…','admin.dataError':'无法加载数据，请检查 Firestore 规则和网络连接。','admin.saveError':'无法保存更改，请检查权限后重试。',
     'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员',
     'admin.stat.orders':'订单总数','admin.stat.revenue':'收入',
     'admin.stat.products':'产品','admin.stat.customers':'客户',
@@ -4133,6 +4244,12 @@ const I18N = {
     'footer.rights':'版权所有'
   }
 };;
+
+Object.assign(I18N.vi, { 'acc.member.title':'Hội viên Lotus & Champa', 'acc.member.pointsHelp':'Tạm tính 1 điểm cho mỗi 10.000 ₫ từ đơn đã thanh toán hoặc hoàn tất.', 'acc.member.coupons':'Ưu đãi hiện có', 'acc.member.bookings':'Lịch sử đặt trải nghiệm', 'acc.member.noBookings':'Bạn chưa có yêu cầu đặt chỗ nào.' });
+Object.assign(I18N.lo, { 'acc.member.pointsHelp':'ໄດ້ 1 ຄະແນນຕໍ່ທຸກ 10.000 ₫ ຈາກຄຳສັ່ງຊື້ທີ່ຊຳລະແລ້ວ ຫຼື ສຳເລັດ.', 'acc.member.coupons':'ສ່ວນຫຼຸດທີ່ມີ', 'acc.member.bookings':'ປະຫວັດການຈອງປະສົບການ', 'acc.member.noBookings':'ທ່ານຍັງບໍ່ມີຄຳຂໍຈອງ.' });
+Object.assign(I18N.en, { 'acc.member.title':'Members', 'acc.member.pointsHelp':'Earn 1 point per 10,000 ₫ on orders marked paid or completed.', 'acc.member.coupons':'Available offers', 'acc.member.bookings':'Experience booking history', 'acc.member.noBookings':'You have no booking requests yet.' });
+Object.assign(I18N.th, { 'acc.member.title':'สมาชิก', 'acc.member.pointsHelp':'รับ 1 คะแนนต่อยอดซื้อ 10,000 ₫ จากคำสั่งซื้อที่ชำระแล้วหรือเสร็จสมบูรณ์', 'acc.member.coupons':'สิทธิพิเศษที่มี', 'acc.member.bookings':'ประวัติการจองประสบการณ์', 'acc.member.noBookings':'คุณยังไม่มีคำขอจอง' });
+Object.assign(I18N.zh, { 'acc.member.title':'会员', 'acc.member.pointsHelp':'每消费 10,000 ₫ 且订单已付款或完成，可获得 1 积分。', 'acc.member.coupons':'可用优惠', 'acc.member.bookings':'体验预订记录', 'acc.member.noBookings':'您还没有预订申请。' });
 
 /* Active language */
 let CURRENT_LANG = Store.get('lang','vi');
@@ -5788,6 +5905,8 @@ function router(){
   switch(route.page){
     case '': case 'home': main.innerHTML = renderHome(); attachHomeEvents(); break;
     case 'products': main.innerHTML = renderProducts(route.params); attachShopEvents(); break;
+    case 'experiences': main.innerHTML = renderExperiences(); attachExperienceEvents(); break;
+    case 'calendar': main.innerHTML = renderPublicCalendar(); break;
     case 'product': main.innerHTML = renderProductDetail(route.sub); attachPdEvents(route.sub); break;
     case 'cart': main.innerHTML = renderCart(); attachCartEvents(); break;
     case 'checkout': main.innerHTML = renderCheckout(); attachCheckoutEvents(); break;
@@ -5810,7 +5929,7 @@ window.addEventListener('hashchange', router);
 =========================================================== */
 function renderHomeGallery(){
  const c=({"vi":["GÓC NHÌN LOTUS & CHAMPA","Những khoảnh khắc kết nối","Con người, câu chuyện và những bước đi trên hành trình kết nối văn hoá Việt – Lào.","Chạm vào ảnh để xem đầy đủ","Ảnh trước","Ảnh tiếp theo",["Chia sẻ câu chuyện","Cùng nhau ghi dấu","Những người đồng hành","Gặp gỡ và kết nối","Một hành trình chung","Kỷ niệm của chúng tôi"]],"th":["เรื่องราวของ LOTUS & CHAMPA","ช่วงเวลาที่เชื่อมเราถึงกัน","ผู้คน เรื่องราว และก้าวเล็ก ๆ บนเส้นทางเชื่อมวัฒนธรรมเวียดนามและลาว","แตะภาพเพื่อดูภาพเต็ม","ภาพก่อนหน้า","ภาพถัดไป",["แบ่งปันเรื่องราว","ช่วงเวลาที่น่าจดจำ","ผู้ร่วมเดินทาง","พบกันและเชื่อมสัมพันธ์","การเดินทางร่วมกัน","ความทรงจำของเรา"]],"en":["INSIDE LOTUS & CHAMPA","Moments that bring us together","People, stories and steps along our journey connecting Vietnamese and Lao cultures.","Select a photo to see the full image","Previous photo","Next photo",["Sharing our story","A moment to remember","People on our journey","Meeting and connecting","A shared journey","Our memories"]],"lo":["ເລື່ອງລາວ LOTUS & CHAMPA","ຊ່ວງເວລາທີ່ເຊື່ອມໂຍງພວກເຮົາ","ຜູ້ຄົນ ເລື່ອງລາວ ແລະການເດີນທາງເຊື່ອມວັດທະນະທຳຫວຽດນາມ–ລາວ.","ແຕະຮູບເພື່ອເບິ່ງຮູບເຕັມ","ຮູບກ່ອນໜ້າ","ຮູບຕໍ່ໄປ",["ແບ່ງປັນເລື່ອງລາວ","ຊ່ວງເວລາທີ່ຈື່ຈຳ","ເພື່ອນຮ່ວມທາງ","ພົບປະແລະເຊື່ອມໂຍງ","ການເດີນທາງຮ່ວມກັນ","ຄວາມຊົງຈຳຂອງພວກເຮົາ"]],"zh":["LOTUS & CHAMPA 的故事","让我们相聚的瞬间","记录人与故事，见证连接越南与老挝文化的旅程。","点击照片查看完整图片","上一张","下一张",["分享我们的故事","值得纪念的时刻","旅途中的伙伴","相遇与交流","共同的旅程","我们的回忆"]]})[CURRENT_LANG] || ["INSIDE LOTUS & CHAMPA","Moments that bring us together","People, stories and steps along our journey connecting Vietnamese and Lao cultures.","Select a photo to see the full image","Previous photo","Next photo",["Sharing our story","A moment to remember","People on our journey","Meeting and connecting","A shared journey","Our memories"]];
- return `<div class="home-gallery"><div class="home-gallery-head"><div class="gallery-intro"><div class="gallery-eyebrow">${c[0]}</div><h2 class="home-gallery-title">${c[1]}</h2><p class="gallery-description">${c[2]}</p></div><div class="home-gallery-nav"><button type="button" class="home-gallery-btn home-gallery-prev" aria-label="${c[4]}">←</button><button type="button" class="home-gallery-btn home-gallery-next" aria-label="${c[5]}">→</button></div></div><div class="swiper home-gallery-swiper" id="homeGallerySwiper"><div class="swiper-wrapper">${HOME_GALLERY_MEDIA.map((m,i)=>`<div class="swiper-slide home-gallery-slide" onclick="openMediaLightbox('${m.src}','${m.type}','${m.alt}')"><div class="gallery-photo">${m.type==='video'?`<video src="${m.src}" muted playsinline preload="metadata"></video>`:`<img src="${m.src}" loading="lazy" alt="${c[6][i]} — Lotus & Champa"/>`}<span class="gallery-expand" aria-hidden="true">⤢</span></div></div>`).join('')}</div></div><div class="gallery-footer"><p>${c[3]}</p><div class="home-gallery-pagination"></div><span class="gallery-total">06</span></div></div>`;
+ return `<div class="home-gallery"><div class="home-gallery-head"><div class="gallery-intro"><div class="gallery-eyebrow">${c[0]}</div><h2 class="home-gallery-title">${c[1]}</h2><p class="gallery-description">${c[2]}</p></div><div class="home-gallery-nav"><button type="button" class="home-gallery-btn home-gallery-prev" aria-label="${c[4]}">←</button><button type="button" class="home-gallery-btn home-gallery-next" aria-label="${c[5]}">→</button></div></div><div class="swiper home-gallery-swiper" id="homeGallerySwiper"><div class="swiper-wrapper">${HOME_GALLERY_MEDIA.map((m,i)=>`<div class="swiper-slide home-gallery-slide" onclick="openMediaLightbox('${m.src}','${m.type}','${m.alt}')"><div class="gallery-photo">${m.type==='video'?`<video src="${m.src}" muted playsinline preload="metadata"></video>`:`<img src="${m.src}" loading="lazy" alt="${c[6][i % c[6].length]} — Lotus & Champa"/>`}<span class="gallery-expand" aria-hidden="true">⤢</span></div></div>`).join('')}</div></div><div class="gallery-footer"><p>${c[3]}</p><div class="home-gallery-pagination"></div><span class="gallery-total">${String(HOME_GALLERY_MEDIA.length).padStart(2,'0')}</span></div></div>`;
 }
 
 let homeGallerySwiper = null;
@@ -5952,22 +6071,6 @@ function renderHome(){
     </div>
   </section>
 
-  <!-- BEST SELLERS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="section-eyebrow" data-i18n="sec.best.eb">Được yêu thích nhất</div>
-          <h2 class="section-title" data-i18n="sec.best.title">Sản phẩm bán chạy</h2>
-        </div>
-        <a href="#/products" class="section-link">${t("common.viewallarrow")}</a>
-      </div>
-      <div class="products-grid">
-        ${best.map(productCard).join('')}
-      </div>
-    </div>
-  </section>
-
   <!-- DUAL CULTURE -->
   <section class="dual-culture">
     <div class="container">
@@ -5997,102 +6100,15 @@ function renderHome(){
     </div>
   </section>
 
-  <!-- LAO PRODUCTS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="section-eyebrow" data-i18n="sec.lao.eb">Champa · ດອກຈໍາປາ</div>
-          <h2 class="section-title" data-i18n="sec.lao.title">Tinh hoa từ đất nước Triệu Voi</h2>
-        </div>
-        <a href="#/products?country=lao" class="section-link">${t("common.viewallarrow")}</a>
-      </div>
-      <div class="products-grid">${lao.map(productCard).join('')}</div>
+  <section class="about-roadmap home-roadmap container" aria-labelledby="homeRoadmapTitle">
+    <div class="about-roadmap-head">
+      <div class="section-eyebrow">${t("about.eyebrow")}</div>
+      <h2 class="section-title" id="homeRoadmapTitle">${t("about.roadmap.title")}</h2>
+      <p>${t("about.roadmap.intro")}</p>
     </div>
-  </section>
-
-  <!-- COMBO GIFTS -->
-  <section class="section section-tight">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="section-eyebrow" data-i18n="sec.combo.eb">Combo quà tặng văn hoá</div>
-          <h2 class="section-title" data-i18n="sec.combo.title">Gói trọn yêu thương trong một hộp</h2>
-        </div>
-      </div>
-      <div class="combos-grid">
-        <div class="combo-card large" onclick="navigate('products')">
-          <img loading="lazy" decoding="async" src="${IMG_DATA['images/muc-kho.jpg']}" alt="Combo"/>
-          <div class="combo-overlay">
-            <div class="eb" data-i18n="combo.1.eb">Best Gift</div>
-            <h3 data-i18n="combo.1.t">Combo Lào – Việt sum vầy</h3>
-            <span class="arrow">${t("combo.1.cta")}</span>
-          </div>
-        </div>
-        <div class="combo-card" onclick="navigate('products?country=vietnam')">
-          <img loading="lazy" decoding="async" src="${IMG_DATA['images/tra-hoa-vang.webp']}" alt="Tea"/>
-          <div class="combo-overlay">
-            <h3 data-i18n="combo.2.t">Hộp trà Quảng Ninh</h3>
-            <span class="arrow">→</span>
-          </div>
-        </div>
-        <div class="combo-card" onclick="navigate('products?country=lao')">
-          <img loading="lazy" decoding="async" src="${IMG_DATA['images/kaipen.jpg']}" alt="Kaipen"/>
-          <div class="combo-overlay">
-            <h3 data-i18n="combo.3.t">Hộp Kaipen Mekong</h3>
-            <span class="arrow">→</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VN PRODUCTS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="section-eyebrow" data-i18n="sec.vn.eb">Lotus · Hoa Sen</div>
-          <h2 class="section-title" data-i18n="sec.vn.title">Đặc sản Việt Nam, OCOP Quảng Ninh</h2>
-        </div>
-        <a href="#/products?country=vietnam" class="section-link">${t("common.viewallarrow")}</a>
-      </div>
-      <div class="products-grid">${vn.map(productCard).join('')}</div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head" style="text-align:center;justify-content:center">
-        <div>
-          <div class="section-eyebrow" style="justify-content:center" data-i18n="sec.feat.eb">Vì sao chọn chúng tôi</div>
-          <h2 class="section-title" style="text-align:center;margin:0 auto" data-i18n="sec.feat.title">Lotus & Champa khác biệt như thế nào</h2>
-        </div>
-      </div>
-      <div class="feat-grid">
-        <div class="feat-card">
-          <div class="feat-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
-          <h4 data-i18n="feat.1.t">Chính gốc & có nguồn</h4>
-          <p data-i18n="feat.1.d">Mỗi sản phẩm đều ghi rõ vùng đất, nghệ nhân hoặc gia đình sản xuất. Không hàng trôi nổi.</p>
-        </div>
-        <div class="feat-card">
-          <div class="feat-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.6" stroke-linecap="round" d="M4 6h16M4 12h16M4 18h10"/></svg></div>
-          <h4 data-i18n="feat.2.t">Câu chuyện văn hoá</h4>
-          <p data-i18n="feat.2.d">Bạn không chỉ mua sản phẩm – bạn mang về một câu chuyện Lào – Việt thật sự.</p>
-        </div>
-        <div class="feat-card">
-          <div class="feat-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 7h13l3 4v6h-2a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H3V7Z"/></svg></div>
-          <h4 data-i18n="feat.3.t">Giao hàng hai chiều</h4>
-          <p data-i18n="feat.3.d">Hỗ trợ giao toàn quốc Việt Nam và đi Lào. Đặt hàng qua Zalo, WhatsApp, Email đều được.</p>
-        </div>
-        <div class="feat-card">
-          <div class="feat-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M20 8h-3V6a3 3 0 0 0-6 0v2H8a3 3 0 0 0-3 3v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a3 3 0 0 0 0-3Zm-8-2a1 1 0 0 1 2 0v2h-2V6Z"/></svg></div>
-          <h4 data-i18n="feat.4.t">Quà tặng có ý nghĩa</h4>
-          <p data-i18n="feat.4.d">Phù hợp tặng người thân, đối tác, doanh nghiệp – mỗi món có hộp quà thủ công.</p>
-        </div>
-      </div>
-    </div>
+    <figure>
+      <img loading="lazy" decoding="async" width="1536" height="1024" src="images/Trang 1/1111.jpg" alt="${t('about.roadmap.alt')}" onclick="openPhotoLightbox(this.src,this.alt)"/>
+    </figure>
   </section>
 
   <!-- TESTIMONIALS -->
@@ -7324,21 +7340,34 @@ function renderAbout(){
     </div>
     <div class="about-photo-marquee" aria-label="Lotus & Champa photo gallery">
       <div class="about-photo-track">
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/50.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/51.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/52.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/53.jpg" alt="Lotus & Champa"/></div>
         <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg" alt="Lotus & Champa"/></div>
         <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg" alt="Lotus & Champa"/></div>
         <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg" alt="Lotus & Champa"/></div>
         <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg" alt="Lotus & Champa"/></div>
         <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg" alt="Lotus & Champa"/></div>
         <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435018_8987556862626845142_g6488193094674564966_ec9ff099e94e2c28e82e5392a6e2d433.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435100_8987556862626845142_g6488193094674564966_6dae3756bfffee25528e5024b40671a0.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435124_8987556862626845142_g6488193094674564966_ee5e066338050e0ea18a1d9466cf8e72.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435178_8987556862626845142_g6488193094674564966_67c69dd12419403cec7b39032a82555c.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435191_8987556862626845142_g6488193094674564966_8458ae9c187df7917ad01b86f77d0c65.jpg" alt="Lotus & Champa"/></div>
-        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/1781956435223_8987556862626845142_g6488193094674564966_ec53a79022844ceee5e5342372203db8.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/50.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/51.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/52.jpg" alt="Lotus & Champa"/></div>
+        <div class="about-photo-item"><img loading="lazy" decoding="async" onclick="openPhotoLightbox(this.src,this.alt)" src="images/Trang 1/53.jpg" alt="Lotus & Champa"/></div>
       </div>
     </div>
   </div>
+
+  <section class="about-roadmap container" aria-labelledby="aboutRoadmapTitle">
+    <div class="about-roadmap-head">
+      <div class="section-eyebrow">${t("about.eyebrow")}</div>
+      <h2 class="section-title" id="aboutRoadmapTitle">${t("about.roadmap.title")}</h2>
+      <p>${t("about.roadmap.intro")}</p>
+    </div>
+    <figure>
+      <img loading="lazy" decoding="async" width="1536" height="1024" src="images/Trang 1/1111.jpg" alt="${t('about.roadmap.alt')}" onclick="openPhotoLightbox(this.src,this.alt)"/>
+    </figure>
+  </section>
 
   <section class="dual-culture">
     <div class="container">
@@ -7474,6 +7503,91 @@ function renderContact(){
 /* ===========================================================
    20 — PAGE: ACCOUNT (demo)
 =========================================================== */
+function escapeExperienceText(value){
+  const node = document.createElement('span');
+  node.textContent = String(value ?? '');
+  return node.innerHTML;
+}
+
+function renderExperiences(){
+  subscribeCompanyActivities();
+  const activities = window._fbActivities || [];
+  return `
+    <section class="page-hero"><div class="container"><div class="section-eyebrow">${t('nav.experience')}</div><h1>${t('exp.title')}</h1><p>${t('exp.intro')}</p></div></section>
+    <div class="container" style="padding:34px 0 64px">
+      <div class="experience-grid">
+        <article class="experience-card"><div class="experience-icon" aria-hidden="true">🍲</div><h2>${t('exp.event')}</h2><p>${t('exp.event.desc')}</p></article>
+        <article class="experience-card"><div class="experience-icon" aria-hidden="true">🧵</div><h2>${t('exp.workshop')}</h2><p>${t('exp.workshop.desc')}</p></article>
+      </div>
+      <div class="experience-lower">
+        <form class="experience-booking" id="experienceBookingForm">
+          <h2>${t('exp.booking')}</h2>
+          <label class="form-field"><span>${t('exp.type')}</span><select name="type" required><option value="food">${t('exp.event')}</option><option value="workshop">${t('exp.workshop')}</option></select></label>
+          <label class="form-field"><span>${t('exp.name')}</span><input name="name" required autocomplete="name" maxlength="100"/></label>
+          <label class="form-field"><span>${t('exp.contact')}</span><input name="contact" required maxlength="150" autocomplete="email"/></label>
+          <div class="form-grid">
+            <label class="form-field"><span>${t('exp.date')}</span><input name="date" type="date" required min="${new Date().toISOString().slice(0,10)}"/></label>
+            <label class="form-field"><span>${t('exp.guests')}</span><input name="guests" type="number" min="1" max="10" value="1" required/></label>
+          </div>
+          <button class="btn btn-primary" type="submit">${t('exp.submit')}</button>
+          <p class="experience-note">${t('exp.notice')}</p>
+        </form>
+        <section class="experience-calendar">
+          <h2>${t('exp.calendar')}</h2>
+          ${window._fbActivitiesError?`<p class="experience-note">${t('admin.dataError')}</p>`:window._fbActivitiesLoading?`<p class="experience-note">${t('admin.dataLoading')}</p>`:''}
+          ${activities.length ? `<div class="experience-list">${activities.map(a=>`<article class="experience-list-item"><div><strong>${escapeExperienceText(a.name)}</strong><div class="experience-note">${escapeExperienceText(a.place||'')}</div></div><time datetime="${escapeExperienceText(a.date)}">${escapeExperienceText(a.date)}</time></article>`).join('')}</div>` : window._fbActivitiesLoading||window._fbActivitiesError ? '' : `<p>${t('exp.calendar.empty')}</p>`}
+        </section>
+      </div>
+    </div>`;
+}
+
+function renderPublicCalendar(){
+  subscribeCompanyActivities();
+  const activities = window._fbActivities || [];
+  const locale = ({vi:'vi-VN',lo:'lo-LA',en:'en-US',th:'th-TH',zh:'zh-CN'})[CURRENT_LANG] || 'vi-VN';
+  const dateLabel = value => {
+    const date = new Date(`${value}T00:00:00`);
+    return Number.isNaN(date.getTime()) ? escapeExperienceText(value) : date.toLocaleDateString(locale,{year:'numeric',month:'long',day:'numeric'});
+  };
+  return `<section class="page-hero"><div class="container"><div class="section-eyebrow">${t('nav.blog')}</div><h1>${t('exp.calendar')}</h1><p>${t('exp.intro')}</p></div></section>
+    <div class="container" style="padding:34px 0 64px;max-width:1000px"><section class="experience-calendar">
+      ${window._fbActivitiesError?`<p class="experience-note">${t('admin.dataError')}</p>`:window._fbActivitiesLoading?`<p class="experience-note">${t('admin.dataLoading')}</p>`:''}
+      ${activities.length?`<div class="experience-list">${activities.map(a=>`<article class="experience-list-item"><div><strong>${escapeExperienceText(a.name)}</strong><div class="experience-note">${escapeExperienceText(a.place||'')}</div></div><time datetime="${escapeExperienceText(a.date)}">${dateLabel(a.date)}</time></article>`).join('')}</div>`:window._fbActivitiesLoading||window._fbActivitiesError?'':`<p>${t('exp.calendar.empty')}</p>`}
+      <p style="margin-top:24px"><a class="btn btn-primary" href="#/experiences">${t('nav.experience')}</a></p>
+    </section></div>`;
+}
+
+function attachExperienceEvents(){
+  const form = document.getElementById('experienceBookingForm');
+  if(!form) return;
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    const submit = form.querySelector('[type="submit"]');
+    if(submit) submit.disabled = true;
+    const data = new FormData(form);
+    try {
+      const fb = window.LCFB;
+      if(!fb?.ready) throw new Error('Firebase is not available');
+      const user = await fb.lcEnsureOrderUser();
+      await fb.addDoc(fb.collection(fb.db,'experienceBookings'), {
+        ownerUid:user.uid,
+        type:String(data.get('type')),
+        name:String(data.get('name')).trim(),
+        contact:String(data.get('contact')).trim(),
+        date:String(data.get('date')),
+        guests:Math.max(1,Math.min(10,Number(data.get('guests'))||1)),
+        status:'pending',
+        createdAt:fb.serverTimestamp()
+      });
+      form.reset();
+      toast(t('exp.confirm'),'success');
+    } catch(error) {
+      console.error('[Experience booking] Save failed:',error);
+      toast(t('exp.saveError'),'error');
+    } finally { if(submit) submit.disabled = false; }
+  });
+}
+
 function renderAccount(){
   const user = Store.get('user', null);
   if(!user){
@@ -7495,17 +7609,26 @@ function renderAccount(){
         <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="registerUser()">${t("acc.register")}</button>
       </div>
     </div>
+    <div class="container" style="max-width:900px;padding:0 0 50px"><section class="member-loyalty"><h2>${t('acc.member.title')}</h2><p>${t('acc.member.pointsHelp')}</p></section></div>
     `;
   }
   // logged in
   subscribeOrdersIfNeeded();
+  subscribeExperienceBookings();
   const orders = getOrders().filter(o => o.ownerUid === window.LCFB?.auth.currentUser?.uid);
+  const bookings = (window._fbExperienceBookings || []).filter(b => b.ownerUid === window.LCFB?.auth.currentUser?.uid);
   const favIds = Store.get('favs', []);
   const favs = getProducts().filter(p=>favIds.includes(p.id));
+  const eligibleOrders = orders.filter(o => o.paymentStatus === 'paid' || o.status === 'completed');
+  const memberPoints = eligibleOrders.reduce((sum,o)=>sum + Math.floor(Math.max(0,Number(o.total)||0)/10000),0);
+  const profileCoupons = Array.isArray(user.coupons) ? user.coupons : [];
+  const offerCoupons = (Store.get('coupons',[]) || []).map(c=>c.code).filter(Boolean);
+  const memberCoupons = [...new Set([...profileCoupons,...offerCoupons])];
 
   return `
   <section class="page-hero"><div class="container"><h1>${t("acc.greeting")} ${user.name}</h1></div></section>
   <div class="container" style="padding:40px 0">
+    <section class="member-loyalty"><h2>${t('acc.member.title')}</h2><div class="member-points">${memberPoints} <span style="font-size:.92rem;font-weight:500">${t('acc.member.points')}</span></div><p>${t('acc.member.pointsHelp')}</p><p><strong>${t('acc.member.coupons')}</strong></p>${memberCoupons.length?memberCoupons.map(code=>`<span class="member-coupon">${escapeExperienceText(code)}</span>`).join(''):`<p>${t('acc.member.noCodes')}</p>`}</section>
     <div style="display:grid;grid-template-columns:240px 1fr;gap:30px">
       <aside style="background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:20px">
         <div style="text-align:center;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:14px">
@@ -7530,6 +7653,10 @@ function renderAccount(){
               </div>
             </div>
           `).join('') : `<p style="color:var(--muted)">${t('acc.noOrders')}</p>`}
+        </div>
+        <div class="checkout-form-card">
+          <h3>${t('acc.member.bookings')} (${bookings.length})</h3>
+          ${window._fbExperienceBookingsError?`<p class="experience-note">${t('admin.dataError')}</p>`:window._fbExperienceBookingsLoading?`<p class="experience-note">${t('admin.dataLoading')}</p>`:bookings.length?bookings.map(b=>`<div style="padding:14px;border:1px solid var(--line);border-radius:8px;margin-bottom:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><strong>${escapeExperienceText(b.type==='workshop'?t('exp.workshop'):t('exp.event'))}</strong><div style="font-size:.82rem;color:var(--muted)">${escapeExperienceText(b.date)} · ${escapeExperienceText(b.guests)} ${t('exp.guests')}</div></div><span class="status status-${b.status==='confirmed'?'paid':'pending'}">${escapeExperienceText(b.status||'pending')}</span></div>`).join(''):`<p style="color:var(--muted)">${t('acc.member.noBookings')}</p>`}
         </div>
         <div class="checkout-form-card">
           <h3>${t("acc.favs")} (${favs.length})</h3>
@@ -7700,6 +7827,10 @@ function renderAdmin(route){
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.7" d="M9 4h6v4H9V4ZM5 8h14v12H5V8Z"/></svg>
           ${t("admin.orders")}
         </a>
+        <a href="#/admin/bookings" class="${tab==='bookings'?'active':''}"><span aria-hidden="true">🎟</span>${t('admin.bookings')}</a>
+        <a href="#/admin/members" class="${tab==='members'?'active':''}"><span aria-hidden="true">👥</span>${t('admin.members')}</a>
+        <a href="#/admin/reports" class="${tab==='reports'?'active':''}"><span aria-hidden="true">📊</span>${t('admin.reports')}</a>
+        <a href="#/admin/calendar" class="${tab==='calendar'?'active':''}"><span aria-hidden="true">📅</span>${t('admin.calendar')}</a>
         <a href="#/admin/reviews" class="${tab==='reviews'?'active':''}">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.7" d="m12 2 3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7l3-7Z"/></svg>
           ${t("admin.reviews")}
@@ -7736,10 +7867,85 @@ function renderAdminContent(tab){
   switch(tab){
     case 'products': return adminProducts();
     case 'orders': return adminOrders();
+    case 'bookings': return adminExperienceBookings();
+    case 'members': return adminMembers();
+    case 'reports': return adminReports();
+    case 'calendar': return adminCalendar();
     case 'reviews': return adminReviews();
     case 'blog': return adminBlog();
     case 'coupons': return adminCoupons();
     default: return adminDashboard();
+  }
+}
+
+function adminExperienceBookings(){
+  subscribeExperienceBookings();
+  const bookings = window._fbExperienceBookings || [];
+  const note = window._fbExperienceBookingsError ? t('admin.dataError') : window._fbExperienceBookingsLoading ? t('admin.dataLoading') : t('admin.synced');
+  return `<div class="admin-header"><h1>${t('admin.bookings')}<span class="sub">${bookings.length}</span></h1></div><p class="experience-note">${note}</p><div class="admin-card" style="overflow-x:auto"><table class="admin-table"><thead><tr><th>${t('exp.name')}</th><th>${t('exp.type')}</th><th>${t('exp.date')}</th><th>${t('exp.guests')}</th><th>${t('admin.col.status')}</th><th>${t('exp.contact')}</th></tr></thead><tbody>${bookings.length?bookings.map(b=>`<tr><td>${escapeExperienceText(b.name)}</td><td>${t(b.type==='workshop'?'exp.workshop':'exp.event')}</td><td>${escapeExperienceText(b.date)}</td><td>${Number(b.guests)||1}</td><td>${escapeExperienceText(b.status||'pending')}</td><td>${escapeExperienceText(b.contact)}</td></tr>`).join(''):`<tr><td colspan="6" class="admin-empty">${t('admin.bookings.empty')}</td></tr>`}</tbody></table></div>`;
+}
+
+function adminMembers(){
+  subscribeOrdersIfNeeded();
+  const members = new Map();
+  getOrders().map(orderForDisplay).forEach(o=>{
+    const key = o.ownerUid||o.email||o.phone||o.customer?.email||o.customer?.phone;
+    if(!key) return;
+    const current = members.get(key)||{name:o.customer?.name||o.name||'—',contact:o.email||o.phone||o.customer?.email||o.customer?.phone||'—',orders:0,points:0};
+    current.orders++;
+    current.points += Number(o.loyaltyPoints)||0;
+    members.set(key,current);
+  });
+  return `<div class="admin-header"><h1>${t('admin.members')}<span class="sub">${members.size}</span></h1></div><p class="experience-note">${t('admin.synced')}</p><div class="admin-card" style="overflow-x:auto"><table class="admin-table"><thead><tr><th>${t('admin.col.customer')}</th><th>${t('exp.contact')}</th><th>${t('admin.orders')}</th><th>${t('acc.member.points')}</th></tr></thead><tbody>${members.size?[...members.values()].map(m=>`<tr><td>${escapeExperienceText(m.name)}</td><td>${escapeExperienceText(m.contact)}</td><td>${m.orders}</td><td>${m.points}</td></tr>`).join(''):`<tr><td colspan="4" class="admin-empty">${t('admin.members.empty')}</td></tr>`}</tbody></table></div>`;
+}
+
+function adminReports(){
+  subscribeOrdersIfNeeded();
+  const orders = getOrders().map(orderForDisplay);
+  const revenue = orders.reduce((sum,o)=>sum+(Number(o.total)||0),0);
+  const members = new Set(orders.map(o=>o.ownerUid||o.email||o.phone||o.customer?.email||o.customer?.phone).filter(Boolean));
+  subscribeExperienceBookings();
+  const bookings = window._fbExperienceBookings || [];
+  return `<div class="admin-header"><h1>${t('admin.reports')}</h1></div><p class="experience-note">${t('admin.synced')}</p><div class="admin-report-grid"><article class="admin-report-card">${t('admin.orders')}<strong>${orders.length}</strong></article><article class="admin-report-card">${t('admin.report.bookings')}<strong>${bookings.length}</strong></article><article class="admin-report-card">${t('admin.report.members')}<strong>${members.size}</strong></article><article class="admin-report-card">${t('admin.report.revenue')}<strong>${fmtPrice(revenue)}</strong></article></div>`;
+}
+
+function adminCalendar(){
+  subscribeCompanyActivities();
+  const activities = window._fbActivities || [];
+  const note = window._fbActivitiesError ? t('admin.dataError') : window._fbActivitiesLoading ? t('admin.dataLoading') : t('admin.synced');
+  return `<div class="admin-header"><h1>${t('admin.calendar')}</h1></div><p class="experience-note">${note}</p><form class="admin-form-grid" id="adminActivityForm" onsubmit="saveAdminActivity(event)"><label class="form-field"><span>${t('admin.calendar.name')}</span><input name="name" required maxlength="120"/></label><label class="form-field"><span>${t('admin.calendar.date')}</span><input name="date" type="date" required/></label><label class="form-field"><span>${t('admin.calendar.place')}</span><input name="place" maxlength="120"/></label><button class="btn btn-primary" type="submit">${t('admin.calendar.save')}</button></form><div class="admin-card" style="padding:16px"><h3>${t('exp.calendar')}</h3>${activities.length?`<div class="experience-list">${activities.map(a=>`<article class="experience-list-item"><div><strong>${escapeExperienceText(a.name)}</strong><div class="experience-note">${escapeExperienceText(a.place||'')} · ${escapeExperienceText(a.date)}</div></div><button type="button" class="btn btn-ghost btn-sm" onclick="deleteAdminActivity('${escapeExperienceText(a.id)}')">${t('common.delete')}</button></article>`).join('')}</div>`:`<p class="admin-empty">${t('admin.calendar.empty')}</p>`}</div>`;
+}
+
+async function saveAdminActivity(event){
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const submit = event.currentTarget.querySelector('[type="submit"]');
+  if(submit) submit.disabled = true;
+  try {
+    const fb = window.LCFB;
+    if(!isFirebaseAdmin() || !fb?.ready) throw new Error('Admin access or Firebase is unavailable');
+    await fb.addDoc(fb.collection(fb.db,'activities'), {
+      name:String(data.get('name')).trim(),
+      date:String(data.get('date')),
+      place:String(data.get('place')||'').trim(),
+      createdAt:fb.serverTimestamp(),
+      updatedAt:fb.serverTimestamp()
+    });
+    event.currentTarget.reset();
+  } catch(error) {
+    console.error('[Activity calendar] Save failed:',error);
+    toast(t('admin.saveError'),'error');
+  } finally { if(submit) submit.disabled = false; }
+}
+
+async function deleteAdminActivity(id){
+  try {
+    const fb = window.LCFB;
+    if(!isFirebaseAdmin() || !fb?.ready) throw new Error('Admin access or Firebase is unavailable');
+    await fb.deleteDoc(fb.doc(fb.db,'activities',id));
+  } catch(error) {
+    console.error('[Activity calendar] Delete failed:',error);
+    toast(t('admin.saveError'),'error');
   }
 }
 
@@ -7885,6 +8091,116 @@ window._fbOrdersUnsub = null;
 window._fbOrdersLoading = true;
 window._fbOrdersError = null;
 
+window._fbActivities = [];
+window._fbActivitiesUnsub = null;
+window._fbActivitiesLoading = true;
+window._fbActivitiesError = null;
+window._fbExperienceBookings = [];
+window._fbExperienceBookingsUnsub = null;
+window._fbExperienceBookingsKey = null;
+window._fbExperienceBookingsLoading = false;
+window._fbExperienceBookingsError = null;
+
+function subscribeCompanyActivities(){
+  const fb = window.LCFB;
+  if(!fb?.ready || window._fbActivitiesUnsub) return;
+  window._fbActivitiesLoading = true;
+  window._fbActivitiesUnsub = fb.onSnapshot(
+    fb.query(fb.collection(fb.db,'activities'),fb.orderBy('date')),
+    snap => {
+      window._fbActivities = snap.docs.map(d=>({...d.data(),id:d.id}));
+      window._fbActivitiesLoading = false;
+      window._fbActivitiesError = null;
+      if(!snap.metadata.fromCache) migrateLocalCompanyActivities(fb,window._fbActivities);
+      const page = parseHash().page;
+      if(['experiences','calendar'].includes(page) || (page === 'admin' && parseHash().sub === 'calendar')) router();
+    },
+    error => {
+      console.error('[Activity calendar] Read failed:',error);
+      window._fbActivitiesError = error;
+      window._fbActivitiesLoading = false;
+      const page = parseHash().page;
+      if(['experiences','calendar','admin'].includes(page)) router();
+    }
+  );
+}
+
+async function migrateLocalCompanyActivities(fb,cloudActivities){
+  const user=fb?.auth?.currentUser;
+  if(!user || !isFirebaseAdmin()) return;
+  const marker=`lc.activities-migrated.${user.uid}`;
+  if(localStorage.getItem(marker)==='1' || window._fbActivityMigrationRunning) return;
+  const legacy=Store.get('companyActivities',[]);
+  if(!Array.isArray(legacy) || !legacy.length){ localStorage.setItem(marker,'1'); return; }
+  window._fbActivityMigrationRunning=true;
+  const signatures=new Set(cloudActivities.map(a=>`${a.date}|${a.name}|${a.place||''}`));
+  try {
+    for(const old of legacy){
+      const name=String(old?.name||'').trim().slice(0,120);
+      const date=String(old?.date||'');
+      const place=String(old?.place||'').trim().slice(0,120);
+      if(!name || !/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+      const signature=`${date}|${name}|${place}`;
+      if(signatures.has(signature)) continue;
+      await fb.addDoc(fb.collection(fb.db,'activities'),{name,date,place,createdAt:fb.serverTimestamp(),updatedAt:fb.serverTimestamp()});
+      signatures.add(signature);
+    }
+    localStorage.setItem(marker,'1');
+  } catch(error) {
+    console.warn('[Activity calendar] Legacy local activities could not be migrated:',error);
+  } finally { window._fbActivityMigrationRunning=false; }
+}
+
+function resetExperienceBookingSubscription(){
+  if(window._fbExperienceBookingsUnsub) window._fbExperienceBookingsUnsub();
+  window._fbExperienceBookingsUnsub = null;
+  window._fbExperienceBookingsKey = null;
+  window._fbExperienceBookings = [];
+  window._fbExperienceBookingsLoading = false;
+  window._fbExperienceBookingsError = null;
+}
+
+function subscribeExperienceBookings(){
+  const fb = window.LCFB;
+  if(!fb?.ready) return;
+  const user = fb.auth.currentUser;
+  if(!user) return;
+  const admin = isFirebaseAdmin();
+  const key = `${user.uid}:${admin?'admin':'member'}`;
+  if(window._fbExperienceBookingsKey === key) return;
+  resetExperienceBookingSubscription();
+  window._fbExperienceBookingsKey = key;
+  window._fbExperienceBookingsLoading = true;
+  const bookingCollection = fb.collection(fb.db,'experienceBookings');
+  const bookingQuery = admin ? bookingCollection : fb.query(bookingCollection,fb.where('ownerUid','==',user.uid));
+  window._fbExperienceBookingsUnsub = fb.onSnapshot(bookingQuery,snap=>{
+    if(window._fbExperienceBookingsKey !== key) return;
+    window._fbExperienceBookings = snap.docs.map(d=>({...d.data(),id:d.id,createdAt:d.data().createdAt?.toDate?.() || null}))
+      .sort((a,b)=>(b.createdAt?.getTime?.()||0)-(a.createdAt?.getTime?.()||0));
+    window._fbExperienceBookingsLoading = false;
+    window._fbExperienceBookingsError = null;
+    const route = parseHash();
+    if(route.page === 'account' || (route.page === 'admin' && ['bookings','reports'].includes(route.sub))) router();
+  },error=>{
+    console.error('[Experience bookings] Read failed:',error);
+    window._fbExperienceBookingsError = error;
+    window._fbExperienceBookingsLoading = false;
+    if(['account','admin'].includes(parseHash().page)) router();
+  });
+}
+
+window.addEventListener('lcfb-ready',()=>{
+  subscribeCompanyActivities();
+  subscribeExperienceBookings();
+  if(!window.LCFB?.ready && ['experiences','calendar','account','admin'].includes(parseHash().page)) router();
+});
+window.addEventListener('lc-auth-reset',resetExperienceBookingSubscription);
+window.addEventListener('lc-auth-changed',()=>{
+  resetExperienceBookingSubscription();
+  const route=parseHash();
+  if(['admin','account'].includes(route.page)) { subscribeExperienceBookings(); router(); }
+});
+
 function resetOrderSubscription(){
   if(window._fbOrdersUnsub) window._fbOrdersUnsub();
   window._fbOrdersUnsub = null;
@@ -7987,9 +8303,10 @@ function adminOrders(){
       <small style="color:var(--sage);font-weight:400;font-size:.7rem;margin-left:10px">● live</small>
     </h1>
   </div>
-  <div class="admin-card">
+  <div class="admin-card" style="min-width:0;max-width:100%;padding:16px;background:#fff">
     ${orders.length? `
-    <table class="admin-table">
+    <div class="admin-orders-table-wrap">
+    <table class="admin-table admin-orders-table">
       <thead><tr><th>${t("admin.col.code")}</th><th>${t("admin.col.customer")}</th><th>${t("admin.col.phone")}</th><th>${t("admin.col.items")}</th><th>${t("admin.col.total")}</th><th>${t("admin.col.payment")}</th><th>${t("sys.admin.paymentProof")}</th><th>${t("admin.col.payment")}</th><th>${t("admin.col.status")}</th><th>${t("admin.col.date")}</th><th></th></tr></thead>
       <tbody>
         ${orders.map(o=>{
@@ -8025,7 +8342,8 @@ function adminOrders(){
           </tr>
         `;}).join('')}
       </tbody>
-    </table>` : `<p style="color:var(--muted);padding:30px;text-align:center">${t('admin.no.orders')}</p>`}
+    </table>
+    </div>` : `<p style="color:var(--muted);padding:30px;text-align:center">${t('admin.no.orders')}</p>`}
   </div>
   `;
 }
@@ -8243,16 +8561,13 @@ function buildMobileMenu(){
   const navItems = [
     { href:'#/', i18n:'nav.home' },
     { href:'#/products', i18n:'nav.products' },
-    { href:'#/products?country=lao', i18n:'nav.lao' },
-    { href:'#/products?country=vietnam', i18n:'nav.vn' },
-    { href:'#/products?sort=sale', i18n:'nav.sale' },
     { href:'#/blog', i18n:'nav.blog' },
+    { href:'#/experiences', i18n:'nav.experience' },
     { href:'#/about', i18n:'nav.about' },
-    { href:'#/business', i18n:'nav.business' },
-    { href:'#/contact', i18n:'nav.contact' },
-    { href:'#/cart', i18n:'nav.cart', icon:'🧺' },
-    { href:'#/account', i18n:'nav.account', icon:'👤' },
-    { href:'#/admin', i18n:'nav.admin', icon:'🔒' }
+    { href:'#/calendar', i18n:'exp.calendar' },
+    { href:'#/account', i18n:'acc.member.title' },
+    { href:'#/admin', i18n:'nav.admin' },
+    { href:'#/cart', i18n:'nav.cart', icon:'🧺' }
   ];
   document.getElementById('mobileNav').innerHTML = navItems.map(n=>
     `<a href="${n.href}" onclick="toggleMobileMenu()">${n.icon?n.icon+' ':''}<span>${t(n.i18n)}</span></a>`
@@ -8337,7 +8652,7 @@ init();
 </script>
 
 <script>
-// ===== Hero Swiper coverflow carousel =====
+// ===== Hero horizontal image carousel =====
 (function initHeroSwiper(){
   let currentSwiper = null;
   let currentEl = null;
@@ -8358,8 +8673,9 @@ init();
     currentSwiper = new Swiper(el, {
       effect:'slide',
       grabCursor:true,
-      centeredSlides:false,
-      slidesPerView:1,
+      centeredSlides:true,
+      slidesPerView:'auto',
+      watchSlidesProgress:true,
       loop:true,
       speed:850,
       spaceBetween:0,
@@ -8367,13 +8683,6 @@ init();
         delay:3000,
         disableOnInteraction:false,
         pauseOnMouseEnter:true,
-      },
-      coverflowEffect:{
-        rotate:32,
-        stretch:0,
-        depth:160,
-        modifier:1,
-        slideShadows:false,
       },
     });
   }
