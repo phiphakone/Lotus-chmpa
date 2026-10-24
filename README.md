@@ -7,5 +7,6 @@
 - เปิดบนเครื่อง: node preview.cjs แล้วไป http://127.0.0.1:4173/
 - GitHub Pages: ใช้ Settings → Pages → Source: GitHub Actions และ workflow ที่ให้ไว้
 - Firebase Rules ยังไม่ถูกเผยแพร่ ต้องให้เจ้าของโครงการตรวจและ Publish เอง
+- หน้า `#/experiences` รับคำขอจองและแสดงกำหนดการจาก Firestore; วิธีเปิด Rules และ Anonymous Authentication อยู่ใน [FIREBASE-SETUP-TH.md](FIREBASE-SETUP-TH.md)
 - คำสั่งซื้อใหม่สูงสุด 5 ประเภทสินค้า เพื่อให้ตรวจทุกบรรทัดและยอดรวมภายในขีดจำกัด Firestore Rules
 - สินค้า บล็อก คูปอง และสต็อกยังอยู่ใน localStorage; โปรดอ่านข้อจำกัดก่อนใช้รับชำระเงินจริง

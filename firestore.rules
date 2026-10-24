@@ -10,7 +10,8 @@ service cloud.firestore {
     && i.id.matches('[\\s\\S]{1,100}') && i.name.matches('[\\s\\S]{1,300}')
     && i.price > 0 && i.price <= 100000000000
     && i.qty is int && i.qty > 0 && i.qty <= 999
-    && i.image.size() <= 2000 && (i.image == '' || i.image.matches('https?://.*|images/.*'));
+    && i.image.size() <= 2000
+    && (i.image == '' || i.image.matches('https?://[^\\s"\'<>\\\\`]+') || i.image.matches('images/[a-zA-Z0-9_./-]+'));
   }
   function validItems(items) {
    let n = items.size();
@@ -99,49 +100,67 @@ service cloud.firestore {
    // Use a reversible deleted flag so a seed product cannot accidentally reappear.
    allow delete: if false;
   }
+  function validExperienceBooking(b) {
+   return b.keys().hasAll(['ownerUid','experienceType','name','contact','date','tickets','status','createdAt'])
+    && b.keys().hasOnly(['ownerUid','experienceType','name','contact','date','tickets','status','createdAt'])
+    && b.ownerUid == request.auth.uid
+    && b.experienceType in ['event','food','workshop','combo']
+    && b.name is string && b.name.matches('[^<>]{2,120}')
+    && b.contact is string && b.contact.matches('[^<>]{3,254}')
+    && b.date is string && b.date.matches('20[0-9]{2}-[0-9]{2}-[0-9]{2}')
+    && b.tickets is int && b.tickets >= 1 && b.tickets <= 20
+    && b.status == 'pending' && b.createdAt == request.time;
+  }
+  match /experienceBookings/{bookingId} {
+   allow create: if signedIn() && validExperienceBooking(request.resource.data);
+   allow get: if admin() || (signedIn() && resource.data.ownerUid == request.auth.uid);
+   allow list: if admin();
+   allow update: if admin()
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+    && request.resource.data.status in ['pending','confirmed','cancelled'];
+   allow delete: if admin();
+  }
+  function validContactMessage(m) {
+   return m.keys().hasAll(['ownerUid','name','phone','email','subject','message','language','status','createdAt'])
+    && m.keys().hasOnly(['ownerUid','name','phone','email','subject','message','language','status','createdAt'])
+    && m.ownerUid == request.auth.uid
+    && m.name is string && m.name.matches('[^<>]{2,120}')
+    && m.phone is string && m.phone.matches('[0-9+() .-]{0,30}')
+    && m.email is string && (m.email.size() == 0 || m.email.matches('[^<>@\\s]{1,100}@[^<>@\\s]{1,150}\\.[^<>@\\s]{2,30}'))
+    && (m.phone.size() > 0 || m.email.size() > 0)
+    && m.subject in ['product','bulk_order','partnership','other']
+    && m.message is string && m.message.size() >= 5 && m.message.size() <= 5000 && m.message.matches('[^<>]+')
+    && m.language in ['vi','lo','th','en','zh']
+    && m.status == 'new' && m.createdAt == request.time;
+  }
+  match /contactMessages/{messageId} {
+   allow create: if signedIn() && validContactMessage(request.resource.data);
+   allow get: if admin() || (signedIn() && resource.data.ownerUid == request.auth.uid);
+   allow list: if admin();
+   allow update: if admin()
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+    && request.resource.data.status in ['new','read','replied','closed'];
+   allow delete: if admin();
+  }
+  function validActivity(a) {
+   return a.keys().hasAll(['title','date','location','createdAt'])
+    && a.keys().hasOnly(['title','date','location','createdAt'])
+    && a.title is string && a.title.matches('[^<>]{2,120}')
+    && a.date is string && a.date.matches('20[0-9]{2}-[0-9]{2}-[0-9]{2}')
+    && a.location is string && a.location.matches('[^<>]{2,120}');
+  }
+  match /activities/{activityId} {
+   allow read: if true;
+   allow create: if admin() && validActivity(request.resource.data) && request.resource.data.createdAt == request.time;
+   allow update: if admin() && validActivity(request.resource.data) && request.resource.data.createdAt == resource.data.createdAt;
+   allow delete: if admin();
+  }
   match /catalogSettings/{settingId} {
    allow get: if admin();
    allow create, update: if admin() && settingId == 'media'
     && request.resource.data.keys().hasOnly(['cloudName'])
     && request.resource.data.cloudName.matches('[a-z0-9_-]{1,100}');
    allow list, delete: if false;
-  }
-  // Public activity dates; only authenticated administrators may manage them.
-  function validActivity(a) {
-   return a.keys().hasOnly(['name','date','place','createdAt','updatedAt'])
-    && a.name is string && a.name.size() > 0 && a.name.size() <= 120 && a.name.matches('[^<>]+')
-    && a.date is string && a.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-    && a.place is string && a.place.size() <= 120 && a.place.matches('[^<>]*')
-    && a.createdAt == request.time && a.updatedAt == request.time;
-  }
-  match /activities/{activityId} {
-   allow read: if true;
-   allow create: if admin() && validActivity(request.resource.data);
-   allow update: if admin()
-    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name','date','place','updatedAt'])
-    && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 120
-    && request.resource.data.name.matches('[^<>]+')
-    && request.resource.data.date is string && request.resource.data.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-    && request.resource.data.place is string && request.resource.data.place.size() <= 120
-    && request.resource.data.place.matches('[^<>]*') && request.resource.data.updatedAt == request.time;
-   allow delete: if admin();
-  }
-  function validExperienceBooking(b) {
-   return b.keys().hasOnly(['ownerUid','type','name','contact','date','guests','status','createdAt'])
-    && b.ownerUid == request.auth.uid && b.type in ['food','workshop']
-    && b.name is string && b.name.size() > 0 && b.name.size() <= 100 && b.name.matches('[^<>]+')
-    && b.contact is string && b.contact.size() >= 3 && b.contact.size() <= 150 && b.contact.matches('[^<>]+')
-    && b.date is string && b.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-    && b.guests is int && b.guests >= 1 && b.guests <= 10
-    && b.status == 'pending' && b.createdAt == request.time;
-  }
-  match /experienceBookings/{bookingId} {
-   allow create: if signedIn() && validExperienceBooking(request.resource.data);
-   allow read: if admin() || (signedIn() && resource.data.ownerUid == request.auth.uid);
-   allow update: if admin()
-    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
-    && request.resource.data.status in ['pending','confirmed','cancelled'];
-   allow delete: if admin();
   }
   // Role creation remains restricted to trusted Firebase Console/Admin SDK operators.
   match /admins/{uid} {

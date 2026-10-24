@@ -1,0 +1,98 @@
+.experience-page{--ex-ink:#1b2845;--ex-muted:#746f66;--ex-line:#e8dfcf;--ex-cream:#fbf8f1;color:var(--ex-ink);background:var(--ex-cream);padding-bottom:80px}
+.experience-page *{box-sizing:border-box}
+.experience-page .ex-container{width:min(1200px,calc(100% - 40px));margin:0 auto}
+.experience-page .ex-hero{position:relative;overflow:hidden;background:#172544;color:#fff;min-height:490px;display:grid;align-items:center}
+.experience-page .ex-hero:before{content:"";position:absolute;inset:0 0 0 42%;background:linear-gradient(90deg,#172544 0%,rgba(23,37,68,.84) 18%,rgba(23,37,68,.12) 100%),url('event-01.jpg') center 47%/cover no-repeat;opacity:.9}
+.experience-page .ex-hero:after{content:"";position:absolute;inset:auto 0 0;height:6px;background:linear-gradient(90deg,#c9a961,#e6d4a0,#6b8e5a)}
+.experience-page .ex-hero-inner{position:relative;z-index:1;padding:76px 0 88px;max-width:670px}
+.experience-page .ex-kicker,.experience-page .ex-section-kicker{font-size:.74rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:#e6d4a0}
+.experience-page .ex-hero h1{font-family:var(--f-display,Georgia,serif);font-weight:500;font-size:clamp(2.7rem,6vw,5.3rem);line-height:1.07;letter-spacing:-.035em;margin:20px 0 18px}
+.experience-page .ex-hero h1 em{font-weight:400;color:#e4cb8d}
+.experience-page .ex-hero p{font-size:1.04rem;line-height:1.8;color:rgba(255,255,255,.82);max-width:540px}
+.experience-page .ex-hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:30px}
+.experience-page .ex-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;background:#c9a961;color:#1b2845;font-weight:700;transition:transform .2s,background .2s}
+.experience-page .ex-button:hover{transform:translateY(-2px);background:#e6d4a0}
+.experience-page .ex-hero-link{font-weight:600;color:#fff;border-bottom:1px solid rgba(255,255,255,.5);padding:8px 0}
+.experience-page .ex-top-note{background:#f2ead8;border-bottom:1px solid #e5dac4;color:#5c5242;padding:14px 0;font-size:.88rem}
+.experience-page .ex-top-note strong{color:#7a5c1c}
+.experience-page .ex-nav{display:flex;gap:10px;overflow:auto;padding:28px 0 8px;scrollbar-width:thin}
+.experience-page .ex-nav a{white-space:nowrap;padding:10px 16px;border:1px solid var(--ex-line);border-radius:999px;color:#42506c;background:#fff;font-size:.88rem;font-weight:600;transition:.2s}
+.experience-page .ex-nav a:hover{border-color:#c9a961;color:#8b6e2b;background:#fffaf0}
+.experience-page .ex-request-layout{display:grid;grid-template-columns:1.12fr .94fr;gap:18px;margin:18px 0 16px;align-items:start}
+.experience-page .ex-request-card,.experience-page .ex-schedule-card{background:#fff;border:1px solid #e5e2dc;border-radius:17px;padding:23px;box-shadow:0 5px 18px rgba(27,42,78,.045)}
+.experience-page .ex-request-card h2,.experience-page .ex-schedule-card h2{font-family:var(--f-display,Georgia,serif);font-weight:600;font-size:1.35rem;margin:0 0 13px;color:#173f37}
+.experience-page .ex-request-card label{display:block;margin:8px 0 4px;font-size:.85rem;color:#34445a}
+.experience-page .ex-request-card input,.experience-page .ex-request-card select{width:100%;height:46px;border:1px solid #dddcd6;border-radius:9px;background:#fbfaf7;padding:0 13px;color:#1b2845;outline:none}
+.experience-page .ex-request-card input:focus,.experience-page .ex-request-card select:focus{border-color:#6b8e5a;box-shadow:0 0 0 3px rgba(107,142,90,.13)}
+.experience-page .ex-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.experience-page .ex-request-submit{margin-top:12px;min-height:46px;padding:0 22px;border-radius:10px;background:#17463a;color:#fff;font-size:.88rem;font-weight:700}
+.experience-page .ex-request-submit:hover{background:#0f392f}
+.experience-page .ex-request-submit:disabled{opacity:.65;cursor:wait}
+.experience-page .ex-request-help{margin-top:12px;font-size:.75rem;line-height:1.55;color:#7d766b}
+.experience-page .ex-schedule-intro{margin:-5px 0 12px;color:#8a8074;font-size:.78rem}
+.experience-page .ex-activity-list{display:grid;gap:9px}
+.experience-page .ex-activity{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:14px;border:1px solid #e7e1d7;border-radius:12px}
+.experience-page .ex-activity h3{font-size:.91rem;font-weight:700;line-height:1.45;color:#1b2845}
+.experience-page .ex-activity p{margin-top:5px;font-size:.76rem;color:#8a8074}
+.experience-page .ex-activity time{flex:none;color:#61784d;font-size:.78rem;white-space:nowrap}
+.experience-page .ex-schedule-message{padding:14px;border-radius:10px;background:#faf8f2;color:#857d70;font-size:.83rem;line-height:1.6}
+.experience-page .ex-section{padding-top:60px;scroll-margin-top:30px}
+.experience-page .ex-section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}
+.experience-page .ex-section-kicker{color:#9a7a36}
+.experience-page .ex-section h2{font-family:var(--f-display,Georgia,serif);font-size:clamp(1.9rem,3vw,2.8rem);line-height:1.15;font-weight:500;margin:8px 0}
+.experience-page .ex-section-intro{max-width:690px;color:var(--ex-muted);line-height:1.7}
+.experience-page .ex-section-count{flex:none;color:#928978;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding-bottom:5px}
+.experience-page .ex-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.experience-page .ex-card{min-width:0;background:#fff;border:1px solid #eee6d9;border-radius:18px;overflow:hidden;box-shadow:0 6px 22px rgba(27,42,78,.045);transition:transform .22s,box-shadow .22s}
+.experience-page .ex-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(27,42,78,.12)}
+.experience-page .ex-card-image{position:relative;aspect-ratio:1.58;overflow:hidden;background:#eee7db}
+.experience-page .ex-card-image img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+.experience-page .ex-card:hover .ex-card-image img{transform:scale(1.035)}
+.experience-page .ex-card-badge{position:absolute;left:14px;top:14px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.93);font-size:.69rem;letter-spacing:.06em;text-transform:uppercase;color:#7a6128;font-weight:700}
+.experience-page .ex-card-body{padding:18px 18px 20px}
+.experience-page .ex-card h3{font-family:var(--f-display,Georgia,serif);font-weight:600;font-size:1.2rem;line-height:1.35;margin-bottom:8px;color:#1b2845}
+.experience-page .ex-card-desc{font-size:.88rem;color:#706d67;line-height:1.65;min-height:4.2em}
+.experience-page .ex-duration{display:flex;gap:8px;align-items:center;margin:14px 0 16px;color:#7b766e;font-size:.78rem}
+.experience-page .ex-duration:before{content:"◷";color:#a8893f;font-size:1rem}
+.experience-page .ex-card-pricing{border-top:1px solid #eee8dc;padding-top:14px;display:grid;gap:4px}
+.experience-page .ex-price-line{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.experience-page .ex-price-label{font-size:.76rem;color:#898379}
+.experience-page .ex-price{font-size:1.06rem;font-weight:750;color:#1b2845;white-space:nowrap}
+.experience-page .ex-sale{font-size:.82rem;color:#65784e;font-weight:650}
+.experience-page .ex-coupon{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:13px;padding:9px 10px;border-radius:10px;background:#f8f4eb;color:#77643c;font-size:.75rem}
+.experience-page .ex-coupon code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.72rem;letter-spacing:.025em;color:#534626;font-weight:700;overflow-wrap:anywhere;text-align:right}
+.experience-page .ex-coupon small{display:block;color:#96896e;font-size:.67rem;margin-top:2px}
+.experience-page .ex-bulk-note{font-size:.75rem;color:#746f66;margin-top:9px;line-height:1.5}
+.experience-page .ex-combos{margin-top:66px;padding:46px;border-radius:24px;background:#172544;color:#fff;position:relative;overflow:hidden}
+.experience-page .ex-combos:after{content:"";position:absolute;width:330px;height:330px;border:1px solid rgba(230,212,160,.2);border-radius:50%;right:-75px;top:-130px;box-shadow:0 0 0 28px rgba(230,212,160,.04),0 0 0 58px rgba(230,212,160,.035)}
+.experience-page .ex-combos-head{position:relative;z-index:1;max-width:700px;margin-bottom:28px}
+.experience-page .ex-combos .ex-section-kicker{color:#e6d4a0}
+.experience-page .ex-combos h2{font-family:var(--f-display,Georgia,serif);font-size:clamp(1.9rem,3vw,2.7rem);font-weight:500;line-height:1.2;margin:8px 0}
+.experience-page .ex-combos-intro{color:rgba(255,255,255,.72);line-height:1.65}
+.experience-page .ex-combo-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.experience-page .ex-combo{padding:20px 18px;border:1px solid rgba(230,212,160,.28);border-radius:15px;background:rgba(255,255,255,.055);display:flex;flex-direction:column;min-height:208px}
+.experience-page .ex-combo h3{font-family:var(--f-display,Georgia,serif);font-weight:600;font-size:1.12rem;line-height:1.35;color:#f1dfae}
+.experience-page .ex-combo p{font-size:.82rem;line-height:1.55;color:rgba(255,255,255,.75);margin:12px 0}
+.experience-page .ex-combo .ex-audience{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:auto}
+.experience-page .ex-combo-price{font-size:1.1rem;font-weight:750;margin-top:10px}
+.experience-page .ex-booking-cta{margin-top:30px;padding:26px 30px;border-radius:18px;background:#f0eadc;border:1px solid #e6dcc8;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.experience-page .ex-booking-cta h2{font-family:var(--f-display,Georgia,serif);font-weight:600;font-size:1.45rem;margin-bottom:5px}
+.experience-page .ex-booking-cta p{font-size:.88rem;color:#746f66}
+.experience-page .ex-booking-cta a{flex:none;display:inline-flex;align-items:center;gap:9px;color:#fff;background:#1b2845;border-radius:999px;padding:13px 19px;font-size:.86rem;font-weight:700}
+.experience-page .ex-booking-cta a:hover{background:#31456d}
+.experience-page .ex-ticket-note{margin-top:28px;padding:20px 22px;background:#fff;border:1px solid var(--ex-line);border-radius:14px;display:flex;gap:14px;color:#6f6a60;font-size:.86rem;line-height:1.65}
+.experience-page .ex-ticket-note strong{color:#263653}
+.experience-page .ex-footnote{max-width:920px;margin:22px auto 0;color:#8b8478;font-size:.76rem;line-height:1.7;text-align:center}
+@media(max-width:950px){.experience-page .ex-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.experience-page .ex-combo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.experience-page .ex-combos{padding:36px}}
+@media(max-width:640px){.experience-page{padding-bottom:54px}.experience-page .ex-container{width:min(100% - 28px,560px)}.experience-page .ex-hero{min-height:510px;align-items:end}.experience-page .ex-hero:before{inset:0;background:linear-gradient(0deg,rgba(17,29,54,.98) 0%,rgba(17,29,54,.77) 45%,rgba(17,29,54,.15) 100%),url('event-01.jpg') center/cover no-repeat}.experience-page .ex-hero-inner{padding:180px 0 58px}.experience-page .ex-hero p{font-size:.95rem}.experience-page .ex-top-note{font-size:.79rem}.experience-page .ex-section{padding-top:45px}.experience-page .ex-section-head{display:block}.experience-page .ex-section-count{display:block;margin-top:12px}.experience-page .ex-grid{grid-template-columns:1fr;gap:14px}.experience-page .ex-card{display:grid;grid-template-columns:38% 1fr}.experience-page .ex-card-image{aspect-ratio:auto;min-height:100%;}.experience-page .ex-card-image img{position:absolute;inset:0}.experience-page .ex-card-body{padding:14px 13px}.experience-page .ex-card h3{font-size:1.02rem}.experience-page .ex-card-desc{font-size:.79rem;min-height:0}.experience-page .ex-duration{margin:9px 0;font-size:.72rem}.experience-page .ex-card-pricing{padding-top:10px}.experience-page .ex-price{font-size:.92rem}.experience-page .ex-price-label{font-size:.68rem}.experience-page .ex-coupon{font-size:.67rem;margin-top:9px;padding:7px}.experience-page .ex-coupon code{font-size:.65rem}.experience-page .ex-combos{margin-top:45px;padding:25px 18px}.experience-page .ex-combo-grid{grid-template-columns:1fr;gap:9px}.experience-page .ex-combo{min-height:0;padding:17px}.experience-page .ex-ticket-note{font-size:.79rem;padding:16px}.experience-page .ex-nav a{font-size:.79rem;padding:9px 13px}}
+@media(prefers-reduced-motion:reduce){.experience-page *{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:640px){.experience-page .ex-booking-cta{align-items:flex-start;flex-direction:column;padding:20px}}
+.ex-admin-activity-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 14px;padding:18px 20px}
+.ex-admin-activity-form label{display:flex;flex-direction:column;gap:5px;color:var(--ink-soft);font-size:.88rem}
+.ex-admin-activity-form input{min-width:0;height:44px;border:1px solid var(--line);border-radius:9px;padding:0 12px;background:#fbfaf7;color:var(--ink)}
+.ex-admin-activity-form button{min-height:44px;grid-column:1}
+.ex-admin-activity-list{margin-top:16px;padding:20px}
+.ex-admin-activity-list h2{font-size:1.12rem;color:var(--navy);margin-bottom:12px}
+.ex-admin-activity{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:13px;border:1px solid var(--line);border-radius:10px;margin-top:9px}
+.ex-admin-activity p{font-size:.8rem;color:var(--muted);margin-top:6px}
+@media(max-width:720px){.experience-page .ex-request-layout{grid-template-columns:1fr}.ex-admin-activity-form{grid-template-columns:1fr}.ex-admin-activity-form button{grid-column:auto}}
