@@ -100,17 +100,28 @@ html[lang="zh"] body{line-height:1.72}
 
 /* Page-specific illustrated backgrounds for the requested storefront pages. */
 body[data-page-bg] #main{
-  background-image:linear-gradient(rgba(250,248,242,.76),rgba(250,248,242,.76)),var(--page-bg-image);
+  background-image:linear-gradient(rgba(250,248,242,.48),rgba(250,248,242,.48)),var(--page-bg-image);
   background-attachment:fixed;
   background-position:center top;
   background-size:cover;
 }
 body[data-page-bg] .hero,
 body[data-page-bg] .page-hero{
-  background-image:linear-gradient(rgba(250,248,242,.72),rgba(250,248,242,.72)),var(--page-bg-image);
+  background-image:linear-gradient(rgba(250,248,242,.46),rgba(250,248,242,.46)),var(--page-bg-image);
   background-attachment:fixed;
   background-position:center top;
   background-size:cover;
+}
+@media(max-width:700px){
+  body[data-page-bg] #main{
+    background-image:linear-gradient(rgba(250,248,242,.42),rgba(250,248,242,.42)),var(--page-bg-image);
+    background-position:24% top;
+  }
+  body[data-page-bg] .hero,
+  body[data-page-bg] .page-hero{
+    background-image:linear-gradient(rgba(250,248,242,.40),rgba(250,248,242,.40)),var(--page-bg-image);
+    background-position:24% top;
+  }
 }
 html[lang="th"] .announce,
 html[lang="lo"] .announce,
