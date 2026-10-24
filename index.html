@@ -1768,6 +1768,14 @@ html[lang="zh"] .tab-h{line-height:1.35}
   position:sticky;top:0;height:100vh;
   overflow-y:auto;
 }
+.admin-mobile-bar{display:none}
+.admin-sidebar-backdrop{display:none}
+.admin-menu-toggle{
+  display:inline-flex;align-items:center;gap:9px;border:0;border-radius:9px;
+  padding:10px 14px;background:var(--navy-deep);color:var(--cream);
+  font:600 .9rem var(--f-body);cursor:pointer;box-shadow:var(--shadow-sm)
+}
+.admin-menu-toggle .icon{font-size:1.2rem;line-height:1}
 .admin-brand{
   display:flex;align-items:center;gap:12px;
   padding:6px 8px 22px;
@@ -2003,8 +2011,12 @@ body.admin-mode{background:#F4F5F7}
   .combos-grid{grid-template-columns:1fr;height:auto;gap:14px}
   .combos-grid .combo-card{height:280px}
   .admin-shell{grid-template-columns:1fr}
-  .admin-sidebar{position:fixed;left:-260px;width:240px;transition:left .3s;z-index:99}
-  .admin-sidebar.open{left:0}
+  .admin-sidebar{position:fixed;top:0;bottom:0;left:0;width:min(280px,86vw);height:100vh;height:100dvh;transform:translateX(-105%);transition:transform .28s ease;z-index:1001;box-shadow:var(--shadow-lg)}
+  .admin-sidebar.open{transform:translateX(0)}
+  .admin-mobile-bar{position:sticky;top:0;z-index:90;display:flex;align-items:center;gap:12px;margin:-20px -16px 18px;padding:10px 16px;background:rgba(244,245,247,.96);border-bottom:1px solid #E7E9ED;backdrop-filter:blur(10px)}
+  .admin-mobile-title{font-family:var(--f-display);font-weight:600;color:var(--navy);font-size:.95rem}
+  .admin-sidebar-backdrop{display:block;position:fixed;inset:0;width:100%;height:100%;padding:0;border:0;background:rgba(7,19,17,.48);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease;z-index:1000;cursor:pointer}
+  .admin-sidebar-backdrop.open{opacity:1;visibility:visible;pointer-events:auto}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .dual-grid{grid-template-columns:1fr;gap:30px}
   .dual-river{transform:rotate(90deg);width:80px}
@@ -2845,7 +2857,7 @@ const I18N = {
     'admin.back':'← Quay về trang chủ','admin.dash':'Tổng quan',
     'admin.products':'Sản phẩm','admin.orders':'Đơn hàng','admin.reviews':'Đánh giá',
     'admin.blog':'Blog','admin.coupons':'Mã giảm giá','admin.logout':'Đăng xuất',
-    'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin',
+    'admin.toSite':'Về website','admin.welcome':'Chào mừng trở lại, admin','admin.menu':'Menu quản trị','admin.closeMenu':'Đóng menu quản trị',
     'admin.stat.orders':'Tổng đơn hàng','admin.stat.revenue':'Doanh thu',
     'admin.stat.products':'Sản phẩm','admin.stat.customers':'Khách hàng',
     'admin.chart.title':'Doanh thu 7 ngày qua','admin.recent.orders':'Đơn hàng gần đây',
@@ -3166,7 +3178,7 @@ const I18N = {
     'admin.back':'← ກັບໄປໜ້າຫຼັກ','admin.dash':'ພາບລວມ',
     'admin.products':'ສິນຄ້າ','admin.orders':'ການສັ່ງຊື້','admin.reviews':'ການປະເມີນ',
     'admin.blog':'ບລັອກ','admin.coupons':'ລະຫັດສ່ວນຫຼຸດ','admin.logout':'ອອກຈາກລະບົບ',
-    'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ',
+    'admin.toSite':'ໄປເວັບໄຊ','admin.welcome':'ຍິນດີຕ້ອນຮັບ ແອັດມິນ','admin.menu':'ເມນູຜູ້ດູແລ','admin.closeMenu':'ປິດເມນູຜູ້ດູແລ',
     'admin.stat.orders':'ການສັ່ງຊື້ທັງໝົດ','admin.stat.revenue':'ລາຍຮັບ',
     'admin.stat.products':'ສິນຄ້າ','admin.stat.customers':'ລູກຄ້າ',
     'admin.chart.title':'ລາຍຮັບ 7 ມື້ຜ່ານມາ','admin.recent.orders':'ການສັ່ງຊື້ລ່າສຸດ',
@@ -3486,7 +3498,7 @@ const I18N = {
     'admin.back':'← Back to website','admin.dash':'Dashboard',
     'admin.products':'Products','admin.orders':'Orders','admin.reviews':'Reviews',
     'admin.blog':'Blog','admin.coupons':'Coupons','admin.logout':'Sign out',
-    'admin.toSite':'View website','admin.welcome':'Welcome back, admin',
+    'admin.toSite':'View website','admin.welcome':'Welcome back, admin','admin.menu':'Admin menu','admin.closeMenu':'Close admin menu',
     'admin.stat.orders':'Total orders','admin.stat.revenue':'Revenue',
     'admin.stat.products':'Products','admin.stat.customers':'Customers',
     'admin.chart.title':'Revenue last 7 days','admin.recent.orders':'Recent orders',
@@ -3806,7 +3818,7 @@ const I18N = {
     'admin.back':'← กลับหน้าแรก','admin.dash':'ภาพรวม',
     'admin.products':'สินค้า','admin.orders':'คำสั่งซื้อ','admin.reviews':'รีวิว',
     'admin.blog':'บล็อก','admin.coupons':'โค้ดส่วนลด','admin.logout':'ออกจากระบบ',
-    'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน',
+    'admin.toSite':'ดูเว็บไซต์','admin.welcome':'ยินดีต้อนรับ แอดมิน','admin.menu':'เมนูแอดมิน','admin.closeMenu':'ปิดเมนูแอดมิน',
     'admin.stat.orders':'คำสั่งซื้อทั้งหมด','admin.stat.revenue':'รายได้',
     'admin.stat.products':'สินค้า','admin.stat.customers':'ลูกค้า',
     'admin.chart.title':'รายได้ 7 วันที่ผ่านมา','admin.recent.orders':'คำสั่งซื้อล่าสุด',
@@ -4127,7 +4139,7 @@ const I18N = {
     'admin.back':'← 返回首页','admin.dash':'概览',
     'admin.products':'产品','admin.orders':'订单','admin.reviews':'评价',
     'admin.blog':'博客','admin.coupons':'优惠码','admin.logout':'登出',
-    'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员',
+    'admin.toSite':'查看网站','admin.welcome':'欢迎回来，管理员','admin.menu':'管理菜单','admin.closeMenu':'关闭管理菜单',
     'admin.stat.orders':'订单总数','admin.stat.revenue':'收入',
     'admin.stat.products':'产品','admin.stat.customers':'客户',
     'admin.chart.title':'近 7 天收入','admin.recent.orders':'最近订单',
@@ -7477,7 +7489,6 @@ function renderExperiences(){
   const copy=experienceCopy(),u=copy.ui;
   return `<div class="experience-page">
     <section class="ex-hero"><div class="ex-container"><div class="ex-hero-inner"><span class="ex-kicker">Lotus &amp; Champa · Việt Nam – Lào</span><h1>${u.heroTitle}</h1><p>${u.heroText}</p><div class="ex-hero-actions"><a class="ex-button" href="#ex-events" onclick="event.preventDefault();document.getElementById('ex-events').scrollIntoView({behavior:'smooth'})">${u.discover} <span aria-hidden="true">&nbsp;↓</span></a><a class="ex-hero-link" href="#ex-combos" onclick="event.preventDefault();document.getElementById('ex-combos').scrollIntoView({behavior:'smooth'})">${u.combosLink}</a></div></div></div></section>
-    <div class="ex-top-note"><div class="ex-container"><strong>${u.proposal}</strong> ${u.disclaimer}</div></div>
     <div class="ex-container"><nav class="ex-nav" aria-label="${u.combo}"><a href="#ex-events" onclick="event.preventDefault();document.getElementById('ex-events').scrollIntoView({behavior:'smooth'})">${u.events}</a><a href="#ex-food" onclick="event.preventDefault();document.getElementById('ex-food').scrollIntoView({behavior:'smooth'})">${u.food}</a><a href="#ex-workshops" onclick="event.preventDefault();document.getElementById('ex-workshops').scrollIntoView({behavior:'smooth'})">${u.workshops}</a><a href="#ex-combos" onclick="event.preventDefault();document.getElementById('ex-combos').scrollIntoView({behavior:'smooth'})">${u.combo}</a></nav>
       ${EXPERIENCE_SECTIONS.map((section,i)=>{const s=copy.sections[i];return `<section class="ex-section" id="${section.id}"><div class="ex-section-head"><div><div class="ex-section-kicker">${s[1]}</div><h2>${s[0]}</h2><p class="ex-section-intro">${s[2]}</p></div><span class="ex-section-count">${String(section.items.length).padStart(2,'0')} ${u.count}</span></div><div class="ex-grid">${section.items.map(renderExperienceCard).join('')}</div></section>`}).join('')}
       <section class="ex-request-layout" aria-label="${u.booking}">
@@ -7838,6 +7849,7 @@ function renderAdmin(route){
   const tab = route.sub || 'dashboard';
   shell.innerHTML = `
   <div class="admin-shell">
+    <button type="button" class="admin-sidebar-backdrop" id="adminSidebarBackdrop" aria-label="${t("admin.closeMenu")}" onclick="toggleAdminSidebar(false)"></button>
     <aside class="admin-sidebar" id="adminSidebar">
       <div class="admin-brand">
         <div class="logo" aria-label="Lotus & Champa logo"></div>
@@ -7892,12 +7904,27 @@ function renderAdmin(route){
     </aside>
 
     <div class="admin-main">
+      <div class="admin-mobile-bar">
+        <button type="button" class="admin-menu-toggle" id="adminMenuToggle" aria-controls="adminSidebar" aria-expanded="false" onclick="toggleAdminSidebar()"><span class="icon" aria-hidden="true">☰</span><span>${t("admin.menu")}</span></button>
+        <span class="admin-mobile-title">Lotus &amp; Champa</span>
+      </div>
       ${renderAdminContent(tab)}
     </div>
   </div>
   `;
 
   if(tab==='dashboard') drawAdminChart();
+}
+
+function toggleAdminSidebar(forceOpen){
+  const sidebar=document.getElementById('adminSidebar');
+  if(!sidebar)return;
+  const backdrop=document.getElementById('adminSidebarBackdrop');
+  const toggle=document.getElementById('adminMenuToggle');
+  const open=typeof forceOpen==='boolean'?forceOpen:!sidebar.classList.contains('open');
+  sidebar.classList.toggle('open',open);
+  backdrop?.classList.toggle('open',open);
+  toggle?.setAttribute('aria-expanded',String(open));
 }
 
 function renderAdminContent(tab){
