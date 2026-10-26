@@ -10,8 +10,8 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 <script defer src="assets/pwa.js"></script>
-<title>Lotus & Champa company — Nơi văn hoá được chạm, nếm và mang về</title>
-<meta name="description" content="Sản phẩm văn hoá, đặc sản và quà tặng thủ công từ Lào và Việt Nam. Lotus & Champa company — kết nối hai nền văn hoá qua từng món quà." />
+<title>Lotus & Champa — Nơi văn hoá được chạm, nếm và mang về</title>
+<meta name="description" content="Sản phẩm văn hoá, đặc sản và quà tặng thủ công từ Lào và Việt Nam. Lotus & Champa — kết nối hai nền văn hoá qua từng món quà." />
 
 <!-- ============ FONTS ============ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,31 +98,6 @@ html[lang="en"],html[lang="vi"]{--f-body:var(--f-latin)}
 html[lang="th"] body,html[lang="lo"] body{line-height:1.78}
 html[lang="zh"] body{line-height:1.72}
 
-/* Page-specific illustrated backgrounds for the requested storefront pages. */
-body[data-page-bg] #main{
-  background-image:linear-gradient(rgba(250,248,242,.48),rgba(250,248,242,.48)),var(--page-bg-image);
-  background-attachment:fixed;
-  background-position:center top;
-  background-size:cover;
-}
-body[data-page-bg] .hero,
-body[data-page-bg] .page-hero{
-  background-image:linear-gradient(rgba(250,248,242,.46),rgba(250,248,242,.46)),var(--page-bg-image);
-  background-attachment:fixed;
-  background-position:center top;
-  background-size:cover;
-}
-@media(max-width:700px){
-  body[data-page-bg] #main{
-    background-image:linear-gradient(rgba(250,248,242,.42),rgba(250,248,242,.42)),var(--page-bg-image);
-    background-position:24% top;
-  }
-  body[data-page-bg] .hero,
-  body[data-page-bg] .page-hero{
-    background-image:linear-gradient(rgba(250,248,242,.40),rgba(250,248,242,.40)),var(--page-bg-image);
-    background-position:24% top;
-  }
-}
 html[lang="th"] .announce,
 html[lang="lo"] .announce,
 html[lang="zh"] .announce,
@@ -2178,7 +2153,7 @@ body.admin-mode{background:#F4F5F7}
       <!-- Brand -->
       <a href="#/" class="brand" onclick="navigate('home');return false;">
         
-        <div class="brand-logo" aria-label="Lotus & Champa Company logo"></div>
+        <div class="brand-logo" aria-label="Lotus & Champa logo"></div>
         <div class="brand-text">
           <span class="name">Lotus & Champa</span>
           <span class="tag" data-i18n="brand.tag">Nơi văn hoá được chạm, nếm và mang về</span>
@@ -2234,7 +2209,7 @@ body.admin-mode{background:#F4F5F7}
   <div class="mobile-menu" id="mobileMenu" inert aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="head">
       <div class="brand">
-        <div class="brand-logo" style="width:42px;height:42px" aria-label="Lotus & Champa Company logo"></div>
+        <div class="brand-logo" style="width:42px;height:42px" aria-label="Lotus & Champa logo"></div>
         <div class="brand-text"><span class="name" style="font-size:1rem">Lotus & Champa</span></div>
       </div>
       <button class="icon-btn" onclick="toggleMobileMenu()">
@@ -2328,7 +2303,7 @@ body.admin-mode{background:#F4F5F7}
       </div>
 
       <div class="footer-bottom">
-        <div>© 2026 Lotus & Champa company. <span data-i18n="footer.rights">Bảo lưu mọi quyền.</span> · <a href="images/product-refresh/IMAGE-CREDITS.md" target="_blank" rel="noopener" data-i18n="footer.imageCredits">Nguồn ảnh</a></div>
+        <div>© 2026 Lotus & Champa. <span data-i18n="footer.rights">Bảo lưu mọi quyền.</span> · <a href="images/product-refresh/IMAGE-CREDITS.md" target="_blank" rel="noopener" data-i18n="footer.imageCredits">Nguồn ảnh</a></div>
         <div class="pay">
           <span>VNPAY</span><span>BIDV</span><span>BCEL</span><span>VISA</span><span>COD</span>
         </div>
@@ -2773,9 +2748,9 @@ const I18N = {
     'blog.notFound':'Bài viết không tồn tại',
     // ===== ABOUT =====
     'about.eyebrow':'Về chúng tôi',
-    'about.title':'Lotus & Champa company','about.subtitle':'Nơi hai dòng văn hoá hội tụ',
+    'about.title':'Lotus & Champa','about.subtitle':'Nơi hai dòng văn hoá hội tụ',
     'about.image.alt':"Tranh minh hoạ sinh viên Lào và Việt Nam cùng nghệ nhân chuẩn bị quà tặng văn hoá bên dòng Mekong, với Kaipen, trà hoa vàng, hoa sen và hoa champa.",
-    'about.p1':"Lotus & Champa company là thương hiệu thương mại điện tử được xây dựng bởi một nhóm sinh viên Lào và sinh viên Việt Nam, cùng chung tình yêu văn hoá và mong muốn kết nối con người hai nước.",
+    'about.p1':"Lotus & Champa là thương hiệu thương mại điện tử được xây dựng bởi một nhóm sinh viên Lào và sinh viên Việt Nam, cùng chung tình yêu văn hoá và mong muốn kết nối con người hai nước.",
     'about.p2':"Ý tưởng bắt đầu từ những món quà và câu chuyện được sẻ chia giữa bạn bè Lào – Việt. Từ Kaipen bên dòng Mekong đến trà hoa vàng Quảng Ninh, chúng tôi mong mỗi sản phẩm không chỉ mang hương vị quê hương, mà còn mở ra sự hiểu biết và trân trọng dành cho nhau.",
     'about.p3':"Sứ mệnh của chúng tôi là kết nối những giá trị văn hoá Lào – Việt qua các sản phẩm thủ công, đặc sản và quà tặng có ý nghĩa. Bằng tinh thần hợp tác của tuổi trẻ, chúng tôi mong góp phần đưa câu chuyện của nghệ nhân đến gần hơn với khách hàng và vun đắp tình hữu nghị giữa hai dân tộc.",
     'about.roadmap.title':'Định hướng phát triển',
@@ -2792,7 +2767,7 @@ const I18N = {
     'about.value.4.d':'Đóng gói cẩn thận, hỗ trợ tận tình qua Zalo, WhatsApp, Facebook.',
     // ===== BUSINESS MODEL =====
     'bm.title':'Mô hình kinh doanh',
-    'bm.subtitle':'Lotus & Champa company — nền tảng thương mại điện tử văn hoá, kết nối sản phẩm Lào – Việt Nam tới khách hàng trong nước và quốc tế.',
+    'bm.subtitle':'Lotus & Champa — nền tảng thương mại điện tử văn hoá, kết nối sản phẩm Lào – Việt Nam tới khách hàng trong nước và quốc tế.',
     'bm.target.t':'Khách hàng mục tiêu',
     'bm.target.1':'Người dân Việt Nam và Lào','bm.target.2':'Sinh viên hai nước',
     'bm.target.3':'Khách du lịch quốc tế','bm.target.4':'Gia đình tìm quà tặng',
@@ -3094,9 +3069,9 @@ const I18N = {
     'blog.notFound':'ບໍ່ພົບບົດຄວາມ',
     // ===== ABOUT =====
     'about.eyebrow':'ກ່ຽວກັບເຮົາ',
-    'about.title':'Lotus & Champa company','about.subtitle':'ບ່ອນທີ່ສອງສາຍວັດທະນະທຳມາພົບກັນ',
+    'about.title':'Lotus & Champa','about.subtitle':'ບ່ອນທີ່ສອງສາຍວັດທະນະທຳມາພົບກັນ',
     'about.image.alt':"ພາບປະກອບນັກສຶກສາລາວ ແລະ ຫວຽດນາມ ຮ່ວມກັບຊ່າງຫັດຖະກຳຈັດຂອງຂວັນຢູ່ແຄມຂອງ ພ້ອມໄຄແຜ່ນ, ຊາດອກໄມ້ສີເຫຼືອງ, ດອກບົວ ແລະ ດອກຈຳປາ.",
-    'about.p1':"Lotus & Champa company ເປັນແບຣນການຄ້າອອນລາຍທີ່ສ້າງຂຶ້ນໂດຍກຸ່ມນັກສຶກສາລາວ ແລະ ນັກສຶກສາຫວຽດນາມ ທີ່ມີຄວາມຮັກໃນວັດທະນະທຳ ແລະ ຄວາມຕັ້ງໃຈທີ່ຈະເຊື່ອມໂຍງຜູ້ຄົນຂອງສອງປະເທດ.",
+    'about.p1':"Lotus & Champa ເປັນແບຣນການຄ້າອອນລາຍທີ່ສ້າງຂຶ້ນໂດຍກຸ່ມນັກສຶກສາລາວ ແລະ ນັກສຶກສາຫວຽດນາມ ທີ່ມີຄວາມຮັກໃນວັດທະນະທຳ ແລະ ຄວາມຕັ້ງໃຈທີ່ຈະເຊື່ອມໂຍງຜູ້ຄົນຂອງສອງປະເທດ.",
     'about.p2':"ແນວຄິດເລີ່ມຈາກຂອງຂວັນ ແລະ ເລື່ອງລາວທີ່ແບ່ງປັນລະຫວ່າງໝູ່ເພື່ອນລາວ – ຫວຽດ. ຈາກໄຄແຜ່ນຂອງແມ່ນ້ຳຂອງ ເຖິງຊາດອກເຫຼືອງຂອງກວາງນິງ ພວກເຮົາຫວັງວ່າທຸກສິນຄ້າຈະນຳທັງລົດຊາດຂອງບ້ານເກີດ ແລະ ຄວາມເຂົ້າໃຈ ພ້ອມຄວາມເຄົາລົບເຊິ່ງກັນແລະກັນ.",
     'about.p3':"ພາລະກິດຂອງພວກເຮົາແມ່ນເຊື່ອມໂຍງຄຸນຄ່າວັດທະນະທຳລາວ – ຫວຽດ ຜ່ານຫັດຖະກຳ ອາຫານພິເສດ ແລະ ຂອງຂວັນທີ່ມີຄວາມໝາຍ. ດ້ວຍຈິດໃຈແຫ່ງການຮ່ວມມືຂອງຄົນໜຸ່ມ ພວກເຮົາຫວັງວ່າຈະນຳເລື່ອງລາວຂອງຊ່າງຝີມືໃຫ້ເຂົ້າໃກ້ລູກຄ້າ ແລະ ສົ່ງເສີມມິດຕະພາບລະຫວ່າງສອງຊາດ.",
     'about.roadmap.title':'ທິດທາງການພັດທະນາ',
@@ -3113,7 +3088,7 @@ const I18N = {
     'about.value.4.d':'ບັນຈຸລະມັດລະວັງ ສະໜັບສະໜຸນຜ່ານ Zalo, WhatsApp, Facebook.',
     // ===== BUSINESS MODEL =====
     'bm.title':'ໂມເດວທຸລະກິດ',
-    'bm.subtitle':'Lotus & Champa company — ແພລດຟອມອີຄອມເມີສວັດທະນະທຳ ເຊື່ອມຕໍ່ສິນຄ້າລາວ – ຫວຽດກັບລູກຄ້າທັງໃນ ແລະ ຕ່າງປະເທດ.',
+    'bm.subtitle':'Lotus & Champa — ແພລດຟອມອີຄອມເມີສວັດທະນະທຳ ເຊື່ອມຕໍ່ສິນຄ້າລາວ – ຫວຽດກັບລູກຄ້າທັງໃນ ແລະ ຕ່າງປະເທດ.',
     'bm.target.t':'ລູກຄ້າເປົ້າໝາຍ',
     'bm.target.1':'ປະຊາຊົນຫວຽດ ແລະ ລາວ','bm.target.2':'ນັກສຶກສາສອງປະເທດ',
     'bm.target.3':'ນັກທ່ອງທ່ຽວສາກົນ','bm.target.4':'ຄອບຄົວຊອກຫາຂອງຂວັນ',
@@ -3414,9 +3389,9 @@ const I18N = {
     'blog.notFound':'Post not found',
     // ===== ABOUT =====
     'about.eyebrow':'About us',
-    'about.title':'Lotus & Champa company','about.subtitle':'Where two streams of culture meet',
+    'about.title':'Lotus & Champa','about.subtitle':'Where two streams of culture meet',
     'about.image.alt':"Illustration of Lao and Vietnamese students preparing cultural gifts with an artisan beside the Mekong, with Kaipen, golden flower tea, lotus and champa blossoms.",
-    'about.p1':"Lotus & Champa company is an e-commerce brand created by a group of Lao and Vietnamese students, united by a love of culture and a desire to connect people from both countries.",
+    'about.p1':"Lotus & Champa is an e-commerce brand created by a group of Lao and Vietnamese students, united by a love of culture and a desire to connect people from both countries.",
     'about.p2':"The idea began with gifts and stories shared among Lao and Vietnamese friends. From Kaipen along the Mekong to yellow camellia tea from Quang Ninh, we hope every product brings both a taste of home and a deeper understanding and appreciation of one another.",
     'about.p3':"Our mission is to connect Lao and Vietnamese cultural values through handcrafted products, regional specialties and meaningful gifts. With the collaborative spirit of young people, we hope to bring artisan stories closer to customers and nurture friendship between our two peoples.",
     'about.roadmap.title':'Our growth roadmap',
@@ -3433,7 +3408,7 @@ const I18N = {
     'about.value.4.d':'Careful packaging, dedicated support via Zalo, WhatsApp, Facebook.',
     // ===== BUSINESS MODEL =====
     'bm.title':'Business Model',
-    'bm.subtitle':'Lotus & Champa company — a cultural e-commerce platform connecting Lao – Vietnamese products to customers at home and abroad.',
+    'bm.subtitle':'Lotus & Champa — a cultural e-commerce platform connecting Lao – Vietnamese products to customers at home and abroad.',
     'bm.target.t':'Target Customers',
     'bm.target.1':'Vietnamese and Lao residents','bm.target.2':'Students from both countries',
     'bm.target.3':'International tourists','bm.target.4':'Families looking for gifts',
@@ -3734,9 +3709,9 @@ const I18N = {
     'blog.notFound':'ไม่พบบทความ',
     // ===== ABOUT =====
     'about.eyebrow':'เกี่ยวกับเรา',
-    'about.title':'Lotus & Champa company','about.subtitle':'ที่ที่สองสายวัฒนธรรมมาบรรจบ',
+    'about.title':'Lotus & Champa','about.subtitle':'ที่ที่สองสายวัฒนธรรมมาบรรจบ',
     'about.image.alt':"ภาพประกอบนักศึกษาลาวและเวียดนามร่วมจัดของขวัญทางวัฒนธรรมกับช่างฝีมือริมแม่น้ำโขง มีไคแผ่น ชาดอกไม้สีทอง ดอกบัว และดอกจำปา",
-    'about.p1':"Lotus & Champa company เป็นแบรนด์พาณิชย์อิเล็กทรอนิกส์ที่สร้างขึ้นโดยกลุ่มนักศึกษาลาวและนักศึกษาเวียดนาม ผู้มีความรักในวัฒนธรรมและความตั้งใจร่วมกันที่จะเชื่อมโยงผู้คนของทั้งสองประเทศ",
+    'about.p1':"Lotus & Champa เป็นแบรนด์พาณิชย์อิเล็กทรอนิกส์ที่สร้างขึ้นโดยกลุ่มนักศึกษาลาวและนักศึกษาเวียดนาม ผู้มีความรักในวัฒนธรรมและความตั้งใจร่วมกันที่จะเชื่อมโยงผู้คนของทั้งสองประเทศ",
     'about.p2':"แนวคิดเริ่มต้นจากของขวัญและเรื่องราวที่แบ่งปันระหว่างเพื่อนชาวลาวและเวียดนาม ตั้งแต่ไคแผ่นริมแม่น้ำโขงถึงชาดอกเหลืองจากกว๋างนิญ เราหวังว่าทุกผลิตภัณฑ์จะนำทั้งรสชาติของบ้านเกิดและความเข้าใจที่ทำให้เราเห็นคุณค่าของกันและกัน",
     'about.p3':"พันธกิจของเราคือเชื่อมโยงคุณค่าทางวัฒนธรรมลาว–เวียดนามผ่านงานฝีมือ ของดีประจำถิ่น และของขวัญที่มีความหมาย ด้วยพลังความร่วมมือของคนรุ่นใหม่ เราหวังว่าจะนำเรื่องราวของช่างฝีมือให้ใกล้ชิดกับลูกค้ายิ่งขึ้น และร่วมสานมิตรภาพระหว่างผู้คนของทั้งสองชาติ",
     'about.roadmap.title':'ทิศทางการเติบโต',
@@ -3753,7 +3728,7 @@ const I18N = {
     'about.value.4.d':'บรรจุอย่างประณีต สนับสนุนผ่าน Zalo, WhatsApp, Facebook',
     // ===== BUSINESS MODEL =====
     'bm.title':'โมเดลธุรกิจ',
-    'bm.subtitle':'Lotus & Champa company — แพลตฟอร์มอีคอมเมิร์ซวัฒนธรรม เชื่อมโยงสินค้าลาว – เวียดนามถึงลูกค้าทั้งในและต่างประเทศ',
+    'bm.subtitle':'Lotus & Champa — แพลตฟอร์มอีคอมเมิร์ซวัฒนธรรม เชื่อมโยงสินค้าลาว – เวียดนามถึงลูกค้าทั้งในและต่างประเทศ',
     'bm.target.t':'ลูกค้าเป้าหมาย',
     'bm.target.1':'ประชาชนเวียดนามและลาว','bm.target.2':'นักศึกษาสองประเทศ',
     'bm.target.3':'นักท่องเที่ยวต่างชาติ','bm.target.4':'ครอบครัวที่หาของขวัญ',
@@ -4055,9 +4030,9 @@ const I18N = {
     'blog.notFound':'未找到文章',
     // ===== ABOUT =====
     'about.eyebrow':'关于我们',
-    'about.title':'Lotus & Champa company','about.subtitle':'两股文化交汇之地',
+    'about.title':'Lotus & Champa','about.subtitle':'两股文化交汇之地',
     'about.image.alt':"插画：老挝和越南学生与手工艺人在湄公河畔准备文化礼物，桌上有海苔片、金花茶、莲花和鸡蛋花。",
-    'about.p1':"Lotus & Champa company 是由一群老挝学生和越南学生共同打造的电商品牌。我们因对文化的热爱而相聚，希望连接两国的人们。",
+    'about.p1':"Lotus & Champa 是由一群老挝学生和越南学生共同打造的电商品牌。我们因对文化的热爱而相聚，希望连接两国的人们。",
     'about.p2':"这一想法源于老挝与越南朋友之间分享的礼物和故事。从湄公河畔的凯本到广宁的金花茶，我们希望每件产品既传递家乡的味道，也增进彼此的理解与珍惜。",
     'about.p3':"我们的使命是通过手工艺品、地方特产和有意义的礼物，连接老挝与越南的文化价值。怀着年轻人的合作精神，我们希望让匠人的故事更贴近顾客，并为两国人民的友谊贡献一份力量。",
     'about.roadmap.title':'发展规划',
@@ -4074,7 +4049,7 @@ const I18N = {
     'about.value.4.d':'精心包装，通过 Zalo、WhatsApp、Facebook 提供专属支持',
     // ===== BUSINESS MODEL =====
     'bm.title':'商业模式',
-    'bm.subtitle':'Lotus & Champa company — 文化电商平台，将老挝–越南产品连接到国内外客户',
+    'bm.subtitle':'Lotus & Champa — 文化电商平台，将老挝–越南产品连接到国内外客户',
     'bm.target.t':'目标客户',
     'bm.target.1':'越南和老挝居民','bm.target.2':'两国学生',
     'bm.target.3':'国际游客','bm.target.4':'寻找礼物的家庭',
@@ -5638,7 +5613,7 @@ const SEED_BLOG = [
 
 Ở Lào, champa (hay còn gọi là hoa đại) lại mang một ý nghĩa khác — đó là loài hoa của tâm hồn, của lòng hiếu khách. Champa được trồng trong sân chùa, sân nhà, và xuất hiện ở khắp các nghi lễ truyền thống. Nó nhẹ nhàng, thuần khiết và tỏa hương dịu dàng như chính cách người Lào đối đãi với khách phương xa.
 
-Khi Lotus & Champa company chọn hai loài hoa này làm biểu tượng, chúng tôi không chỉ kể câu chuyện về hai dân tộc — chúng tôi kể câu chuyện về sự kết nối. Dòng sông trong logo chúng tôi là Mekong, dòng nước hiền hoà chảy qua cả Lào và Việt Nam, mang theo phù sa, cá tôm, và những câu chuyện văn hoá xuyên biên giới.
+Khi Lotus & Champa chọn hai loài hoa này làm biểu tượng, chúng tôi không chỉ kể câu chuyện về hai dân tộc — chúng tôi kể câu chuyện về sự kết nối. Dòng sông trong logo chúng tôi là Mekong, dòng nước hiền hoà chảy qua cả Lào và Việt Nam, mang theo phù sa, cá tôm, và những câu chuyện văn hoá xuyên biên giới.
 
 Mỗi sản phẩm trong cửa hàng đều là một chiếc cầu — túi đan Lào nối với rượu ba kích Việt Nam, kaipen Mekong nối với mật ong Bình Liêu. Khi bạn mua một món quà từ chúng tôi, bạn đang giữ lại trong tay một mảnh ghép nhỏ của câu chuyện Lào – Việt.`
   },
@@ -5691,12 +5666,12 @@ Khi bạn chọn sản phẩm OCOP Quảng Ninh tại Lotus & Champa, bạn khô
   },
   {
     id:'b5',
-    title:'Hành trình xây dựng Lotus & Champa company',
+    title:'Hành trình xây dựng Lotus & Champa',
     image:'images/blog/hanh-trinh-lotus-champa.jpg',
     tag:'Câu chuyện thương hiệu',
     date:'2026-03-20',
     excerpt:"Nhóm sinh viên Lào và sinh viên Việt Nam cùng xây dựng một hành trình kết nối văn hoá, con người và những món quà từ hai quê hương.",
-    content:`Chúng tôi là một nhóm sinh viên Lào và sinh viên Việt Nam, cùng chung tình yêu dành cho văn hoá và mong muốn tạo nên những kết nối có ý nghĩa giữa hai đất nước. Lotus & Champa company là ý tưởng mà chúng tôi cùng xây dựng từ tinh thần sẻ chia đó.
+    content:`Chúng tôi là một nhóm sinh viên Lào và sinh viên Việt Nam, cùng chung tình yêu dành cho văn hoá và mong muốn tạo nên những kết nối có ý nghĩa giữa hai đất nước. Lotus & Champa là ý tưởng mà chúng tôi cùng xây dựng từ tinh thần sẻ chia đó.
 
 Những món quà quê hương luôn có cách đưa con người đến gần nhau. Một gói Kaipen từ dòng Mekong, một hộp trà hoa vàng Quảng Ninh hay một chiếc túi đan thủ công không chỉ là sản phẩm, mà còn gợi mở câu chuyện về vùng đất và những bàn tay làm nên chúng.
 
@@ -5896,26 +5871,6 @@ function parseHash(){
 
 function router(){
   const route = parseHash();
-  const pageBackgrounds = {
-    home:'laos-vietnam-background-1.jpg',
-    products:'laos-vietnam-background-2.jpg',
-    blog:'laos-vietnam-background-2.jpg',
-    'blog-post':'laos-vietnam-background-2.jpg',
-    about:'laos-vietnam-background-3.jpg',
-    contact:'laos-vietnam-background-1.jpg'
-  };
-  const backgroundFile = route.page === 'products' && route.params.country === 'lao'
-    ? 'laos-vietnam-background-3.jpg'
-    : route.page === 'products' && route.params.country === 'vietnam'
-      ? 'laos-vietnam-background-1.jpg'
-      : pageBackgrounds[route.page];
-  if(backgroundFile){
-    document.body.dataset.pageBg = route.page === 'products' ? (route.params.country || 'all-products') : route.page;
-    document.body.style.setProperty('--page-bg-image', `url("assets/backgrounds/${backgroundFile}")`);
-  }else{
-    delete document.body.dataset.pageBg;
-    document.body.style.removeProperty('--page-bg-image');
-  }
   document.body.classList.toggle('ux-auth-mode', route.page === 'account' && !Store.get('user', null));
   document.body.classList.toggle('admin-mode', route.page === 'admin');
   document.getElementById('site').style.display = route.page === 'admin' ? 'none' : '';
@@ -5997,7 +5952,7 @@ function initHomeGallerySwiper(){
 
 
 function getPublicBlogPosts(){
-  const legacy={excerpt:"Một sinh viên Lào tại Việt Nam, một giấc mơ kết nối hai quê hương qua từng món quà.",content:"Tôi là Phiphakone, một sinh viên Lào đang học tập tại Quảng Ninh, Việt Nam. Mỗi lần về quê thăm gia đình ở Lào, tôi lại mang theo những món đặc sản Việt Nam làm quà — và mỗi lần quay lại Việt Nam, tôi lại đem theo kaipen, túi đan, khăn dệt của Lào tặng bạn bè.\n\nTôi nhận ra một điều rất đẹp: dù hai đất nước cùng nằm bên dòng Mekong, người dân hai bên vẫn chưa thật sự được tiếp cận với sản phẩm văn hoá của nhau. Người Việt Nam ít có cơ hội thử kaipen Mekong. Người Lào ít biết tới trà hoa vàng Ba Chẽ. Đó là một khoảng trống cần được lấp đầy.\n\nLotus & Champa company ra đời từ chính cảm hứng đó. Chúng tôi muốn tạo ra một cây cầu nhỏ, nhưng có thật, giữa hai nền văn hoá. Không chỉ bán sản phẩm — mà kể câu chuyện. Không chỉ vận chuyển hàng — mà chuyển đi tình cảm và sự tôn trọng giữa hai dân tộc.\n\nLà một sinh viên, tôi biết nguồn lực còn hạn chế. Nhưng tôi tin: những điều bắt đầu từ cảm xúc thật và hành động chân thành sẽ luôn có chỗ đứng trong trái tim của khách hàng. Cảm ơn bạn đã đồng hành cùng câu chuyện này."};
+  const legacy={excerpt:"Một sinh viên Lào tại Việt Nam, một giấc mơ kết nối hai quê hương qua từng món quà.",content:"Tôi là Phiphakone, một sinh viên Lào đang học tập tại Quảng Ninh, Việt Nam. Mỗi lần về quê thăm gia đình ở Lào, tôi lại mang theo những món đặc sản Việt Nam làm quà — và mỗi lần quay lại Việt Nam, tôi lại đem theo kaipen, túi đan, khăn dệt của Lào tặng bạn bè.\n\nTôi nhận ra một điều rất đẹp: dù hai đất nước cùng nằm bên dòng Mekong, người dân hai bên vẫn chưa thật sự được tiếp cận với sản phẩm văn hoá của nhau. Người Việt Nam ít có cơ hội thử kaipen Mekong. Người Lào ít biết tới trà hoa vàng Ba Chẽ. Đó là một khoảng trống cần được lấp đầy.\n\nLotus & Champa ra đời từ chính cảm hứng đó. Chúng tôi muốn tạo ra một cây cầu nhỏ, nhưng có thật, giữa hai nền văn hoá. Không chỉ bán sản phẩm — mà kể câu chuyện. Không chỉ vận chuyển hàng — mà chuyển đi tình cảm và sự tôn trọng giữa hai dân tộc.\n\nLà một sinh viên, tôi biết nguồn lực còn hạn chế. Nhưng tôi tin: những điều bắt đầu từ cảm xúc thật và hành động chân thành sẽ luôn có chỗ đứng trong trái tim của khách hàng. Cảm ơn bạn đã đồng hành cùng câu chuyện này."};
   const updated=SEED_BLOG.find(post=>post.id==='b5');
   return Store.get('blog', []).map(post=>{
     if(post.id!=='b5'||!updated)return post;
@@ -7644,7 +7599,7 @@ function renderContact(){
   <div class="container">
     <div class="contact-grid">
       <div class="contact-info-card">
-        <h2>Lotus & Champa company</h2>
+        <h2>Lotus & Champa</h2>
         <p class="sub">${t("brand.tag")}</p>
         <div class="contact-row">
           <div class="ico"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-width="1.7" stroke-linecap="round" d="M21 16v3a2 2 0 0 1-2 2A18 18 0 0 1 3 5a2 2 0 0 1 2-2h3l2 5-2 2a14 14 0 0 0 6 6l2-2 5 2Z"/></svg></div>
