@@ -1100,6 +1100,8 @@ html[lang="zh"] .tab-h{line-height:1.35}
   font-size:.82rem;flex-wrap:wrap;gap:14px;
 }
 .footer-bottom .pay{display:flex;gap:8px;align-items:center}
+.footer-admin-link{font-size:.76rem;color:rgba(250,245,235,.52);text-decoration:none;transition:color .2s ease,opacity .2s ease}
+.footer-admin-link:hover,.footer-admin-link:focus-visible{color:var(--gold);text-decoration:underline}
 .footer-bottom .pay span{
   padding:4px 10px;
   background:rgba(250,245,235,.06);
@@ -2436,6 +2438,7 @@ body.meal-kit-modal-open{overflow:hidden}
 
       <div class="footer-bottom">
         <div>© 2026 Lotus & Champa. <span data-i18n="footer.rights">Bảo lưu mọi quyền.</span> · <a href="images/product-refresh/IMAGE-CREDITS.md" target="_blank" rel="noopener" data-i18n="footer.imageCredits">Nguồn ảnh</a></div>
+      <a href="#/admin" data-page="admin" class="footer-admin-link"><span data-i18n="nav.admin">Quản trị viên</span></a>
         <div class="pay">
           <span>VNPAY</span><span>BIDV</span><span>BCEL</span><span>VISA</span><span>COD</span>
         </div>
@@ -5897,7 +5900,9 @@ initData();
 
 // Helpers
 function getProducts(){ return window.LCCatalog ? window.LCCatalog.products() : SEED_PRODUCTS; }
-function getProduct(id){ return getProducts().find(p=>p.id===id); }
+function getProduct(id){
+  return getProducts().find(p=>p.id===id) || mealKitOrderProduct(id);
+}
 function getCart(){ return Store.get('cart', []); }
 function setCart(c){ Store.set('cart', c); updateCartBadge(); }
 // Orders ตอนนี้อยู่ที่ Firestore — ฟังก์ชันนี้คืน real-time cache (ดู subscribeOrdersIfNeeded)
@@ -6108,12 +6113,37 @@ const MEAL_KIT_COMBOS = [
   {id:'combo-tiec-hai-bo-mekong',name:'Combo Tiệc Hai Bờ Mekong',items:['Gà hấp Trà hoa vàng','Or Lam Luang Prabang','Miến xào sá sùng','Khai Pen'],price:589000,saving:60000},
   {id:'combo-an-vat-nang-dong',name:'Combo Ăn Vặt Năng Động',items:['Bún tôm bánh đa Hải Hà','Nộm đu đủ Tam Mak Hoong','Chè trà hoa vàng'],price:189000,saving:20000}
 ].map((combo,index)=>({...combo,image:MEAL_KIT_IMAGE_FILES.combos[index]}));
+const MEAL_KIT_ORDER_COPY={
+  vi:{estimated:'Giá dự kiến',warning:'Giá Meal Kit đang là giá tham khảo. Đơn sẽ được lưu ở mức giá thấp nhất trong khoảng; nhân viên cần xác nhận giá cuối cùng với khách trước khi chốt.',paymentWait:'Vui lòng chọn COD. Nhân viên sẽ xác nhận giá cuối cùng trước khi thanh toán.',adminNote:'MEAL KIT: giá dự kiến; cần xác nhận giá cuối cùng với khách trước khi chốt đơn.'},
+  lo:{estimated:'ລາຄາຄາດຄະເນ',warning:'ລາຄາ Meal Kit ເປັນລາຄາອ້າງອີງ. ພະນັກງານຈະຢືນຢັນລາຄາສຸດທ້າຍກັບລູກຄ້າກ່ອນຢືນຢັນຄຳສັ່ງ.',paymentWait:'ກະລຸນາເລືອກ COD. ພະນັກງານຈະຢືນຢັນລາຄາກ່ອນຊຳລະ.',adminNote:'MEAL KIT: ລາຄາຄາດຄະເນ; ຕ້ອງຢືນຢັນລາຄາສຸດທ້າຍກັບລູກຄ້າ.'},
+  en:{estimated:'Estimated price',warning:'Meal Kit prices are estimates. The order uses the minimum shown in the range; staff must confirm the final price with the customer before confirming.',paymentWait:'Please choose COD. Staff will confirm the final price before payment.',adminNote:'MEAL KIT: estimated price; confirm the final price with the customer before confirming the order.'},
+  th:{estimated:'ราคาโดยประมาณ',warning:'ราคา Meal Kit เป็นราคาอ้างอิง ระบบจะบันทึกยอดเริ่มต้นตามราคาต่ำสุดในช่วง และเจ้าหน้าที่ต้องยืนยันราคาสุทธิกับลูกค้าก่อนยืนยันคำสั่งซื้อ',paymentWait:'กรุณาเลือกเก็บเงินปลายทาง เจ้าหน้าที่จะยืนยันราคาสุทธิก่อนชำระเงิน',adminNote:'MEAL KIT: ราคาโดยประมาณ กรุณายืนยันราคาสุทธิกับลูกค้าก่อนยืนยันคำสั่งซื้อ'},
+  zh:{estimated:'参考价格',warning:'Meal Kit 价格为参考价。订单暂按区间最低价记录，工作人员需在确认订单前与客户确认最终价格。',paymentWait:'请选择货到付款。工作人员会在付款前确认最终价格。',adminNote:'MEAL KIT：参考价格；确认订单前需与客户确认最终价格。'}
+};
+function mealKitOrderCopy(){ return MEAL_KIT_ORDER_COPY[CURRENT_LANG] || MEAL_KIT_ORDER_COPY.en; }
+function mealKitOrderProduct(id){
+  const itemMatch=/^meal-kit-(lao|vietnam)-(\d{1,2})$/.exec(String(id||''));
+  if(itemMatch){
+    const kit=MEAL_KIT_BUNDLES.find(entry=>entry.country===itemMatch[1]);
+    const item=kit?.items[Number(itemMatch[2])];
+    if(!item) return null;
+    return {id,name:item.name,price:item.min,minPrice:item.min,maxPrice:item.max,priceEstimated:true,country:kit.country,cat:'meal-kit',image:item.image,images:[item.image],fallback:item.image,stock:999,sales:0};
+  }
+  const comboMatch=/^meal-kit-combo-(\d{1,2})$/.exec(String(id||''));
+  if(comboMatch){
+    const combo=MEAL_KIT_COMBOS[Number(comboMatch[1])];
+    if(!combo) return null;
+    return {id,name:combo.name,price:combo.price,country:'vietnam',cat:'meal-kit-combo',image:combo.image,images:[combo.image],fallback:combo.image,stock:999,sales:0};
+  }
+  return null;
+}
+function mealKitEstimatedRange(product){ return `${fmtPrice(product.minPrice)} – ${fmtPrice(product.maxPrice)}`; }
 const MEAL_KIT_COMBO_COPY={
-  vi:{title:'Combo giao thoa Việt – Lào',intro:'Các món Meal Kit và đặc sản được kết hợp thành những set tiện lợi cho bữa ăn và dịp sum họp.',saving:'Tiết kiệm',photo:'Hình ảnh combo sẽ được bổ sung',order:'Liên hệ đặt combo',products:'Sản phẩm trong combo'},
-  lo:{title:'ຄອມໂບອາຫານຫວຽດ–ລາວ',intro:'Meal Kit ແລະຂອງດີປະຈຳຖິ່ນທີ່ຈັດເປັນຊຸດສະດວກ ສຳລັບມື້ອາຫານແລະການພົບປະ.',saving:'ປະຢັດ',photo:'ຈະເພີ່ມຮູບພາບຄອມໂບພາຍຫຼັງ',order:'ຕິດຕໍ່ສັ່ງຄອມໂບ',products:'ສິນຄ້າໃນຄອມໂບ'},
-  en:{title:'Vietnam–Lao Combo Sets',intro:'Meal Kits and local specialties combined into convenient sets for meals and get-togethers.',saving:'Save',photo:'Combo photo will be added',order:'Contact to order',products:'Items in this combo'},
-  th:{title:'ชุดคอมโบเวียดนาม–ลาว',intro:'รวม Meal Kit และของดีท้องถิ่นเป็นชุดสะดวกสำหรับมื้ออาหารและการพบปะสังสรรค์',saving:'ประหยัด',photo:'จะเพิ่มรูปชุดคอมโบภายหลัง',order:'ติดต่อเพื่อสั่งชุดนี้',products:'สินค้าในชุดคอมโบ'},
-  zh:{title:'越南–老挝风味组合',intro:'将 Meal Kit 与地方特色美食搭配成便捷套装，适合日常用餐和聚会。',saving:'立省',photo:'组合图片稍后补充',order:'联系订购组合',products:'组合内商品'}
+  vi:{title:'Combo giao thoa Việt – Lào',intro:'Các món Meal Kit và đặc sản được kết hợp thành những set tiện lợi cho bữa ăn và dịp sum họp.',saving:'Tiết kiệm',photo:'Hình ảnh combo sẽ được bổ sung',order:'Đặt mua combo',products:'Sản phẩm trong combo'},
+  lo:{title:'ຄອມໂບອາຫານຫວຽດ–ລາວ',intro:'Meal Kit ແລະຂອງດີປະຈຳຖິ່ນທີ່ຈັດເປັນຊຸດສະດວກ ສຳລັບມື້ອາຫານແລະການພົບປະ.',saving:'ປະຢັດ',photo:'ຈະເພີ່ມຮູບພາບຄອມໂບພາຍຫຼັງ',order:'ສັ່ງຊື້ຄອມໂບ',products:'ສິນຄ້າໃນຄອມໂບ'},
+  en:{title:'Vietnam–Lao Combo Sets',intro:'Meal Kits and local specialties combined into convenient sets for meals and get-togethers.',saving:'Save',photo:'Combo photo will be added',order:'Order this combo',products:'Items in this combo'},
+  th:{title:'ชุดคอมโบเวียดนาม–ลาว',intro:'รวม Meal Kit และของดีท้องถิ่นเป็นชุดสะดวกสำหรับมื้ออาหารและการพบปะสังสรรค์',saving:'ประหยัด',photo:'จะเพิ่มรูปชุดคอมโบภายหลัง',order:'สั่งซื้อชุดคอมโบ',products:'สินค้าในชุดคอมโบ'},
+  zh:{title:'越南–老挝风味组合',intro:'将 Meal Kit 与地方特色美食搭配成便捷套装，适合日常用餐和聚会。',saving:'立省',photo:'组合图片稍后补充',order:'订购组合',products:'组合内商品'}
 };
 const MEAL_KIT_COMBO_NAMES={
   vi:['Combo Giao Thoa Di Sản','Combo Sum Họp Hữu Nghị','Combo Vị Ngon Quảng Ninh','Combo Tiệc Hai Bờ Mekong','Combo Ăn Vặt Năng Động'],
@@ -6138,7 +6168,7 @@ function renderMealKits(){
   const d=MEAL_KIT_CATALOG_COPY[CURRENT_LANG]||MEAL_KIT_CATALOG_COPY.en;
   const productCards=kit=>kit.items.map((item,index)=>`<article class="meal-kit-product-card"><div class="meal-kit-product-placeholder"><img class="meal-kit-product-photo" src="${item.image}" alt="${item.name}" loading="lazy"/><span class="meal-kit-slot-country">${kit.country==='lao'?'🇱🇦':'🇻🇳'}</span><span class="meal-kit-slot-number">${String(index+1).padStart(2,'0')} / 10</span><span class="meal-kit-slot-icon" aria-hidden="true" hidden>🥣</span></div><div class="meal-kit-product-copy"><strong class="meal-kit-product-name">${item.name}</strong><p>${item.portion?`${d.servings} ${item.portion} ${d.people}`:item.pack}</p><b class="meal-kit-product-price">${fmtPrice(item.min)} – ${fmtPrice(item.max)}</b><small class="meal-kit-product-price-note">${d.price}</small><div class="meal-kit-card-actions"><button type="button" class="meal-kit-watch-button" onclick="openMealKitVideo('${kit.country}',${index})">▶ ${a.watch}</button><button type="button" class="meal-kit-order-button" onclick="requestMealKitOrder('${kit.country}',${index})">${a.order}</button></div></div></article>`).join('');
   const comboText=MEAL_KIT_COMBO_COPY[CURRENT_LANG]||MEAL_KIT_COMBO_COPY.en;
-  const comboCards=MEAL_KIT_COMBOS.map((combo,index)=>`<article class="meal-kit-combo-card"><div class="meal-kit-combo-photo"><img src="${combo.image}" alt="${combo.name}" loading="lazy"/><span class="meal-kit-combo-flags" aria-hidden="true">🇻🇳 · 🇱🇦</span><span class="meal-kit-combo-number">COMBO ${String(index+1).padStart(2,'0')}</span><div class="meal-kit-combo-mark" aria-hidden="true">✦</div></div><div class="meal-kit-combo-body"><h3>${(MEAL_KIT_COMBO_NAMES[CURRENT_LANG]||MEAL_KIT_COMBO_NAMES.vi)[index]||combo.name}</h3><h4>${comboText.products}</h4><ul>${combo.items.map(item=>`<li>${item}</li>`).join('')}</ul><div class="meal-kit-combo-pricing"><strong>${fmtPrice(combo.price)}</strong><span>${comboText.saving} ${fmtPrice(combo.saving)}</span></div><a class="meal-kit-combo-order" href="#/contact">${comboText.order} →</a></div></article>`).join('');
+  const comboCards=MEAL_KIT_COMBOS.map((combo,index)=>`<article class="meal-kit-combo-card"><div class="meal-kit-combo-photo"><img src="${combo.image}" alt="${combo.name}" loading="lazy"/><span class="meal-kit-combo-flags" aria-hidden="true">🇻🇳 · 🇱🇦</span><span class="meal-kit-combo-number">COMBO ${String(index+1).padStart(2,'0')}</span><div class="meal-kit-combo-mark" aria-hidden="true">✦</div></div><div class="meal-kit-combo-body"><h3>${(MEAL_KIT_COMBO_NAMES[CURRENT_LANG]||MEAL_KIT_COMBO_NAMES.vi)[index]||combo.name}</h3><h4>${comboText.products}</h4><ul>${combo.items.map(item=>`<li>${item}</li>`).join('')}</ul><div class="meal-kit-combo-pricing"><strong>${fmtPrice(combo.price)}</strong><span>${comboText.saving} ${fmtPrice(combo.saving)}</span></div><button type="button" class="meal-kit-combo-order" onclick="requestMealKitComboOrder(${index})">${comboText.order} →</button></div></article>`).join('');
   return `<div class="meal-kit-page">
     <section class="meal-kit-hero"><span class="meal-kit-ornament meal-kit-ornament-left-top" aria-hidden="true"></span><span class="meal-kit-ornament meal-kit-ornament-right-top" aria-hidden="true"></span><div class="container meal-kit-hero-grid"><div class="meal-kit-hero-copy"><div class="meal-kit-eyebrow">${c.eyebrow}</div><h1>${c.title}</h1><p>${c.intro}</p><button type="button" class="btn btn-gold" onclick="document.getElementById('mealKitCollection').scrollIntoView({behavior:'smooth'})">${c.cta} <span aria-hidden="true">↓</span></button></div><div class="meal-kit-hero-image"><img src="assets/food-06.jpg" alt="Lotus & Champa Meal Kit ingredients and Vietnamese–Lao food" loading="eager"/><span class="meal-kit-hero-stamp">🇻🇳 · 🇱🇦</span></div></div></section>
     <section class="meal-kit-steps"><div class="container"><header class="meal-kit-section-heading"><span class="meal-kit-eyebrow">LOTUS & CHAMPA</span><h2>${c.stepsTitle}</h2><p>${c.stepsIntro}</p></header><div class="meal-kit-step-grid">
@@ -6154,21 +6184,16 @@ function renderMealKits(){
   </div>`;
 }
 function requestMealKitOrder(country,index){
-  const kit=MEAL_KIT_BUNDLES.find(item=>item.country===country);
-  if(!kit||!kit.items[index]) return;
-  const item=kit.items[index];
-  const d=MEAL_KIT_CATALOG_COPY[CURRENT_LANG]||MEAL_KIT_CATALOG_COPY.en;
-  const message=d.orderRequest.replace('{name}',item.name);
-  Store.set('mealKitOrderDraft',{subject:'product',message});
-  navigate('contact');
+  const id=`meal-kit-${country}-${index}`;
+  if(!getProduct(id)) return;
+  addToCart(id);
+  navigate('checkout');
 }
-function applyMealKitOrderDraft(){
-  const draft=Store.get('mealKitOrderDraft',null);
-  if(!draft) return;
-  const subject=document.getElementById('contactSubject');
-  const message=document.getElementById('contactMessage');
-  if(subject&&message){subject.value=draft.subject||'product';message.value=draft.message||'';}
-  Store.remove('mealKitOrderDraft');
+function requestMealKitComboOrder(index){
+  const id=`meal-kit-combo-${index}`;
+  if(!getProduct(id)) return;
+  addToCart(id);
+  navigate('checkout');
 }
 function openMealKitVideo(country,index){
   const c=MEAL_KIT_COPY[CURRENT_LANG]||MEAL_KIT_COPY.en;
@@ -6922,7 +6947,7 @@ function renderCart(){
             <div class="cart-item-info">
               <div class="name">${pName(i.product)}</div>
               <div class="cat">${pCountryFlag(i.product.country)} · ${t('cat.'+i.product.cat, i.product.cat)}</div>
-              <div class="cart-item-price" style="margin-top:6px">${fmtPrice(i.product.price)}</div>
+              <div class="cart-item-price" style="margin-top:6px">${fmtPrice(i.product.price)}</div>${i.product.priceEstimated?`<small style="display:block;color:var(--muted)">${mealKitOrderCopy().estimated}: ${mealKitEstimatedRange(i.product)}</small>`:''}
             </div>
             <div class="qty-control">
               <button onclick="changeQty('${i.id}',-1)">−</button>
@@ -7009,6 +7034,7 @@ function renderCheckout(){
     if(coupon.type==='ship') shipFinal = 0;
   }
   const total = subtotal - discount + shipFinal;
+  const estimatedKitItems=items.filter(i=>i.product.priceEstimated);
 
   return `
   <section class="page-hero" style="padding:30px 0">
@@ -7019,6 +7045,7 @@ function renderCheckout(){
   </section>
 
   <div class="container">
+    ${estimatedKitItems.length?`<div role="note" style="padding:14px 16px;margin-bottom:16px;border:1px solid #E6D4A0;border-radius:10px;background:#FAF5EB;color:#5D4824"><strong>${mealKitOrderCopy().estimated} — ${mealKitOrderCopy().warning}</strong><ul style="margin:8px 0 0 20px">${estimatedKitItems.map(i=>`<li>${i.product.name}: ${mealKitEstimatedRange(i.product)}</li>`).join('')}</ul></div>`:''}
     <div class="checkout-layout">
       <div>
         <!-- 1. Customer info -->
@@ -7349,6 +7376,10 @@ async function placeOrder(){
   const ship = document.querySelector('input[name=ship]:checked')?.value || 'vn';
   const pay  = document.querySelector('input[name=pay]:checked')?.value  || 'cod';
   const requiresSlip = isProofPaymentMethod(pay);
+  if(items.some(i=>i.product.priceEstimated) && pay!=='cod'){
+    setOrderStatus(mealKitOrderCopy().paymentWait,'error');
+    return;
+  }
   const slipInput = document.getElementById('paymentSlip');
   const slipFile = slipInput?.files?.[0] || null;
   if(requiresSlip){
@@ -7384,6 +7415,10 @@ async function placeOrder(){
   const total = subtotal - discount + shipFee;
 
   // ===== STEP 5: เตรียม payload =====
+  const estimatedKitItems=items.filter(i=>i.product.priceEstimated);
+  const estimateNote=estimatedKitItems.length?`${mealKitOrderCopy().adminNote} ${estimatedKitItems.map(i=>`${i.product.name}: ${mealKitEstimatedRange(i.product)}`).join(' | ')}`:'';
+  const userNote=document.getElementById('cNote')?.value.trim()||'';
+  const customerNote=[userNote.slice(0,Math.max(0,2000-estimateNote.length-2)),estimateNote].filter(Boolean).join('\n').slice(0,2000);
   const orderPayload = {
     name, phone, address: addr,
     customer: {
@@ -7391,7 +7426,7 @@ async function placeOrder(){
       email:   document.getElementById('cEmail')?.value || '',
       city:    document.getElementById('cCity')?.value || '',
       country: document.getElementById('cCountry')?.value || '',
-      note:    document.getElementById('cNote')?.value || ''
+      note:    customerNote
     },
     items: items.map(i=>({
       id: i.id, name: i.product.name,
