@@ -8652,6 +8652,18 @@ function paymentStatusMeta(status){
   return map[status || 'pending'] || map.pending;
 }
 
+function adminOrderImage(item,size=44){
+  const raw=String(item?.image||'').trim();
+  const src=raw.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const style=`width:${size}px;height:${size}px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:#f3f4f6;flex:none`;
+  return src?`<img src="${src}" alt="" loading="lazy" style="${style}" onerror="this.style.visibility='hidden'"/>`:`<span style="${style};display:grid;place-items:center;color:var(--muted)">—</span>`;
+}
+function adminOrderPreviews(order){
+  const items=order.items||[];
+  const thumbnails=items.slice(0,3).map(item=>adminOrderImage(item,38)).join('');
+  const extra=items.length>3?`<span style="font-size:.72rem;color:var(--muted)">+${items.length-3}</span>`:'';
+  return `<div style="display:flex;align-items:center;gap:4px;min-width:130px">${thumbnails}${extra}</div><small style="color:var(--muted)">${items.length}</small>`;
+}
 function renderPaymentBadge(status){
   const key = status || 'pending';
   const meta = paymentStatusMeta(key);
@@ -8710,7 +8722,7 @@ function adminOrders(){
             <td><strong style="font-family:ui-monospace,monospace;font-size:.78rem">${o.id.slice(0,10)}</strong></td>
             <td>${custName}<br/><small style="color:var(--muted)">${custCountry}</small></td>
             <td>${custPhone}</td>
-            <td>${o.items?.length || 0}</td>
+            <td>${adminOrderPreviews(o)}</td>
             <td><strong style="color:var(--gold-deep)">${fmtPrice(o.total||0)}</strong></td>
             <td><small>${o.payMethod||'-'}</small></td>
             <td>
@@ -8802,9 +8814,9 @@ function adminViewOrder(id){
         ` : `<p style="color:var(--muted);margin:0">${t('sys.admin.noSlip')}</p>`}
       </div>
       <table class="admin-table" style="font-size:.85rem">
-        <thead><tr><th>${t("admin.col.product")}</th><th>${t("admin.col.qty")}</th><th>${t("admin.col.price")}</th></tr></thead>
+        <thead><tr><th></th><th>${t("admin.col.product")}</th><th>${t("admin.col.qty")}</th><th>${t("admin.col.price")}</th></tr></thead>
         <tbody>
-          ${(o.items||[]).map(i=>`<tr><td>${i.name}</td><td>${i.qty}</td><td>${fmtPrice(i.price*i.qty)}</td></tr>`).join('')}
+          ${(o.items||[]).map(i=>`<tr><td>${adminOrderImage(i,54)}</td><td>${i.name}</td><td>${i.qty}</td><td>${fmtPrice(i.price*i.qty)}</td></tr>`).join('')}
         </tbody>
       </table>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:.9rem">
