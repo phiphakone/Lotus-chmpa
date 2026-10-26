@@ -219,7 +219,7 @@ html[lang="zh"] .tab-h{line-height:1.35}
 .brand-logo{
   width:56px;height:56px;
   border-radius:50%;
-  background:#fff url('images/logo.jpg') center/cover no-repeat;
+  background:#fff url('images/logo-lotus-champa.png') center/cover no-repeat;
   display:grid;place-items:center;
   box-shadow:0 4px 14px rgba(168,137,63,.35);
   flex-shrink:0;
@@ -1816,7 +1816,7 @@ html[lang="zh"] .tab-h{line-height:1.35}
 }
 .admin-brand .logo{
   width:40px;height:40px;border-radius:10px;
-  background:#fff url('images/logo.jpg') center/cover no-repeat;
+  background:#fff url('images/logo-lotus-champa.png') center/cover no-repeat;
 }
 .admin-brand .t{font-family:var(--f-display);font-weight:600;font-size:.95rem}
 .admin-brand .s{font-size:.7rem;color:var(--gold-soft)}
@@ -1935,7 +1935,7 @@ html[lang="zh"] .tab-h{line-height:1.35}
 }
 .admin-login-card .logo{
   width:64px;height:64px;border-radius:16px;
-  background:#fff url('images/logo.jpg') center/cover no-repeat;
+  background:#fff url('images/logo-lotus-champa.png') center/cover no-repeat;
   margin:0 auto 18px;
 }
 .admin-login-card h2{
@@ -2131,9 +2131,12 @@ body.admin-mode{background:#F4F5F7}
 }
 .mobile-menu .lang-mobile button.active{background:var(--gold);color:#fff;border-color:var(--gold)}
 
+.mobile-menu nav a,.mobile-menu nav .mobile-nav-toggle{font-size:.94rem;line-height:1.35;padding:12px 12px}.mobile-nav-submenu a{font-size:.88rem!important;padding:9px 12px!important}
+
 /* Meal Kit page */
 .meal-kit-page{background:var(--bg);color:var(--ink)}
-.meal-kit-hero{padding:56px 0 62px;background:linear-gradient(120deg,#f8f0df,#fcfaf5 62%,#e8eee3)}
+.meal-kit-hero{position:relative;overflow:hidden;padding:56px 0 62px;background:linear-gradient(120deg,#f8f0df,#fcfaf5 62%,#e8eee3)}
+.meal-kit-hero>.container{position:relative;z-index:1}
 .meal-kit-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
 .meal-kit-hero-copy{max-width:650px}
 .meal-kit-eyebrow{display:inline-block;color:var(--gold-deep);font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
@@ -2162,7 +2165,15 @@ body.admin-mode{background:#F4F5F7}
 .meal-kit-step-copy h3{font-family:var(--f-display);font-size:1.18rem;color:var(--navy);margin-bottom:8px}
 .meal-kit-step-copy p{font-size:.9rem;color:var(--ink-soft);line-height:1.65}
 .meal-kit-step-icon{position:absolute;right:16px;bottom:16px;font-size:1.25rem}
-.meal-kit-collection{background:linear-gradient(180deg,#faf7ef,#f6f3eb)}
+.meal-kit-collection{position:relative;overflow:hidden;background:linear-gradient(180deg,#faf7ef,#f6f3eb)}
+.meal-kit-collection>.container{position:relative;z-index:1}
+.meal-kit-ornament{position:absolute;z-index:0;pointer-events:none;background-repeat:no-repeat;background-size:contain;opacity:.2}
+.meal-kit-ornament-left-top{top:0;left:0;width:min(30vw,380px);height:240px;background-image:url('assets/meal-kit-ornament-left.svg');background-position:left top}
+.meal-kit-ornament-right-top{top:0;right:0;width:min(30vw,380px);height:240px;background-image:url('assets/meal-kit-ornament-right.svg');background-position:right top}
+.meal-kit-ornament-left-bottom{bottom:0;left:0;width:min(28vw,350px);height:180px;background-image:url('assets/meal-kit-ornament-left.svg');background-position:left bottom;opacity:.17}
+.meal-kit-ornament-right-bottom{bottom:0;right:0;width:min(28vw,350px);height:180px;background-image:url('assets/meal-kit-ornament-right.svg');background-position:right bottom;opacity:.17}
+@media(max-width:640px){.meal-kit-ornament-left-top,.meal-kit-ornament-right-top{width:46vw;height:150px;opacity:.13}.meal-kit-ornament-left-bottom,.meal-kit-ornament-right-bottom{width:42vw;height:115px;opacity:.12}}
+
 .meal-kit-bundle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
 .meal-kit-bundle{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-md)}
 .meal-kit-bundle-preview{height:260px;position:relative;overflow:hidden;background:#e8eee3}
@@ -2194,6 +2205,7 @@ body.admin-mode{background:#F4F5F7}
 .meal-kit-product-index{font-weight:700;color:var(--navy);font-size:.83rem}
 .meal-kit-product-copy p{min-height:34px;margin:5px 0 9px;font-size:.7rem;line-height:1.45;color:var(--muted)}
 .meal-kit-watch-button{width:100%;padding:8px 7px;border:1px solid var(--line);border-radius:8px;background:var(--cream);color:var(--navy);font-size:.76rem;font-weight:700}
+.meal-kit-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.meal-kit-order-button{width:100%;padding:8px 6px;border:1px solid var(--navy);border-radius:8px;background:var(--navy);color:#fff;font-size:.7rem;font-weight:700;cursor:pointer}.meal-kit-order-button:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
 .meal-kit-watch-button:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
 .meal-kit-set-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:17px;padding-top:14px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.82rem}
 .meal-kit-catalog-link{color:var(--gold-deep);font-weight:700;white-space:nowrap}
@@ -2223,10 +2235,11 @@ body.admin-mode{background:#F4F5F7}
 .meal-kit-modal-qr span{font-size:2rem;color:var(--navy)}
 .meal-kit-modal-details .btn{width:100%;justify-content:center}
 body.meal-kit-modal-open{overflow:hidden}
+.meal-kit-product-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.meal-kit-slot-country,.meal-kit-slot-number{z-index:1;padding:3px 6px;border-radius:6px;background:rgba(255,255,255,.92)}.meal-kit-combo-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.meal-kit-combo-flags,.meal-kit-combo-number,.meal-kit-combo-photo small{z-index:1;background:rgba(255,255,255,.9);padding:5px 9px;border-radius:999px}.meal-kit-combo-mark{display:none}
 .meal-kit-product-placeholder small{position:absolute;left:6px;right:6px;bottom:7px;text-align:center;color:var(--muted);font-size:.6rem}.meal-kit-product-name{display:block;min-height:2.9em;color:var(--navy);font-size:.79rem;line-height:1.35}.meal-kit-product-copy p{min-height:28px;margin:5px 0;color:var(--muted);font-size:.66rem;line-height:1.4}.meal-kit-product-price{display:block;color:var(--terracotta);font-size:.74rem;line-height:1.35}.meal-kit-product-price-note{display:block;margin:2px 0 8px;color:var(--muted);font-size:.62rem}
 .meal-kit-combo-section{padding:58px 0 72px;background:#fff}.meal-kit-combo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}.meal-kit-combo-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow-sm)}.meal-kit-combo-photo{height:190px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 70% 30%,#fff8e8,transparent 42%),linear-gradient(135deg,#f3ead7,#e6ece3)}.meal-kit-combo-flags{position:absolute;left:14px;top:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.9);font-size:.85rem}.meal-kit-combo-number{position:absolute;right:14px;top:15px;color:var(--gold-deep);font-size:.68rem;font-weight:800;letter-spacing:.12em}.meal-kit-combo-mark{width:72px;height:72px;display:grid;place-items:center;border:1px solid rgba(137,91,46,.35);border-radius:50%;color:var(--gold-deep);font-size:2.4rem;background:rgba(255,255,255,.58)}.meal-kit-combo-photo small{position:absolute;bottom:12px;color:var(--muted);font-size:.72rem}.meal-kit-combo-body{padding:18px}.meal-kit-combo-body h3{min-height:2.6em;margin:0 0 14px;color:var(--navy);font-family:var(--f-display);font-size:1.15rem;line-height:1.3}.meal-kit-combo-body h4{margin:0 0 8px;color:var(--ink);font-size:.8rem}.meal-kit-combo-body ul{min-height:95px;margin:0;padding-left:18px;color:var(--ink-soft);font-size:.83rem;line-height:1.65}.meal-kit-combo-pricing{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:14px 0;padding-top:12px;border-top:1px solid var(--line)}.meal-kit-combo-pricing strong{color:var(--terracotta);font-size:1.22rem}.meal-kit-combo-pricing span{color:var(--sage);font-size:.78rem;font-weight:700}.meal-kit-combo-order{display:flex;justify-content:center;padding:11px 14px;border-radius:10px;background:var(--navy);color:#fff;font-size:.84rem;font-weight:700;text-decoration:none}.meal-kit-combo-order:hover{background:var(--gold-deep)}
 @media(max-width:850px){.meal-kit-combo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.meal-kit-product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.meal-kit-modal-content{grid-template-columns:1.2fr 1fr}}
-@media(max-width:640px){.meal-kit-combo-section{padding:42px 0 50px}.meal-kit-combo-grid{grid-template-columns:1fr;gap:14px}.meal-kit-combo-photo{height:175px}.meal-kit-combo-body ul{min-height:0}.meal-kit-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.meal-kit-set{padding:14px;margin-bottom:18px}.meal-kit-set-heading{align-items:flex-start;flex-direction:column}.meal-kit-product-placeholder{height:116px}.meal-kit-product-copy{padding:9px}.meal-kit-set-footer{align-items:flex-start;flex-direction:column}.meal-kit-modal{padding:0;align-items:end}.meal-kit-modal-panel{width:100%;max-height:94vh;border-radius:18px 18px 0 0}.meal-kit-modal-content{grid-template-columns:1fr;overflow-y:auto;max-height:calc(94vh - 66px)}.meal-kit-modal-player,.meal-kit-video-waiting{min-height:240px;max-height:40vh}.meal-kit-modal-player video{max-height:40vh}.meal-kit-modal-details{padding:18px}.meal-kit-modal-header{padding:12px 16px}}
+@media(max-width:640px){.meal-kit-card-actions{grid-template-columns:1fr}.meal-kit-combo-section{padding:42px 0 50px}.meal-kit-combo-grid{grid-template-columns:1fr;gap:14px}.meal-kit-combo-photo{height:175px}.meal-kit-combo-body ul{min-height:0}.meal-kit-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.meal-kit-set{padding:14px;margin-bottom:18px}.meal-kit-set-heading{align-items:flex-start;flex-direction:column}.meal-kit-product-placeholder{height:116px}.meal-kit-product-copy{padding:9px}.meal-kit-set-footer{align-items:flex-start;flex-direction:column}.meal-kit-modal{padding:0;align-items:end}.meal-kit-modal-panel{width:100%;max-height:94vh;border-radius:18px 18px 0 0}.meal-kit-modal-content{grid-template-columns:1fr;overflow-y:auto;max-height:calc(94vh - 66px)}.meal-kit-modal-player,.meal-kit-video-waiting{min-height:240px;max-height:40vh}.meal-kit-modal-player video{max-height:40vh}.meal-kit-modal-details{padding:18px}.meal-kit-modal-header{padding:12px 16px}}
 </style>
 <link rel="stylesheet" href="assets/ux-ui.css">
 <link rel="stylesheet" href="assets/redesign.css">
@@ -2306,19 +2319,19 @@ body.meal-kit-modal-open{overflow:hidden}
 
     <nav class="main-nav">
       <ul class="nav-list" id="mainNav">
-        <li><a href="#/" data-page="home"><span aria-hidden="true">🏠 </span><span data-i18n="nav.home">Trang chủ</span></a></li>
-        <li><a href="#/meal-kit" data-page="meal-kit"><span aria-hidden="true">🎁 </span><span data-i18n="nav.mealkit">Bộ Meal Kit &amp; Đặc sản số hóa</span></a></li>
+        <li><a href="#/" data-page="home"><span data-i18n="nav.home">Trang chủ</span></a></li>
+        <li><a href="#/meal-kit" data-page="meal-kit"><span data-i18n="nav.mealkit">Bộ Meal Kit &amp; Đặc sản số hóa</span></a></li>
         <li class="nav-dropdown" id="catalogNav">
-          <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleCatalogMenu(event)"><span>🇻🇳🇱🇦 <span data-i18n="nav.catalog">Tinh hoa OCOP Quảng Ninh &amp; Đặc sản Lào</span></span><span class="nav-caret" aria-hidden="true">▾</span></button>
+          <button class="nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleCatalogMenu(event)"><span><span data-i18n="nav.catalog">Tinh hoa OCOP Quảng Ninh &amp; Đặc sản Lào</span></span><span class="nav-caret" aria-hidden="true">▾</span></button>
           <ul class="nav-submenu">
-            <li><a href="#/products?country=lao" data-page="products"><span aria-hidden="true">✦ </span><span data-i18n="nav.lao">Sản phẩm Lào</span></a></li>
-            <li><a href="#/products?country=vietnam" data-page="products"><span aria-hidden="true">✦ </span><span data-i18n="nav.vn">Sản phẩm Việt Nam (OCOP Quảng Ninh)</span></a></li>
+            <li><a href="#/products?country=lao" data-page="products"><span data-i18n="nav.lao">Sản phẩm Lào</span></a></li>
+            <li><a href="#/products?country=vietnam" data-page="products"><span data-i18n="nav.vn">Sản phẩm Việt Nam (OCOP Quảng Ninh)</span></a></li>
           </ul>
         </li>
-        <li><a href="#/experiences" data-page="experiences"><span aria-hidden="true">🎟️ </span><span data-i18n="nav.experiences">Đặt vé Workshop &amp; Không gian trải nghiệm</span></a></li>
-        <li><a href="#/blog" data-page="blog"><span aria-hidden="true">📖 </span><span data-i18n="nav.blog">Câu chuyện Di sản &amp; Hữu nghị Việt - Lào</span></a></li>
-        <li><a href="#/about" data-page="about"><span aria-hidden="true">📍 </span><span data-i18n="nav.about">Về chúng tôi</span></a></li>
-        <li><a href="#/contact" data-page="contact"><span aria-hidden="true">📞 </span><span data-i18n="nav.contact">Liên hệ &amp; Hỗ trợ cộng đồng</span></a></li>
+        <li><a href="#/experiences" data-page="experiences"><span data-i18n="nav.experiences">Đặt vé Workshop &amp; Không gian trải nghiệm</span></a></li>
+        <li><a href="#/blog" data-page="blog"><span data-i18n="nav.blog">Câu chuyện Di sản &amp; Hữu nghị Việt - Lào</span></a></li>
+        <li><a href="#/about" data-page="about"><span data-i18n="nav.about">Về chúng tôi</span></a></li>
+        <li><a href="#/contact" data-page="contact"><span data-i18n="nav.contact">Liên hệ &amp; Hỗ trợ cộng đồng</span></a></li>
       </ul>
     </nav>
   </header>
@@ -6031,7 +6044,7 @@ function router(){
     case 'blog-post': main.innerHTML = renderBlogPost(route.sub); break;
     case 'about': main.innerHTML = renderAbout(); break;
     case 'business': main.innerHTML = renderBusiness(); break;
-    case 'contact': main.innerHTML = renderContact(); break;
+    case 'contact': main.innerHTML = renderContact(); applyMealKitOrderDraft(); break;
     case 'account': main.innerHTML = renderAccount(); attachAccountEvents(); break;
     default: main.innerHTML = renderHome(); attachHomeEvents();
   }
@@ -6065,7 +6078,6 @@ const MEAL_KIT_PRODUCTS={
   ],
   vietnam:[
     {name:'Nem rán truyền thống · Miến dong Bình Liêu',ingredients:'Thịt lợn băm, miến dong Bình Liêu, mộc nhĩ, nấm hương, bánh đa nem và nước chấm.',min:89000,max:119000,portion:'2–3',pack:'Bộ Meal Kit'},
-    {name:'Lẩu hải sản Vân Đồn · Bosa OCOP',ingredients:'Bề bề, tôm, mực, chả cá Hạ Long, miến dong và cốt lẩu thảo mộc.',min:199000,max:299000,portion:'3–4',pack:'Bộ Meal Kit'},
     {name:'Chả mực Hạ Long & Xôi nếp cái hoa vàng',ingredients:'Chả mực giã tay Hạ Long, gạo nếp cái hoa vàng Đông Triều và hành phi.',min:149000,max:189000,portion:'2–3',pack:'Bộ Meal Kit'},
     {name:'Khâu nhục Tiên Yên',ingredients:'Thịt ba chỉ, khoai môn, lá tàu xì, húng lìu, địa liền và rượu mật ong Tiên Yên.',min:129000,max:159000,portion:'3–4',pack:'Bát 500 g'},
     {name:'Gà Tiên Yên hấp Trà hoa vàng Ba Chẽ',ingredients:'Gà đồi Tiên Yên, hoa trà hoa vàng Ba Chẽ, lá chanh, sả và muối ớt xanh.',min:189000,max:249000,portion:'2–3',pack:'Bộ Meal Kit'},
@@ -6073,19 +6085,21 @@ const MEAL_KIT_PRODUCTS={
     {name:'Miến xào sá sùng Vân Đồn',ingredients:'Sá sùng khô Vân Đồn, miến dong Bình Liêu, thịt lợn, mộc nhĩ và rau củ.',min:159000,max:219000,portion:'2–3',pack:'Bộ Meal Kit'},
     {name:'Phở cối tráng tay Hà Cối',ingredients:'Bánh phở cối sấy dẻo, thịt bò hữu cơ và cốt nước dùng ninh quế hồi.',min:89000,max:119000,portion:'2',pack:'Combo 2 suất'},
     {name:'Nộm ngó sen hải sản Đầm Hà',ingredients:'Ngó sen Đầm Hà, tôm mực hấp, sốt trộn nộm chua ngọt và đậu phộng.',min:69000,max:89000,portion:'2–3',pack:'Bộ Meal Kit'},
-    {name:'Chè Trà hoa vàng & Thạch đen Bình Liêu',ingredients:'Thạch đen Bình Liêu, Trà hoa vàng Ba Chẽ, hạt sen và đường phèn.',min:59000,max:79000,portion:'3–4',pack:'Hộp 3–4 ly'}
+    {name:'Chè Trà hoa vàng & Thạch đen Bình Liêu',ingredients:'Thạch đen Bình Liêu, Trà hoa vàng Ba Chẽ, hạt sen và đường phèn.',min:59000,max:79000,portion:'3–4',pack:'Hộp 3–4 ly'},
+    {name:'Lẩu hải sản Vân Đồn · Bosa OCOP',ingredients:'Bề bề, tôm, mực, chả cá Hạ Long, miến dong và cốt lẩu thảo mộc.',min:199000,max:299000,portion:'3–4',pack:'Bộ Meal Kit'}
   ]
 };
 const MEAL_KIT_CATALOG_COPY={
-  vi:{price:'Giá dự kiến',servings:'Khẩu phần',people:'người',photoPending:'Ảnh sản phẩm sẽ được bổ sung',ingredients:'Thành phần',packaging:'Quy cách'},
-  lo:{price:'ລາຄາຄາດຄະເນ',servings:'ສຳລັບ',people:'ຄົນ',photoPending:'ຈະເພີ່ມຮູບສິນຄ້າພາຍຫຼັງ',ingredients:'ສ່ວນປະກອບ',packaging:'ຂະໜາດບັນຈຸ'},
-  en:{price:'Estimated price',servings:'Serves',people:'people',photoPending:'Product photo will be added',ingredients:'Ingredients',packaging:'Pack'},
-  th:{price:'ราคาโดยประมาณ',servings:'รับประทานได้',people:'คน',photoPending:'จะเพิ่มรูปสินค้าภายหลัง',ingredients:'ส่วนประกอบ',packaging:'รูปแบบบรรจุ'},
-  zh:{price:'参考价格',servings:'适合',people:'人',photoPending:'产品图片稍后补充',ingredients:'配料',packaging:'包装'}
+  vi:{price:'Giá dự kiến',servings:'Khẩu phần',people:'người',photoPending:'Ảnh sản phẩm sẽ được bổ sung',ingredients:'Thành phần',packaging:'Quy cách',orderRequest:'Xin chào, tôi muốn đặt mua {name}. Vui lòng xác nhận giá cuối cùng và tình trạng hàng.'},
+  lo:{price:'ລາຄາຄາດຄະເນ',servings:'ສຳລັບ',people:'ຄົນ',photoPending:'ຈະເພີ່ມຮູບສິນຄ້າພາຍຫຼັງ',ingredients:'ສ່ວນປະກອບ',packaging:'ຂະໜາດບັນຈຸ',orderRequest:'ສະບາຍດີ, ຂ້ອຍຕ້ອງການສັ່ງຊື້ {name}. ກະລຸນາຢືນຢັນລາຄາສຸດທ້າຍແລະສິນຄ້າຄົງເຫຼືອ.'},
+  en:{price:'Estimated price',servings:'Serves',people:'people',photoPending:'Product photo will be added',ingredients:'Ingredients',packaging:'Pack',orderRequest:'Hello, I would like to order {name}. Please confirm the final price and availability.'},
+  th:{price:'ราคาโดยประมาณ',servings:'รับประทานได้',people:'คน',photoPending:'จะเพิ่มรูปสินค้าภายหลัง',ingredients:'ส่วนประกอบ',packaging:'รูปแบบบรรจุ',orderRequest:'สวัสดีครับ/ค่ะ ต้องการสั่งซื้อ {name} กรุณายืนยันราคาสุทธิและสินค้าพร้อมจำหน่ายด้วยครับ/ค่ะ'},
+  zh:{price:'参考价格',servings:'适合',people:'人',photoPending:'产品图片稍后补充',ingredients:'配料',packaging:'包装',orderRequest:'您好，我想订购{name}。请确认最终价格和库存。'}
 };
+const MEAL_KIT_IMAGE_FILES={laos:['images/meal-kit/laos/1793032568106_1728900223195184786_g8178143565457135634_d7ecc525023603ab0bf1b9cb6ece4e1f.jpg','images/meal-kit/laos/1793032568138_1728900223195184786_g8178143565457135634_afef2489231795de2f3d53ff7cc8b5cc.jpg','images/meal-kit/laos/1793032568157_1728900223195184786_g8178143565457135634_28c9231619a36464dad7eae185d7bfa8.jpg','images/meal-kit/laos/1793032568172_1728900223195184786_g8178143565457135634_c26506d5a645688784574ffa98183931.jpg','images/meal-kit/laos/1793032568184_1728900223195184786_g8178143565457135634_39a25e3585796fca8224d64351caf27b.jpg','images/meal-kit/laos/1793032568197_1728900223195184786_g8178143565457135634_2b393d4fcaa75476c4254092ba96521f.jpg','images/meal-kit/laos/1793032568207_1728900223195184786_g8178143565457135634_2dd5c4768ebcbbf9ca8a5c3f31d4877e.jpg','images/meal-kit/laos/1793032568216_1728900223195184786_g8178143565457135634_93fc497680b780249796e7b33b2668fe.jpg','images/meal-kit/laos/1793032568225_1728900223195184786_g8178143565457135634_c86aeacb12f2a3eff393e8e39d95f55d.jpg','images/meal-kit/laos/1793032568232_1728900223195184786_g8178143565457135634_e3d0fd1869860da48251c1fdb0e21829.jpg'],vietnam:['images/meal-kit/vietnam/1793032568240_1728900223195184786_g8178143565457135634_e594a7a5c47397440f5615eaf786e397.jpg','images/meal-kit/vietnam/1793032568263_1728900223195184786_g8178143565457135634_2dd37c7cd96642d0de4e75d112d8f3ef.jpg','images/meal-kit/vietnam/1793032568271_1728900223195184786_g8178143565457135634_e5e65c98e47ddd1b5624477c37daa40e.jpg','images/meal-kit/vietnam/1793032568279_1728900223195184786_g8178143565457135634_6403e9475e99156d1692e940dd7eeb14.jpg','images/meal-kit/vietnam/1793032568286_1728900223195184786_g8178143565457135634_50c34aec87540119bad84c42b5bf1b47.jpg','images/meal-kit/vietnam/1793032568294_1728900223195184786_g8178143565457135634_4f6cfb31eb4cf2b6d7fa920bda21e68a.jpg','images/meal-kit/vietnam/1793032568302_1728900223195184786_g8178143565457135634_dd95b2e9c8257d5e9ba19d81c853dded.jpg','images/meal-kit/vietnam/1793032568309_1728900223195184786_g8178143565457135634_b973f106ef9f82412cb2fb0705c1417b.jpg','images/meal-kit/vietnam/1793032654615_1728900223195184786_g8178143565457135634_ddbd6c381d1fb0342b7567bb79cda6d2.jpg','images/meal-kit/vietnam/1793032568248_1728900223195184786_g8178143565457135634_37d60b31de0a84e1267645408d0ec099.jpg'],combos:['images/meal-kit/combos/1793032568317_1728900223195184786_g8178143565457135634_16fbb080849845e40ebdc15b7c275936.jpg','images/meal-kit/combos/1793032568325_1728900223195184786_g8178143565457135634_2cb663f76fbd64ec675b103548e6ae35.jpg','images/meal-kit/combos/1793032568332_1728900223195184786_g8178143565457135634_51955f0eed878b3edffa634a7dc10095.jpg','images/meal-kit/combos/1793032568340_1728900223195184786_g8178143565457135634_74f7000c5128c4e88ad451d7429617c1.jpg','images/meal-kit/combos/1793032568347_1728900223195184786_g8178143565457135634_01e9a2203e5871c98d50a02f8d6dc49a.jpg']};
 const MEAL_KIT_BUNDLES = [
-  {country:'lao',image:'assets/food-01.jpg',items:MEAL_KIT_PRODUCTS.lao.map(item=>({...item,video:''}))},
-  {country:'vietnam',image:'assets/food-02.jpg',items:MEAL_KIT_PRODUCTS.vietnam.map(item=>({...item,video:''}))}
+  {country:'lao',image:'assets/food-01.jpg',items:MEAL_KIT_PRODUCTS.lao.map((item,index)=>({...item,image:MEAL_KIT_IMAGE_FILES.laos[index],video:''}))},
+  {country:'vietnam',image:'assets/food-02.jpg',items:MEAL_KIT_PRODUCTS.vietnam.map((item,index)=>({...item,image:MEAL_KIT_IMAGE_FILES.vietnam[index],video:''}))}
 ];
 const MEAL_KIT_COMBOS = [
   {id:'combo-giao-thoa-di-san',name:'Combo Giao Thoa Di Sản',items:['Nem rán Miến dong Bình Liêu','Lạp Lào','Hũ Chéo Bông'],price:239000,saving:30000},
@@ -6093,7 +6107,7 @@ const MEAL_KIT_COMBOS = [
   {id:'combo-vi-ngon-quang-ninh',name:'Combo Vị Ngon Quảng Ninh',items:['Chả mực Hạ Long & Xôi nếp','Khâu nhục Tiên Yên','Chè Thạch đen'],price:319000,saving:35000},
   {id:'combo-tiec-hai-bo-mekong',name:'Combo Tiệc Hai Bờ Mekong',items:['Gà hấp Trà hoa vàng','Or Lam Luang Prabang','Miến xào sá sùng','Khai Pen'],price:589000,saving:60000},
   {id:'combo-an-vat-nang-dong',name:'Combo Ăn Vặt Năng Động',items:['Bún tôm bánh đa Hải Hà','Nộm đu đủ Tam Mak Hoong','Chè trà hoa vàng'],price:189000,saving:20000}
-];
+].map((combo,index)=>({...combo,image:MEAL_KIT_IMAGE_FILES.combos[index]}));
 const MEAL_KIT_COMBO_COPY={
   vi:{title:'Combo giao thoa Việt – Lào',intro:'Các món Meal Kit và đặc sản được kết hợp thành những set tiện lợi cho bữa ăn và dịp sum họp.',saving:'Tiết kiệm',photo:'Hình ảnh combo sẽ được bổ sung',order:'Liên hệ đặt combo',products:'Sản phẩm trong combo'},
   lo:{title:'ຄອມໂບອາຫານຫວຽດ–ລາວ',intro:'Meal Kit ແລະຂອງດີປະຈຳຖິ່ນທີ່ຈັດເປັນຊຸດສະດວກ ສຳລັບມື້ອາຫານແລະການພົບປະ.',saving:'ປະຢັດ',photo:'ຈະເພີ່ມຮູບພາບຄອມໂບພາຍຫຼັງ',order:'ຕິດຕໍ່ສັ່ງຄອມໂບ',products:'ສິນຄ້າໃນຄອມໂບ'},
@@ -6109,11 +6123,11 @@ const MEAL_KIT_COMBO_NAMES={
   zh:['文化遗产交融组合','友谊欢聚组合','广宁风味组合','湄公河两岸盛宴组合','活力小吃组合']
 };
 const MEAL_KIT_ACTIONS={
-  vi:{product:'Sản phẩm',slotInfo:'Hình ảnh và nội dung sẽ được bổ sung',watch:'Xem video',videoTitle:'Video trải nghiệm',videoPending:'Video thật sẽ được bổ sung khi nhận được nội dung.',details:'Thông tin bộ sản phẩm',detailsPending:'Giá và thông tin là dự kiến theo đề án; ảnh và video sẽ được bổ sung sau.',servings:'Khẩu phần',duration:'Thời gian',difficulty:'Độ khó',pending:'Sẽ cập nhật',qr:'Video công thức song ngữ Việt – Lào qua mã QR',close:'Đóng',viewProducts:'Xem sản phẩm'},
-  lo:{product:'ສິນຄ້າ',slotInfo:'ຮູບແລະເນື້ອຫາຈະເພີ່ມພາຍຫຼັງ',watch:'ເບິ່ງວິດີໂອ',videoTitle:'ວິດີໂອປະສົບການ',videoPending:'ຈະເພີ່ມວິດີໂອຈິງເມື່ອໄດ້ຮັບເນື້ອຫາ',details:'ຂໍ້ມູນຊຸດສິນຄ້າ',detailsPending:'ລາຄາແລະຂໍ້ມູນເປັນຂໍ້ສະເໜີເບື້ອງຕົ້ນ; ຮູບແລະວິດີໂອຈະເພີ່ມພາຍຫຼັງ',servings:'ຈຳນວນຄົນ',duration:'ເວລາ',difficulty:'ຄວາມຍາກ',pending:'ຈະອັບເດດ',qr:'ວິດີໂອສູດອາຫານສອງພາສາຫວຽດ–ລາວຜ່ານ QR',close:'ປິດ',viewProducts:'ເບິ່ງສິນຄ້າ'},
-  en:{product:'Product',slotInfo:'Photo and details will be added',watch:'Watch video',videoTitle:'Experience video',videoPending:'The actual video will be added when the content is provided.',details:'Kit details',detailsPending:'Prices and details are preliminary proposal values; photos and videos will be added later.',servings:'Servings',duration:'Time',difficulty:'Difficulty',pending:'Coming soon',qr:'Bilingual Vietnamese–Lao recipe video via QR',close:'Close',viewProducts:'View products'},
-  th:{product:'สินค้า',slotInfo:'จะเพิ่มรูปและรายละเอียดภายหลัง',watch:'ดูวิดีโอ',videoTitle:'วิดีโอประสบการณ์',videoPending:'จะเพิ่มวิดีโอจริงเมื่อได้รับเนื้อหาแล้ว',details:'รายละเอียดชุดสินค้า',detailsPending:'ราคาและข้อมูลเป็นข้อเสนอเบื้องต้น จะเพิ่มรูปภาพและวิดีโอภายหลัง',servings:'จำนวนที่รับประทาน',duration:'เวลา',difficulty:'ระดับความยาก',pending:'รออัปเดต',qr:'วิดีโอสูตรอาหารสองภาษาเวียดนาม–ลาวผ่าน QR',close:'ปิด',viewProducts:'ดูสินค้า'},
-  zh:{product:'产品',slotInfo:'图片和内容将在之后补充',watch:'观看视频',videoTitle:'体验视频',videoPending:'收到内容后将补充正式视频。',details:'套装详情',detailsPending:'价格和信息为方案中的预估内容，图片和视频稍后补充。',servings:'份量',duration:'时间',difficulty:'难度',pending:'即将更新',qr:'通过二维码观看越南语–老挝语双语食谱视频',close:'关闭',viewProducts:'查看产品'}
+  vi:{product:'Sản phẩm',slotInfo:'Hình ảnh và nội dung sẽ được bổ sung',watch:'Xem thử video 15s',order:'Đặt mua nhanh',videoTitle:'Video trải nghiệm',videoPending:'Video thật sẽ được bổ sung khi nhận được nội dung.',details:'Thông tin bộ sản phẩm',detailsPending:'Giá và thông tin là dự kiến theo đề án; ảnh và video sẽ được bổ sung sau.',servings:'Khẩu phần',duration:'Thời gian',difficulty:'Độ khó',pending:'Sẽ cập nhật',qr:'Video công thức song ngữ Việt – Lào qua mã QR',close:'Đóng',viewProducts:'Xem sản phẩm'},
+  lo:{product:'ສິນຄ້າ',slotInfo:'ຮູບແລະເນື້ອຫາຈະເພີ່ມພາຍຫຼັງ',watch:'ເບິ່ງວິດີໂອ 15 ວິນາທີ',order:'ສັ່ງຊື້ດ່ວນ',videoTitle:'ວິດີໂອປະສົບການ',videoPending:'ຈະເພີ່ມວິດີໂອຈິງເມື່ອໄດ້ຮັບເນື້ອຫາ',details:'ຂໍ້ມູນຊຸດສິນຄ້າ',detailsPending:'ລາຄາແລະຂໍ້ມູນເປັນຂໍ້ສະເໜີເບື້ອງຕົ້ນ; ຮູບແລະວິດີໂອຈະເພີ່ມພາຍຫຼັງ',servings:'ຈຳນວນຄົນ',duration:'ເວລາ',difficulty:'ຄວາມຍາກ',pending:'ຈະອັບເດດ',qr:'ວິດີໂອສູດອາຫານສອງພາສາຫວຽດ–ລາວຜ່ານ QR',close:'ປິດ',viewProducts:'ເບິ່ງສິນຄ້າ'},
+  en:{product:'Product',slotInfo:'Photo and details will be added',watch:'Preview 15s video',order:'Quick order',videoTitle:'Experience video',videoPending:'The actual video will be added when the content is provided.',details:'Kit details',detailsPending:'Prices and details are preliminary proposal values; photos and videos will be added later.',servings:'Servings',duration:'Time',difficulty:'Difficulty',pending:'Coming soon',qr:'Bilingual Vietnamese–Lao recipe video via QR',close:'Close',viewProducts:'View products'},
+  th:{product:'สินค้า',slotInfo:'จะเพิ่มรูปและรายละเอียดภายหลัง',watch:'ดูตัวอย่าง 15 วินาที',order:'สั่งซื้อทันที',videoTitle:'วิดีโอประสบการณ์',videoPending:'จะเพิ่มวิดีโอจริงเมื่อได้รับเนื้อหาแล้ว',details:'รายละเอียดชุดสินค้า',detailsPending:'ราคาและข้อมูลเป็นข้อเสนอเบื้องต้น จะเพิ่มรูปภาพและวิดีโอภายหลัง',servings:'จำนวนที่รับประทาน',duration:'เวลา',difficulty:'ระดับความยาก',pending:'รออัปเดต',qr:'วิดีโอสูตรอาหารสองภาษาเวียดนาม–ลาวผ่าน QR',close:'ปิด',viewProducts:'ดูสินค้า'},
+  zh:{product:'产品',slotInfo:'图片和内容将在之后补充',watch:'预览15秒视频',order:'快速订购',videoTitle:'体验视频',videoPending:'收到内容后将补充正式视频。',details:'套装详情',detailsPending:'价格和信息为方案中的预估内容，图片和视频稍后补充。',servings:'份量',duration:'时间',difficulty:'难度',pending:'即将更新',qr:'通过二维码观看越南语–老挝语双语食谱视频',close:'关闭',viewProducts:'查看产品'}
 };
 const MEAL_KIT_VIDEO_SOURCES={lao:Array(10).fill(''),vietnam:Array(10).fill('')};
 function renderMealKits(){
@@ -6122,20 +6136,39 @@ function renderMealKits(){
   const kitName=country=>country==='lao'?c.laoKit:c.vnKit;
   const kitDesc=country=>country==='lao'?c.laoDesc:c.vnDesc;
   const d=MEAL_KIT_CATALOG_COPY[CURRENT_LANG]||MEAL_KIT_CATALOG_COPY.en;
-  const productCards=kit=>kit.items.map((item,index)=>`<article class="meal-kit-product-card"><div class="meal-kit-product-placeholder"><span class="meal-kit-slot-country">${kit.country==='lao'?'🇱🇦':'🇻🇳'}</span><span class="meal-kit-slot-number">${String(index+1).padStart(2,'0')} / 10</span><span class="meal-kit-slot-icon" aria-hidden="true">🥣</span><small>${d.photoPending}</small></div><div class="meal-kit-product-copy"><strong class="meal-kit-product-name">${item.name}</strong><p>${item.portion?`${d.servings} ${item.portion} ${d.people}`:item.pack}</p><b class="meal-kit-product-price">${fmtPrice(item.min)} – ${fmtPrice(item.max)}</b><small class="meal-kit-product-price-note">${d.price}</small><button type="button" class="meal-kit-watch-button" onclick="openMealKitVideo('${kit.country}',${index})">▶ ${a.watch}</button></div></article>`).join('');
+  const productCards=kit=>kit.items.map((item,index)=>`<article class="meal-kit-product-card"><div class="meal-kit-product-placeholder"><img class="meal-kit-product-photo" src="${item.image}" alt="${item.name}" loading="lazy"/><span class="meal-kit-slot-country">${kit.country==='lao'?'🇱🇦':'🇻🇳'}</span><span class="meal-kit-slot-number">${String(index+1).padStart(2,'0')} / 10</span><span class="meal-kit-slot-icon" aria-hidden="true" hidden>🥣</span></div><div class="meal-kit-product-copy"><strong class="meal-kit-product-name">${item.name}</strong><p>${item.portion?`${d.servings} ${item.portion} ${d.people}`:item.pack}</p><b class="meal-kit-product-price">${fmtPrice(item.min)} – ${fmtPrice(item.max)}</b><small class="meal-kit-product-price-note">${d.price}</small><div class="meal-kit-card-actions"><button type="button" class="meal-kit-watch-button" onclick="openMealKitVideo('${kit.country}',${index})">▶ ${a.watch}</button><button type="button" class="meal-kit-order-button" onclick="requestMealKitOrder('${kit.country}',${index})">${a.order}</button></div></div></article>`).join('');
   const comboText=MEAL_KIT_COMBO_COPY[CURRENT_LANG]||MEAL_KIT_COMBO_COPY.en;
-  const comboCards=MEAL_KIT_COMBOS.map((combo,index)=>`<article class="meal-kit-combo-card"><div class="meal-kit-combo-photo"><span class="meal-kit-combo-flags" aria-hidden="true">🇻🇳 · 🇱🇦</span><span class="meal-kit-combo-number">COMBO ${String(index+1).padStart(2,'0')}</span><div class="meal-kit-combo-mark" aria-hidden="true">✦</div><small>${comboText.photo}</small></div><div class="meal-kit-combo-body"><h3>${(MEAL_KIT_COMBO_NAMES[CURRENT_LANG]||MEAL_KIT_COMBO_NAMES.vi)[index]||combo.name}</h3><h4>${comboText.products}</h4><ul>${combo.items.map(item=>`<li>${item}</li>`).join('')}</ul><div class="meal-kit-combo-pricing"><strong>${fmtPrice(combo.price)}</strong><span>${comboText.saving} ${fmtPrice(combo.saving)}</span></div><a class="meal-kit-combo-order" href="#/contact">${comboText.order} →</a></div></article>`).join('');
+  const comboCards=MEAL_KIT_COMBOS.map((combo,index)=>`<article class="meal-kit-combo-card"><div class="meal-kit-combo-photo"><img src="${combo.image}" alt="${combo.name}" loading="lazy"/><span class="meal-kit-combo-flags" aria-hidden="true">🇻🇳 · 🇱🇦</span><span class="meal-kit-combo-number">COMBO ${String(index+1).padStart(2,'0')}</span><div class="meal-kit-combo-mark" aria-hidden="true">✦</div></div><div class="meal-kit-combo-body"><h3>${(MEAL_KIT_COMBO_NAMES[CURRENT_LANG]||MEAL_KIT_COMBO_NAMES.vi)[index]||combo.name}</h3><h4>${comboText.products}</h4><ul>${combo.items.map(item=>`<li>${item}</li>`).join('')}</ul><div class="meal-kit-combo-pricing"><strong>${fmtPrice(combo.price)}</strong><span>${comboText.saving} ${fmtPrice(combo.saving)}</span></div><a class="meal-kit-combo-order" href="#/contact">${comboText.order} →</a></div></article>`).join('');
   return `<div class="meal-kit-page">
-    <section class="meal-kit-hero"><div class="container meal-kit-hero-grid"><div class="meal-kit-hero-copy"><div class="meal-kit-eyebrow">${c.eyebrow}</div><h1>${c.title}</h1><p>${c.intro}</p><button type="button" class="btn btn-gold" onclick="document.getElementById('mealKitCollection').scrollIntoView({behavior:'smooth'})">${c.cta} <span aria-hidden="true">↓</span></button></div><div class="meal-kit-hero-image"><img src="assets/food-06.jpg" alt="Lotus & Champa Meal Kit ingredients and Vietnamese–Lao food" loading="eager"/><span class="meal-kit-hero-stamp">🇻🇳 · 🇱🇦</span></div></div></section>
+    <section class="meal-kit-hero"><span class="meal-kit-ornament meal-kit-ornament-left-top" aria-hidden="true"></span><span class="meal-kit-ornament meal-kit-ornament-right-top" aria-hidden="true"></span><div class="container meal-kit-hero-grid"><div class="meal-kit-hero-copy"><div class="meal-kit-eyebrow">${c.eyebrow}</div><h1>${c.title}</h1><p>${c.intro}</p><button type="button" class="btn btn-gold" onclick="document.getElementById('mealKitCollection').scrollIntoView({behavior:'smooth'})">${c.cta} <span aria-hidden="true">↓</span></button></div><div class="meal-kit-hero-image"><img src="assets/food-06.jpg" alt="Lotus & Champa Meal Kit ingredients and Vietnamese–Lao food" loading="eager"/><span class="meal-kit-hero-stamp">🇻🇳 · 🇱🇦</span></div></div></section>
     <section class="meal-kit-steps"><div class="container"><header class="meal-kit-section-heading"><span class="meal-kit-eyebrow">LOTUS & CHAMPA</span><h2>${c.stepsTitle}</h2><p>${c.stepsIntro}</p></header><div class="meal-kit-step-grid">
       <article class="meal-kit-step"><div class="meal-kit-step-image"><img src="assets/food-01.jpg" alt="Meal kit ingredients ready to open" loading="lazy"/><span class="meal-kit-step-number">01</span></div><div class="meal-kit-step-copy"><h3>${c.stepOpen}</h3><p>${c.stepOpenText}</p><span class="meal-kit-step-icon" aria-hidden="true">📦</span></div></article>
       <article class="meal-kit-step"><div class="meal-kit-qr-panel"><span class="meal-kit-step-number">02</span><div class="meal-kit-qr-mark" aria-hidden="true"><span>▦</span><b>QR</b></div><small>VI · LO</small></div><div class="meal-kit-step-copy"><h3>${c.stepScan}</h3><p>${c.stepScanText}</p><span class="meal-kit-step-icon" aria-hidden="true">📱</span></div></article>
       <article class="meal-kit-step"><div class="meal-kit-step-image"><img src="assets/food-03.jpg" alt="Vietnamese and Lao food ready to serve" loading="lazy"/><span class="meal-kit-step-number">03</span><span class="meal-kit-video-badge" aria-hidden="true">▶</span></div><div class="meal-kit-step-copy"><h3>${c.stepCook}</h3><p>${c.stepCookText}</p><span class="meal-kit-step-icon" aria-hidden="true">🍲</span></div></article>
     </div></div></section>
-    <section class="meal-kit-collection" id="mealKitCollection"><div class="container"><header class="meal-kit-section-heading"><span class="meal-kit-eyebrow">LOTUS & CHAMPA · 2 SETS</span><h2>${c.kitsTitle}</h2><p>${c.kitsIntro}</p></header>${MEAL_KIT_BUNDLES.map(kit=>`<section class="meal-kit-set"><header class="meal-kit-set-heading"><div><span class="meal-kit-country">${kit.country==='lao'?'🇱🇦 LAO':'🇻🇳 VIỆT NAM'}</span><h3>${kitName(kit.country)}</h3><p>${kitDesc(kit.country)}</p></div><span class="meal-kit-bundle-count">${c.count}</span></header><div class="meal-kit-product-grid">${productCards(kit)}</div><div class="meal-kit-set-footer"><span>🥬 ${c.ingredients} · 📖 ${c.recipes} · ▦ ${c.qrVideo}</span><a href="#/products?country=${kit.country}" class="meal-kit-catalog-link">${c.viewProducts} →</a></div></section>`).join('')}</div></section>
+    <section class="meal-kit-collection" id="mealKitCollection">
+      <span class="meal-kit-ornament meal-kit-ornament-left-bottom" aria-hidden="true"></span><span class="meal-kit-ornament meal-kit-ornament-right-bottom" aria-hidden="true"></span>
+      <div class="container"><header class="meal-kit-section-heading"><span class="meal-kit-eyebrow">LOTUS & CHAMPA · 2 SETS</span><h2>${c.kitsTitle}</h2><p>${c.kitsIntro}</p></header>${MEAL_KIT_BUNDLES.map(kit=>`<section class="meal-kit-set"><header class="meal-kit-set-heading"><div><span class="meal-kit-country">${kit.country==='lao'?'🇱🇦 LAO':'🇻🇳 VIỆT NAM'}</span><h3>${kitName(kit.country)}</h3><p>${kitDesc(kit.country)}</p></div><span class="meal-kit-bundle-count">${c.count}</span></header><div class="meal-kit-product-grid">${productCards(kit)}</div><div class="meal-kit-set-footer"><span>🥬 ${c.ingredients} · 📖 ${c.recipes} · ▦ ${c.qrVideo}</span><a href="#/products?country=${kit.country}" class="meal-kit-catalog-link">${c.viewProducts} →</a></div></section>`).join('')}</div></section>
     <section class="meal-kit-combo-section"><div class="container"><header class="meal-kit-section-heading"><span class="meal-kit-eyebrow">LOTUS & CHAMPA · COMBO</span><h2>${comboText.title}</h2><p>${comboText.intro}</p></header><div class="meal-kit-combo-grid">${comboCards}</div></div></section>
     <div class="meal-kit-modal" id="mealKitVideoModal" hidden onclick="if(event.target===this)closeMealKitVideo()"><section class="meal-kit-modal-panel" role="dialog" aria-modal="true" aria-labelledby="mealKitModalTitle"><header class="meal-kit-modal-header"><h2 id="mealKitModalTitle">${a.videoTitle}</h2><button type="button" class="meal-kit-modal-close" onclick="closeMealKitVideo()" aria-label="${a.close}">×</button></header><div class="meal-kit-modal-content"><div class="meal-kit-modal-player" id="mealKitModalPlayer"></div><aside class="meal-kit-modal-details"><span class="meal-kit-country" id="mealKitModalCountry"></span><h3 id="mealKitModalProduct"></h3><p><strong>${d.ingredients}:</strong> <span id="mealKitModalDescription"></span></p><h4>${a.details}</h4><p>${a.detailsPending}</p><dl><div><dt>${a.servings}</dt><dd id="mealKitModalServings">${a.pending}</dd></div><div><dt>${d.price}</dt><dd id="mealKitModalPrice">${a.pending}</dd></div><div><dt>${d.packaging}</dt><dd id="mealKitModalPackaging">${a.pending}</dd></div></dl><div class="meal-kit-modal-qr"><span aria-hidden="true">▦</span><p>${a.qr}</p></div><a id="mealKitModalCatalogLink" class="btn btn-gold" onclick="closeMealKitVideo()" href="#/products">${a.viewProducts}</a></aside></div></section></div>
   </div>`;
+}
+function requestMealKitOrder(country,index){
+  const kit=MEAL_KIT_BUNDLES.find(item=>item.country===country);
+  if(!kit||!kit.items[index]) return;
+  const item=kit.items[index];
+  const d=MEAL_KIT_CATALOG_COPY[CURRENT_LANG]||MEAL_KIT_CATALOG_COPY.en;
+  const message=d.orderRequest.replace('{name}',item.name);
+  Store.set('mealKitOrderDraft',{subject:'product',message});
+  navigate('contact');
+}
+function applyMealKitOrderDraft(){
+  const draft=Store.get('mealKitOrderDraft',null);
+  if(!draft) return;
+  const subject=document.getElementById('contactSubject');
+  const message=document.getElementById('contactMessage');
+  if(subject&&message){subject.value=draft.subject||'product';message.value=draft.message||'';}
+  Store.remove('mealKitOrderDraft');
 }
 function openMealKitVideo(country,index){
   const c=MEAL_KIT_COPY[CURRENT_LANG]||MEAL_KIT_COPY.en;
@@ -6145,7 +6178,7 @@ function openMealKitVideo(country,index){
   const item=kit.items[index];
   const title=item.name;
   const source=MEAL_KIT_VIDEO_SOURCES[country]?.[index];
-  const poster=kit.image;
+  const poster=item.image||kit.image;
   const player=source?`<video controls autoplay playsinline preload="metadata" poster="${poster}"><source src="${source}" type="video/mp4"></video>`:`<div class="meal-kit-video-waiting"><img src="${poster}" alt=""/><span class="meal-kit-preview-play" aria-hidden="true">▶</span><p>${a.videoPending}</p></div>`;
   document.getElementById('mealKitModalTitle').textContent=a.videoTitle;
   document.getElementById('mealKitModalCountry').textContent=country==='lao'?'🇱🇦 LAO':'🇻🇳 VIỆT NAM';
@@ -8888,17 +8921,17 @@ function toggleMobileCatalog(){
 }
 function buildMobileMenu(){
   const navItems = [
-    { href:'#/', i18n:'nav.home', icon:'🏠' },
-    { href:'#/meal-kit', i18n:'nav.mealkit', icon:'🎁' },
-    { href:'#/experiences', i18n:'nav.experiences', icon:'🎟️' },
-    { href:'#/blog', i18n:'nav.blog', icon:'📖' },
-    { href:'#/about', i18n:'nav.about', icon:'📍' },
-    { href:'#/contact', i18n:'nav.contact', icon:'📞' },
-    { href:'#/cart', i18n:'nav.cart', icon:'🛒' },
-    { href:'#/account', i18n:'nav.account', icon:'👤' }
+    { href:'#/', i18n:'nav.home' },
+    { href:'#/meal-kit', i18n:'nav.mealkit' },
+    { href:'#/experiences', i18n:'nav.experiences' },
+    { href:'#/blog', i18n:'nav.blog' },
+    { href:'#/about', i18n:'nav.about' },
+    { href:'#/contact', i18n:'nav.contact' },
+    { href:'#/cart', i18n:'nav.cart' },
+    { href:'#/account', i18n:'nav.account' }
   ];
-  const link=n=>`<a href="${n.href}" onclick="toggleMobileMenu()">${n.icon} <span>${t(n.i18n)}</span></a>`;
-  const catalog=`<button id="mobileCatalogToggle" class="mobile-nav-toggle" type="button" aria-expanded="false" onclick="toggleMobileCatalog()"><span>🇻🇳🇱🇦 ${t('nav.catalog')}</span><span aria-hidden="true">▾</span></button><div class="mobile-nav-submenu" id="mobileCatalogSubmenu"><a href="#/products?country=lao" onclick="toggleMobileMenu()">✦ ${t('nav.lao')}</a><a href="#/products?country=vietnam" onclick="toggleMobileMenu()">✦ ${t('nav.vn')}</a></div>`;
+  const link=n=>`<a href="${n.href}" onclick="toggleMobileMenu()"><span>${t(n.i18n)}</span></a>`;
+  const catalog=`<button id="mobileCatalogToggle" class="mobile-nav-toggle" type="button" aria-expanded="false" onclick="toggleMobileCatalog()"><span>${t('nav.catalog')}</span><span aria-hidden="true">▾</span></button><div class="mobile-nav-submenu" id="mobileCatalogSubmenu"><a href="#/products?country=lao" onclick="toggleMobileMenu()">${t('nav.lao')}</a><a href="#/products?country=vietnam" onclick="toggleMobileMenu()">${t('nav.vn')}</a></div>`;
   document.getElementById('mobileNav').innerHTML = `${navItems.slice(0,2).map(link).join('')}${catalog}${navItems.slice(2).map(link).join('')}`;
   document.getElementById('langMobile').innerHTML = Object.keys(LANG_FLAGS).map(l=>
     `<button onclick="setLang('${l}');toggleMobileMenu()" class="${l===CURRENT_LANG?'active':''}">${LANG_FLAGS[l]} ${LANG_LABELS[l]}</button>`
