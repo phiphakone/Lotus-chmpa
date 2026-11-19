@@ -795,3 +795,7 @@ html.lc-snap footer.lc-page{scroll-snap-align:end;min-height:0}
 .icon-action .lci{width:18px;height:18px}
 
 @media(max-width:420px){.stat-card .v{font-size:20px}.stat-card .l{font-size:13px}.stat-card .ico{width:34px;height:34px}}
+
+/* gallery big photo on phones/tablets: the tile is wide and short, so frame the people, not the wall */
+@media(max-width:900px){.lc-tile--0 img{height:100%;object-position:50% 72%}}
+@media(max-width:900px){.lc-tile--0 img{object-position:50% 40%;transform:scale(1.22);transform-origin:50% 30%}.lc-tile--0:hover img{transform:scale(1.22)}}
