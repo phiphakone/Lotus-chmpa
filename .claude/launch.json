@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lotus-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["preview.cjs"],
+      "port": 4173
+    }
+  ]
+}

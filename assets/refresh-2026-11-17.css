@@ -1,0 +1,797 @@
+/* Refresh 17-11-2026 — "Two shores of the Mekong" layer.
+   Palette is taken from the brand's own symbols, not a generic warm-cream/terracotta kit:
+   forest ink (brand green) · Ha Long jade · champa gold (Laos) · lotus pink (Vietnam) · Mekong silt.
+   Loaded last. Visual only; delete this file + its <link> to roll back. */
+
+:root{
+  --ink-forest:#173f35;          /* primary, white on it ≈ 11:1 */
+  --ink-forest-deep:#0f2c25;
+  --jade:#2f6b5e;
+  --mist:#f2f5f0;                /* page background: Ha Long morning mist */
+  --mist-deep:#e3ebe4;
+  --champa:#d9a521;
+  --champa-tint:#fbf3dc;
+  --lotus:#b8436a;
+  --lotus-tint:#f9ebef;
+  --river:#b4884a;               /* Mekong silt */
+  --bg:var(--mist);
+  --cream:#f8faf6;
+}
+body{background:var(--bg)}
+body::after{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .15 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.site-header{background:#f8faf6f0;backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px)}
+
+/* ---------- Top menu: short labels, one calm row ---------- */
+@media(min-width:1025px){
+  .header-top{padding:8px 32px}
+  .main-nav{border-top:1px solid #e3ebe4}
+  .nav-list{flex-wrap:nowrap;justify-content:center;gap:4px;padding-block:2px}
+  .nav-list a,.nav-dropdown-toggle{font-size:14px;padding:0 16px;min-height:44px;color:var(--ink-soft);border-radius:999px;position:relative}
+  .nav-list a:hover,.nav-dropdown-toggle:hover{background:var(--mist-deep);color:var(--ink-forest)}
+  .nav-list a.active,.nav-dropdown.active>.nav-dropdown-toggle{color:var(--ink-forest);font-weight:600;box-shadow:none}
+  .nav-list a.active::after,.nav-dropdown.active>.nav-dropdown-toggle::after{content:"";position:absolute;left:50%;bottom:5px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--champa)}
+  .nav-submenu{border-radius:14px;border:1px solid #e3ebe4;box-shadow:0 18px 40px #173f351f}
+}
+.nav-list a:focus-visible,.nav-dropdown-toggle:focus-visible{outline:3px solid var(--champa);outline-offset:2px}
+
+/* Buttons: forest ink primary, explicit transitions (no `transition:all`) */
+.btn{transition:background-color .2s ease,color .2s ease,box-shadow .2s ease,transform .2s ease,border-color .2s ease;text-decoration:none}
+.btn-gold{background:var(--ink-forest);color:#fff;box-shadow:0 8px 20px #173f3524}
+.btn-gold:hover{background:var(--ink-forest-deep);box-shadow:0 12px 26px #173f3533;transform:translateY(-1px)}
+.btn:focus-visible,.culture-collection-link:focus-visible,.section-link:focus-visible{outline:3px solid var(--champa);outline-offset:3px}
+.btn-ghost{border-color:#a9bcb0;color:var(--ink-forest);background:#ffffff8c}
+.btn-ghost:hover{background:var(--mist-deep);color:var(--ink-forest)}
+
+/* Headline: one voice, no single-word colour accent */
+.hero-title .accent{color:inherit;font-style:normal;font-weight:inherit}
+.hero-eyebrow .pulse{background:var(--champa)}
+
+/* Small labels: sentence case instead of tracked-out caps */
+.hero-eyebrow,.section-eyebrow,.hero-stat .lbl{text-transform:none;letter-spacing:.01em}
+.hero-eyebrow{font-size:13px;color:var(--jade)}
+.section-eyebrow{font-size:13px;color:var(--jade)}
+.section-title,.hero-title,.dual-side .flower{text-wrap:balance}
+.hero-stat .num{font-variant-numeric:tabular-nums;color:var(--ink-forest)}
+.hero-stat .lbl{font-size:12px}
+
+.hero{
+  padding:56px 0 64px;
+  background:
+    radial-gradient(ellipse 55% 70% at 90% 25%,#f6d3dd59 0%,transparent 70%),
+    radial-gradient(ellipse 50% 60% at 60% 90%,#f4dc9e4d 0%,transparent 70%),
+    linear-gradient(180deg,var(--cream) 0%,var(--bg) 100%);
+}
+.hero-title{letter-spacing:-.015em;margin-bottom:22px}
+.hero-sub{font-size:16.5px}
+
+/* ---------- Hero visual: two-country illustration (Laos | Vietnam) ---------- */
+@media(min-width:1025px){.hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+.hero-title{font-size:clamp(34px,3.2vw,46px);line-height:1.15}
+.hero-title span{white-space:nowrap}
+.hero-visual--duo{height:auto;aspect-ratio:600/560;max-height:540px;display:grid;place-items:center}
+.hero-duo{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 22px 40px #3b2a1a1f)}
+.hero-duo text{font-family:var(--f-body)}
+/* One short orchestrated moment on load, then still (no endless loops) */
+.duo-river{animation:duoFlow 4s linear 1}
+.duo-lotus{animation:duoFloat 2.4s ease-in-out 2;transform-box:fill-box;transform-origin:center}
+.duo-lotus--2{animation-delay:.6s}
+.duo-boat{animation:duoBob 4s ease-in-out 1}
+@keyframes duoFlow{to{stroke-dashoffset:-120}}
+@keyframes duoFloat{50%{translate:0 -4px}}
+@keyframes duoBob{50%{translate:6px -2px}}
+@media(prefers-reduced-motion:reduce){.duo-river,.duo-lotus,.duo-boat{animation:none}}
+
+/* ---------- Country shelves: elephant (Laos) and Ha Long karsts (Vietnam) as quiet watermarks ---------- */
+.home-shelf--lao,.home-shelf--vietnam{position:relative;overflow:hidden}
+.home-shelf--lao>.container,.home-shelf--vietnam>.container{position:relative;z-index:1}
+.home-shelf--lao::after,.home-shelf--vietnam::after{content:"";position:absolute;top:18px;right:max(16px,calc(50% - 640px));width:260px;height:190px;pointer-events:none;background-repeat:no-repeat;background-position:right top;background-size:contain;opacity:.1}
+.home-shelf--lao::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='50 290 235 185'%3E%3Cpath fill='%23173f35' d='M78 470V408c-14-16-16-56 8-78 26-24 90-30 120-16 16-16 46-16 58 6 10 20 6 44-2 62-4 22 0 50 12 68 4 10-6 16-14 8-14-16-18-44-17-64-6 4-12 6-17 4v72h-20v-46c-26 8-66 8-86 0v46h-20v-40c-6-2-10-4-14-8v48Z'/%3E%3C/svg%3E")}
+.home-shelf--vietnam{background:linear-gradient(180deg,#e6efe8,transparent 340px)}
+.home-shelf--vietnam::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='310 230 270 160'%3E%3Cpath fill='%232f6b5e' d='M310 330c18-80 40-96 58-30 10-60 30-96 54-10 14-60 46-70 64 10 14-40 40-50 56 10 12-36 24-30 28-10v80H310Z'/%3E%3Cpath fill='%23173f35' d='M310 372c14-58 34-70 48-12 10-46 32-70 46 4 16-52 40-40 50 10 14-34 34-36 46 6 10-30 26-26 30-6v50H310Z'/%3E%3C/svg%3E");opacity:.12}
+.home-shelf--vietnam .section-eyebrow{color:#8f2f52}
+/* Brand showcase first: on the homepage, cards stay browsable but the buy buttons step back */
+.home-shelf .product-actions{display:none}
+.home-shelf .product-card{border-color:#dfe6df;box-shadow:none}
+@media(max-width:700px){.home-shelf--lao::after,.home-shelf--vietnam::after{display:none}}
+
+/* ---------- Announcement bar: brand page, no shipping promo strip ---------- */
+.announce{display:none}
+
+/* ---------- Gallery: magazine mosaic of real team photos ---------- */
+.home-gallery-section{padding:72px 0}
+.lc-mosaic-head{max-width:620px;margin-bottom:28px}
+.lc-mosaic-head p{color:var(--ink-soft);margin-top:8px;line-height:1.75}
+.lc-mosaic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:240px 240px;gap:14px;
+  grid-template-areas:"a a b c" "a a d c"}
+.lc-tile{position:relative;overflow:hidden;border:0;padding:0;border-radius:18px;cursor:zoom-in;background:var(--mist-deep)}
+.lc-tile--0{grid-area:a}.lc-tile--1{grid-area:b}.lc-tile--2{grid-area:c}.lc-tile--3{grid-area:d}
+.lc-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.lc-tile--0 img{height:122%;object-position:center top} /* crop the camera-watermark strip at the bottom */
+.lc-tile span{position:absolute;left:12px;bottom:12px;padding:6px 12px;border-radius:999px;background:#0f2c25b3;color:#fff;font-size:13px;opacity:0;transform:translateY(4px);transition:opacity .25s ease,transform .25s ease}
+.lc-tile:hover img{transform:scale(1.04)}
+.lc-tile:hover span,.lc-tile:focus-visible span{opacity:1;transform:none}
+.lc-tile:focus-visible{outline:3px solid var(--champa);outline-offset:3px}
+
+/* ---------- Roadmap: coded journey along a river line (was a text-heavy poster) ---------- */
+.lc-journey{padding:80px 0 88px;background:linear-gradient(180deg,transparent,#e6efe8 30%,#e6efe8 70%,transparent)}
+.lc-journey-head{max-width:620px;margin-bottom:44px}
+.lc-journey-head p{color:var(--ink-soft);margin-top:8px;line-height:1.75}
+.lc-journey-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;position:relative}
+.lc-journey-steps::before{content:"";position:absolute;left:22px;right:22px;top:21px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--river) 0 10px,transparent 10px 18px)}
+.lc-stop{position:relative}
+.lc-stop-dot{position:relative;z-index:1;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
+  background:var(--ink-forest);color:#fff;font-weight:700;font-variant-numeric:tabular-nums;box-shadow:0 0 0 6px var(--mist)}
+.lc-stop:first-child .lc-stop-dot{background:var(--champa);color:var(--ink-forest)}
+.lc-stop:last-child .lc-stop-dot{background:var(--lotus)}
+.lc-stop h3{font-family:var(--f-display);font-size:22px;color:var(--ink-forest);margin:18px 0 6px}
+.lc-stop p{color:var(--ink-soft);font-size:15px;line-height:1.7;max-width:30ch}
+/* Map + vertical steps */
+.lc-journey-body{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr);gap:56px;align-items:center}
+.lc-map{max-width:500px;width:100%;justify-self:center}
+.lc-map-svg{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 36px #173f351a)}
+/* Accurate map (Natural Earth 1:10m) */
+.lcm-sea{fill:#d6e8e2}
+.lcm-frame{fill:none;stroke:#c3d6cd;stroke-width:1}
+.lcm-land{fill:#eef1ea;stroke:#c5cfc6;stroke-width:.8;stroke-linejoin:round}
+.lcm-la{fill:#f6e4b0;stroke:#c99a2e;stroke-width:1.1;stroke-linejoin:round}
+.lcm-vn{fill:#fbe1ea;stroke:#b8436a;stroke-width:1.1;stroke-linejoin:round}
+.lcm-river{fill:none;stroke:#3f8d98;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.lcm-river--red{stroke-width:1.1;opacity:.75}
+.lcm-isl circle{fill:#b8436a}
+.lcm-karst{fill:none;stroke:#2f6b5e;stroke-width:1.5;stroke-linecap:round}
+.lcm-link{fill:none;stroke:#b4884a;stroke-width:1.3;stroke-dasharray:2 5;stroke-linecap:round}
+.lcm-route{fill:none;stroke:var(--ink-forest);stroke-width:2.2;stroke-dasharray:6 6;stroke-linecap:round}
+.lcm-route--out{stroke:#b8436a}
+.lcm-pin circle{fill:var(--ink-forest);stroke:#fff;stroke-width:3}
+.lcm-pin text{fill:#fff;font:700 12px var(--f-body)}
+.lcm-pin--start circle{fill:var(--champa)}
+.lcm-pin--start text{fill:var(--ink-forest)}
+.lcm-pin--end circle{fill:var(--lotus)}
+.lcm-city{fill:#fff;stroke:#5b5b4e;stroke-width:1.4}
+.lcm-cap{fill:#b4884a;stroke:#fff;stroke-width:1.2}
+.lcm-pin-label,.lcm-city-label,.lcm-country,.lcm-n,.lcm-isl-label,.lcm-river-label,.lcm-water,.lcm-sea-label{paint-order:stroke;stroke-linejoin:round}
+.lcm-pin-label{font:700 13.5px var(--f-body);fill:var(--ink-forest);stroke:#ffffffd9;stroke-width:4px}
+.lcm-city-label{font:500 11px var(--f-body);fill:#4a5249;stroke:#ffffffcc;stroke-width:3px}
+.lcm-country{font:700 17px var(--f-display);letter-spacing:.06em;stroke:#ffffffb3;stroke-width:3px}
+.lcm-country--la{fill:#7d5a10}
+.lcm-country--vn{fill:#8f2f52}
+.lcm-n{font:500 11.5px var(--f-body);fill:#8a948b;letter-spacing:.04em;stroke:#eef1ea;stroke-width:3px}
+.lcm-sea-label{font:italic 600 16px var(--f-display);fill:#2f6b5e;letter-spacing:.14em;stroke:#d6e8e2;stroke-width:3px}
+.lcm-water{font:italic 11px var(--f-display);fill:#2f6b5e;stroke:#d6e8e2;stroke-width:3px}
+.lcm-isl-label{font:600 11px var(--f-body);fill:#8f2f52;stroke:#d6e8e2;stroke-width:3px}
+.lcm-river-label{font:italic 600 11px var(--f-display);fill:#2f7480;letter-spacing:.08em;stroke:#f6e4b0;stroke-width:3px}
+.lc-journey-body .lc-journey-steps{grid-template-columns:1fr;gap:26px;padding-left:4px}
+.lc-journey-body .lc-journey-steps::before{left:21px;right:auto;top:22px;bottom:22px;width:2px;height:auto;
+  background:repeating-linear-gradient(180deg,var(--river) 0 10px,transparent 10px 18px)}
+.lc-journey-body .lc-stop{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:18px}
+.lc-journey-body .lc-stop h3{margin:8px 0 4px}
+.lc-journey-body .lc-stop p{grid-column:2;max-width:46ch}
+@media(max-width:900px){
+  .lc-journey-body{grid-template-columns:1fr;gap:32px}
+  .lc-map{max-width:480px}
+  .lcm-pin-label{font-size:16px}
+  .lcm-city-label{font-size:13px}
+  .lcm-country{font-size:20px}
+  .lcm-isl-label{font-size:13px}
+}
+
+.lc-journey-more{margin-top:36px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #a9bcb0;background:#fff;color:var(--ink-forest);font-weight:600;cursor:pointer;transition:background-color .2s ease}
+.lc-journey-more:hover{background:var(--mist-deep)}
+.lc-journey-more:focus-visible{outline:3px solid var(--champa);outline-offset:3px}
+
+/* ---------- Footer: brand + contact only, Mekong line on top ---------- */
+.site-footer{position:relative;background:var(--ink-forest-deep)}
+.site-footer::before{content:"";position:absolute;left:0;right:0;top:-1px;height:40px;pointer-events:none;opacity:.6;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40' preserveAspectRatio='none'%3E%3Cpath d='M0 20 C200 0 400 40 600 20 S1000 0 1200 20' fill='none' stroke='%23d9b26a' stroke-width='1.5'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+@media(min-width:701px){
+  .site-footer .footer-grid{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)}
+}
+.site-footer .footer-grid>:nth-child(3),.site-footer .footer-grid>:nth-child(4){display:none}
+.footer-bottom .pay{display:none}
+
+/* ---------- One chat button (expands to Zalo / WhatsApp) ---------- */
+.lc-chat{gap:10px;align-items:center}
+.lc-chat .fc-btn{display:none}
+.lc-chat.open .fc-btn{display:grid}
+.lc-chat-toggle{width:52px;height:52px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;
+  background:var(--ink-forest);color:#fff;box-shadow:0 10px 24px #0f2c2540;transition:background-color .2s ease}
+.lc-chat-toggle:hover{background:var(--jade)}
+.lc-chat-toggle:focus-visible{outline:3px solid var(--champa);outline-offset:3px}
+
+@media(max-width:900px){
+  .lc-journey-steps{grid-template-columns:1fr;gap:22px;padding-left:4px}
+  .lc-journey-steps::before{left:21px;right:auto;top:22px;bottom:22px;width:2px;height:auto;
+    background:repeating-linear-gradient(180deg,var(--river) 0 10px,transparent 10px 18px)}
+  .lc-stop{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:16px}
+  .lc-stop h3{margin:8px 0 4px}
+  .lc-stop p{grid-column:2;max-width:none}
+  .lc-mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:200px 160px 160px;grid-template-areas:"a a" "b c" "d c"}
+}
+@media(max-width:700px){
+  .lc-journey{padding:52px 0 60px}
+  .home-gallery-section{padding:48px 0}
+  .lc-mosaic{grid-template-rows:180px 130px 130px;gap:10px}
+  .lc-tile span{opacity:1;transform:none;font-size:11px;left:8px;bottom:8px;padding:4px 9px}
+}
+
+/* ---------- "Từ Lào đến Việt Nam": two photo cards joined by a vertical Mekong ---------- */
+.dual-culture{padding:88px 0 96px}
+.dual-culture::after{display:none}
+.lc-dual{grid-template-columns:minmax(0,1fr) 96px minmax(0,1fr);gap:20px;align-items:stretch}
+.lc-dual .dual-side{display:flex;flex-direction:column;text-align:left;background:#ffffff0b;border:1px solid #ffffff1c;border-radius:24px;overflow:hidden}
+.lc-dual .dual-side--la{border-top:3px solid var(--champa)}
+.lc-dual .dual-side--vn{border-top:3px solid var(--lotus)}
+.dual-photo{position:relative;margin:0;aspect-ratio:16/10;background:#0f2c25}
+.dual-photo img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.lc-dual .dual-photo .symbol{position:absolute;left:28px;bottom:-34px;margin:0;width:68px;height:68px;
+  background:var(--ink-forest-deep);border:2px solid #ffffff38;box-shadow:0 10px 24px #0006}
+.lc-dual .dual-photo .symbol svg{width:42px;height:42px}
+.dual-copy{padding:50px 32px 34px}
+.lc-dual .dual-side .country{margin-bottom:4px}
+.lc-dual .dual-side .flower{margin:0 0 12px;font-size:40px;line-height:1.1;color:#fff}
+.lc-dual .dual-side p{max-width:46ch;margin:0;font-size:15.5px;line-height:1.8;color:#e9efe9}
+/* the river: vertical gold line with a drifting dotted current, label set vertically */
+.lc-dual .dual-river{position:relative;width:auto;height:auto;background:none;display:grid;place-items:center;transform:none} /* an old ≤1024px rule rotated this column 90° */
+.lc-dual .dual-river::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:40px;height:auto;margin-left:-20px;right:auto;transform:none;border-radius:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 400' preserveAspectRatio='none'%3E%3Cpath d='M20 0C34 50 6 100 20 150S34 250 20 300 6 370 20 400' fill='none' stroke='%23d9b26a' stroke-width='2'/%3E%3Cpath d='M26 0C40 50 12 100 26 150S40 250 26 300 12 370 26 400' fill='none' stroke='%23d9b26a' stroke-width='1' stroke-dasharray='2 7' opacity='.7'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.lc-dual .dual-river::after{display:none}
+.lc-dual .dual-river-label{position:relative;top:auto;left:auto;transform:none;writing-mode:vertical-rl;
+  padding:16px 8px;border-radius:999px;background:var(--ink-forest-deep);border:1px solid #d9b26a66;color:var(--gold-soft,#ead7b3);font-size:14px;letter-spacing:.06em;white-space:nowrap}
+/* Tablet & phone: Laos | Vietnam stay side by side; the Mekong pill sits underneath, joining both */
+@media(max-width:900px){
+  .lc-dual{grid-template-columns:1fr 1fr;gap:14px;row-gap:0}
+  .lc-dual .dual-river{grid-column:1/-1;grid-row:2;height:auto;padding:22px 0 0}
+  .lc-dual .dual-river::before{top:22px;bottom:auto;left:6%;right:6%;width:auto;height:44px;margin:0;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 44' preserveAspectRatio='none'%3E%3Cpath d='M4 2C40 30 120 34 200 22S360 12 396 2' fill='none' stroke='%23d9b26a' stroke-width='2'/%3E%3Cpath d='M4 10C40 38 120 42 200 30S360 20 396 10' fill='none' stroke='%23d9b26a' stroke-width='1' stroke-dasharray='2 7' opacity='.7'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+  .lc-dual .dual-river-label{writing-mode:horizontal-tb;padding:8px 16px;margin-top:6px;position:relative!important;z-index:1} /* old ≤700px rule forced position:static, putting the line on top */
+}
+@media(max-width:700px){
+  .dual-culture{padding:48px 0 52px}
+  .dual-culture .section-head{margin-bottom:22px!important}
+  .lc-dual{gap:10px}
+  .lc-dual .dual-side{border-radius:18px}
+  .dual-photo{aspect-ratio:1/1}
+  .dual-copy{padding:30px 12px 16px}
+  .lc-dual .dual-photo .symbol{left:10px;width:44px;height:44px;bottom:-22px;border-width:1.5px}
+  .lc-dual .dual-photo .symbol svg{width:28px;height:28px}
+  .lc-dual .dual-side .country{font-size:12px;line-height:1.4}
+  .lc-dual .dual-side .flower{font-size:24px;margin-bottom:6px}
+  .lc-dual .dual-side p{font-size:12.5px;line-height:1.6}
+  .lc-dual .dual-river-label{font-size:12.5px;padding:7px 14px}
+}
+
+/* =====================================================================
+   ALL PAGES
+   ===================================================================== */
+
+/* Sentence-case labels everywhere (acronyms like OCOP stay as typed) */
+.badge,.blog-tag,.ex-card-badge,.ex-kicker,.ex-section-count,.ex-section-kicker,.meal-kit-eyebrow,.product-cat,.gallery-eyebrow{text-transform:none;letter-spacing:.01em}
+.badge{font-weight:600;border-radius:999px}
+.product-cat{color:var(--jade)}
+
+/* SVG icons that replaced emoji */
+.lci{display:block;flex:none}
+.ico:has(.lci),.feat-icon:has(.lci),.empty-state .icon:has(.lci),.meal-kit-step-icon:has(.lci){display:grid;place-items:center;font-size:0;line-height:0}
+.empty-state .icon:has(.lci){width:84px;height:84px;margin:0 auto 14px;border-radius:50%;background:var(--mist-deep);color:var(--jade)}
+.contact-info .ico:has(.lci),.contact-item .ico:has(.lci){color:var(--champa)}
+
+/* Inner-page header: mist band with the Mekong line and the two shores' motifs */
+.page-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#e9f0ea,var(--mist));padding:44px 0 52px;border-bottom:1px solid #dfe8e1}
+.page-hero>.container{position:relative;z-index:1}
+.page-hero::before,.page-hero::after{content:"";position:absolute;bottom:0;width:240px;height:120px;pointer-events:none;background-repeat:no-repeat;background-size:contain;opacity:.13}
+.page-hero::before{left:max(8px,calc(50% - 660px));background-position:left bottom;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='50 290 235 185'%3E%3Cpath fill='%23173f35' d='M78 470V408c-14-16-16-56 8-78 26-24 90-30 120-16 16-16 46-16 58 6 10 20 6 44-2 62-4 22 0 50 12 68 4 10-6 16-14 8-14-16-18-44-17-64-6 4-12 6-17 4v72h-20v-46c-26 8-66 8-86 0v46h-20v-40c-6-2-10-4-14-8v48Z'/%3E%3C/svg%3E")}
+.page-hero::after{right:max(8px,calc(50% - 660px));background-position:right bottom;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='310 230 270 160'%3E%3Cpath fill='%232f6b5e' d='M310 330c18-80 40-96 58-30 10-60 30-96 54-10 14-60 46-70 64 10 14-40 40-50 56 10 12-36 24-30 28-10v80H310Z'/%3E%3Cpath fill='%23173f35' d='M310 372c14-58 34-70 48-12 10-46 32-70 46 4 16-52 40-40 50 10 14-34 34-36 46 6 10-30 26-26 30-6v50H310Z'/%3E%3C/svg%3E")}
+.page-hero h1{color:var(--ink-forest);text-wrap:balance}
+@media(max-width:700px){.page-hero{padding:28px 0 36px}.page-hero::before,.page-hero::after{display:none}}
+
+/* Product cards (shop + shelves): calmer frame */
+.product-card{border-color:#dfe6df;border-radius:16px}
+.product-card:hover{border-color:#c4d3c8;box-shadow:0 14px 30px #173f3514}
+.btn-add-cart{background:var(--ink-forest)}
+.btn-add-cart:hover{background:var(--ink-forest-deep)}
+
+/* ---------- Meal Kit ---------- */
+@media(min-width:1200px){.meal-kit-product-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:20px}}
+.meal-kit-slot-country{display:none} /* emoji flag renders as plain "LA"/"VN" on Windows; the section title already names the country */
+.meal-kit-step-icon{color:var(--jade)}
+.meal-kit-product-card{border-radius:16px}
+
+/* ---------- Experiences ---------- */
+.ex-card{border-radius:16px}
+.ex-card-badge{border-radius:999px}
+
+/* ---------- About ---------- */
+.feat-icon:has(.lci){color:var(--champa)}
+
+/* ---------- 3. SVG flower symbols (replacing emoji) ---------- */
+.dual-side .symbol{
+  width:88px;height:88px;margin:0 auto 16px;display:grid;place-items:center;font-size:0;filter:none;
+  border-radius:50%;border:1px solid #ffffff2b;background:radial-gradient(circle,#ffffff14,transparent 70%);
+}
+.dual-side .symbol svg{width:60px;height:60px}
+.symbol--champa{color:#f3d58a}
+.symbol--champa .petals path{fill:#fbf3dc2e}
+.symbol--champa .heart{fill:#f3c24a;stroke:none}
+.symbol--lotus{color:#f2b6c8}
+.symbol--lotus .petals path{fill:#f9ebef24}
+.symbol--lotus .water{stroke:#9fc3b3}
+
+/* ---------- 7. Mekong line threading the Laos ↔ Vietnam section ---------- */
+.dual-culture::after{
+  content:"";position:absolute;left:-5%;right:-5%;top:50%;height:160px;transform:translateY(-30%);pointer-events:none;opacity:.35;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 90 C150 30 300 140 450 86 S750 20 900 80 S1100 120 1200 70' fill='none' stroke='%23d9b26a' stroke-width='2'/%3E%3Cpath d='M0 104 C150 44 300 154 450 100 S750 34 900 94 S1100 134 1200 84' fill='none' stroke='%23d9b26a' stroke-width='1' stroke-dasharray='2 8'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+}
+.dual-grid{z-index:1}
+.dual-river{background:linear-gradient(90deg,transparent,var(--river),transparent)}
+
+/* ---------- 6. Touch targets ≥ 44px ---------- */
+.nav-list a,.nav-dropdown-toggle{min-height:44px;display:inline-flex;align-items:center}
+.footer-col a,.footer-links a{display:inline-flex;align-items:center;min-height:44px}
+.blog-card a,.read-more,.blog-more{min-height:44px;display:inline-flex;align-items:center}
+.footer-social a{width:44px;height:44px;display:inline-grid;place-items:center}
+.header-search button{min-width:44px;min-height:44px}
+.footer-bottom a{display:inline-flex;align-items:center;min-height:44px;padding-inline:4px}
+.product-name{min-height:44px}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1100px){.hero-title{font-size:36px}}
+@media(max-width:1024px){.hero-title{font-size:32px}.hero-title span{white-space:normal}}
+@media(max-width:700px){
+  .hero{padding:26px 0 40px}
+  .hero-title{font-size:34px;line-height:1.2}
+  .hero-sub{font-size:15px}
+  .dual-side .symbol{width:72px;height:72px}
+  .dual-side .symbol svg{width:48px;height:48px}
+  .dual-culture::after{display:none}
+}
+@media(prefers-reduced-motion:reduce){.btn-gold:hover{transform:none}}
+
+/* Product page: thumbnails only when a product really has more than one photo */
+.pd-thumbs:has(.pd-thumb:only-child){display:none}
+
+/* =====================================================================
+   PHONE HERO: the two illustrated country cards first, then the headline.
+   Desktop shows the same cards inside the arch composition; this only applies up to 700px.
+   ===================================================================== */
+.hero-cards{display:none}
+@media(max-width:700px){
+  .hero{padding:18px 0 36px;overflow:hidden;
+    background:radial-gradient(ellipse 70% 40% at 85% 8%,#f6d3dd73 0%,transparent 70%),radial-gradient(ellipse 70% 40% at 10% 12%,#f4dc9e66 0%,transparent 70%),linear-gradient(180deg,var(--cream) 0%,var(--bg) 100%)}
+  .hero-grid{display:block}
+  .hero-visual{display:none}
+  .hero-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;max-width:520px;margin:0 auto 26px;padding:0 14px 18px}
+  .hc{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 20px #3b2a1a2b);animation:hcRise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hc--la{margin-top:20px}
+  .hc--vn{animation-delay:.14s}
+  .hc-river{position:absolute;left:0;right:0;bottom:0;width:100%;height:34px;pointer-events:none}
+
+  .hero-eyebrow{margin-bottom:10px}
+  .hero-title{font-size:31px;line-height:1.2;margin-bottom:12px;text-wrap:balance}
+  .hero-title span{margin-right:0;white-space:normal}
+  .hero-sub{font-size:14.5px;line-height:1.7;margin-bottom:20px}
+  .hero-cta{margin-bottom:0;gap:10px;flex-direction:column;flex-wrap:nowrap}
+  .hero-cta .btn{flex:none;width:100%;min-height:52px;border-radius:14px;font-size:15px;padding:12px 18px}
+}
+@keyframes hcRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hc{animation:none}}
+
+/* Phone: keep the chat bubble off the poster; it returns once the visitor scrolls past it */
+@media(max-width:700px){body.lc-on-hero .float-chat{opacity:0;pointer-events:none;transform:translateY(12px)}}
+.float-chat{transition:opacity .25s ease,transform .25s ease}
+
+/* Phone: product shelves and home blog become swipeable rows (app-like, shorter page) */
+@media(max-width:700px){
+  .home-shelf .products-grid,
+  .lc-journey ~ .section .blog-grid{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;gap:12px;
+    overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:16px;
+    margin-inline:-16px;padding:4px 16px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .lc-journey ~ .section .blog-grid{grid-auto-columns:84%}
+  .home-shelf .products-grid::-webkit-scrollbar,
+  .lc-journey ~ .section .blog-grid::-webkit-scrollbar{display:none}
+  .home-shelf .product-card,
+  .lc-journey ~ .section .blog-card{scroll-snap-align:start}
+  .home-shelf .section-head{flex-wrap:nowrap;align-items:flex-end}
+  .home-shelf .section-link{flex:none}
+  /* footer: brand + contact; the full link list lives in the ☰ menu */
+  .site-footer .footer-grid>:nth-child(2){display:none}
+  .site-footer .footer-grid{grid-template-columns:1fr}
+}
+@media(max-width:380px){.hero-title{font-size:28px}.hero-sub{font-size:14px;line-height:1.65}}
+
+/* Chat buttons: real brand marks (Zalo bubble, Facebook "f") */
+.float-chat .fc-btn.zalo svg{width:34px;height:34px}
+.float-chat .fc-btn.fb svg{width:26px;height:26px}
+.float-chat .fc-btn{box-shadow:0 8px 20px #0003}
+
+/* Meal Kit page, phone: the whole intro (title, text, button, photo) fits the first screen */
+@media(max-width:850px){
+  .meal-kit-hero{padding:22px 0 26px}
+  .meal-kit-hero-grid{gap:18px}
+  .meal-kit-hero-image,.meal-kit-hero-image img{min-height:0}
+  .meal-kit-hero-image{height:clamp(150px,30svh,260px);border-radius:20px}
+  .meal-kit-hero-image img{height:100%}
+}
+@media(max-width:700px){
+  .meal-kit-hero h1{font-size:clamp(24px,7vw,30px);line-height:1.22;margin-bottom:10px;text-wrap:balance}
+  .meal-kit-hero p{font-size:14px;line-height:1.65;margin-bottom:16px}
+  .meal-kit-hero .meal-kit-eyebrow{font-size:11px;margin-bottom:8px}
+  .meal-kit-hero .btn{width:100%;min-height:50px;border-radius:14px;justify-content:center}
+  .meal-kit-hero-stamp{right:10px;bottom:10px;padding:6px 11px;font-size:13px}
+}
+
+/* Meal Kit, phone: immersive full-screen food photo with the intro over it */
+.mk-chips{display:none}
+@media(max-width:700px){
+  .meal-kit-hero{position:relative;display:flex;align-items:flex-end;min-height:calc(100vh - 62px);min-height:calc(100svh - 62px);
+    padding:0 0 26px;background:#0f2c25}
+  .meal-kit-hero>.container{position:static}
+  .meal-kit-hero-grid{display:block}
+  .meal-kit-hero-image{position:absolute;inset:0;height:auto;border-radius:0;box-shadow:none;z-index:0}
+  .meal-kit-hero-image img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;animation:hpZoomMk 1.6s cubic-bezier(.2,.7,.2,1) both}
+  .meal-kit-hero-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0f2c2566 0%,#0f2c2500 18%,#0f2c2500 32%,#0f2c25c4 54%,#0f2c25f2 70%,#0f2c25 100%)}
+  .meal-kit-hero-stamp{top:14px;right:14px;bottom:auto;z-index:1}
+  .meal-kit-hero-copy{position:relative;z-index:1}
+  .meal-kit-hero h1{font-size:clamp(27px,8vw,33px)}
+  .mk-chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 18px;padding:0}
+  .mk-chips li{padding:6px 11px;border-radius:999px;background:#ffffff1f;border:1px solid #ffffff38;color:#fff;font-size:12.5px;font-weight:600;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .meal-kit-hero .btn{background:#f3c24a;color:#0f2c25;box-shadow:0 10px 26px #0006}
+}
+@keyframes hpZoomMk{from{transform:scale(1.08)}to{transform:none}}
+@media(prefers-reduced-motion:reduce){.meal-kit-hero-image img{animation:none}}
+
+/* Meal Kit "3 bước": connected step timeline (horizontal on desktop, vertical on phone) */
+.meal-kit-steps{background:linear-gradient(180deg,#fff,var(--mist))}
+.mk-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;position:relative}
+.mk-steps::before{content:"";position:absolute;top:22px;left:22px;right:calc(33.333% - 22px);height:2px;
+  background:repeating-linear-gradient(90deg,var(--river) 0 10px,transparent 10px 18px)}
+.mk-step{position:relative;padding-top:64px}
+.mk-step-num{position:absolute;top:0;left:0;z-index:1;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  font:700 17px var(--f-body);color:#fff;background:var(--ink-forest);box-shadow:0 0 0 6px #fff,0 8px 18px #173f3533}
+.mk-step--1 .mk-step-num{background:var(--champa);color:var(--ink-forest)}
+.mk-step--2 .mk-step-num{background:var(--jade)}
+.mk-step--3 .mk-step-num{background:var(--lotus)}
+.mk-step-card{height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:#fff;border:1px solid #e3ebe4;box-shadow:0 16px 36px #173f3512}
+.mk-step-media{position:relative;margin:0;aspect-ratio:4/3;overflow:hidden;background:var(--mist-deep)}
+.mk-step-media img{width:100%;height:100%;object-fit:cover}
+.mk-step-body{padding:18px 20px 22px}
+.mk-step-body h3{font:600 20px/1.3 var(--f-display);color:var(--ink-forest);margin:0 0 6px}
+.mk-step-body p{margin:0;color:var(--ink-soft);font-size:15px;line-height:1.7}
+/* step 2: phone with a QR code */
+.mk-step-media--qr{display:grid;place-items:center;background:radial-gradient(circle at 25% 20%,#fbf3dc 0,transparent 55%),radial-gradient(circle at 80% 85%,#f9ebef 0,transparent 55%),#eef4ef}
+.mk-phone{width:38%;aspect-ratio:9/17;border-radius:24px;background:#0f2c25;padding:7px;box-shadow:0 18px 30px #0f2c2540;transform:rotate(-6deg)}
+.mk-phone-screen{position:relative;height:100%;border-radius:18px;background:#fff;display:grid;place-items:center;overflow:hidden}
+.mk-qr{width:78%;height:auto}
+.mk-scan{position:absolute;left:8%;right:8%;top:20%;height:3px;border-radius:3px;background:#2f6b5e;box-shadow:0 0 12px #2f6b5e;animation:mkScan 2.4s ease-in-out 2 both}
+.mk-lang{position:absolute;right:12px;bottom:12px;padding:6px 11px;border-radius:999px;background:#fff;color:var(--ink-forest);font-size:12px;font-weight:600;box-shadow:0 6px 14px #0f2c251f}
+.mk-play{position:absolute;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fffdf8;color:var(--lotus);box-shadow:0 10px 22px #0005}
+.mk-play svg{width:24px;height:24px;margin-left:3px}
+@keyframes mkScan{0%{top:20%}50%{top:76%}100%{top:20%}}
+@media(prefers-reduced-motion:reduce){.mk-scan{animation:none}}
+@media(max-width:700px){
+  .mk-steps{grid-template-columns:1fr;gap:18px}
+  .mk-steps::before{top:22px;bottom:40px;left:21px;right:auto;width:2px;height:auto;
+    background:repeating-linear-gradient(180deg,var(--river) 0 10px,transparent 10px 18px)}
+  .mk-step{padding:0 0 0 58px}
+  .mk-step-num{width:42px;height:42px;font-size:16px;box-shadow:0 0 0 5px #fff,0 6px 14px #173f3533}
+  .mk-step-card{border-radius:18px}
+  .mk-step-media{aspect-ratio:16/10}
+  .mk-step-body{padding:14px 16px 16px}
+  .mk-step-body h3{font-size:18px}
+  .mk-step-body p{font-size:14px;line-height:1.65}
+  .mk-phone{width:30%}
+  .mk-play{width:46px;height:46px}
+}
+/* phone: compact step cards (image left, text right) so all three steps fit on about one screen */
+@media(max-width:700px){
+  .mk-steps{gap:14px}
+  .mk-step-card{flex-direction:row;align-items:stretch;min-height:132px}
+  .mk-step-media{flex:0 0 40%;aspect-ratio:auto;min-height:132px}
+  .mk-step-body{flex:1;align-self:center;padding:12px 14px}
+  .mk-step-body h3{font-size:17px;margin-bottom:4px}
+  .mk-step-body p{font-size:13px;line-height:1.55}
+  .mk-phone{width:52%;padding:5px;border-radius:16px}
+  .mk-phone-screen{border-radius:12px}
+  .mk-lang{display:none}
+  .mk-play{width:38px;height:38px;right:8px;bottom:8px}
+  .mk-play svg{width:18px;height:18px}
+  .meal-kit-steps .meal-kit-section-heading{margin-bottom:22px}
+}
+
+/* Homepage hero: single generated Laos–Mekong–Vietnam artwork (desktop + phone) */
+.hero-art{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;filter:drop-shadow(0 22px 40px #3b2a1a1f)}
+.hero-visual--duo{aspect-ratio:auto;max-height:none}
+@media(max-width:700px){
+  .hero-cards{display:block;grid-template-columns:none;padding:0 6px 4px;margin:0 auto 18px;max-width:440px}
+  .hero-art-m{display:block;width:100%;height:auto;animation:hcRise .9s cubic-bezier(.2,.7,.2,1) both}
+}
+
+/* Meal Kit hero, desktop: the feast photo fills the band; text sits on the darker left side */
+@media(min-width:701px){
+  .meal-kit-hero{background-image:linear-gradient(90deg,rgba(15,44,37,.9) 0%,rgba(15,44,37,.72) 38%,rgba(15,44,37,.12) 70%,rgba(15,44,37,0) 100%),url('../images/mealkit/hero-feast.webp');
+    background-size:cover;background-position:center;min-height:560px;display:flex;align-items:center}
+  .meal-kit-hero>.container{width:100%}
+  .meal-kit-hero-grid{grid-template-columns:minmax(0,1fr)}
+  .meal-kit-hero-image{display:none}
+  .meal-kit-hero-copy{max-width:560px}
+  .meal-kit-hero .btn{background:#f3c24a;color:#0f2c25}
+  .mk-chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 22px;padding:0}
+  .mk-chips li{padding:7px 13px;border-radius:999px;background:#ffffff1f;border:1px solid #ffffff38;color:#fff;font-size:13px;font-weight:600}
+}
+@media(max-width:700px){
+  .hero{padding-top:10px}
+  .hero-cards{margin-bottom:12px}
+  .hero-art-m{width:auto;max-width:100%;height:40vh;height:40svh;margin:0 auto;object-fit:contain}
+}
+@media(max-width:700px){.hero-art-m{height:34vh;height:34svh}}
+@media(max-width:700px) and (max-height:760px){
+  .hero-sub{font-size:13.5px;line-height:1.55;margin-bottom:14px}
+  .hero-title{margin-bottom:8px}
+  .hero-cta{gap:8px}
+  .hero-cta .btn{min-height:46px}
+}
+
+/* =====================================================================
+   HOMEPAGE "ONE SCREEN PER SECTION" (html.lc-snap is set by JS on the homepage only)
+   ===================================================================== */
+html.lc-snap{scroll-snap-type:y mandatory;scroll-padding-top:var(--hdr,62px)}
+html.lc-snap .lc-page{scroll-snap-align:start;scroll-snap-stop:always;box-sizing:border-box;
+  min-height:calc(100vh - var(--hdr,62px));min-height:calc(100svh - var(--hdr,62px));display:flex;flex-direction:column;justify-content:center}
+html.lc-snap .lc-page>.container{width:100%}
+html.lc-snap footer.lc-page{scroll-snap-align:end;min-height:0}
+/* page dots */
+.lc-dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;padding:8px 5px;border-radius:999px;background:#ffffffb3;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 4px 14px #0f2c2522}
+.lc-dots button{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:#173f354d;cursor:pointer;transition:height .25s ease,background-color .25s ease}
+.lc-dots button.on{height:22px;background:var(--champa)}
+.lc-dots.on-dark{background:#0f2c2599}
+.lc-dots.on-dark button{background:#ffffff66}
+.lc-dots.on-dark button.on{background:var(--champa)}
+.lc-dots button:focus-visible{outline:2px solid var(--champa);outline-offset:3px}
+@media(min-width:701px){.lc-dots{right:16px}.lc-dots button{width:10px;height:10px}.lc-dots button.on{height:26px}}
+/* one-screen fit: roadmap on phones (map + 2×2 step names) */
+@media(max-width:700px){
+  html.lc-snap .lc-journey{padding:14px 0}
+  html.lc-snap .lc-journey-head{margin-bottom:10px}
+  html.lc-snap .lc-journey-head .section-title{font-size:24px}
+  html.lc-snap .lc-journey-head p{font-size:13.5px;line-height:1.55;margin-top:4px}
+  html.lc-snap .lc-journey-body{gap:12px}
+  html.lc-snap .lc-map{max-width:min(100%,46vh)}
+  html.lc-snap .lc-journey-body .lc-journey-steps{grid-template-columns:1fr 1fr;gap:8px;padding:0}
+  html.lc-snap .lc-journey-body .lc-journey-steps::before{display:none}
+  html.lc-snap .lc-journey-body .lc-stop{grid-template-columns:30px minmax(0,1fr);column-gap:8px;align-items:center;padding:8px;border-radius:12px;background:#ffffffb3;border:1px solid #dfe8e1}
+  html.lc-snap .lc-stop-dot{width:30px;height:30px;font-size:13px;box-shadow:none}
+  html.lc-snap .lc-journey-body .lc-stop h3{margin:0;font-size:14px;line-height:1.25}
+  html.lc-snap .lc-journey-body .lc-stop p{display:none}
+  html.lc-snap .lc-journey-more{margin-top:10px;min-height:40px;font-size:13px}
+}
+/* one-screen fit: short phones */
+@media(max-width:700px) and (max-height:780px){
+  html.lc-snap .hero-art-m{height:29vh;height:29svh}
+  html.lc-snap .home-gallery-section{padding:16px 0}
+  html.lc-snap .lc-mosaic{grid-template-rows:24svh 15svh 15svh}
+  html.lc-snap .lc-mosaic-head{margin-bottom:12px}
+  html.lc-snap .site-footer{padding-top:28px}
+  html.lc-snap .footer-desc{display:none}
+}
+@media(max-width:700px){
+  html.lc-snap .lc-mosaic{grid-template-rows:25svh 16svh 16svh}
+}
+/* one-screen fit: laptops/desktops (sizes follow the screen height) */
+@media(min-width:701px){
+  html.lc-snap .lc-page.section,html.lc-snap .home-gallery-section,html.lc-snap .lc-journey,html.lc-snap .dual-culture{padding-top:clamp(18px,4vh,56px);padding-bottom:clamp(18px,4vh,56px)}
+  html.lc-snap .section-head,html.lc-snap .dual-culture .section-head{margin-bottom:clamp(12px,2.5vh,28px)!important}
+  /* Laos | Vietnam cards */
+  html.lc-snap .dual-photo{aspect-ratio:auto;height:clamp(150px,30vh,330px)}
+  html.lc-snap .dual-copy{padding:clamp(34px,5vh,50px) 28px clamp(16px,3vh,32px)}
+  html.lc-snap .lc-dual .dual-side .flower{font-size:clamp(28px,4.5vh,40px)}
+  html.lc-snap .lc-dual .dual-side p{font-size:14.5px;line-height:1.65}
+  /* product shelves */
+  html.lc-snap .home-shelf .product-img{aspect-ratio:auto;height:clamp(150px,30vh,300px)}
+  html.lc-snap .home-shelf .products-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* gallery */
+  html.lc-snap .lc-mosaic{grid-template-rows:clamp(110px,22vh,240px) clamp(110px,22vh,240px)}
+  html.lc-snap .lc-mosaic-head{margin-bottom:clamp(10px,2vh,28px)}
+  /* roadmap */
+  html.lc-snap .lc-journey-head{margin-bottom:clamp(10px,2.5vh,44px)}
+  html.lc-snap .lc-map{max-width:min(500px,62vh)}
+  html.lc-snap .lc-journey-body .lc-journey-steps{gap:clamp(8px,2vh,26px)}
+  html.lc-snap .lc-journey-body .lc-stop p{font-size:14px;line-height:1.55}
+  html.lc-snap .lc-journey-more{margin-top:clamp(8px,2vh,36px)}
+  /* blog */
+  html.lc-snap .lc-journey ~ .section .blog-img,html.lc-snap .lc-journey ~ .section .blog-card img{height:clamp(120px,24vh,260px);object-fit:cover}
+  html.lc-snap .lc-journey ~ .section .blog-excerpt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media(min-width:701px){
+  html.lc-snap .lc-map{max-width:min(500px,50vh)}
+  html.lc-snap .hero{padding-top:clamp(16px,3vh,56px);padding-bottom:clamp(16px,3vh,64px)}
+  html.lc-snap .hero-art{max-height:calc(100svh - var(--hdr,119px) - 60px)}
+}
+@media(min-width:701px) and (max-height:760px){html.lc-snap .lc-map{max-width:min(500px,46vh)}}
+
+/* new Laos | Vietnam card photos: keep the flowers in frame */
+.dual-photo .dual-img--la{object-position:45% 35%}
+.dual-photo .dual-img--vn{object-position:36% 55%}
+/* flower photo badges on the Laos | Vietnam cards */
+.lc-dual .dual-photo .symbol{overflow:hidden;padding:0;background:#fff;border:3px solid #fffdf8}
+.lc-dual .dual-photo .symbol img{width:100%;height:100%;object-fit:cover;display:block}
+.lc-dual .dual-photo .symbol--champa{border-color:#f3d58a}
+.lc-dual .dual-photo .symbol--lotus{border-color:#f2b6c8}
+
+/* Laos / Vietnam product shelves: soft painted backgrounds (the shop's own artwork) */
+.home-shelf--lao{background:linear-gradient(180deg,#fdf8ecb3,#fdf8ec4d 40%,#fdf8ec00 70%),url('../images/hero/bg-lao-shelf.webp') 70% 50%/cover no-repeat}
+.home-shelf--vietnam{background:linear-gradient(180deg,#f4f8f4b3,#f4f8f44d 40%,#f4f8f400 70%),url('../images/hero/bg-vn-shelf.webp') 70% 50%/cover no-repeat}
+.home-shelf--lao::after,.home-shelf--vietnam::after{display:none}
+@media(max-width:700px){
+  .home-shelf--lao{background-position:center,78% 50%}
+  .home-shelf--vietnam{background-position:center,62% 50%}
+}
+/* phones: portrait versions of the shelf backgrounds */
+@media(max-width:700px){
+  .home-shelf--lao{background:linear-gradient(180deg,#fdf8ec99,#fdf8ec33 35%,#fdf8ec00 60%),url('../images/hero/bg-lao-shelf-m.webp') center/cover no-repeat}
+  .home-shelf--vietnam{background:linear-gradient(180deg,#f4f8f499,#f4f8f433 35%,#f4f8f400 60%),url('../images/hero/bg-vn-shelf-m.webp') center/cover no-repeat}
+}
+
+/* Products page header: Laos / Vietnam painted backgrounds (all products = Laos fading into Vietnam) */
+.page-hero[data-country]::before,.page-hero[data-country]::after{display:none}
+.page-hero[data-country="lao"]{background:linear-gradient(180deg,#fdf8ecd9,#fdf8ec99),url('../images/hero/bg-lao-shelf.webp') 60% 55%/cover no-repeat}
+.page-hero[data-country="vietnam"]{background:linear-gradient(180deg,#f4f8f4d9,#f4f8f499),url('../images/hero/bg-vn-shelf.webp') 60% 55%/cover no-repeat}
+.page-hero[data-country="all"]{background:linear-gradient(180deg,#f8f7f0cc,#f8f7f080),
+  url('../images/hero/bg-lao-shelf.webp') left 55%/50% auto no-repeat,url('../images/hero/bg-vn-shelf.webp') right 55%/50% auto no-repeat,#f3f1e8}
+.page-hero[data-country="all"]{background-size:auto,cover,cover;background-position:center,left center,right center}
+@supports (mask-image:linear-gradient(#000,#000)){
+  .page-hero[data-country="all"]{position:relative;background:#f3f1e8}
+  .page-hero[data-country="all"]>.container{position:relative;z-index:2}
+  .page-hero[data-country="all"]::before,.page-hero[data-country="all"]::after{display:block;content:"";position:absolute;inset:0;width:auto;height:auto;opacity:1;left:0;right:0;bottom:0;top:0;
+    background-size:cover;background-position:center 55%;pointer-events:none}
+  .page-hero[data-country="all"]::before{background-image:url('../images/hero/bg-lao-shelf.webp');
+    -webkit-mask-image:linear-gradient(90deg,#000 35%,transparent 65%);mask-image:linear-gradient(90deg,#000 35%,transparent 65%)}
+  .page-hero[data-country="all"]::after{background-image:url('../images/hero/bg-vn-shelf.webp');
+    -webkit-mask-image:linear-gradient(90deg,transparent 35%,#000 65%);mask-image:linear-gradient(90deg,transparent 35%,#000 65%)}
+  .page-hero[data-country="all"]>.container::before{content:"";position:absolute;inset:-60px -100vw;background:linear-gradient(180deg,#f8f7f0cc,#f8f7f080);z-index:-1}
+}
+.page-hero[data-country] h1{text-shadow:0 1px 12px #fffdf8}
+/* lighter veil so the painted scenes read through */
+.page-hero[data-country="lao"]{background:linear-gradient(180deg,#fdf8ecb3,#fdf8ec40 70%),url('../images/hero/bg-lao-shelf.webp') 85% 62%/cover no-repeat}
+.page-hero[data-country="vietnam"]{background:linear-gradient(180deg,#f4f8f4b3,#f4f8f440 70%),url('../images/hero/bg-vn-shelf.webp') 80% 45%/cover no-repeat}
+.page-hero[data-country="all"]>.container::before{background:linear-gradient(180deg,#f8f7f0b3,#f8f7f040 70%)}
+@media(max-width:700px){
+  .page-hero[data-country="lao"]{background-size:auto,auto 165%;background-position:center,82% 72%}
+  .page-hero[data-country="vietnam"]{background-size:auto,auto 165%;background-position:center,78% 50%}
+}
+
+/* Blog / Contact / Cart headers: the shop's painted Mekong scenes */
+.page-hero[data-page]::before,.page-hero[data-page]::after{display:none}
+.page-hero[data-page="blog"]{background:linear-gradient(180deg,#fdf8ecb3,#fdf8ec40 70%),url('../images/hero/bg-blog.webp') center 60%/cover no-repeat}
+.page-hero[data-page="contact"]{background:linear-gradient(180deg,#f8f6efb3,#f8f6ef40 70%),url('../images/hero/bg-contact.webp') center 60%/cover no-repeat}
+.page-hero[data-page="cart"],.page-hero[data-page="checkout"]{background:linear-gradient(180deg,#fbf7eeb3,#fbf7ee40 70%),url('../images/hero/bg-cart.webp') center 60%/cover no-repeat}
+.page-hero[data-page] h1{text-shadow:0 1px 12px #fffdf8}
+@media(max-width:700px){
+  .page-hero[data-page="blog"]{background-size:auto,auto 150%;background-position:center,22% 70%}
+  .page-hero[data-page="contact"]{background-size:auto,auto 150%;background-position:center,88% 75%}
+  .page-hero[data-page="cart"],.page-hero[data-page="checkout"]{background-size:auto,auto 150%;background-position:center,10% 75%}
+}
+/* empty cart: painted bamboo basket instead of the line icon */
+.empty-state .icon--basket{width:150px;height:auto;margin:0 auto 10px;border-radius:0;background:none;font-size:0}
+.empty-state .icon--basket img{display:block;width:100%;height:auto;filter:drop-shadow(0 12px 20px #3b2a1a26)}
+
+/* =====================================================================
+   ADMIN: calm, orderly back-office in the site's palette
+   ===================================================================== */
+.admin-shell{background:#f2f5f0}
+@media(min-width:901px){.admin-shell{grid-template-columns:256px minmax(0,1fr)}}
+@media(max-width:900px){.admin-shell{grid-template-columns:minmax(0,1fr)}}
+.admin-sidebar{background:linear-gradient(180deg,#123a30,#0c2a23);padding:22px 14px;border-right:1px solid #0a231d}
+.admin-brand{padding:4px 8px 20px;margin-bottom:14px;border-bottom:1px solid #ffffff14}
+.admin-brand .logo{border-radius:50%;box-shadow:0 0 0 2px #f3d58a55}
+.admin-brand .t{font-size:1rem;color:#fff}
+.admin-brand .s{color:#f3d58a;letter-spacing:.04em}
+.admin-nav{gap:3px}
+.admin-nav a{min-height:44px;padding:0 14px;border-radius:12px;color:#ffffffb3;font-size:.92rem;transition:background-color .15s ease,color .15s ease}
+.admin-nav a .lci,.admin-nav a svg{width:20px;height:20px;flex:none;opacity:.9}
+.admin-nav a:hover{background:#ffffff12;color:#fff}
+.admin-nav a.active{background:#f3c24a;color:#0f2c25;font-weight:700;box-shadow:0 6px 16px #0006}
+.admin-nav a.active .lci,.admin-nav a.active svg{opacity:1}
+.admin-nav a[href="#/"]{border-top:1px solid #ffffff14;border-radius:0;padding-top:6px;margin-top:18px!important}
+.admin-nav a:focus-visible{outline:2px solid #f3d58a;outline-offset:2px}
+
+.admin-main{padding:30px 36px 48px;max-width:1280px;width:100%}
+.admin-header{margin-bottom:24px;align-items:flex-end}
+.admin-header h1{font-size:30px;color:var(--ink-forest);letter-spacing:-.01em}
+.admin-header h1 .sub{font-size:14px;color:var(--ink-soft);margin-top:6px}
+.admin-date{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid #dfe6df;color:var(--ink-forest);font-size:14px;font-weight:600}
+.admin-date .lci{color:var(--jade)}
+
+/* KPI tiles */
+.stat-grid{gap:16px;margin-bottom:22px}
+.stat-card{border-radius:18px;border:1px solid #e1e8e2;padding:20px 20px 18px;box-shadow:0 1px 2px #173f350d;align-items:flex-start;position:relative;overflow:hidden}
+.stat-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ink-forest)}
+.stat-card.up::before{background:var(--champa)}
+.stat-card.warn::before{background:var(--lotus)}
+.stat-card.info::before{background:var(--jade)}
+.stat-card .l{text-transform:none;letter-spacing:0;font-size:14px;font-weight:600;color:var(--ink-soft)}
+.stat-card .v{font-size:30px;color:var(--ink-forest);margin-top:8px;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat-card .ico{width:44px;height:44px;border-radius:14px;background:#e9f0eb;color:var(--ink-forest)}
+.stat-card.up .ico{background:#fbf1d6;color:#8a6414}
+.stat-card.warn .ico{background:#f9e6ed;color:#8f2f52}
+.stat-card.info .ico{background:#e2efe9;color:var(--jade)}
+
+/* cards & tables */
+.admin-card,.chart-card{border-radius:18px;border:1px solid #e1e8e2;padding:22px 24px;box-shadow:0 1px 2px #173f350d;margin-bottom:18px}
+.admin-card-head{margin-bottom:16px;gap:12px;flex-wrap:wrap}
+.admin-card-head h3{font-size:18px;color:var(--ink-forest)}
+.admin-card-head a{font-weight:600;color:var(--jade)!important}
+.admin-table{font-size:14.5px}
+.admin-table th{background:#f2f5f0;color:var(--ink-soft);text-transform:none;letter-spacing:0;font-size:13px;padding:12px 14px}
+.admin-table th:first-child{border-radius:10px 0 0 10px}
+.admin-table th:last-child{border-radius:0 10px 10px 0}
+.admin-table td{padding:14px;border-bottom:1px solid #edf1ed;vertical-align:middle}
+.admin-table tbody tr:hover{background:#f7faf7}
+.admin-table img{border-radius:10px}
+.icon-action{width:36px;height:36px;border-radius:10px;background:#f2f5f0;color:var(--ink-forest);border:1px solid #e1e8e2}
+.icon-action:hover{background:var(--ink-forest);color:#fff}
+/* status pills: label + dot, never colour alone */
+.status{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;font-size:12.5px;text-transform:capitalize}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status-pending{background:#fbf1d6;color:#7d5a10}
+.status-paid{background:#e2efe9;color:#1f5a4c}
+.status-shipping{background:#e6ecf7;color:#2c4a86}
+.status-done{background:#e3f1e6;color:#1f6a35}
+.status-cancel{background:#f9e3e3;color:#9b2c2c}
+.admin-main .btn{border-radius:12px;min-height:44px}
+.admin-main input,.admin-main select,.admin-main textarea{border-radius:10px;border-color:#d7e0d8}
+.admin-main input:focus-visible,.admin-main select:focus-visible,.admin-main textarea:focus-visible{outline:2px solid var(--jade);outline-offset:1px}
+
+/* revenue chart (single series: one colour, no legend; axis + gridlines; hover tooltip) */
+.chart-total{font:700 20px var(--f-display);color:var(--ink-forest);font-variant-numeric:tabular-nums}
+.lc-chart{--h:220px}
+.lc-chart-plot{position:relative;height:var(--h);margin-left:44px}
+.lc-chart-grid{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between}
+.lc-chart-tick{position:relative;border-top:1px dashed #dfe6df;height:0}
+.lc-chart-tick:last-child{border-top:1px solid #b9c6bc}
+.lc-chart-tick span{position:absolute;right:calc(100% + 8px);top:-8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lc-chart-bars{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end}
+.lc-chart-col{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;outline:none}
+.lc-chart-bar{width:min(42px,70%);background:var(--jade);border-radius:4px 4px 0 0;transition:filter .15s ease}
+.lc-chart-col.is-today .lc-chart-bar{background:var(--ink-forest)}
+.lc-chart-col:hover .lc-chart-bar,.lc-chart-col:focus-visible .lc-chart-bar{filter:brightness(1.15)}
+.lc-chart-tip{position:absolute;top:-4px;left:50%;transform:translate(-50%,-100%);min-width:max-content;padding:8px 10px;border-radius:10px;background:#0f2c25;color:#fff;font-size:12px;line-height:1.35;text-align:center;opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:2}
+.lc-chart-tip b{display:block;font-size:14px}
+.lc-chart-tip span{color:#cfe0d6}
+.lc-chart-col:hover .lc-chart-tip,.lc-chart-col:focus-visible .lc-chart-tip{opacity:1}
+.lc-chart-col:focus-visible{box-shadow:inset 0 0 0 2px var(--champa);border-radius:8px}
+.lc-chart-empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:14px;font-weight:600}
+.lc-chart-x{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:8px 0 0 44px;text-align:center;font-size:13px;color:var(--ink-soft);font-weight:600}
+.lc-chart-x small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+.lc-chart-x .is-today{color:var(--ink-forest)}
+
+/* phones & tablets */
+@media(max-width:900px){
+  .admin-main{padding:16px 16px 40px}
+  .admin-mobile-bar{position:sticky;top:0;z-index:20;margin:-16px -16px 16px;padding:10px 16px;background:#f2f5f0f2;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid #e1e8e2}
+  .admin-menu-toggle{min-height:44px;border-radius:12px;background:var(--ink-forest)}
+  .admin-header h1{font-size:24px}
+  .stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .stat-card{padding:16px}
+  .stat-card .v{font-size:22px}
+  .stat-card .ico{width:38px;height:38px;border-radius:12px}
+  .admin-card,.chart-card{padding:16px;border-radius:16px}
+  .admin-table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .lc-chart{--h:180px}
+  .lc-chart-plot,.lc-chart-x{margin-left:34px}
+  .lc-chart-bars,.lc-chart-x{gap:4px}
+  .lc-chart-x{font-size:11.5px}
+  .lc-chart-x small{font-size:10.5px}
+  .admin-sidebar{width:min(300px,84vw)}
+}
+/* wide admin tables (orders) scroll inside their card instead of pushing the page sideways */
+.admin-card:has(> .admin-table){overflow-x:auto}
+.admin-card > .admin-table{min-width:100%}
+.icon-action .lci{width:18px;height:18px}
+
+@media(max-width:420px){.stat-card .v{font-size:20px}.stat-card .l{font-size:13px}.stat-card .ico{width:34px;height:34px}}

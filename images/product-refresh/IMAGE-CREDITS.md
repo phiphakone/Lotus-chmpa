@@ -1,14 +1,8 @@
-# เครดิตภาพที่เพิ่ม
+# เครดิตภาพ
 
-ภาพต่อไปนี้ถูกเก็บไว้ในโฟลเดอร์นี้และใช้แทนภาพตัวอย่างสินค้าความละเอียดต่ำบางรายการ ไม่มีการแก้ไขต้นฉบับภาพ
-
-| ไฟล์ | สินค้าในเว็บไซต์ | ผู้สร้าง | ใบอนุญาตและแหล่งที่มา |
-|---|---|---|---|
-| `ben-tre-coconut-candy.jpg` | Kẹo dừa Bến Tre | Fumikas Sagisavas | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) · [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ben_Tre_Cocoa-coconut_candy_(1).jpg) |
-| `ha-long-squid-cake.jpg` | Chả mực Hạ Long | Quyentruongrohgf | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ch%E1%BA%A3_m%E1%BB%B1c_H%E1%BA%A1_Long,_Qu%E1%BA%A3ng_Ninh,_Vi%E1%BB%87t_Nam.jpg) |
-| `hanoi-lotus-tea.jpg` | Trà sen Tây Hồ | VuThiAnh | สาธารณสมบัติ โดยผู้สร้าง · [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tra_sen_-_Vietnamese_Lotus_Tea.JPG) |
-| `soc-trang-banh-pia.jpg` | Bánh Pía Sóc Trăng | TonySam123 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) · [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:B%C3%A1nh_p%C3%ADa_new.jpg) |
-
-ภาพจาก CC BY-SA ต้องเผยแพร่พร้อมเครดิตและลิงก์ใบอนุญาตตามเงื่อนไขของแต่ละภาพ หากนำภาพไปแก้ไข ให้ระบุการเปลี่ยนแปลงและเผยแพร่ภาพดัดแปลงภายใต้ใบอนุญาตเดียวกันหรือใบอนุญาตที่เข้ากันได้
-
-ภาพเหล่านี้แสดงชนิดอาหารตามชื่อสินค้า แต่ไม่ยืนยันว่าเป็นบรรจุภัณฑ์หรือสินค้าจากผู้ผลิตของร้านโดยตรง
+- ภาพสินค้าทั้งหมดเป็นภาพสินค้าจริงของร้าน (`images/products/`)
+- ภาพประกอบหน้าแรก, หน้า Meal Kit และภาพดอกจำปา / ดอกบัวในส่วน "Từ Lào đến Việt Nam" เป็นภาพของ Lotus & Champa (`images/hero/`, `images/mealkit/`)
+- ภาพวงกลมดอกไม้บนการ์ด "Từ Lào đến Việt Nam" มาจาก Wikimedia Commons (ครอปและย่อขนาด เผยแพร่ภายใต้ใบอนุญาตเดียวกับต้นฉบับ):
+  - `../hero/laos-champa-vientiane.jpg` (ดอกจำปา) — Dan Lundberg — [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) · [ต้นฉบับ](https://commons.wikimedia.org/wiki/File:20131113_Laos_4370_Vientiane_(11828395886).jpg)
+  - `../hero/vietnam-lotus.jpg` (ดอกบัว) — C T Johansson — [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) · [ต้นฉบับ](https://commons.wikimedia.org/wiki/File:Nelumbo_nucifera-IMG_3511.jpg)
+- ข้อมูลแผนที่ในส่วน "Định hướng phát triển" มาจาก Natural Earth (สาธารณสมบัติ)

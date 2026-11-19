@@ -1,0 +1,95 @@
+/* Theme layer (loaded last). Layout and presentation only — no data or commerce logic.
+   Country colour code used across the shop: champa yellow = Laos, lotus pink = Vietnam. */
+:root{
+  --champa:#d9a521;
+  --champa-tint:#fbf3dc;
+  --lotus:#b8436a;
+  --lotus-tint:#f9ebef;
+  --header-h:118px;
+}
+html{scroll-padding-top:130px}
+
+/* ---------- Announcement: one calm line instead of a moving ticker ---------- */
+.announce{padding:6px 0}
+.announce .announce-track{animation:none;transform:none;width:100%;justify-content:center}
+.announce-group{min-width:0;justify-content:center;gap:36px;padding-inline:16px}
+.announce-group[aria-hidden]{display:none}
+
+/* ---------- Header: brand left, search centre, actions right, one-line nav ---------- */
+.site-header{background:#fdfcf8f7;border-bottom:1px solid var(--line)}
+.header-top{grid-template-columns:auto minmax(0,1fr) auto;padding:10px 32px;gap:32px}
+.header-top .brand{order:1;justify-content:flex-start}
+.header-top .header-search{order:2;width:100%;max-width:520px;justify-self:center;border-color:#cfd6cb;background:#fff}
+.header-top .header-actions{order:3}
+.brand-logo{width:44px;height:44px}
+.brand-text .name{font-size:19px;white-space:nowrap}
+.brand-text .tag{font-size:10.5px;max-width:none;white-space:nowrap;margin-top:3px}
+.main-nav{border-top:1px solid var(--line-soft)}
+.nav-list{flex-wrap:wrap;gap:0 2px;padding-inline:24px}
+.nav-list a,.nav-dropdown-toggle{padding:9px 12px;font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-soft);border-radius:8px;white-space:nowrap}
+.nav-dropdown-toggle{font-family:var(--f-body);min-height:0}
+.nav-dropdown-toggle:hover{background:#edf1eb;color:var(--navy)}
+.nav-list a.active,.nav-dropdown.active>.nav-dropdown-toggle{color:var(--navy);font-weight:700}
+.nav-dropdown.active>.nav-dropdown-toggle{box-shadow:inset 0 -2px 0 var(--navy);border-radius:8px 8px 0 0}
+.nav-submenu{min-width:230px;padding:6px;border-radius:12px}
+.nav-submenu a{padding:10px 12px;white-space:normal;font-weight:500}
+.nav-submenu a.active{font-weight:700;background:#edf1eb}
+.nav-submenu a.active::after{display:none}
+@media(max-width:1180px){.brand-text .tag{display:none}.nav-list a,.nav-dropdown-toggle{padding-inline:11px;font-size:13px}}
+@media(max-width:1024px){
+  .header-top{grid-template-columns:44px minmax(0,1fr) auto;gap:12px;padding:10px 24px}
+  .header-top .menu-toggle{order:0}
+  .header-top .header-search{display:none}
+}
+@media(max-width:700px){
+  html{scroll-padding-top:80px}
+  .header-top{padding:8px 12px;gap:4px}
+  .announce-group{justify-content:center;padding-inline:12px}
+  .announce-group>span:not(:first-child){display:none}
+  .announce-group>span{white-space:normal;text-align:center}
+}
+
+/* ---------- Home ---------- */
+.hero{padding:44px 0 40px}
+.hero-stats{max-width:460px;border-top:1px solid #d5dccf}
+.hero-stat .num{font-family:var(--f-display);font-size:28px;color:var(--navy)}
+.hero-stat .lbl{font-size:11px;letter-spacing:.03em;color:var(--muted)}
+.culture-number{display:none}
+
+.home-shelf{padding:56px 0 48px}
+.home-shelf .section-head{justify-content:space-between;align-items:flex-end}
+.home-shelf .section-eyebrow{display:flex;align-items:center;gap:8px}
+.home-shelf--lao{background:linear-gradient(180deg,var(--champa-tint),transparent 320px)}
+.home-shelf--vietnam{background:linear-gradient(180deg,var(--lotus-tint),transparent 320px)}
+.home-shelf--lao .section-eyebrow::before,
+.home-shelf--vietnam .section-eyebrow::before{content:"";width:9px;height:9px;border-radius:50%;flex:none}
+.home-shelf--lao .section-eyebrow::before{background:var(--champa)}
+.home-shelf--vietnam .section-eyebrow::before{background:var(--lotus)}
+.home-shelf--vietnam .section-eyebrow{color:#8f2f52}
+.home-gallery-section .home-gallery{margin-top:0}
+@media(max-width:700px){
+  .hero{padding:24px 0 28px}
+  .home-shelf{padding:36px 0 28px}
+  .hero-stat .num{font-size:23px}
+}
+
+/* ---------- Product card ---------- */
+.product-flag{display:inline-flex;align-items:center;gap:6px;background:#fffffff0;color:var(--ink);border:1px solid #dfe3da;border-radius:999px;padding:3px 9px 3px 7px;font-weight:600}
+.product-flag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none}
+.product-flag--lao::before{background:var(--champa)}
+.product-flag--vietnam::before{background:var(--lotus)}
+.product-card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.product-card:hover{box-shadow:0 10px 26px #173f3512}
+.product-name:hover{color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+.price-now{color:var(--navy)}
+
+/* ---------- Shop listing: filters scroll with the page, no nested scrollbar ---------- */
+@media(min-width:1025px){
+  .shop-sidebar{position:static;max-height:none;overflow:visible;align-self:start}
+}
+
+/* ---------- Floating contact buttons stay clear of content on phones ---------- */
+@media(max-width:700px){
+  .float-chat .fc-btn{width:42px;height:42px}
+  .site-footer{padding-bottom:72px}
+}
