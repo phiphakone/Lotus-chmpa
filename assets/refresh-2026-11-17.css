@@ -540,7 +540,8 @@ body::after{
 /* =====================================================================
    HOMEPAGE "ONE SCREEN PER SECTION" (html.lc-snap is set by JS on the homepage only)
    ===================================================================== */
-html.lc-snap{scroll-snap-type:y mandatory;scroll-padding-top:var(--hdr,62px)}
+/* snapping only while the current hero is marked: a re-render must never leave the footer as the sole snap point */
+html.lc-snap:has(main .hero.lc-page){scroll-snap-type:y mandatory;scroll-padding-top:var(--hdr,62px)}
 html.lc-snap .lc-page{scroll-snap-align:start;scroll-snap-stop:always;box-sizing:border-box;
   min-height:calc(100vh - var(--hdr,62px));min-height:calc(100svh - var(--hdr,62px));display:flex;flex-direction:column;justify-content:center}
 html.lc-snap .lc-page>.container{width:100%}
@@ -799,3 +800,9 @@ html.lc-snap footer.lc-page{scroll-snap-align:end;min-height:0}
 /* gallery big photo on phones/tablets: the tile is wide and short, so frame the people, not the wall */
 @media(max-width:900px){.lc-tile--0 img{height:100%;object-position:50% 72%}}
 @media(max-width:900px){.lc-tile--0 img{object-position:50% 40%;transform:scale(1.22);transform-origin:50% 30%}.lc-tile--0:hover img{transform:scale(1.22)}}
+
+html.lc-snap{scroll-behavior:auto!important}
+
+/* checkout: "please log in first" actions */
+.lc-login-first{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.lc-login-first .btn{min-height:44px;text-decoration:none}

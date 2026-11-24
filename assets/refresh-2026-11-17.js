@@ -56,7 +56,12 @@
     pages=SEL.map(function(s){return document.querySelector(s);}).filter(Boolean);
     pages.forEach(function(p){p.classList.add('lc-page');});
     hdr();
+    var y0=window.scrollY;
     document.documentElement.classList.add('lc-snap');
+    // Turning snapping on lets the browser pick a snap target and glide to it; keep the visitor where they were (the top on first open).
+    window.scrollTo({top:y0,behavior:'instant'});
+    requestAnimationFrame(function(){window.scrollTo({top:y0,behavior:'instant'});});
+    setTimeout(function(){ if(Math.abs(window.scrollY-y0)>4) window.scrollTo({top:y0,behavior:'instant'}); },250);
     dots=document.createElement('nav');dots.className='lc-dots';dots.setAttribute('aria-label','Trang');
     pages.forEach(function(p,i){
       var b=document.createElement('button');b.type='button';b.setAttribute('aria-label',String(i+1));
@@ -92,4 +97,14 @@
   new MutationObserver(tag).observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('hashchange',tag);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',tag);else tag();
+})();
+
+/* Always open the site at the top: don't let the browser restore an old scroll position
+   (with one-screen snapping it would land on a lower section, e.g. the footer). */
+(function(){
+  try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+  function toTop(){ window.scrollTo(0,0); }
+  toTop();
+  window.addEventListener('load',function(){ toTop(); setTimeout(toTop,150); });
+  window.addEventListener('pageshow',function(e){ if(e.persisted) toTop(); });
 })();

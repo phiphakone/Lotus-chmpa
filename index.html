@@ -6306,6 +6306,54 @@ function lcMap(steps){
  </svg>`;
 }
 const MK_CHIPS={vi:['10 món Lào','10 món Việt','Video QR song ngữ'],en:['10 Lao dishes','10 Vietnamese dishes','Bilingual QR video'],lo:['10 ອາຫານລາວ','10 ອາຫານຫວຽດ','ວິດີໂອ QR ສອງພາສາ'],th:['อาหารลาว 10 เมนู','อาหารเวียดนาม 10 เมนู','วิดีโอ QR สองภาษา'],zh:['10道老挝菜','10道越南菜','双语二维码视频']};
+const LC_LOGIN_FIRST={
+ vi:{title:'Vui lòng đăng nhập hoặc đăng ký',text:'Để lưu đơn hàng, bạn cần đăng nhập vào tài khoản. Chưa có tài khoản? Đăng ký miễn phí chỉ trong 1 phút. Giỏ hàng của bạn vẫn được giữ nguyên.',login:'Đăng nhập',register:'Đăng ký'},
+ en:{title:'Please log in or create an account',text:'To place your order, please log in to your account. No account yet? Sign up for free in a minute. Your cart will be kept.',login:'Log in',register:'Sign up'},
+ lo:{title:'ກະລຸນາເຂົ້າສູ່ລະບົບ ຫຼື ລົງທະບຽນ',text:'ເພື່ອບັນທຶກຄຳສັ່ງຊື້, ກະລຸນາເຂົ້າສູ່ລະບົບບັນຊີຂອງທ່ານ. ຍັງບໍ່ມີບັນຊີ? ລົງທະບຽນຟຣີພາຍໃນ 1 ນາທີ. ກະຕ່າສິນຄ້າຂອງທ່ານຍັງຢູ່ຄືເກົ່າ.',login:'ເຂົ້າສູ່ລະບົບ',register:'ລົງທະບຽນ'},
+ th:{title:'กรุณาเข้าสู่ระบบหรือสมัครสมาชิก',text:'หากต้องการบันทึกคำสั่งซื้อ กรุณาเข้าสู่ระบบบัญชีของคุณ ยังไม่มีบัญชี? สมัครฟรีได้ใน 1 นาที สินค้าในตะกร้าของคุณยังอยู่ครบ',login:'เข้าสู่ระบบ',register:'สมัครสมาชิก'},
+ zh:{title:'请先登录或注册',text:'要保存订单，请先登录您的账户。还没有账户？一分钟免费注册。您的购物车内容会保留。',login:'登录',register:'注册'}
+};
+/* Checkout: province lists by country. Vietnam = 34 provincial units after the 1 July 2025 merger; Laos = 17 provinces + Vientiane Capital. */
+const LC_PROVINCES={
+ vn:['Hà Nội','TP. Hồ Chí Minh','Hải Phòng','Đà Nẵng','Huế','Cần Thơ','An Giang','Bắc Ninh','Cà Mau','Cao Bằng','Đắk Lắk','Điện Biên','Đồng Nai','Đồng Tháp','Gia Lai','Hà Tĩnh','Hưng Yên','Khánh Hòa','Lai Châu','Lâm Đồng','Lạng Sơn','Lào Cai','Nghệ An','Ninh Bình','Phú Thọ','Quảng Ngãi','Quảng Ninh','Quảng Trị','Sơn La','Tây Ninh','Thái Nguyên','Thanh Hóa','Tuyên Quang','Vĩnh Long'],
+ lao:[
+  {lo:'ນະຄອນຫຼວງວຽງຈັນ',vi:'Thủ đô Viêng Chăn',en:'Vientiane Capital'},
+  {lo:'ອັດຕະປື',vi:'Át-tạ-pư',en:'Attapeu'},
+  {lo:'ບໍ່ແກ້ວ',vi:'Bò Kẹo',en:'Bokeo'},
+  {lo:'ບໍລິຄຳໄຊ',vi:'Bô-ly-khăm-xay',en:'Bolikhamxay'},
+  {lo:'ຈຳປາສັກ',vi:'Chăm-pa-xắc',en:'Champasak'},
+  {lo:'ຫົວພັນ',vi:'Hủa Phăn',en:'Houaphanh'},
+  {lo:'ຄຳມ່ວນ',vi:'Khăm Muộn',en:'Khammouane'},
+  {lo:'ຫຼວງນ້ຳທາ',vi:'Luông Nặm Thà',en:'Luang Namtha'},
+  {lo:'ຫຼວງພະບາງ',vi:'Luông Pha Băng',en:'Luang Prabang'},
+  {lo:'ອຸດົມໄຊ',vi:'U-đôm-xay',en:'Oudomxay'},
+  {lo:'ຜົ້ງສາລີ',vi:'Phông-xa-lỳ',en:'Phongsaly'},
+  {lo:'ສາລະວັນ',vi:'Xa-la-van',en:'Salavan'},
+  {lo:'ສະຫວັນນະເຂດ',vi:'Xa-van-na-khẹt',en:'Savannakhet'},
+  {lo:'ເຊກອງ',vi:'Xê-kông',en:'Sekong'},
+  {lo:'ແຂວງວຽງຈັນ',vi:'Tỉnh Viêng Chăn',en:'Vientiane Province'},
+  {lo:'ໄຊຍະບູລີ',vi:'Xay-nha-bu-ly',en:'Xaignabouli'},
+  {lo:'ໄຊສົມບູນ',vi:'Xay-xổm-bun',en:'Xaisomboun'},
+  {lo:'ຊຽງຂວາງ',vi:'Xiêng Khoảng',en:'Xiengkhouang'}
+ ],
+ pick:{vi:'— Chọn tỉnh/thành phố —',en:'— Select province/city —',lo:'— ເລືອກແຂວງ/ນະຄອນ —',th:'— เลือกจังหวัด/แขวง —',zh:'— 选择省/市 —'}
+};
+function lcProvinceOptions(code){
+  const esc=v=>String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  const pick=LC_PROVINCES.pick[CURRENT_LANG]||LC_PROVINCES.pick.en;
+  const names=code==='lao'
+    ? LC_PROVINCES.lao.map(p=>CURRENT_LANG==='lo'?p.lo:CURRENT_LANG==='vi'?p.vi:p.en)
+    : LC_PROVINCES.vn.slice();
+  const sorted=[names[0],...names.slice(1).sort((a,b)=>a.localeCompare(b,CURRENT_LANG==='lo'?'lo':CURRENT_LANG==='vi'?'vi':'en'))];
+  const list=code==='lao'?sorted:names; // Vietnam list is already ordered: centrally-run cities first, then provinces A–Z
+  return `<option value="">${pick}</option>`+list.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+}
+function lcFillProvinces(){
+  const country=document.getElementById('cCountry'), city=document.getElementById('cCity');
+  if(!country||!city) return;
+  const code=country.selectedOptions[0]?.dataset.code||'vn';
+  city.innerHTML=lcProvinceOptions(code);
+}
 const LC_ROADMAP={
  vi:{more:'Xem bản đồ chi tiết',steps:[['Quảng Ninh','Điểm khởi đầu bên vịnh Hạ Long: cửa hàng và không gian trải nghiệm văn hoá Việt – Lào.'],['Hà Nội','Mang câu chuyện tới thủ đô, nơi du khách trong và ngoài nước gặp nhau.'],['TP. Hồ Chí Minh','Kết nối trung tâm du lịch và thương mại phía Nam.'],['Quốc tế','Đưa văn hoá hai nước tới bạn bè thế giới.']]},
  en:{more:'View full infographic',steps:[['Quang Ninh','Where it starts, by Ha Long Bay: a shop and space for Vietnamese–Lao culture.'],['Hanoi','Bringing the story to the capital, where travellers meet.'],['Ho Chi Minh City','Reaching the southern tourism and trade hub.'],['International','Sharing both cultures with the world.']]},
@@ -7106,10 +7154,10 @@ function renderCheckout(){
             <div class="form-field"><label>${t("co.phone")}</label><input type="tel" id="cPhone" placeholder="${t("co.phonePh")}" required/></div>
             <div class="form-field full"><label>${t("co.email")}</label><input type="email" id="cEmail" placeholder="${t("co.emailPh")}"/></div>
             <div class="form-field full"><label>${t("co.address")}</label><input type="text" id="cAddr" placeholder="${t("co.addressPh")}" required/></div>
-            <div class="form-field"><label>${t("co.city")}</label><input type="text" id="cCity" placeholder="${t("co.cityPh")}"/></div>
-            <div class="form-field"><label>${t("co.country")}</label>
-              <select id="cCountry"><option>${t("country.vn")}</option><option>${t("country.lao")}</option><option>${t("country.thai")}</option><option>${t("country.other")}</option></select>
+            <div class="form-field"><label for="cCountry">${t("co.country")}</label>
+              <select id="cCountry" onchange="lcFillProvinces()"><option data-code="vn">${t("country.vn")}</option><option data-code="lao">${t("country.lao")}</option></select>
             </div>
+            <div class="form-field"><label for="cCity">${t("co.city")}</label><select id="cCity">${lcProvinceOptions('vn')}</select></div>
             <div class="form-field full"><label>${t("co.note")}</label><textarea id="cNote" rows="3" placeholder="${t("co.notePh")}"></textarea></div>
           </div>
         </div>
@@ -7573,6 +7621,17 @@ async function placeOrder(){
       hint = '<br/><small>' + t('sys.error.dbHint') + '</small>';
     }
 
+    // Guest checkout is blocked when the visitor is not signed in: ask them to log in / register instead of showing a Firebase error.
+    if(String(err.code || '').startsWith('auth/')){
+      const L = LC_LOGIN_FIRST[CURRENT_LANG] || LC_LOGIN_FIRST.en;
+      setOrderStatus(`
+        <strong>${L.title}</strong><br/>
+        <span>${L.text}</span>
+        <span class="lc-login-first"><a class="btn btn-gold btn-sm" href="#/account">${L.login}</a><a class="btn btn-ghost btn-sm" href="#/account?view=register">${L.register}</a></span>
+      `, 'error');
+      setOrderBtn(false, requiresSlip ? t('sys.payment.proofBtn') : t('co.placeOrder'));
+      return;
+    }
     setOrderStatus(`
       <strong>${String(err.code || '').startsWith('storage/') ? t('sys.error.storageTitle') : t('sys.error.orderTitle')}</strong><br/>
       <code>${err.code || 'unknown'}</code> — ${err.message}
