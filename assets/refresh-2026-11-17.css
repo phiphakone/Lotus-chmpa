@@ -806,3 +806,26 @@ html.lc-snap{scroll-behavior:auto!important}
 /* checkout: "please log in first" actions */
 .lc-login-first{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .lc-login-first .btn{min-height:44px;text-decoration:none}
+
+/* 25-11-2026: calmer buy buttons.
+   Product cards: one "add to cart" action (no orange ⚡ "Mua ngay" — that stays on the product page).
+   Phones: a round cart button sits beside the price, so each card is ~100px shorter. */
+.product-card .btn-buy-now{display:none!important}
+.product-card .product-actions{display:block}
+.product-card .btn-add-cart{width:100%;min-height:44px;border-radius:12px;gap:8px;font-weight:600}
+@media(max-width:700px){
+  .product-card .product-info{position:relative}
+  .product-card .product-price{margin-top:auto;min-height:44px;align-items:center;padding-right:52px;flex-wrap:wrap;row-gap:0}
+  .product-card .product-actions{position:absolute;right:12px;bottom:12px;margin:0}
+  .product-card .btn-add-cart{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;justify-content:center;box-shadow:0 4px 10px #173f3533}
+  .product-card .btn-add-cart svg{width:20px;height:20px}
+  .product-card .btn-add-cart span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+/* Product page: Zalo / WhatsApp / Messenger in the site's palette (brand colour as a small dot, not a full block) */
+.pd-quick-contact .qc-btn{background:#fff!important;color:var(--ink-forest)!important;border:1px solid #d7e0d8;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;box-shadow:none}
+.pd-quick-contact .qc-btn::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.pd-quick-contact .qc-btn.zalo::before{background:#0068ff}
+.pd-quick-contact .qc-btn.whatsapp::before{background:#25d366}
+.pd-quick-contact .qc-btn.fb::before{background:#1877f2}
+.pd-quick-contact .qc-btn:hover{border-color:var(--ink-forest);transform:none}
+.pd-quick-contact .qc-btn:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
