@@ -78,6 +78,10 @@
       ['name','origin','desc','story'].every(k => typeof data[k] === 'string' && !/[<>]/.test(data[k])) &&
       data.origin.length <= 300 && data.desc.length <= 10000 && data.story.length <= 20000 && validImage(data.image) && typeof data.deleted === 'boolean';
   }
+  const OLD_SEED_PHOTOS = ['images/ruoc-be-be.jpg','images/mat-ong.jpg','images/products/lao/p-lao-shantuyet-1.gif',
+    'images/lao-bag.jpg','images/lao-textile.jpg','images/products/lao/p-lao-tranhthocam-reference-web.jpg',
+    ...['khaoniew-1','laap-1','orlam-1','laolao-1'].map(k => `images/products/lao/p-lao-${k}.png`),
+    ...['keodua-1','miendong-1','banhdauxanh-1','muckho-1','matong-bl-1','bakich-1','sasung-1','sasung-set1','sasung-set2'].map(k => `images/products/vn/p-vn-${k}.png`)];
   function rawProduct(id) {
     const seed = SEED_PRODUCTS.find(p => p.id === id);
     const row = state.rows.get(id);
@@ -85,7 +89,10 @@
     const p = {...(seed || {id,badges:['New'],badgeStyle:'badge-gold',rating:0,ratingCount:0,sales:0,images:[],tags:[],use:'',target:''})};
     if (row) {
       for (const field of fields) if (field !== 'image') p[field] = row[field];
-      p.images = [row.image]; p.fallback = row.image; p.deleted = row.deleted;
+      // 25-11-2026: a row still holding an old seed photo path keeps the new seed photo (admin-chosen photos are untouched).
+      const oldSeedPhoto = seed && OLD_SEED_PHOTOS.includes(row.image);
+      if (!oldSeedPhoto) { p.images = [row.image]; p.fallback = row.image; }
+      p.deleted = row.deleted;
       p._editedFields = ['name','origin','desc','story'].filter(k => !seed || row[k] !== seed[k]);
     }
     return p;
